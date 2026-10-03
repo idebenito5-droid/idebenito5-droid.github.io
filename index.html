@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>TALMUT</title>
+<meta name="description" content="TALMUT — el juego de cartas de memoria, reflejos y faroles. Juega online o lleva la puntuación con tu baraja.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B1F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Talmut">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --navy:#0B1F3A; --navy2:#081729; --navy3:#0A1C38; --deep:#050E1A;
+  --gold:#B8860B; --gold2:#D4A83A; --cream:#E8DCC8;
+  --green:#6BBF7A; --red:#E06060; --blue:#64A0DC; --purple:#A064C8;
+  --txt:rgba(255,255,255,.88); --dim:rgba(255,255,255,.55); --faint:rgba(255,255,255,.3);
+  --line:rgba(184,134,11,.18);
+}
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--navy);color:var(--txt);overflow-x:hidden;-webkit-user-select:none;user-select:none}
+input{-webkit-user-select:text;user-select:text}
+button{font-family:inherit;color:inherit}
+.screen{display:none;width:100%;max-width:430px;margin:0 auto;min-height:100dvh;background:linear-gradient(180deg,var(--navy2) 0%,var(--navy) 30%,var(--navy3) 100%);position:relative}
+.screen.active{display:flex;flex-direction:column}
+
+/* ---------- comunes ---------- */
+.topbar{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 44px) 16px 10px}
+.topbar .ttl{flex:1;text-align:center}
+.topbar h1{margin:0;font-family:'Cinzel',serif;font-weight:700;font-size:17px;color:var(--cream);letter-spacing:3px}
+.topbar p{margin:2px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(184,134,11,.65)}
+.iconbtn{width:36px;height:36px;border:none;background:rgba(255,255,255,.05);border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.iconbtn:active{transform:scale(.94)}
+.spacer36{width:36px;flex-shrink:0}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,.25),transparent)}
+.btn{width:100%;padding:15px;border:none;border-radius:12px;cursor:pointer;font-family:'Cinzel',serif;font-weight:700;font-size:14px;letter-spacing:2px;text-transform:uppercase;transition:transform .1s,opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.35;cursor:default}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#9A7209);color:#fff;box-shadow:0 3px 16px rgba(184,134,11,.25)}
+.btn-ghost{background:rgba(255,255,255,.04);border:1px solid rgba(184,134,11,.2);color:var(--txt);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:none}
+.btn-red{background:linear-gradient(135deg,#C84848,#A03030);color:#fff}
+.btn-google{background:#fff;color:#222;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-sm{padding:10px 12px;font-size:12px}
+.section-label{display:flex;align-items:center;gap:12px;margin:18px 0 10px}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,.2))}
+.section-label::after{background:linear-gradient(90deg,rgba(184,134,11,.2),transparent)}
+.section-label span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(184,134,11,.6);letter-spacing:2px;text-transform:uppercase}
+.card-box{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px}
+.muted{color:var(--dim);font-size:12px;line-height:1.5}
+.pad{padding:0 20px}
+.grow{flex:1}
+.hidden{display:none!important}
+.seg{display:flex;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:4px;gap:4px}
+.seg button{flex:1;padding:10px 6px;border:none;background:none;border-radius:9px;cursor:pointer;font-size:12px;font-weight:600;color:var(--dim)}
+.seg button.on{background:rgba(184,134,11,.18);color:var(--gold2);box-shadow:inset 0 0 0 1px rgba(184,134,11,.35)}
+.text-input{width:100%;padding:13px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(184,134,11,.25);border-radius:11px;color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;outline:none}
+.text-input:focus{border-color:rgba(184,134,11,.6)}
+.stepper{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:12px}
+.stepper .ctr{display:flex;align-items:center;gap:14px}
+.stepper button{width:30px;height:30px;border-radius:8px;background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.25);cursor:pointer;color:var(--gold2);font-size:18px;font-weight:700;line-height:1}
+.stepper .val{font-family:'Cinzel',serif;font-weight:700;font-size:18px;color:var(--gold2);min-width:26px;text-align:center}
+
+/* ---------- menú ---------- */
+#screen-menu{align-items:center;padding:calc(env(safe-area-inset-top) + 44px) 22px 28px}
+.menu-top{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:16px;display:flex;gap:8px}
+.logo{width:88px;height:88px;border-radius:18px;overflow:hidden;box-shadow:0 4px 28px rgba(184,134,11,.22),0 0 0 1px rgba(184,134,11,.25);background:rgba(184,134,11,.08);display:flex;align-items:center;justify-content:center}
+.logo img{width:100%;height:100%;object-fit:cover}
+.game-title{margin:16px 0 0;font-family:'Cinzel',serif;font-weight:700;font-size:30px;color:var(--cream);letter-spacing:9px}
+.tagline{margin:4px 0 0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:12px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
+.claim{margin:8px 0 0;font-size:12px;color:var(--dim);text-align:center}
+.menu-list{width:100%;display:flex;flex-direction:column;gap:9px;margin-top:22px}
+.menu-btn{width:100%;padding:12px 14px;background:linear-gradient(135deg,rgba(10,26,56,.6),rgba(8,20,46,.35));border:1px solid rgba(184,134,11,.2);border-radius:13px;cursor:pointer;display:flex;align-items:center;gap:13px;text-align:left;transition:transform .1s}
+.menu-btn:active{transform:scale(.985)}
+.menu-btn .ic{width:42px;height:42px;border-radius:11px;background:rgba(184,134,11,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.menu-btn .tx{flex:1;display:flex;flex-direction:column;gap:2px}
+.menu-btn .tx b{font-weight:600;font-size:15px;color:#fff}
+.menu-btn .tx small{font-size:11.5px;color:var(--dim);line-height:1.35}
+.menu-btn.hero{background:linear-gradient(135deg,rgba(184,134,11,.2),rgba(10,26,56,.6));border-color:rgba(184,134,11,.55);box-shadow:0 0 24px rgba(184,134,11,.12)}
+.menu-btn.hero .ic{background:rgba(184,134,11,.2)}
+.menu-btn.cont{border-color:rgba(107,191,122,.4);background:linear-gradient(135deg,rgba(40,85,55,.25),rgba(30,70,45,.1))}
+.badge-live{font-size:9px;font-weight:800;letter-spacing:1px;color:#fff;background:#2EA043;padding:3px 7px;border-radius:20px;display:inline-flex;align-items:center;gap:4px}
+.badge-live::before{content:'';width:5px;height:5px;border-radius:50%;background:#fff;animation:pulseDot 1.4s infinite}
+@keyframes pulseDot{50%{opacity:.25}}
+.footer-v{margin-top:auto;padding-top:24px;font-family:'Cormorant Garamond',serif;font-size:11px;color:rgba(184,134,11,.3);letter-spacing:2px;text-transform:uppercase}
+
+/* ---------- jugadores (marcador) ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.pchip{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 8px;background:linear-gradient(135deg,rgba(184,134,11,.12),rgba(10,26,56,.4));border:1px solid rgba(184,134,11,.35);border-radius:12px}
+.avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cinzel',serif;font-weight:700;font-size:13px;color:#fff}
+.pchip .nm{font-weight:600;font-size:13px;color:#fff;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pchip .x{width:22px;height:22px;border-radius:50%;border:none;background:rgba(255,255,255,.08);cursor:pointer;color:var(--dim);font-size:13px;line-height:1}
+.rchip{padding:7px 12px;border-radius:20px;border:1px dashed rgba(184,134,11,.35);background:none;color:rgba(212,168,58,.85);font-size:12px;font-weight:500;cursor:pointer}
+.add-row{display:flex;gap:8px}
+.add-row .btn{width:auto;padding:0 18px}
+
+/* ---------- juramento / dedos ---------- */
+#screen-oath{align-items:center;justify-content:center;padding:48px 32px;text-align:center;background:linear-gradient(180deg,#060E1A,var(--navy) 40%,var(--navy3))}
+.oath-line{margin:4px 0;font-family:'Cinzel',serif;font-weight:700;font-size:30px;color:var(--gold);letter-spacing:5px;text-shadow:0 0 40px rgba(184,134,11,.2)}
+#screen-finger{background:#050505}
+#touchArea{position:absolute;inset:0}
+.finger-title{position:relative;z-index:2;text-align:center;padding:calc(env(safe-area-inset-top) + 56px) 24px 0;pointer-events:none}
+.finger-title h2{margin:0;font-family:'Cinzel',serif;font-size:19px;color:rgba(212,168,58,.85);letter-spacing:3px}
+.finger-title p{margin:8px 0 0;font-size:12px;color:var(--faint)}
+.finger-bottom{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 28px);z-index:2;display:flex;flex-direction:column;gap:8px;padding:0 28px}
+@keyframes winnerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.pick-result{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,5,5,.85);text-align:center}
+
+/* ---------- marcador ---------- */
+#scoreGrid{flex:1;overflow-y:auto;padding:16px 12px 8px}
+.numpad{background:#070F1D;border-top:1px solid rgba(184,134,11,.15);padding:10px 12px calc(env(safe-area-inset-bottom) + 16px)}
+.numpad .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.nk{padding:13px 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:9px;cursor:pointer;font-weight:600;font-size:19px;color:rgba(255,255,255,.8)}
+.nk:active{background:rgba(184,134,11,.2)}
+.nk.neg{background:rgba(61,139,79,.14);border-color:rgba(61,139,79,.3);color:var(--green);font-size:16px;font-weight:700}
+.nk.ok{background:linear-gradient(135deg,var(--gold),#9A7209);border:none;font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:#fff}
+@keyframes blink{50%{opacity:0}}
+.dropdown{position:absolute;top:42px;right:0;min-width:210px;background:linear-gradient(180deg,#0D1F3A,var(--navy3));border:1px solid rgba(184,134,11,.25);border-radius:12px;padding:6px;z-index:50;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.dropdown button{width:100%;padding:11px 12px;background:none;border:none;border-radius:8px;cursor:pointer;text-align:left;font-size:13px;font-weight:500}
+.dropdown button:hover{background:rgba(255,255,255,.05)}
+
+/* ---------- ganador ---------- */
+.confetti{position:absolute;top:-10px;border-radius:1px;animation:confettiFall linear forwards;opacity:.8}
+@keyframes confettiFall{to{transform:translateY(900px) rotate(720deg);opacity:0}}
+
+/* ---------- historial ---------- */
+.tabs{display:flex;gap:6px;padding:0 16px;margin:12px 0}
+.tabs button{flex:1;padding:9px 0;border-radius:9px;border:1px solid rgba(255,255,255,.07);background:transparent;cursor:pointer;font-size:12px;font-weight:600;color:var(--dim)}
+.tabs button.on{background:rgba(100,160,220,.12);border-color:rgba(100,160,220,.3);color:var(--blue)}
+.match-card{padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:12px}
+.tag{font-size:9px;font-weight:700;letter-spacing:.8px;padding:3px 7px;border-radius:6px;text-transform:uppercase}
+.tag.off{background:rgba(184,134,11,.15);color:var(--gold2)}
+.tag.free{background:rgba(100,160,220,.12);color:var(--blue)}
+.rank-table{border:1px solid rgba(100,160,220,.12);border-radius:12px;overflow:hidden}
+.rank-row{display:grid;grid-template-columns:1fr 30px 30px 40px 44px 40px;align-items:center;padding:10px 10px;border-top:1px solid rgba(255,255,255,.04);font-size:12px}
+.rank-row.head{border-top:none;background:rgba(100,160,220,.06);font-size:9px;font-weight:700;color:rgba(100,160,220,.7);text-transform:uppercase;letter-spacing:.4px}
+.rank-row span{text-align:center}
+.rank-row span:first-child{text-align:left;display:flex;align-items:center;gap:8px;overflow:hidden}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rec{background:rgba(100,160,220,.04);border:1px solid rgba(100,160,220,.1);border-radius:11px;padding:12px;text-align:center}
+.rec small{font-size:9px;color:rgba(100,160,220,.6);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.rec b{display:block;margin:5px 0 3px;font-family:'Cinzel',serif;font-size:24px;line-height:1}
+.rec span{font-size:11px;color:var(--dim)}
+.empty{padding:36px 20px;text-align:center;color:var(--faint);font-size:13px;line-height:1.6}
+
+/* ---------- instrucciones ---------- */
+.rules{padding:6px 16px 40px;display:flex;flex-direction:column;gap:10px}
+.rule{background:rgba(184,134,11,.045);border:1px solid rgba(184,134,11,.13);border-radius:13px;padding:15px 16px}
+.rule h3{margin:0 0 8px;font-family:'Cinzel',serif;font-size:13px;color:var(--cream);letter-spacing:.6px;display:flex;align-items:center;gap:8px}
+.rule h3 .n{width:22px;height:22px;border-radius:50%;background:rgba(184,134,11,.18);color:var(--gold2);font-size:11px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.rule p,.rule li{margin:0 0 7px;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.8)}
+.rule ul{margin:0;padding-left:18px}
+.rule b{color:var(--cream);font-weight:600}
+.rule .hl{color:var(--gold2);font-weight:600}
+.rule .note{font-size:12px;color:rgba(100,160,220,.85);background:rgba(100,160,220,.06);border-radius:8px;padding:8px 10px;margin-top:6px}
+.vtable{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;padding:10px 12px;background:rgba(0,0,0,.18);border-radius:9px;font-size:13px}
+.vtable span:nth-child(even){text-align:right;color:var(--cream);font-weight:600}
+.sp-card{display:flex;gap:10px;align-items:flex-start;margin-bottom:9px}
+.sp-card .mini{width:34px;height:46px;border-radius:5px;background:#F4EDE0;color:#1a1a1a;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+
+/* ---------- ajustes / modales ---------- */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;padding:22px}
+.modal.active{display:flex}
+.modal-box{width:100%;max-width:340px;background:linear-gradient(180deg,var(--navy3),var(--navy));border:1px solid rgba(184,134,11,.25);border-radius:18px;padding:24px 20px;text-align:center;max-height:90dvh;overflow-y:auto}
+.modal-box h2{margin:0 0 8px;font-family:'Cinzel',serif;font-size:16px;color:var(--cream);letter-spacing:1px}
+.modal-box .row{display:flex;gap:8px;margin-top:18px}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);text-align:left}
+.set-row:last-child{border-bottom:none}
+.set-row b{font-size:13px;font-weight:600}
+.set-row small{display:block;font-size:11px;color:var(--dim);margin-top:2px}
+.switch{width:46px;height:26px;border-radius:13px;background:rgba(255,255,255,.12);border:none;position:relative;cursor:pointer;flex-shrink:0;transition:background .2s}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.switch.on{background:var(--gold)}
+.switch.on::after{left:23px}
+.toast-wrap{position:fixed;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top) + 12px);z-index:200;display:flex;flex-direction:column;gap:6px;width:min(400px,calc(100% - 24px));pointer-events:none}
+.toast{background:rgba(8,23,41,.96);border:1px solid rgba(184,134,11,.35);border-radius:11px;padding:10px 14px;font-size:13px;color:var(--cream);box-shadow:0 6px 24px rgba(0,0,0,.5);animation:toastIn .25s ease-out}
+.toast.bad{border-color:rgba(224,96,96,.5)}
+.toast.good{border-color:rgba(107,191,122,.5)}
+.toast.big{font-family:'Cinzel',serif;font-size:15px;text-align:center;letter-spacing:1px;border-color:var(--gold);background:rgba(40,30,5,.96)}
+@keyframes toastIn{from{opacity:0;transform:translateY(-8px)}}
+
+/* ---------- online ---------- */
+.profile-card{display:flex;align-items:center;gap:12px}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.stat3 div{text-align:center;padding:10px 4px;background:rgba(0,0,0,.18);border-radius:10px}
+.stat3 b{display:block;font-family:'Cinzel',serif;font-size:20px;color:var(--gold2)}
+.stat3 small{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.4px}
+.code-big{font-family:'Cinzel',serif;font-weight:900;font-size:44px;letter-spacing:10px;color:var(--gold2);text-align:center;margin:6px 0;text-shadow:0 0 30px rgba(184,134,11,.3)}
+.code-input{text-transform:uppercase;letter-spacing:6px;text-align:center;font-family:'Cinzel',serif;font-weight:700;font-size:20px}
+.lobby-player{display:flex;align-items:center;gap:12px;padding:11px 12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:12px}
+.lobby-player .nm{flex:1;font-weight:600;font-size:14px}
+.lobby-slot{padding:11px 12px;border:1px dashed rgba(255,255,255,.1);border-radius:12px;color:var(--faint);font-size:12px;text-align:center}
+.spinner{width:18px;height:18px;border:2px solid rgba(184,134,11,.25);border-top-color:var(--gold2);border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- mesa de juego ---------- */
+#screen-game{background:radial-gradient(ellipse at 50% 45%,#123A2E 0%,#0B2A22 45%,#071A16 100%);min-height:100dvh}
+.g-top{display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top) + 10px) 12px 6px}
+.g-top .rd{flex:1;text-align:center;font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:var(--cream)}
+.g-top .rd small{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.3px;color:var(--dim);margin-top:1px}
+.opps{display:grid;gap:8px;padding:6px 10px}
+.opps.n1{grid-template-columns:1fr}
+.opps.n2{grid-template-columns:1fr 1fr}
+.opps.n3,.opps.n4,.opps.n5{grid-template-columns:1fr 1fr 1fr}
+.opp{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:7px 6px 8px;text-align:center;transition:border-color .2s,box-shadow .2s;min-width:0}
+.opp.turn{border-color:var(--gold2);box-shadow:0 0 16px rgba(212,168,58,.35)}
+.opp.gone{opacity:.35}
+.opp .who{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11.5px;font-weight:600;white-space:nowrap;overflow:hidden}
+.opp .who span{overflow:hidden;text-overflow:ellipsis}
+.opp .pts{font-size:10px;color:var(--dim);margin-top:1px}
+.opp .row{display:flex;justify-content:center;flex-wrap:wrap;gap:3px;margin-top:6px}
+.shield{font-size:9px;font-weight:800;color:#111;background:var(--gold2);border-radius:5px;padding:1px 4px;letter-spacing:.3px}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:6px 12px;min-height:180px}
+.piles{display:flex;align-items:flex-end;justify-content:center;gap:22px}
+.pile{display:flex;flex-direction:column;align-items:center;gap:5px}
+.pile small{font-size:10px;color:var(--dim);letter-spacing:.4px;text-transform:uppercase}
+.drawn-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;animation:pop .25s ease-out}
+.drawn-wrap small{font-size:10px;color:var(--gold2);font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+.status{font-size:13px;color:var(--cream);text-align:center;min-height:18px;padding:0 10px;line-height:1.4}
+.status b{color:var(--gold2)}
+.timer{width:70%;height:4px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden}
+.timer i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;transition:width .25s linear}
+.timer.hot i{background:linear-gradient(90deg,#C84848,#E07070)}
+.me-area{padding:8px 12px 4px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.25))}
+.me-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--dim);margin-bottom:6px;padding:0 4px}
+.me-head b{color:var(--cream);font-size:12px}
+.me-row{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.actions{padding:10px 14px calc(env(safe-area-inset-bottom) + 14px);display:flex;flex-direction:column;gap:8px;background:rgba(0,0,0,.35);border-top:1px solid rgba(212,168,58,.15)}
+.hint{font-size:12.5px;color:var(--cream);text-align:center;line-height:1.45}
+.hint b{color:var(--gold2)}
+.btn-row{display:flex;gap:8px}
+.btn-row .btn{flex:1}
+.btn-talmut{background:linear-gradient(135deg,#7A1F1F,#B83232);color:#fff;box-shadow:0 0 18px rgba(184,50,50,.35)}
+
+/* cartas */
+.pc{position:relative;width:62px;height:88px;border-radius:8px;flex-shrink:0;transition:transform .15s,box-shadow .2s;perspective:600px}
+.pc.sm{width:30px;height:42px;border-radius:4px}
+.pc.lg{width:74px;height:104px;border-radius:9px}
+.pc .face,.pc .back{position:absolute;inset:0;border-radius:inherit;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .35s}
+.pc .back{background:repeating-linear-gradient(45deg,#13305A 0 6px,#0F2748 6px 12px);border:2px solid #C9A04A;box-shadow:inset 0 0 0 2px #0B1F3A,0 3px 8px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.pc .back::after{content:'T';font-family:'Cinzel',serif;font-weight:900;color:rgba(212,168,58,.75);font-size:22px}
+.pc.sm .back::after{font-size:12px}
+.pc.sm .back{border-width:1px}
+.pc .face{background:linear-gradient(160deg,#FBF6EC,#EDE3D0);border:1px solid #CDBF9F;box-shadow:0 3px 8px rgba(0,0,0,.45);transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#1B1B1B}
+.pc.up .face{transform:rotateY(0)}
+.pc.up .back{transform:rotateY(-180deg)}
+.pc .face .r{font-weight:800;font-size:24px;line-height:1}
+.pc .face .s{font-size:22px;line-height:1;margin-top:2px}
+.pc.lg .face .r{font-size:28px}
+.pc.sm .face .r{font-size:12px}
+.pc.sm .face .s{font-size:11px;margin:0}
+.pc .face .c{position:absolute;top:4px;left:5px;font-size:10px;font-weight:800;line-height:1}
+.pc.sm .face .c{display:none}
+.pc .face.red{color:#B82828}
+.pc .face .jk{font-size:10px;font-weight:800;letter-spacing:1px}
+.pc.sm .face .jk{font-size:6px;letter-spacing:0}
+.pc.empty{border:1.5px dashed rgba(255,255,255,.12);background:rgba(255,255,255,.02)}
+.pc.empty .back,.pc.empty .face{display:none}
+.pc.click{cursor:pointer}
+.pc.click .back{box-shadow:inset 0 0 0 2px #0B1F3A,0 0 0 2px rgba(212,168,58,.9),0 0 14px rgba(212,168,58,.55)}
+.pc.click:active{transform:scale(.94)}
+.pc.sel .back,.pc.sel .face{box-shadow:0 0 0 3px #6BBF7A,0 0 18px rgba(107,191,122,.6)}
+.pc.flash{animation:flashRing 1.2s ease-out}
+@keyframes flashRing{0%{transform:scale(1.12);filter:drop-shadow(0 0 10px #D4A83A)}100%{transform:scale(1)}}
+.pc.gone-anim{animation:fadeOut .4s forwards}
+.pile-empty{width:62px;height:88px;border-radius:8px;border:1.5px dashed rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--faint);text-align:center}
+.overlay{position:absolute;inset:0;z-index:40;background:rgba(4,14,11,.97);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top) + 26px) 16px calc(env(safe-area-inset-bottom) + 18px);overflow-y:auto}
+.reveal-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);margin-bottom:7px}
+.reveal-row.win{background:rgba(46,160,67,.13);border-color:rgba(107,191,122,.4)}
+.reveal-row .nm{width:74px;font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.reveal-row .cards{flex:1;display:flex;gap:3px;flex-wrap:wrap}
+.reveal-row .sc{text-align:right;min-width:48px}
+.reveal-row .sc b{display:block;font-family:'Cinzel',serif;font-size:16px}
+.reveal-row .sc small{font-size:10px;color:var(--dim)}
+
+/* responsive */
+@media (min-width:600px) and (max-width:1099px) and (orientation:portrait){
+  body{background:var(--navy2)}
+  .screen{max-width:100%}
+}
+@media (min-width:1100px),(orientation:landscape) and (min-width:800px){
+  body{background:#040C17;display:flex;justify-content:center;align-items:center;min-height:100dvh;padding:24px 0}
+  .screen{max-width:480px;border-radius:26px;overflow:hidden}
+  .screen.active{min-height:min(calc(100dvh - 48px),920px);box-shadow:0 24px 80px rgba(0,0,0,.85),0 0 0 1px rgba(184,134,11,.12)}
+  .topbar,.g-top,.finger-title{padding-top:28px}
+  #screen-menu{padding-top:28px}
+}
+</style>
+</head>
+<body>
+
+<div class="toast-wrap" id="toasts"></div>
+
+<!-- ==================== MENÚ ==================== -->
+<div id="screen-menu" class="screen active">
+  <div class="menu-top">
+    <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+
+  <div class="logo"><img src="Logo_Talmut.png" alt="" onerror="this.outerHTML='<span style=&quot;font-family:Cinzel,serif;font-weight:900;font-size:44px;color:#D4A83A&quot;>T</span>'"></div>
+  <h1 class="game-title">TALMUT</h1>
+  <p class="tagline">&middot; Hic ludus errorem punit &middot;</p>
+  <p class="claim" data-t="claim"></p>
+
+  <div class="menu-list">
+    <button id="continueBtn" class="menu-btn cont hidden" onclick="continueScorer()">
+      <div class="ic" style="background:rgba(107,191,122,.12)"><svg width="18" height="20" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg></div>
+      <div class="tx"><b data-t="m.continue"></b><small id="continueDesc"></small></div>
+    </button>
+
+    <button class="menu-btn hero" onclick="openOnline()">
+      <div class="ic">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="11" r="4"/><path d="M4 26c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+          <path d="M22 8.5a6 6 0 0 1 6 0"/><path d="M20 5a10 10 0 0 1 10 0"/><circle cx="25" cy="12" r="1.3" fill="#D4A83A" stroke="none"/>
+          <circle cx="23" cy="20" r="3"/><path d="M19 26.5c.4-2.6 2-4 4-4s3.6 1.4 4 4"/>
+        </svg>
+      </div>
+      <div class="tx"><b><span data-t="m.online"></span> &nbsp;<span class="badge-live">ONLINE</span></b><small data-t="m.online.d"></small></div>
+      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+
+    <button class="menu-btn" onclick="openSetup()">
+      <div class="ic">
+        <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="3" y="3" width="15" height="21" rx="2.5" stroke="#B8860B" stroke-width="1.4" fill="rgba(184,134,11,.08)"/><rect x="9" y="5" width="15" height="21" rx="2.5" stroke="#D4A83A" stroke-width="1.4" fill="#0B1F3A"/><path d="M13 12h7M13 16h7M13 20h4" stroke="#D4A83A" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </div>
+      <div class="tx"><b data-t="m.scorer"></b><small data-t="m.scorer.d"></small></div>
+      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
+    </button>
+
+    <button class="menu-btn" onclick="openHistory()">
+      <div class="ic">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>
+      </div>
+      <div class="tx"><b data-t="m.history"></b><small data-t="m.history.d"></small></div>
+      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
+    </button>
+
+    <button class="menu-btn" onclick="showScreen('screen-rules')">
+      <div class="ic">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M9 8h7M9 11h5"/></svg>
+      </div>
+      <div class="tx"><b data-t="m.rules"></b><small data-t="m.rules.d"></small></div>
+      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
+    </button>
+  </div>
+
+  <p class="footer-v">v2.0</p>
+</div>
+
+<!-- ==================== MARCADOR: CONFIGURACIÓN ==================== -->
+<div id="screen-setup" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" onclick="goMenu()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="ttl"><h1 data-t="setup.t"></h1><p data-t="setup.s"></p></div>
+    <div class="spacer36"></div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="pad" style="padding-top:18px;display:flex;flex-direction:column;gap:14px">
+    <div class="seg" id="modeSeg">
+      <button data-mode="official" onclick="setSetupMode('official')"><span data-t="setup.official"></span></button>
+      <button data-mode="free" onclick="setSetupMode('free')"><span data-t="setup.free"></span></button>
+    </div>
+    <p class="muted" id="modeDesc" style="margin:-4px 2px 0"></p>
+
+    <div class="stepper" id="roundsStepper">
+      <span class="muted" style="font-size:13px" data-t="setup.rounds"></span>
+      <div class="ctr"><button onclick="changeRounds(-1)">&minus;</button><span class="val" id="roundsValue">5</span><button onclick="changeRounds(1)">+</button></div>
+    </div>
+
+    <div>
+      <div class="section-label" style="margin-top:4px"><span data-t="setup.players"></span></div>
+      <div class="add-row">
+        <input id="nameInput" class="text-input" maxlength="16" autocomplete="off" onkeydown="if(event.key==='Enter')addSetupPlayer()">
+        <button class="btn btn-gold btn-sm" onclick="addSetupPlayer()">+</button>
+      </div>
+      <div id="setupChips" class="chips" style="margin-top:12px"></div>
+    </div>
+
+    <div id="recentWrap">
+      <p class="muted" style="margin:0 0 8px" data-t="setup.recent"></p>
+      <div id="recentChips" class="chips"></div>
+    </div>
+  </div>
+
+  <div class="grow"></div>
+  <div class="pad" style="padding-bottom:calc(env(safe-area-inset-bottom) + 28px);display:flex;flex-direction:column;gap:10px">
+    <p class="muted" id="setupCount" style="text-align:center;margin:0"></p>
+    <button id="setupStart" class="btn btn-gold" onclick="startScorer()" disabled data-t="setup.start"></button>
+  </div>
+</div>
+
+<!-- ==================== RITUAL ==================== -->
+<div id="screen-oath" class="screen">
+  <p style="margin:0 0 6px;font-size:10px;color:rgba(184,134,11,.5);letter-spacing:3px;text-transform:uppercase" data-t="oath.k"></p>
+  <p style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--dim)" data-t="oath.t"></p>
+  <p class="oath-line">HIC LUDUS</p><p class="oath-line">ERROREM</p><p class="oath-line">PUNIT</p>
+  <p style="margin:18px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:var(--faint)" data-t="oath.tr"></p>
+  <p style="margin:36px 0 0;font-size:12px;color:var(--faint);line-height:1.5" data-t="oath.h"></p>
+  <button class="btn btn-gold" style="margin-top:22px" onclick="afterOath()" data-t="oath.b"></button>
+</div>
+
+<!-- ==================== ¿QUIÉN EMPIEZA? ==================== -->
+<div id="screen-finger" class="screen">
+  <div id="touchArea"></div>
+  <div class="finger-title"><h2 data-t="finger.t"></h2><p data-t="finger.h"></p></div>
+  <div class="finger-bottom">
+    <button class="btn btn-ghost" onclick="randomStarter()" data-t="finger.random"></button>
+    <button class="btn btn-ghost" style="background:none;border:none;color:var(--faint)" onclick="goScore()" data-t="finger.skip"></button>
+  </div>
+  <div id="pickResult" class="pick-result hidden"></div>
+</div>
+
+<!-- ==================== MARCADOR ==================== -->
+<div id="screen-score" class="screen">
+  <div class="topbar" style="padding-bottom:6px">
+    <button class="iconbtn" onclick="confirmExit()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="ttl"><h1 id="scoreTitle">TALMUT</h1><p id="scoreSubtitle"></p></div>
+    <div style="position:relative">
+      <button class="iconbtn" onclick="toggleScoreMenu(event)"><svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="3" r="1.3" fill="#aaa"/><circle cx="7" cy="7" r="1.3" fill="#aaa"/><circle cx="7" cy="11" r="1.3" fill="#aaa"/></svg></button>
+      <div id="scoreDropdown" class="dropdown hidden">
+        <button onclick="closeScoreMenu();confirmExit()" data-t="score.save"></button>
+        <button onclick="closeScoreMenu();showScreen('screen-rules')" data-t="m.rules"></button>
+        <button onclick="closeScoreMenu();openModal('abandonModal')" style="color:var(--red)" data-t="score.abandon"></button>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div id="scoreGrid"></div>
+  <div class="numpad">
+    <div id="numpadContext" style="text-align:center;margin-bottom:8px;font-size:11px"></div>
+    <div class="grid">
+      <button class="nk" onclick="numpadInput('1')">1</button><button class="nk" onclick="numpadInput('2')">2</button><button class="nk" onclick="numpadInput('3')">3</button>
+      <button class="nk" onclick="numpadInput('back')" aria-label="Borrar"><svg width="20" height="16" viewBox="0 0 20 16" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.3"><path d="M7 1L1 8l6 7h12V1H7z"/><path d="M10 5l5 6M15 5l-5 6"/></svg></button>
+      <button class="nk" onclick="numpadInput('4')">4</button><button class="nk" onclick="numpadInput('5')">5</button><button class="nk" onclick="numpadInput('6')">6</button>
+      <button class="nk neg" onclick="numpadInput('-1')">&minus;1</button>
+      <button class="nk" onclick="numpadInput('7')">7</button><button class="nk" onclick="numpadInput('8')">8</button><button class="nk" onclick="numpadInput('9')">9</button>
+      <div></div>
+      <button class="nk" style="grid-column:span 2" onclick="numpadInput('0')">0</button>
+      <button class="nk ok" style="grid-column:span 2" onclick="numpadConfirm()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== GANADOR (marcador) ==================== -->
+<div id="screen-winner" class="screen" style="align-items:center;overflow:hidden">
+  <div id="confettiContainer" style="position:absolute;inset:0;pointer-events:none;z-index:1"></div>
+  <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px 0;width:100%">
+    <div style="width:90px;height:90px;border-radius:50%;background:rgba(184,134,11,.08);border:1.5px solid rgba(184,134,11,.3);display:flex;align-items:center;justify-content:center;margin-bottom:22px">
+      <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#D4A83A" stroke-width="1.5"><path d="M14 8h16v14c0 5-3.5 9-8 9s-8-4-8-9V8z" fill="rgba(184,134,11,.12)"/><path d="M14 12H10a3.5 3.5 0 0 0 0 7h4M30 12h4a3.5 3.5 0 0 1 0 7h-4M22 31v5M16 37h12"/></svg>
+    </div>
+    <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--dim);letter-spacing:2px;text-transform:uppercase" data-t="win.is"></p>
+    <h1 id="winnerName" style="margin:8px 0 0;font-family:'Cinzel',serif;font-weight:900;font-size:34px;color:var(--gold2);letter-spacing:3px;text-align:center"></h1>
+    <p style="margin:10px 0 0"><span id="winnerScoreVal" style="font-family:'Cinzel',serif;font-weight:700;font-size:44px;color:var(--cream)">0</span> <span style="font-size:13px;color:var(--faint)" data-t="pts"></span></p>
+    <div class="divider" style="width:60px;margin:22px 0"></div>
+    <div id="standingsList" style="width:100%;display:flex;flex-direction:column;gap:4px"></div>
+  </div>
+  <div style="position:relative;z-index:2;width:100%;padding:20px 24px calc(env(safe-area-inset-bottom) + 28px);display:flex;flex-direction:column;gap:8px">
+    <button class="btn btn-gold" onclick="shareResults()" data-t="win.share"></button>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="rematchScorer()" data-t="win.rematch"></button>
+      <button class="btn btn-ghost" onclick="goMenu()" data-t="win.menu"></button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HISTORIAL ==================== -->
+<div id="screen-history" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" onclick="goMenu()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#64A0DC" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="ttl"><h1 data-t="m.history"></h1><p data-t="hist.s"></p></div>
+    <div class="spacer36"></div>
+  </div>
+  <div class="divider"></div>
+  <div class="tabs">
+    <button id="tabRank" class="on" onclick="setHistTab('rank')" data-t="hist.rank"></button>
+    <button id="tabGames" onclick="setHistTab('games')" data-t="hist.games"></button>
+  </div>
+  <div id="histBody" style="flex:1;overflow-y:auto;padding:0 16px 30px"></div>
+</div>
+
+<!-- ==================== INSTRUCCIONES ==================== -->
+<div id="screen-rules" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" onclick="rulesBack()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="ttl"><h1 data-t="rules.t"></h1><p data-t="rules.s"></p></div>
+    <div class="spacer36"></div>
+  </div>
+  <div class="divider"></div>
+  <div id="rulesBody" class="rules" style="padding-top:14px"></div>
+</div>
+
+<!-- ==================== ONLINE: INICIO ==================== -->
+<div id="screen-online" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" onclick="goMenu()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="ttl"><h1 data-t="m.online"></h1><p data-t="on.s"></p></div>
+    <div class="spacer36"></div>
+  </div>
+  <div class="divider"></div>
+  <div id="onlineBody" class="pad" style="padding-top:18px;padding-bottom:30px;display:flex;flex-direction:column;gap:14px"></div>
+</div>
+
+<!-- ==================== ONLINE: SALA ==================== -->
+<div id="screen-lobby" class="screen">
+  <div class="topbar">
+    <button class="iconbtn" onclick="leaveOnline()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="ttl"><h1 id="lobbyTitle"></h1><p id="lobbySub"></p></div>
+    <div class="spacer36"></div>
+  </div>
+  <div class="divider"></div>
+  <div id="lobbyBody" class="pad" style="padding-top:18px;flex:1;display:flex;flex-direction:column;gap:12px"></div>
+</div>
+
+<!-- ==================== ONLINE: MESA ==================== -->
+<div id="screen-game" class="screen">
+  <div class="g-top">
+    <button class="iconbtn" onclick="openModal('leaveModal')" style="background:rgba(0,0,0,.3)"><svg width="14" height="14" viewBox="0 0 14 14" stroke="#ccc" stroke-width="1.6" stroke-linecap="round"><path d="M2 2l10 10M12 2L2 12"/></svg></button>
+    <div class="rd" id="gRound"></div>
+    <button class="iconbtn" onclick="openScoresModal()" style="background:rgba(0,0,0,.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></button>
+  </div>
+  <div id="gOpps" class="opps"></div>
+  <div class="center">
+    <div class="piles" id="gPiles"></div>
+    <div class="status" id="gStatus"></div>
+    <div class="timer" id="gTimer"><i></i></div>
+  </div>
+  <div class="me-area">
+    <div class="me-head"><span id="gMeName"></span><span id="gMePts"></span></div>
+    <div class="me-row" id="gMe"></div>
+  </div>
+  <div class="actions" id="gActions"></div>
+  <div id="gOverlay" class="overlay hidden"></div>
+</div>
+
+<!-- ==================== MODALES ==================== -->
+<div id="settingsModal" class="modal" onclick="if(event.target===this)closeModal('settingsModal')">
+  <div class="modal-box">
+    <h2 data-t="set.t"></h2>
+    <div class="set-row">
+      <div><b data-t="set.lang"></b></div>
+      <div class="seg" style="width:130px"><button id="langEs" onclick="setLang('es')">ES</button><button id="langEn" onclick="setLang('en')">EN</button></div>
+    </div>
+    <div class="set-row">
+      <div><b data-t="set.ritual"></b><small data-t="set.ritual.d"></small></div>
+      <button id="ritualSwitch" class="switch" onclick="toggleRitual()"></button>
+    </div>
+    <div class="set-row">
+      <div><b data-t="set.sound"></b><small data-t="set.sound.d"></small></div>
+      <button id="soundSwitch" class="switch" onclick="toggleSound()"></button>
+    </div>
+    <div class="row"><button class="btn btn-ghost" onclick="closeModal('settingsModal')" data-t="close"></button></div>
+  </div>
+</div>
+
+<div id="exitModal" class="modal">
+  <div class="modal-box">
+    <h2 data-t="exit.t"></h2>
+    <p class="muted" data-t="exit.d"></p>
+    <div class="row">
+      <button class="btn btn-ghost" onclick="closeModal('exitModal')" data-t="cancel"></button>
+      <button class="btn btn-gold btn-sm" onclick="closeModal('exitModal');goMenu()" data-t="exit.b"></button>
+    </div>
+  </div>
+</div>
+
+<div id="abandonModal" class="modal">
+  <div class="modal-box" style="border-color:rgba(224,96,96,.35)">
+    <h2 data-t="score.abandon"></h2>
+    <p class="muted" data-t="abandon.d"></p>
+    <div class="row">
+      <button class="btn btn-ghost" onclick="closeModal('abandonModal')" data-t="cancel"></button>
+      <button class="btn btn-red btn-sm" onclick="abandonScorer()" data-t="delete"></button>
+    </div>
+  </div>
+</div>
+
+<div id="leaveModal" class="modal">
+  <div class="modal-box" style="border-color:rgba(224,96,96,.35)">
+    <h2 data-t="leave.t"></h2>
+    <p class="muted" data-t="leave.d"></p>
+    <div class="row">
+      <button class="btn btn-ghost" onclick="closeModal('leaveModal')" data-t="cancel"></button>
+      <button class="btn btn-red btn-sm" onclick="closeModal('leaveModal');leaveOnline(true)" data-t="leave.b"></button>
+    </div>
+  </div>
+</div>
+
+<div id="clearModal" class="modal">
+  <div class="modal-box" style="border-color:rgba(224,96,96,.35)">
+    <h2 data-t="hist.clear"></h2>
+    <p class="muted" data-t="hist.clear.d"></p>
+    <div class="row">
+      <button class="btn btn-ghost" onclick="closeModal('clearModal')" data-t="cancel"></button>
+      <button class="btn btn-red btn-sm" onclick="clearHistory()" data-t="delete"></button>
+    </div>
+  </div>
+</div>
+
+<div id="scoresModal" class="modal" onclick="if(event.target===this)closeModal('scoresModal')">
+  <div class="modal-box" style="text-align:left">
+    <h2 style="text-align:center" data-t="g.scores"></h2>
+    <div id="scoresBody"></div>
+    <div class="row"><button class="btn btn-ghost" onclick="closeModal('scoresModal')" data-t="close"></button></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+// =====================================================================
+//  CONFIGURACIÓN — rellena estos dos valores con tu proyecto de Supabase
+//  (Project Settings → API). Mientras estén vacíos, el modo online
+//  mostrará un aviso y el resto de la app funcionará igual.
+// =====================================================================
+const CONFIG = {
+  SUPABASE_URL: 'https://tucytslrnyqpbecvfcom.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_Cq53DKUTQtokP7Fzdh-x9Q_b3mtbad4'
+};
+
+// =====================================================================
+//  TEXTOS (ES / EN)
+// =====================================================================
+const STR = {
+es:{
+  claim:'Memoria, reflejos y nervios de acero.',
+  'm.continue':'Continuar partida','m.online':'Multijugador','m.online.d':'Juega online con amigos o con cualquiera',
+  'm.scorer':'Marcador','m.scorer.d':'Jugáis con baraja real y la app lleva los puntos',
+  'm.history':'Historial','m.history.d':'Ranking y partidas del marcador',
+  'm.rules':'Instrucciones','m.rules.d':'Aprende a jugar en 3 minutos',
+  'setup.t':'MARCADOR','setup.s':'Nueva partida','setup.official':'Oficial · 10 rondas','setup.free':'Libre',
+  'setup.official.d':'La partida completa. Cuenta para el ranking del Historial.',
+  'setup.free.d':'Elige cuántas rondas. Ideal para una partida rápida.',
+  'setup.rounds':'Número de rondas','setup.players':'Jugadores','setup.name':'Nombre del jugador',
+  'setup.recent':'Jugadores recientes','setup.start':'Empezar partida',
+  'setup.count':'{n} jugadores · mínimo 2','setup.dup':'Ese nombre ya está en la partida','setup.max':'Máximo 8 jugadores',
+  'oath.k':'El ritual','oath.t':'Antes de empezar','oath.tr':'«Este juego castiga el error»',
+  'oath.h':'Juntad las manos en el centro de la mesa<br>y pronunciad el lema en voz alta','oath.b':'Hemos jurado',
+  'finger.t':'¿QUIÉN EMPIEZA?','finger.h':'Poned todos un dedo en la pantalla y esperad',
+  'finger.random':'Sortear por nombre','finger.skip':'Saltar','finger.starts':'Empieza',
+  'score.round':'Ronda {r} de {t}','score.of':'Puntuación de','score.editing':'Editando','score.save':'Salir y guardar',
+  'score.abandon':'Abandonar partida','score.class':'Clasificación','score.win':'Ganador de ronda','score.lose':'Más puntos',
+  'score.tap':'Toca una casilla para corregirla','tot':'TOT',
+  'exit.t':'Salir de la partida','exit.d':'Se guarda y podrás continuarla desde el menú.','exit.b':'Salir',
+  'abandon.d':'La partida se borrará y no se podrá recuperar.',
+  cancel:'Cancelar',delete:'Borrar',close:'Cerrar',pts:'puntos',
+  'win.is':'El ganador es','win.share':'Compartir','win.rematch':'Revancha','win.menu':'Menú',
+  'win.copied':'Resultado copiado','win.tie':'Empate',
+  'hist.s':'Partidas jugadas con el marcador','hist.rank':'Ranking','hist.games':'Partidas',
+  'hist.empty':'Todavía no hay partidas.<br>Juega una con el Marcador y aparecerá aquí.',
+  'hist.player':'Jugador','hist.pj':'PJ','hist.w':'V','hist.wp':'V%','hist.avg':'Media','hist.best':'Mejor',
+  'hist.legend':'PJ partidas · V victorias · Media puntos por partida (menos es mejor)',
+  'hist.only':'Solo cuentan las partidas oficiales de 10 rondas.',
+  'hist.records':'Récords','hist.bestGame':'Mejor partida','hist.worstGame':'Peor partida','hist.mostWins':'Más victorias','hist.bestAvg':'Mejor media',
+  'hist.clear':'Borrar historial','hist.clear.d':'Se borrarán todas las partidas guardadas en este móvil.',
+  'hist.winner':'Ganador','official':'Oficial','free':'Libre',
+  'rules.t':'INSTRUCCIONES','rules.s':'Cómo se juega a TALMUT',
+  'set.t':'Ajustes','set.lang':'Idioma','set.ritual':'Ritual de inicio','set.ritual.d':'Pantalla del lema antes de las partidas oficiales',
+  'set.sound':'Vibración','set.sound.d':'Vibrar en tu turno (online)',
+  'on.s':'Juega desde tu móvil','on.off':'El modo online todavía no está conectado a un servidor.',
+  'on.off.d':'Mientras tanto puedes usar el Marcador con una baraja real.',
+  'on.login':'Entra para jugar online','on.login.d':'Guarda tus estadísticas y juega con tus amigos desde cualquier móvil.',
+  'on.google':'Continuar con Google','on.guest':'Jugar como invitado','on.nick':'Tu apodo','on.or':'o',
+  'on.hello':'Hola,','on.games':'Partidas','on.wins':'Victorias','on.rounds':'Rondas ganadas',
+  'on.quick':'Partida rápida','on.quick.d':'Te emparejamos con otros jugadores · 5 rondas',
+  'on.create':'Crear sala','on.create.d':'Invita a tus amigos con un código',
+  'on.join':'Unirse','on.code':'CÓDIGO','on.rounds':'Rondas','on.logout':'Cerrar sesión','on.editnick':'Cambiar apodo',
+  'on.resume':'Volver a tu partida','on.saved':'Apodo guardado','on.guestNote':'Juegas como invitado. Entra con Google para no perder tus estadísticas.',
+  'lob.room':'SALA','lob.quick':'PARTIDA RÁPIDA','lob.share':'Comparte este código con tus amigos','lob.shareBtn':'Invitar',
+  'lob.players':'Jugadores ({n}/{m})','lob.host':'Anfitrión','lob.you':'tú','lob.wait':'Esperando jugadores…',
+  'lob.start':'Empezar partida','lob.waitHost':'Esperando a que el anfitrión empiece','lob.need':'Hacen falta al menos 2 jugadores',
+  'lob.searching':'Buscando rivales…','lob.auto':'La partida empieza sola en {s}s o al llegar a 4 jugadores',
+  'lob.invite':'¡Juega a TALMUT conmigo! Código de sala: {c}','lob.rounds':'{n} rondas',
+  'leave.t':'Salir de la partida','leave.d':'Si sales, dejas la partida y no podrás volver a entrar.','leave.b':'Salir',
+  'g.round':'RONDA {r}/{t}','g.tiebreak':'DESEMPATE','g.you':'Tú','g.pts':'{n} pts','g.deck':'Mazo','g.discard':'Descarte','g.drawn':'Tu carta',
+  'g.scores':'Puntuación',
+  'g.peek':'Toca <b>2 de tus cartas</b> para memorizarlas. Solo podrás verlas unos segundos.',
+  'g.peekWait':'Memorízalas… esperando a los demás jugadores',
+  'g.yourTurn':'<b>Tu turno.</b> Roba una carta o canta TALMUT si crees que sumas 5 o menos.',
+  'g.draw':'Robar carta','g.talmut':'¡TALMUT!',
+  'g.decide':'Toca <b>una de tus cartas</b> para cambiarla por esta, o descártala.',
+  'g.decideSp':'Si la descartas, activas su poder: {p}','g.discardBtn':'Descartar',
+  'g.sp10':'<b>10:</b> toca una de <b>tus</b> cartas para mirarla.',
+  'g.spJ':'<b>J:</b> toca una carta de un <b>rival</b> para mirarla.',
+  'g.spQ1':'<b>Q:</b> toca la <b>primera</b> carta a intercambiar (tuya o de un rival).',
+  'g.spQ2':'<b>Q:</b> ahora toca la <b>segunda</b> carta, de otro jugador.',
+  'g.spK':'<b>K:</b> toca una carta de un <b>rival</b> para mirarla.',
+  'g.spK2':'<b>K:</b> toca una de tus cartas para quedártela, o una carta de otro rival para pasársela.',
+  'g.noUse':'No usar','g.noSwap':'No cambiar',
+  'g.snap':'¿Tienes otro <b>{r}</b>? ¡Tócalo para descartarlo!','g.snapOwn':'Descarte cruzado: ¿alguien tiene otro <b>{r}</b>?',
+  'g.waitTurn':'Turno de <b>{n}</b>','g.waitDecide':'<b>{n}</b> está decidiendo…','g.waitSpecial':'<b>{n}</b> usa el poder de la {c}',
+  'g.immune':'INTOCABLE','g.left':'Fuera','g.talmutOn':'{n} cantó TALMUT · última vuelta',
+  'g.roundEnd':'Fin de la ronda {r}','g.next':'Siguiente ronda','g.nextIn':'Siguiente ronda en {s}s','g.final':'Ver resultado final',
+  'g.wrong':'TALMUT erróneo: {n} suma los puntos de todos','g.finished':'Partida terminada','g.backMenu':'Volver',
+  'g.playAgain':'Jugar otra',
+  'ev.draw':'{n} roba una carta','ev.keep':'{n} se queda la carta y descarta {c}','ev.discard':'{n} descarta {c}',
+  'ev.snap':'¡{n} hace descarte cruzado con {c}!','ev.snapFail':'¡Fallo de {n}! Era {c}: carta de penalización',
+  'ev.talmut':'¡{n} canta TALMUT!','ev.talmutAuto':'¡{n} se queda sin cartas: TALMUT automático!',
+  'ev.lookOwn':'{n} mira una de sus cartas','ev.lookOther':'{n} mira una carta de {t}','ev.swap':'{n} intercambia dos cartas a ciegas',
+  'ev.kswap':'{n} mueve una carta tras mirarla','ev.auto':'{n} no jugó a tiempo','ev.left':'{n} ha salido de la partida',
+  'ev.join':'{n} se ha unido','ev.reshuffle':'Se baraja el descarte',
+  'err.generic':'Algo ha fallado. Inténtalo de nuevo.','err.not_found':'No existe ninguna sala con ese código',
+  'err.full':'La sala está llena','err.started':'Esa partida ya ha empezado','err.too_slow':'¡Demasiado lento! Otro jugador fue más rápido',
+  'err.late':'Se acabó el tiempo','err.need_players':'Hacen falta al menos 2 jugadores','err.auth':'Tu sesión ha caducado. Vuelve a entrar.',
+  'err.net':'Sin conexión. Comprueba tu internet.','err.bad_target':'No puedes elegir esa carta','err.talmut_taken':'Ya se ha cantado TALMUT',
+  'share.title':'TALMUT — Resultado','share.winner':'Ganador','share.motto':'Hic ludus errorem punit'
+},
+en:{
+  claim:'Memory, reflexes and nerves of steel.',
+  'm.continue':'Continue game','m.online':'Multiplayer','m.online.d':'Play online with friends or anyone',
+  'm.scorer':'Scorekeeper','m.scorer.d':'Play with a real deck, the app keeps score',
+  'm.history':'History','m.history.d':'Ranking and scorekeeper games',
+  'm.rules':'How to play','m.rules.d':'Learn the rules in 3 minutes',
+  'setup.t':'SCOREKEEPER','setup.s':'New game','setup.official':'Official · 10 rounds','setup.free':'Free',
+  'setup.official.d':'The full game. Counts towards the History ranking.',
+  'setup.free.d':'Choose how many rounds. Great for a quick game.',
+  'setup.rounds':'Number of rounds','setup.players':'Players','setup.name':'Player name',
+  'setup.recent':'Recent players','setup.start':'Start game',
+  'setup.count':'{n} players · minimum 2','setup.dup':'That name is already in the game','setup.max':'Maximum 8 players',
+  'oath.k':'The ritual','oath.t':'Before you begin','oath.tr':'“This game punishes mistakes”',
+  'oath.h':'Stack your hands in the middle of the table<br>and say the motto out loud','oath.b':'We have sworn',
+  'finger.t':'WHO STARTS?','finger.h':'Everyone put a finger on the screen and wait',
+  'finger.random':'Draw a name','finger.skip':'Skip','finger.starts':'Starts',
+  'score.round':'Round {r} of {t}','score.of':'Score for','score.editing':'Editing','score.save':'Save and exit',
+  'score.abandon':'Abandon game','score.class':'Standings','score.win':'Round winner','score.lose':'Most points',
+  'score.tap':'Tap a cell to correct it','tot':'TOT',
+  'exit.t':'Leave game','exit.d':'It will be saved and you can continue it from the menu.','exit.b':'Leave',
+  'abandon.d':'The game will be deleted and cannot be recovered.',
+  cancel:'Cancel',delete:'Delete',close:'Close',pts:'points',
+  'win.is':'The winner is','win.share':'Share','win.rematch':'Rematch','win.menu':'Menu',
+  'win.copied':'Result copied','win.tie':'Tie',
+  'hist.s':'Games played with the scorekeeper','hist.rank':'Ranking','hist.games':'Games',
+  'hist.empty':'No games yet.<br>Play one with the Scorekeeper and it will appear here.',
+  'hist.player':'Player','hist.pj':'GP','hist.w':'W','hist.wp':'W%','hist.avg':'Avg','hist.best':'Best',
+  'hist.legend':'GP games played · W wins · Avg points per game (lower is better)',
+  'hist.only':'Only official 10-round games count.',
+  'hist.records':'Records','hist.bestGame':'Best game','hist.worstGame':'Worst game','hist.mostWins':'Most wins','hist.bestAvg':'Best average',
+  'hist.clear':'Clear history','hist.clear.d':'All games saved on this phone will be deleted.',
+  'hist.winner':'Winner','official':'Official','free':'Free',
+  'rules.t':'HOW TO PLAY','rules.s':'The rules of TALMUT',
+  'set.t':'Settings','set.lang':'Language','set.ritual':'Opening ritual','set.ritual.d':'Motto screen before official games',
+  'set.sound':'Vibration','set.sound.d':'Vibrate on your turn (online)',
+  'on.s':'Play from your phone','on.off':'Online mode is not connected to a server yet.',
+  'on.off.d':'Meanwhile you can use the Scorekeeper with a real deck.',
+  'on.login':'Sign in to play online','on.login.d':'Keep your stats and play with friends from any phone.',
+  'on.google':'Continue with Google','on.guest':'Play as guest','on.nick':'Your nickname','on.or':'or',
+  'on.hello':'Hi,','on.games':'Games','on.wins':'Wins','on.rounds':'Rounds won',
+  'on.quick':'Quick match','on.quick.d':'We match you with other players · 5 rounds',
+  'on.create':'Create room','on.create.d':'Invite your friends with a code',
+  'on.join':'Join','on.code':'CODE','on.rounds':'Rounds','on.logout':'Sign out','on.editnick':'Change nickname',
+  'on.resume':'Back to your game','on.saved':'Nickname saved','on.guestNote':'You are playing as a guest. Sign in with Google to keep your stats.',
+  'lob.room':'ROOM','lob.quick':'QUICK MATCH','lob.share':'Share this code with your friends','lob.shareBtn':'Invite',
+  'lob.players':'Players ({n}/{m})','lob.host':'Host','lob.you':'you','lob.wait':'Waiting for players…',
+  'lob.start':'Start game','lob.waitHost':'Waiting for the host to start','lob.need':'At least 2 players needed',
+  'lob.searching':'Looking for opponents…','lob.auto':'The game starts in {s}s or when 4 players join',
+  'lob.invite':'Play TALMUT with me! Room code: {c}','lob.rounds':'{n} rounds',
+  'leave.t':'Leave game','leave.d':'If you leave, you are out of the game and cannot rejoin.','leave.b':'Leave',
+  'g.round':'ROUND {r}/{t}','g.tiebreak':'TIEBREAK','g.you':'You','g.pts':'{n} pts','g.deck':'Deck','g.discard':'Discard','g.drawn':'Your card',
+  'g.scores':'Scores',
+  'g.peek':'Tap <b>2 of your cards</b> to memorise them. You will only see them for a few seconds.',
+  'g.peekWait':'Memorise them… waiting for the other players',
+  'g.yourTurn':'<b>Your turn.</b> Draw a card, or call TALMUT if you think you have 5 or less.',
+  'g.draw':'Draw card','g.talmut':'TALMUT!',
+  'g.decide':'Tap <b>one of your cards</b> to swap it for this one, or discard it.',
+  'g.decideSp':'If you discard it, you trigger its power: {p}','g.discardBtn':'Discard',
+  'g.sp10':'<b>10:</b> tap one of <b>your</b> cards to look at it.',
+  'g.spJ':'<b>J:</b> tap an <b>opponent’s</b> card to look at it.',
+  'g.spQ1':'<b>Q:</b> tap the <b>first</b> card to swap (yours or an opponent’s).',
+  'g.spQ2':'<b>Q:</b> now tap the <b>second</b> card, from another player.',
+  'g.spK':'<b>K:</b> tap an <b>opponent’s</b> card to look at it.',
+  'g.spK2':'<b>K:</b> tap one of your cards to take it, or another opponent’s card to pass it to them.',
+  'g.noUse':'Skip','g.noSwap':'Don’t swap',
+  'g.snap':'Do you have another <b>{r}</b>? Tap it to discard it!','g.snapOwn':'Snap: does anyone have another <b>{r}</b>?',
+  'g.waitTurn':'<b>{n}</b>’s turn','g.waitDecide':'<b>{n}</b> is deciding…','g.waitSpecial':'<b>{n}</b> uses the {c} power',
+  'g.immune':'UNTOUCHABLE','g.left':'Out','g.talmutOn':'{n} called TALMUT · last lap',
+  'g.roundEnd':'End of round {r}','g.next':'Next round','g.nextIn':'Next round in {s}s','g.final':'See final result',
+  'g.wrong':'Wrong TALMUT: {n} takes everyone’s points','g.finished':'Game over','g.backMenu':'Back',
+  'g.playAgain':'Play again',
+  'ev.draw':'{n} draws a card','ev.keep':'{n} keeps the card and discards {c}','ev.discard':'{n} discards {c}',
+  'ev.snap':'{n} snaps {c}!','ev.snapFail':'{n} missed! It was {c}: penalty card',
+  'ev.talmut':'{n} calls TALMUT!','ev.talmutAuto':'{n} ran out of cards: automatic TALMUT!',
+  'ev.lookOwn':'{n} looks at one of their cards','ev.lookOther':'{n} looks at a card of {t}','ev.swap':'{n} blindly swaps two cards',
+  'ev.kswap':'{n} moves a card after looking at it','ev.auto':'{n} ran out of time','ev.left':'{n} left the game',
+  'ev.join':'{n} joined','ev.reshuffle':'The discard pile is shuffled',
+  'err.generic':'Something went wrong. Please try again.','err.not_found':'There is no room with that code',
+  'err.full':'The room is full','err.started':'That game has already started','err.too_slow':'Too slow! Another player was faster',
+  'err.late':'Time is up','err.need_players':'At least 2 players needed','err.auth':'Your session expired. Please sign in again.',
+  'err.net':'No connection. Check your internet.','err.bad_target':'You cannot choose that card','err.talmut_taken':'TALMUT has already been called',
+  'share.title':'TALMUT — Result','share.winner':'Winner','share.motto':'Hic ludus errorem punit'
+}};
+
+// =====================================================================
+//  INSTRUCCIONES
+// =====================================================================
+const RULES = {
+es:`
+<div class="rule"><h3><span class="n">★</span>El objetivo</h3>
+<p>Terminar la partida con <b>los menos puntos posibles</b>. Cada jugador tiene cartas boca abajo que no puede mirar: tendrás que recordar las que has visto, adivinar las demás y elegir el momento exacto para cerrar la ronda.</p>
+<p class="muted">2 a 6 jugadores · baraja francesa de 54 cartas (52 + 2 comodines) · 20–40 minutos.</p></div>
+
+<div class="rule"><h3><span class="n">1</span>Valor de las cartas</h3>
+<div class="vtable">
+<span>As</span><span>1</span>
+<span>2 a 10</span><span>su número</span>
+<span>J</span><span>20</span>
+<span>Q</span><span>30</span>
+<span>K</span><span>40</span>
+<span>Comodín</span><span>−1 si ganas la ronda · 50 si no</span>
+</div></div>
+
+<div class="rule"><h3><span class="n">2</span>Preparación</h3>
+<p>Se baraja y se reparten <b>4 cartas boca abajo</b> a cada jugador, en fila. El resto forma el <b>mazo</b>, boca abajo.</p>
+<p>A la de tres, todos miran a la vez <b>2 de sus 4 cartas</b> durante un par de segundos y las vuelven a dejar boca abajo. <span class="hl">Memorízalas:</span> después no podrás volver a mirarlas.</p>
+<p>En la primera ronda se sortea quién empieza (la app tiene un sorteo con los dedos). En las siguientes empieza el ganador de la ronda anterior. Se juega en el sentido de las agujas del reloj.</p></div>
+
+<div class="rule"><h3><span class="n">3</span>Tu turno</h3>
+<p>Roba la carta de arriba del mazo y mírala sin enseñarla. Después elige:</p>
+<ul>
+<li><b>Quedártela:</b> cámbiala por una de tus cartas boca abajo. La carta que sacas va <b>boca arriba</b> al descarte.</li>
+<li><b>Descartarla:</b> ponla boca arriba en el descarte. Si es un <b>10, J, Q o K</b>, usas su poder.</li>
+</ul></div>
+
+<div class="rule"><h3><span class="n">4</span>Cartas con poder</h3>
+<p class="muted" style="margin-bottom:10px">Solo funcionan si las descartas nada más robarlas. Si te las quedas, solo cuentan como puntos. Usar el poder es opcional.</p>
+<div class="sp-card"><div class="mini">10</div><p><b>Mira una de tus cartas.</b></p></div>
+<div class="sp-card"><div class="mini">J</div><p><b>Mira una carta de un rival.</b></p></div>
+<div class="sp-card"><div class="mini" style="color:#B82828">Q</div><p><b>Intercambia a ciegas</b> dos cartas de jugadores distintos (una puede ser tuya). Nadie las mira.</p></div>
+<div class="sp-card"><div class="mini" style="color:#B82828">K</div><p><b>Mira una carta de un rival</b> y, si quieres, cámbiala por una tuya o pásasela a otro jugador a cambio de una de las suyas.</p></div></div>
+
+<div class="rule"><h3><span class="n">5</span>Descarte cruzado</h3>
+<p>Cada vez que una carta cae en el descarte, <b>cualquier jugador</b> que crea tener otra carta <b>del mismo valor</b> puede descartarla al instante, aunque no sea su turno. Así te quitas cartas de encima. Puedes soltar dos iguales a la vez.</p>
+<p><span class="hl">La velocidad es ley:</span> si varios lo intentan, solo vale el más rápido.</p>
+<p>Si te equivocas (la carta no coincide), la carta vuelve a su sitio y <b>robas una carta de penalización</b> boca abajo, sin mirarla.</p>
+<p class="note">Online: tienes 3 segundos tras cada descarte para tocar tu carta.</p></div>
+
+<div class="rule"><h3><span class="n">6</span>¡TALMUT!</h3>
+<p>Cuando creas que tus cartas suman <b>5 puntos o menos</b>, canta <span class="hl">«¡TALMUT!»</span> al empezar tu turno (en lugar de robar) o justo después de descartar.</p>
+<ul>
+<li>Desde ese momento eres <b>intocable</b>: nadie puede mirar, cambiar ni mover tus cartas.</li>
+<li>Cada uno de los demás juega <b>un último turno</b>. Después, todos dan la vuelta a sus cartas.</li>
+<li>Si alguien se queda sin cartas por descartes cruzados, el TALMUT se canta solo.</li>
+</ul>
+<p><b>Cuidado:</b> si cantas TALMUT y sumas <b>más de 5</b>, te anotas la suma de los puntos de las cartas de todos los demás jugadores.</p></div>
+
+<div class="rule"><h3><span class="n">7</span>Puntuación de la ronda</h3>
+<ul>
+<li>Quien tenga <b>menos puntos</b> gana la ronda y se anota <b>0</b>.</li>
+<li>Los demás se anotan los puntos de sus cartas.</li>
+<li>Si el ganador tiene un comodín, se anota <b>−1</b> por cada uno. Si no ganas, cada comodín vale <b>50</b>. (Para decidir quién gana, el comodín cuenta como −1.)</li>
+<li>Si empata quien cantó TALMUT con otro jugador, gana el otro.</li>
+</ul></div>
+
+<div class="rule"><h3><span class="n">8</span>La partida</h3>
+<p>La partida oficial dura <b>10 rondas</b>. Gana quien tenga <b>menos puntos acumulados</b>. Si hay empate, se juega una ronda de desempate.</p>
+<p>¿Poco tiempo? Juega una <b>partida libre</b> con las rondas que queráis.</p></div>
+
+<div class="rule"><h3><span class="n">9</span>Penalizaciones (con baraja real)</h3>
+<p>Cualquier jugador puede señalar una infracción. Cada una cuesta <b>una carta de penalización</b> boca abajo:</p>
+<ul><li>Mirar tus cartas sin una carta que lo permita.</li><li>Robar fuera de tu turno.</li><li>Hacer un descarte cruzado con una carta que no coincide.</li></ul>
+<p class="note">Online, la app controla las reglas por ti: solo se castigan el descarte cruzado fallido y el TALMUT erróneo.</p></div>
+
+<div class="rule"><h3><span class="n">✦</span>El ritual (opcional)</h3>
+<p>La tradición dice que antes de cada partida oficial los jugadores juntan las manos en el centro y dicen a la vez el lema del juego: <span class="hl">«Hic ludus errorem punit»</span>, «este juego castiga el error». Puedes activar o desactivar esta pantalla en Ajustes.</p></div>
+
+<div class="rule"><h3><span class="n">?</span>Consejos</h3>
+<ul>
+<li>Las cartas que te quedas del mazo ya las conoces: úsalas para cambiar las que no has visto.</li>
+<li>Fíjate en lo que descartan los demás: te dice qué cartas tienen y cuáles no.</li>
+<li>Canta TALMUT pronto si vas bien: cada turno extra da tiempo a los demás.</li>
+</ul></div>`,
+en:`
+<div class="rule"><h3><span class="n">★</span>The goal</h3>
+<p>Finish the game with <b>as few points as possible</b>. Every player has face-down cards they cannot look at: you must remember the ones you have seen, guess the rest and pick the perfect moment to end the round.</p>
+<p class="muted">2 to 6 players · standard 54-card deck (52 + 2 jokers) · 20–40 minutes.</p></div>
+
+<div class="rule"><h3><span class="n">1</span>Card values</h3>
+<div class="vtable">
+<span>Ace</span><span>1</span>
+<span>2 to 10</span><span>face value</span>
+<span>J</span><span>20</span>
+<span>Q</span><span>30</span>
+<span>K</span><span>40</span>
+<span>Joker</span><span>−1 if you win the round · 50 if not</span>
+</div></div>
+
+<div class="rule"><h3><span class="n">2</span>Setup</h3>
+<p>Shuffle and deal <b>4 cards face down</b> to each player, in a row. The rest form the face-down <b>deck</b>.</p>
+<p>On three, everyone looks at <b>2 of their 4 cards</b> at the same time for a couple of seconds, then puts them back face down. <span class="hl">Memorise them:</span> you cannot look at them again.</p>
+<p>In the first round, draw lots to see who starts (the app has a finger picker). After that, the winner of the previous round starts. Play goes clockwise.</p></div>
+
+<div class="rule"><h3><span class="n">3</span>Your turn</h3>
+<p>Draw the top card of the deck and look at it without showing it. Then choose:</p>
+<ul>
+<li><b>Keep it:</b> swap it for one of your face-down cards. The card you take out goes <b>face up</b> on the discard pile.</li>
+<li><b>Discard it:</b> place it face up on the discard pile. If it is a <b>10, J, Q or K</b>, you use its power.</li>
+</ul></div>
+
+<div class="rule"><h3><span class="n">4</span>Power cards</h3>
+<p class="muted" style="margin-bottom:10px">They only work if you discard them right after drawing them. If you keep them, they only count as points. Using the power is optional.</p>
+<div class="sp-card"><div class="mini">10</div><p><b>Look at one of your cards.</b></p></div>
+<div class="sp-card"><div class="mini">J</div><p><b>Look at an opponent’s card.</b></p></div>
+<div class="sp-card"><div class="mini" style="color:#B82828">Q</div><p><b>Blindly swap</b> two cards belonging to different players (one can be yours). Nobody looks at them.</p></div>
+<div class="sp-card"><div class="mini" style="color:#B82828">K</div><p><b>Look at an opponent’s card</b> and, if you want, swap it for one of yours or pass it to another player in exchange for one of theirs.</p></div></div>
+
+<div class="rule"><h3><span class="n">5</span>Snap</h3>
+<p>Every time a card lands on the discard pile, <b>any player</b> who thinks they have another card <b>of the same value</b> can discard it immediately, even if it is not their turn. That is how you get rid of cards. You can drop two matching cards at once.</p>
+<p><span class="hl">Speed is law:</span> if several players try, only the fastest counts.</p>
+<p>If you are wrong (the card does not match), it goes back to its place and you <b>draw a penalty card</b> face down, without looking.</p>
+<p class="note">Online: you have 3 seconds after each discard to tap your card.</p></div>
+
+<div class="rule"><h3><span class="n">6</span>TALMUT!</h3>
+<p>When you think your cards add up to <b>5 points or less</b>, call <span class="hl">“TALMUT!”</span> at the start of your turn (instead of drawing) or right after discarding.</p>
+<ul>
+<li>From then on you are <b>untouchable</b>: nobody can look at, swap or move your cards.</li>
+<li>Every other player gets <b>one last turn</b>. Then everyone reveals their cards.</li>
+<li>If someone runs out of cards through snaps, TALMUT is called automatically.</li>
+</ul>
+<p><b>Careful:</b> if you call TALMUT and have <b>more than 5</b>, you score the sum of all the other players’ card points.</p></div>
+
+<div class="rule"><h3><span class="n">7</span>Round scoring</h3>
+<ul>
+<li>The player with the <b>fewest points</b> wins the round and scores <b>0</b>.</li>
+<li>Everyone else scores the points of their cards.</li>
+<li>If the winner holds a joker, they score <b>−1</b> for each one. If you do not win, each joker is worth <b>50</b>. (To decide who wins, a joker counts as −1.)</li>
+<li>If the TALMUT caller ties with another player, the other player wins.</li>
+</ul></div>
+
+<div class="rule"><h3><span class="n">8</span>The game</h3>
+<p>An official game lasts <b>10 rounds</b>. The player with the <b>lowest total</b> wins. If there is a tie, play a tiebreak round.</p>
+<p>Short on time? Play a <b>free game</b> with as many rounds as you like.</p></div>
+
+<div class="rule"><h3><span class="n">9</span>Penalties (real deck)</h3>
+<p>Any player can call out a mistake. Each one costs <b>one penalty card</b> face down:</p>
+<ul><li>Looking at your cards without a card that allows it.</li><li>Drawing out of turn.</li><li>Snapping with a card that does not match.</li></ul>
+<p class="note">Online, the app enforces the rules for you: only a missed snap and a wrong TALMUT are penalised.</p></div>
+
+<div class="rule"><h3><span class="n">✦</span>The ritual (optional)</h3>
+<p>Tradition says that before each official game the players stack their hands in the middle and say the motto together: <span class="hl">“Hic ludus errorem punit”</span>, “this game punishes mistakes”. You can turn this screen on or off in Settings.</p></div>
+
+<div class="rule"><h3><span class="n">?</span>Tips</h3>
+<ul>
+<li>Cards you keep from the deck are known to you: use them to replace the ones you have not seen.</li>
+<li>Watch what others discard: it tells you what they have and what they do not.</li>
+<li>Call TALMUT early when you are doing well: every extra turn gives the others time.</li>
+</ul></div>`
+};
+
+// =====================================================================
+//  UTILIDADES
+// =====================================================================
+const LS={
+  get(k,d){try{const v=localStorage.getItem('talmut.'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('talmut.'+k,JSON.stringify(v))}catch(e){}},
+  del(k){try{localStorage.removeItem('talmut.'+k)}catch(e){}}
+};
+let LANG=LS.get('lang',(navigator.language||'es').toLowerCase().startsWith('es')?'es':'en');
+function t(k,v){let s=(STR[LANG]&&STR[LANG][k])||STR.es[k]||k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const AV_COLORS=['#B8860B','#3B7DD8','#2EA043','#C0504D','#8E5BC8','#2AA5B5','#D2782A','#6A7A8C'];
+function avColor(name){let h=0;for(const c of String(name))h=(h*31+c.charCodeAt(0))>>>0;return AV_COLORS[h%AV_COLORS.length]}
+function avatar(name,size){size=size||30;return `<div class="avatar" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.42)}px;background:${avColor(name)}">${esc(String(name).charAt(0).toUpperCase())}</div>`}
+function toast(msg,kind,ms){const w=document.getElementById('toasts');const d=document.createElement('div');d.className='toast'+(kind?' '+kind:'');d.innerHTML=msg;w.appendChild(d);while(w.children.length>3)w.firstChild.remove();setTimeout(()=>d.remove(),ms||2600)}
+function buzz(ms){if(LS.get('vibrate',true)&&navigator.vibrate){try{navigator.vibrate(ms||60)}catch(e){}}}
+
+function applyI18n(){
+  document.documentElement.lang=LANG;
+  document.querySelectorAll('[data-t]').forEach(el=>{el.innerHTML=t(el.getAttribute('data-t'))});
+  document.getElementById('nameInput').placeholder=t('setup.name');
+  document.getElementById('rulesBody').innerHTML=RULES[LANG];
+  document.getElementById('langEs').classList.toggle('on',LANG==='es');
+  document.getElementById('langEn').classList.toggle('on',LANG==='en');
+}
+function setLang(l){LANG=l;LS.set('lang',l);applyI18n();refreshCurrent()}
+function refreshCurrent(){
+  const id=currentScreen();
+  if(id==='screen-menu')refreshMenu();
+  if(id==='screen-setup')renderSetup();
+  if(id==='screen-score')renderScoreScreen();
+  if(id==='screen-history')renderHistory();
+  if(id==='screen-online')renderOnlineHome();
+  if(id==='screen-lobby')renderLobby();
+  if(id==='screen-game')renderGame();
+}
+
+// ---------- navegación ----------
+function currentScreen(){const a=document.querySelector('.screen.active');return a?a.id:null}
+function showScreen(id){
+  const prev=currentScreen();
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(prev!==id)navStack.push(prev);
+}
+const navStack=[];
+function goMenu(){navStack.length=0;showScreen('screen-menu');refreshMenu()}
+function openModal(id){document.getElementById(id).classList.add('active')}
+function closeModal(id){document.getElementById(id).classList.remove('active')}
+
+// Botón atrás de Android / navegador
+history.pushState({talmut:1},'');
+window.addEventListener('popstate',function(){
+  history.pushState({talmut:1},'');
+  const open=document.querySelector('.modal.active');
+  if(open){open.classList.remove('active');return}
+  const id=currentScreen();
+  if(id==='screen-menu')return;
+  if(id==='screen-score'||id==='screen-oath'||id==='screen-finger'){confirmExit();return}
+  if(id==='screen-game'){openModal('leaveModal');return}
+  if(id==='screen-lobby'){leaveOnline();return}
+  if(id==='screen-rules'){rulesBack();return}
+  if(id==='screen-winner'){goMenu();return}
+  goMenu();
+});
+function rulesBack(){const p=navStack.pop();if(p&&p!=='screen-rules'&&document.getElementById(p)){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(p).classList.add('active');refreshCurrent()}else goMenu()}
+
+// ---------- ajustes ----------
+function openSettings(){
+  document.getElementById('ritualSwitch').classList.toggle('on',LS.get('ritual',true));
+  document.getElementById('soundSwitch').classList.toggle('on',LS.get('vibrate',true));
+  openModal('settingsModal');
+}
+function toggleRitual(){const v=!LS.get('ritual',true);LS.set('ritual',v);document.getElementById('ritualSwitch').classList.toggle('on',v)}
+function toggleSound(){const v=!LS.get('vibrate',true);LS.set('vibrate',v);document.getElementById('soundSwitch').classList.toggle('on',v)}
+
+// ---------- menú ----------
+function refreshMenu(){
+  const m=LS.get('current',null);
+  const btn=document.getElementById('continueBtn');
+  if(m&&m.players&&m.players.length){
+    btn.classList.remove('hidden');
+    document.getElementById('continueDesc').textContent=(m.type==='official'?t('official'):t('free'))+' · '+t('score.round',{r:Math.min(m.round,m.totalRounds),t:m.totalRounds})+' · '+m.players.map(p=>p.name).join(', ');
+  }else btn.classList.add('hidden');
+}
+
+// =====================================================================
+//  MARCADOR (baraja real) — se guarda en el móvil
+// =====================================================================
+let setup={mode:'official',rounds:5,players:[]};
+let M=null; // partida actual
+let numpadValue='',editMode=false,editRound=0,editPlayerIdx=0;
+
+function openSetup(){
+  setup={mode:setup.mode||'official',rounds:setup.rounds||5,players:setup.players&&setup.players.length?setup.players:[]};
+  renderSetup();showScreen('screen-setup');
+}
+function setSetupMode(m){setup.mode=m;renderSetup()}
+function changeRounds(d){setup.rounds=Math.max(1,Math.min(20,setup.rounds+d));renderSetup()}
+function addSetupPlayer(nameArg){
+  const inp=document.getElementById('nameInput');
+  const name=String(nameArg!=null?nameArg:inp.value).trim().replace(/\s+/g,' ').slice(0,16);
+  if(!name)return;
+  if(setup.players.some(p=>p.toLowerCase()===name.toLowerCase())){toast(t('setup.dup'),'bad');return}
+  if(setup.players.length>=8){toast(t('setup.max'),'bad');return}
+  setup.players.push(name);
+  if(nameArg==null)inp.value='';
+  renderSetup();
+  if(nameArg==null)inp.focus();
+}
+function removeSetupPlayer(i){setup.players.splice(i,1);renderSetup()}
+function renderSetup(){
+  document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('on',b.dataset.mode===setup.mode));
+  document.getElementById('modeDesc').textContent=t(setup.mode==='official'?'setup.official.d':'setup.free.d');
+  document.getElementById('roundsStepper').classList.toggle('hidden',setup.mode==='official');
+  document.getElementById('roundsValue').textContent=setup.rounds;
+  document.getElementById('setupChips').innerHTML=setup.players.map((n,i)=>
+    `<div class="pchip">${avatar(n,28)}<span class="nm">${esc(n)}</span><button class="x" onclick="removeSetupPlayer(${i})" aria-label="x">&times;</button></div>`).join('');
+  const recent=LS.get('names',[]).filter(n=>!setup.players.some(p=>p.toLowerCase()===n.toLowerCase())).slice(0,10);
+  document.getElementById('recentWrap').classList.toggle('hidden',recent.length===0);
+  document.getElementById('recentChips').innerHTML=recent.map(n=>`<button class="rchip" data-n="${esc(n)}" onclick="addSetupPlayer(this.dataset.n)">+ ${esc(n)}</button>`).join('');
+  document.getElementById('setupCount').textContent=t('setup.count',{n:setup.players.length});
+  document.getElementById('setupStart').disabled=setup.players.length<2;
+}
+function rememberNames(names){
+  const old=LS.get('names',[]);
+  const merged=[...names,...old.filter(o=>!names.some(n=>n.toLowerCase()===o.toLowerCase()))].slice(0,20);
+  LS.set('names',merged);
+}
+function startScorer(){
+  if(setup.players.length<2)return;
+  rememberNames(setup.players);
+  M={id:Date.now(),type:setup.mode,totalRounds:setup.mode==='official'?10:setup.rounds,
+     players:setup.players.map((n,i)=>({id:i,name:n})),scores:{},round:1,idx:0,created:new Date().toISOString(),tiebreak:false};
+  saveM();
+  if(M.type==='official'&&LS.get('ritual',true))showScreen('screen-oath');
+  else{resetFinger();showScreen('screen-finger')}
+}
+function afterOath(){resetFinger();showScreen('screen-finger')}
+function goScore(){numpadValue='';editMode=false;renderScoreScreen();showScreen('screen-score')}
+function saveM(){if(M)LS.set('current',M)}
+function continueScorer(){M=LS.get('current',null);if(!M)return;goScore()}
+function confirmExit(){openModal('exitModal')}
+function abandonScorer(){closeModal('abandonModal');LS.del('current');M=null;goMenu()}
+function toggleScoreMenu(e){e.stopPropagation();document.getElementById('scoreDropdown').classList.toggle('hidden')}
+function closeScoreMenu(){document.getElementById('scoreDropdown').classList.add('hidden')}
+document.addEventListener('click',e=>{if(!e.target.closest('#scoreDropdown'))closeScoreMenu()});
+
+function playerTotals(){
+  const out={};M.players.forEach(p=>{let s=0;for(let r=1;r<=M.totalRounds;r++){if(M.scores[r]&&M.scores[r][p.id]!==undefined)s+=M.scores[r][p.id]}out[p.id]=s});return out;
+}
+function editCell(r,pi){editMode=true;editRound=r;editPlayerIdx=pi;numpadValue='';renderScoreScreen()}
+function renderScoreScreen(){
+  if(!M)return;
+  document.getElementById('scoreTitle').textContent=M.type==='official'?'TALMUT':t('free').toUpperCase();
+  document.getElementById('scoreSubtitle').textContent=(M.tiebreak&&M.round>10?t('g.tiebreak')+' · ':'')+t('score.round',{r:Math.min(M.round,M.totalRounds),t:M.totalRounds});
+  const n=M.players.length;
+  const cols=`28px repeat(${n},minmax(0,1fr))`;
+  const totals=playerTotals();
+  const minTotal=Math.min(...Object.values(totals));
+  let h='<div style="border:1.5px solid rgba(184,134,11,.3);border-radius:12px;overflow:hidden;background:rgba(10,27,51,.8)">';
+  h+=`<div style="display:grid;grid-template-columns:${cols};position:sticky;top:0;background:#08192F;z-index:3;border-bottom:1.5px solid rgba(184,134,11,.2)"><div style="padding:8px 2px;text-align:center;font-size:9px;color:rgba(184,134,11,.5)">#</div>`;
+  M.players.forEach(p=>{h+=`<div style="padding:7px 2px;text-align:center;border-left:1px solid rgba(184,134,11,.1);overflow:hidden"><span style="font-family:'Cinzel',serif;font-weight:600;font-size:10px;color:rgba(212,168,58,.9);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(p.name)}</span></div>`});
+  h+='</div>';
+  for(let r=1;r<=M.totalRounds;r++){
+    const active=r===M.round, future=r>M.round;
+    const vals=[];let complete=true;
+    M.players.forEach(p=>{if(M.scores[r]&&M.scores[r][p.id]!==undefined)vals.push(M.scores[r][p.id]);else complete=false});
+    const rMin=complete?Math.min(...vals):null,rMax=complete?Math.max(...vals):null;
+    h+=`<div style="display:grid;grid-template-columns:${cols};${active?'background:rgba(184,134,11,.05);':''}border-bottom:1px solid rgba(184,134,11,.08)">`;
+    h+=`<div style="display:flex;align-items:center;justify-content:center;height:36px;font-size:10px;font-weight:${active?700:600};color:${active?'#D4A83A':'rgba(184,134,11,'+(future?.25:.5)+')'}">${r>10?'★':r}</div>`;
+    M.players.forEach((p,pi)=>{
+      const has=M.scores[r]&&M.scores[r][p.id]!==undefined;
+      const isAct=(!editMode&&active&&pi===M.idx&&!has)||(editMode&&r===editRound&&pi===editPlayerIdx);
+      if(isAct){
+        const neg=numpadValue&&parseInt(numpadValue)<0;
+        h+=`<div style="display:flex;align-items:center;justify-content:center;height:36px;border-left:1px solid rgba(184,134,11,.08);box-shadow:inset 0 0 0 1.5px rgba(212,168,58,.6);background:rgba(184,134,11,.14)"><span style="font-weight:700;font-size:14px;color:${neg?'#6BBF7A':'#D4A83A'}${numpadValue?'':';animation:blink 1s infinite'}">${numpadValue||'_'}</span></div>`;
+      }else if(has){
+        const s=M.scores[r][p.id];let bg='',col='rgba(255,255,255,.82)',fw=500;
+        if(complete){if(s===rMin){bg='background:rgba(46,160,67,.25);';col='#7EE29A';fw=700}else if(s===rMax&&rMax!==rMin){bg='background:rgba(200,50,50,.2);';col='#F08A8A';fw=700}}
+        h+=`<div onclick="editCell(${r},${pi})" style="display:flex;align-items:center;justify-content:center;height:36px;border-left:1px solid rgba(184,134,11,.08);cursor:pointer;${bg}"><span style="font-weight:${fw};font-size:14px;color:${col}">${s}</span></div>`;
+      }else h+=`<div style="display:flex;align-items:center;justify-content:center;height:36px;border-left:1px solid rgba(184,134,11,.08);color:rgba(255,255,255,.1)">—</div>`;
+    });
+    h+='</div>';
+  }
+  h+=`<div style="display:grid;grid-template-columns:${cols};border-top:1.5px solid rgba(184,134,11,.3);background:rgba(184,134,11,.07)"><div style="display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:8px;color:rgba(184,134,11,.7)">${t('tot')}</div>`;
+  M.players.forEach(p=>{const v=totals[p.id];h+=`<div style="padding:7px 2px;text-align:center;border-left:1px solid rgba(184,134,11,.08)"><span style="font-family:'Cinzel',serif;font-weight:700;font-size:15px;color:${v===minTotal?'#7EE29A':'#E8DCC8'}">${v}</span></div>`});
+  h+='</div></div>';
+  // clasificación
+  const st=M.players.map(p=>({name:p.name,total:totals[p.id]})).sort((a,b)=>a.total-b.total);
+  h+=`<div class="section-label"><span>${t('score.class')}</span></div><div style="border:1.5px solid rgba(184,134,11,.25);border-radius:12px;overflow:hidden;background:rgba(10,27,51,.8)">`;
+  st.forEach((s,i)=>{
+    const diff=s.total-st[0].total;
+    const medal=i===0?'#D4A83A':i===1?'#B4BEC8':i===2?'#C08050':'rgba(255,255,255,.3)';
+    h+=`<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;${i<st.length-1?'border-bottom:1px solid rgba(255,255,255,.04)':''}"><span style="width:20px;text-align:center;font-family:'Cinzel',serif;font-weight:700;color:${medal}">${i+1}</span>${avatar(s.name,24)}<span style="flex:1;font-weight:600;font-size:13px">${esc(s.name)}</span><b style="font-size:14px;color:var(--cream)">${s.total}</b><span style="min-width:40px;text-align:right;font-size:11px;color:var(--faint)">${i===0?'—':'+'+diff}</span></div>`;
+  });
+  h+=`</div><div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;padding:12px 0 6px;font-size:11px;color:var(--faint)"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(46,160,67,.35);vertical-align:-1px"></i> ${t('score.win')}</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(200,50,50,.3);vertical-align:-1px"></i> ${t('score.lose')}</span><span>✎ ${t('score.tap')}</span></div>`;
+  document.getElementById('scoreGrid').innerHTML=h;
+  const ctx=document.getElementById('numpadContext');
+  if(editMode){const p=M.players[editPlayerIdx];ctx.innerHTML=`<span style="color:#F08A8A">✎ ${t('score.editing')} </span><b style="color:#D4A83A">${esc(p.name)}</b><span style="color:var(--dim)"> · R${editRound}</span> <button onclick="editMode=false;numpadValue='';renderScoreScreen()" style="margin-left:6px;background:none;border:1px solid rgba(240,138,138,.4);border-radius:5px;color:#F08A8A;font-size:10px;padding:2px 8px;cursor:pointer">${t('cancel')}</button>`}
+  else if(M.idx<M.players.length){const p=M.players[M.idx];ctx.innerHTML=`<span style="color:var(--dim)">${t('score.of')} </span><b style="color:#D4A83A">${esc(p.name)}</b><span style="color:var(--dim)"> · R${M.round}</span>`}
+}
+function numpadInput(k){
+  if(k==='back')numpadValue=numpadValue.slice(0,-1);
+  else if(k==='-1')numpadValue='-1';
+  else{if(numpadValue==='-1')numpadValue='';if(numpadValue.length<3)numpadValue+=k}
+  renderScoreScreen();
+}
+function numpadConfirm(){
+  if(numpadValue==='')return;
+  const v=parseInt(numpadValue,10);if(isNaN(v))return;
+  if(editMode){const p=M.players[editPlayerIdx];if(!M.scores[editRound])M.scores[editRound]={};M.scores[editRound][p.id]=v;editMode=false;numpadValue='';saveM();renderScoreScreen();return}
+  const p=M.players[M.idx];
+  if(!M.scores[M.round])M.scores[M.round]={};
+  M.scores[M.round][p.id]=v;numpadValue='';M.idx++;
+  if(M.idx>=M.players.length){
+    M.idx=0;M.round++;
+    if(M.round>M.totalRounds){
+      const totals=playerTotals();const min=Math.min(...Object.values(totals));
+      const tied=Object.values(totals).filter(x=>x===min).length;
+      if(tied>1&&M.totalRounds<(M.type==='official'?13:M.totalRounds+1)&&!M.noTiebreak){M.totalRounds++;M.tiebreak=true;if(M.type!=='official')M.noTiebreak=true}
+      else{saveM();return finishScorer()}
+    }
+  }
+  saveM();renderScoreScreen();
+  const g=document.getElementById('scoreGrid');g.scrollTop=Math.max(0,(M.round-3)*36);
+}
+function finishScorer(){
+  const totals=playerTotals();
+  const rows=M.players.map(p=>({name:p.name,total:totals[p.id]})).sort((a,b)=>a.total-b.total);
+  const winners=rows.filter(r=>r.total===rows[0].total).map(r=>r.name);
+  const hist=LS.get('history',[]);
+  hist.unshift({id:M.id,date:new Date().toISOString(),type:M.type,rounds:M.totalRounds,players:rows,winners});
+  LS.set('history',hist.slice(0,500));
+  LS.del('current');
+  lastResult={rows,winners,type:M.type,players:M.players.map(p=>p.name)};
+  document.getElementById('winnerName').textContent=winners.join(' · ').toUpperCase();
+  document.getElementById('winnerScoreVal').textContent=rows[0].total;
+  document.getElementById('standingsList').innerHTML=rows.map((r,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 14px;${i===0?'background:rgba(184,134,11,.08);border-radius:10px':''}"><span style="width:18px;font-family:'Cinzel',serif;font-weight:700;color:${i===0?'#D4A83A':'var(--faint)'}">${i+1}</span>${avatar(r.name,26)}<span style="flex:1;font-weight:600;font-size:14px;color:${i===0?'#D4A83A':'var(--dim)'}">${esc(r.name)}</span><b style="font-family:'Cinzel',serif;color:${i===0?'#D4A83A':'var(--dim)'}">${r.total}</b></div>`).join('');
+  M=null;
+  createConfetti();showScreen('screen-winner');
+}
+let lastResult=null;
+function rematchScorer(){if(!lastResult)return goMenu();setup.players=lastResult.players.slice();setup.mode=lastResult.type;renderSetup();showScreen('screen-setup')}
+function createConfetti(){
+  const c=document.getElementById('confettiContainer');c.innerHTML='';
+  const cols=['#B8860B','#E8DCC8','#1E4D7A','#D4A83A','#6BBF7A','#64A0DC'];
+  for(let i=0;i<60;i++){const d=document.createElement('div');d.className='confetti';d.style.left=Math.random()*100+'%';d.style.background=cols[i%cols.length];d.style.width=(4+Math.random()*8)+'px';d.style.height=(4+Math.random()*8)+'px';d.style.animationDuration=(2+Math.random()*3)+'s';d.style.animationDelay=Math.random()*1.5+'s';c.appendChild(d)}
+}
+function shareResults(){
+  if(!lastResult)return;
+  let txt='🃏 '+t('share.title')+'\n\n🏆 '+t('share.winner')+': '+lastResult.winners.join(', ')+' ('+lastResult.rows[0].total+')\n\n';
+  lastResult.rows.forEach((r,i)=>{txt+=(i+1)+'. '+r.name+' — '+r.total+'\n'});
+  txt+='\n'+t('share.motto');
+  shareText(txt);
+}
+function shareText(txt){
+  if(navigator.share)navigator.share({title:'TALMUT',text:txt}).catch(()=>{});
+  else if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>toast(t('win.copied'),'good')).catch(()=>{});
+}
+
+// ---------- ¿quién empieza? (dedos) ----------
+const FINGER_COLORS=['#E85555','#5590E8','#55C875','#E8C755','#C055E8','#55DCE8','#E8955A','#B5E855'];
+let F={touches:{},colorMap:{},next:0,winner:null,timer:null};
+function resetFinger(){clearTimeout(F.timer);F={touches:{},colorMap:{},next:0,winner:null,timer:null};document.getElementById('touchArea').innerHTML='';document.getElementById('pickResult').classList.add('hidden')}
+function renderTouches(){
+  const area=document.getElementById('touchArea');area.innerHTML='';
+  Object.keys(F.touches).forEach(id=>{
+    if(F.winner!==null&&id!==F.winner)return;
+    const p=F.touches[id],col=FINGER_COLORS[F.colorMap[id]%FINGER_COLORS.length],win=id===F.winner;
+    const d=document.createElement('div');
+    const sz=win?110:84;
+    d.style.cssText=`position:absolute;left:${p.x-sz/2}px;top:${p.y-sz/2}px;width:${sz}px;height:${sz}px;border-radius:50%;border:3px solid ${col};box-shadow:0 0 ${win?50:22}px ${col};background:${col}22;${win?'animation:winnerPulse .8s ease-in-out infinite;':''}`;
+    area.appendChild(d);
+  });
+}
+(function(){
+  const scr=document.getElementById('screen-finger');
+  const pos=t=>{const r=document.getElementById('touchArea').getBoundingClientRect();return{x:t.clientX-r.left,y:t.clientY-r.top}};
+  scr.addEventListener('touchstart',e=>{
+    if(e.target.closest('button'))return;
+    e.preventDefault();if(F.winner!==null)return;
+    for(const tc of e.changedTouches){if(!F.touches[tc.identifier]){F.touches[tc.identifier]=pos(tc);F.colorMap[tc.identifier]=F.next++}}
+    renderTouches();clearTimeout(F.timer);
+    if(Object.keys(F.touches).length>=2)F.timer=setTimeout(()=>{
+      const ks=Object.keys(F.touches);if(ks.length<2)return;
+      F.winner=ks[Math.floor(Math.random()*ks.length)];renderTouches();buzz(120);
+      setTimeout(()=>{resetFinger();goScore()},2200);
+    },2000);
+  },{passive:false});
+  scr.addEventListener('touchmove',e=>{if(e.target.closest('button'))return;e.preventDefault();if(F.winner!==null)return;for(const tc of e.changedTouches)if(F.touches[tc.identifier])F.touches[tc.identifier]=pos(tc);renderTouches()},{passive:false});
+  const end=e=>{if(F.winner!==null)return;for(const tc of e.changedTouches)delete F.touches[tc.identifier];if(Object.keys(F.touches).length<2)clearTimeout(F.timer);renderTouches()};
+  scr.addEventListener('touchend',end);scr.addEventListener('touchcancel',end);
+})();
+function randomStarter(){
+  if(!M)return goScore();
+  const p=M.players[Math.floor(Math.random()*M.players.length)];
+  const el=document.getElementById('pickResult');
+  el.innerHTML=`${avatar(p.name,84)}<p style="margin:18px 0 4px;font-size:13px;color:var(--dim);letter-spacing:2px;text-transform:uppercase">${t('finger.starts')}</p><h2 style="margin:0;font-family:'Cinzel',serif;font-size:34px;color:var(--gold2);letter-spacing:3px">${esc(p.name)}</h2>`;
+  el.classList.remove('hidden');buzz(100);
+  setTimeout(()=>{el.classList.add('hidden');goScore()},2000);
+}
+
+// =====================================================================
+//  HISTORIAL
+// =====================================================================
+let histTab='rank';
+function openHistory(){renderHistory();showScreen('screen-history')}
+function setHistTab(tb){histTab=tb;renderHistory()}
+function renderHistory(){
+  document.getElementById('tabRank').classList.toggle('on',histTab==='rank');
+  document.getElementById('tabGames').classList.toggle('on',histTab==='games');
+  const hist=LS.get('history',[]);
+  const body=document.getElementById('histBody');
+  if(!hist.length){body.innerHTML=`<div class="empty">${t('hist.empty')}</div>`;return}
+  const loc=LANG==='es'?'es-ES':'en-GB';
+  if(histTab==='games'){
+    body.innerHTML='<div style="display:flex;flex-direction:column;gap:8px">'+hist.map(g=>{
+      const d=new Date(g.date);
+      return `<div class="match-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span class="tag ${g.type==='official'?'off':'free'}">${g.type==='official'?t('official'):t('free')} · ${g.rounds}R</span><span style="flex:1;font-size:11px;color:var(--faint);text-align:right">${d.toLocaleDateString(loc,{day:'numeric',month:'short',year:'numeric'})}</span></div>`+
+        g.players.map((p,i)=>`<div style="display:flex;justify-content:space-between;font-size:13px;padding:2px 0;${i===0?'color:#D4A83A;font-weight:700':'color:var(--dim)'}"><span>${i===0?'🏆 ':(i+1)+'. '}${esc(p.name)}</span><span>${p.total}</span></div>`).join('')+'</div>';
+    }).join('')+`</div><button class="btn btn-ghost" style="margin-top:18px;color:var(--red)" onclick="openModal('clearModal')">${t('hist.clear')}</button>`;
+    return;
+  }
+  const off=hist.filter(g=>g.type==='official');
+  if(!off.length){body.innerHTML=`<div class="empty">${t('hist.only')}</div>`;return}
+  const S={};
+  off.forEach(g=>g.players.forEach(p=>{
+    const k=p.name.toLowerCase();
+    if(!S[k])S[k]={name:p.name,pj:0,w:0,pt:0,best:Infinity,worst:-Infinity};
+    const s=S[k];s.pj++;s.pt+=p.total;s.best=Math.min(s.best,p.total);s.worst=Math.max(s.worst,p.total);
+    if(g.winners.some(w=>w.toLowerCase()===k))s.w++;
+  }));
+  const rows=Object.values(S).sort((a,b)=>b.w-a.w||(a.pt/a.pj)-(b.pt/b.pj));
+  let h=`<p class="muted" style="text-align:center;margin:0 0 12px">${off.length} · ${t('hist.only')}</p><div class="rank-table"><div class="rank-row head"><span>${t('hist.player')}</span><span>${t('hist.pj')}</span><span>${t('hist.w')}</span><span>${t('hist.wp')}</span><span>${t('hist.avg')}</span><span>${t('hist.best')}</span></div>`;
+  rows.forEach((s,i)=>{h+=`<div class="rank-row" ${i===0?'style="background:rgba(184,134,11,.06)"':''}><span>${avatar(s.name,24)}<b style="font-weight:600;color:${i===0?'#D4A83A':'var(--txt)'};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.name)}</b></span><span>${s.pj}</span><span style="font-weight:700;color:${i===0?'#D4A83A':'var(--txt)'}">${s.w}</span><span style="color:var(--dim)">${Math.round(s.w/s.pj*100)}%</span><span>${Math.round(s.pt/s.pj)}</span><span style="color:var(--green)">${s.best}</span></div>`});
+  h+=`</div><p class="muted" style="text-align:center;font-size:10px;margin:8px 0 0">${t('hist.legend')}</p>`;
+  const best=rows.reduce((a,s)=>s.best<a.v?{v:s.best,n:s.name}:a,{v:Infinity,n:'-'});
+  const worst=rows.reduce((a,s)=>s.worst>a.v?{v:s.worst,n:s.name}:a,{v:-Infinity,n:'-'});
+  const mw=rows.reduce((a,s)=>s.w>a.v?{v:s.w,n:s.name}:a,{v:0,n:'-'});
+  const ba=rows.reduce((a,s)=>s.pt/s.pj<a.v?{v:s.pt/s.pj,n:s.name}:a,{v:Infinity,n:'-'});
+  const rec=(l,v,c,n)=>`<div class="rec"><small>${l}</small><b style="color:${c}">${v}</b><span>${esc(n)}</span></div>`;
+  h+=`<div class="section-label"><span>${t('hist.records')}</span></div><div class="rec-grid">${rec(t('hist.bestGame'),best.v,'var(--green)',best.n)}${rec(t('hist.worstGame'),worst.v,'var(--red)',worst.n)}${rec(t('hist.mostWins'),mw.v,'var(--blue)',mw.n)}${rec(t('hist.bestAvg'),Math.round(ba.v),'var(--gold2)',ba.n)}</div>`;
+  body.innerHTML=h;
+}
+function clearHistory(){LS.del('history');closeModal('clearModal');renderHistory()}
+
+// =====================================================================
+//  MULTIJUGADOR ONLINE
+// =====================================================================
+const ONLINE_READY=!!(CONFIG.SUPABASE_URL&&CONFIG.SUPABASE_ANON_KEY&&window.supabase);
+const sb=ONLINE_READY?window.supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY,{auth:{persistSession:true,detectSessionInUrl:true}}):null;
+let session=null,profile=null,createRounds=10;
+let G=null;          // {id, code, pub, version}
+let channel=null,pollTimer=null,tickTimer=null;
+let serverOffset=0,inFlight=false,advanceKey='',lastEventId=0;
+const UI={pending:null,peekSel:[],qFirst:null,flash:{},hl:{},busy:false};
+
+if(sb){
+  sb.auth.onAuthStateChange((_e,s)=>{session=s;if(s)loadProfile();else{profile=null}if(currentScreen()==='screen-online')renderOnlineHome()});
+  sb.auth.getSession().then(({data})=>{session=data.session;if(session){loadProfile();if(location.hash.includes('access_token'))history.replaceState({talmut:1},'',location.pathname)}});
+}
+async function loadProfile(){
+  if(!sb||!session)return;
+  const{data}=await sb.from('profiles').select('*').eq('id',session.user.id).maybeSingle();
+  profile=data||{nickname:'',games:0,wins:0,rounds_won:0};
+  if(currentScreen()==='screen-online')renderOnlineHome();
+}
+function serverNow(){return Date.now()+serverOffset}
+
+async function api(action,payload){
+  if(!sb)return null;
+  try{
+    const{data,error}=await sb.functions.invoke('game',{body:Object.assign({action,gameId:G?G.id:undefined},payload||{})});
+    if(error){
+      let code='generic';
+      try{const j=await error.context.json();code=j.error||code;if(j.serverNow)serverOffset=j.serverNow-Date.now()}catch(e){if(String(error.message||'').toLowerCase().includes('fetch'))code='net'}
+      if(code!=='bad_phase'&&code!=='not_your_turn'&&!(action==='advance'))toast(t('err.'+code)!=='err.'+code?t('err.'+code):t('err.generic'),'bad');
+      return{error:code};
+    }
+    if(data&&data.serverNow)serverOffset=data.serverNow-Date.now();
+    if(data&&data.state)applyState(data.gameId,data.code,data.state,data.version);
+    return data;
+  }catch(e){toast(t('err.net'),'bad');return{error:'net'}}
+}
+
+function openOnline(){renderOnlineHome();showScreen('screen-online')}
+function renderOnlineHome(){
+  const b=document.getElementById('onlineBody');
+  if(!ONLINE_READY){
+    b.innerHTML=`<div class="card-box" style="text-align:center;padding:28px 18px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.5" stroke-linecap="round"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#D4A83A"/></svg><p style="margin:14px 0 6px;font-weight:600">${t('on.off')}</p><p class="muted">${t('on.off.d')}</p></div><button class="btn btn-ghost" onclick="openSetup()">${t('m.scorer')}</button>`;
+    return;
+  }
+  if(!session){
+    b.innerHTML=`<div class="card-box" style="text-align:center;padding:24px 18px">
+      <p style="margin:0 0 6px;font-family:'Cinzel',serif;font-size:17px;color:var(--cream)">${t('on.login')}</p>
+      <p class="muted" style="margin:0 0 20px">${t('on.login.d')}</p>
+      <button class="btn btn-google" onclick="signInGoogle()"><svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>${t('on.google')}</button>
+      <p class="muted" style="margin:14px 0">${t('on.or')}</p>
+      <div class="add-row"><input id="guestNick" class="text-input" maxlength="16" placeholder="${t('on.nick')}" onkeydown="if(event.key==='Enter')signInGuest()"><button class="btn btn-ghost" style="width:auto;padding:0 14px" onclick="signInGuest()">${t('on.guest')}</button></div>
+    </div>`;
+    return;
+  }
+  const p=profile||{nickname:'…',games:0,wins:0,rounds_won:0};
+  const isGuest=session.user.is_anonymous;
+  const resume=LS.get('onlineGame',null);
+  b.innerHTML=`
+    ${resume?`<button class="menu-btn cont" onclick="resumeOnline()"><div class="ic" style="background:rgba(107,191,122,.12)"><svg width="18" height="20" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg></div><div class="tx"><b>${t('on.resume')}</b><small>${esc(resume.code||'')}</small></div></button>`:''}
+    <div class="card-box">
+      <div class="profile-card">${avatar(p.nickname||'?',46)}<div style="flex:1;min-width:0"><p class="muted" style="margin:0">${t('on.hello')}</p><p style="margin:2px 0 0;font-family:'Cinzel',serif;font-size:18px;color:var(--cream);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.nickname)}</p></div>
+      <button class="iconbtn" onclick="editNick()" aria-label="${t('on.editnick')}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button></div>
+      <div class="stat3"><div><b>${p.games||0}</b><small>${t('on.games')}</small></div><div><b>${p.wins||0}</b><small>${t('on.wins')}</small></div><div><b>${p.rounds_won||0}</b><small>${t('on.rounds')}</small></div></div>
+      ${isGuest?`<p class="muted" style="margin:12px 0 0;font-size:11px">${t('on.guestNote')}</p>`:''}
+    </div>
+    <button class="menu-btn hero" onclick="quickMatch()"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="#D4A83A"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="tx"><b>${t('on.quick')}</b><small>${t('on.quick.d')}</small></div></button>
+    <div class="card-box">
+      <p style="margin:0 0 4px;font-weight:600">${t('on.create')}</p><p class="muted" style="margin:0 0 12px">${t('on.create.d')}</p>
+      <div class="seg" id="roundSeg">${[1,3,5,10].map(n=>`<button class="${n===createRounds?'on':''}" onclick="createRounds=${n};renderOnlineHome()">${n} R${n===10?' ★':''}</button>`).join('')}</div>
+      <button class="btn btn-gold" style="margin-top:12px" onclick="createRoom()">${t('on.create')}</button>
+    </div>
+    <div class="card-box">
+      <div class="add-row"><input id="joinCode" class="text-input code-input" maxlength="5" placeholder="${t('on.code')}" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" onkeydown="if(event.key==='Enter')joinRoom()"><button class="btn btn-gold" style="width:auto;padding:0 18px" onclick="joinRoom()">${t('on.join')}</button></div>
+    </div>
+    <button class="btn btn-ghost" style="background:none;border:none;color:var(--faint)" onclick="signOut()">${t('on.logout')}</button>`;
+}
+async function signInGoogle(){await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}})}
+async function signInGuest(){
+  const nick=(document.getElementById('guestNick').value||'').trim().slice(0,16);
+  if(!nick){document.getElementById('guestNick').focus();return}
+  const{data,error}=await sb.auth.signInAnonymously();
+  if(error){toast(t('err.generic'),'bad');return}
+  session=data.session;
+  await sb.from('profiles').update({nickname:nick}).eq('id',data.user.id);
+  await loadProfile();
+}
+async function editNick(){
+  const cur=profile?profile.nickname:'';
+  const n=prompt(t('on.nick'),cur);
+  if(n==null)return;const nick=n.trim().slice(0,16);if(!nick)return;
+  const{error}=await sb.from('profiles').update({nickname:nick}).eq('id',session.user.id);
+  if(!error){profile.nickname=nick;toast(t('on.saved'),'good');renderOnlineHome()}
+}
+async function signOut(){await sb.auth.signOut();session=null;profile=null;LS.del('onlineGame');renderOnlineHome()}
+
+async function quickMatch(){if(UI.busy)return;UI.busy=true;const r=await api('quick');UI.busy=false;if(r&&!r.error)enterGame()}
+async function createRoom(){if(UI.busy)return;UI.busy=true;const r=await api('create',{rounds:createRounds});UI.busy=false;if(r&&!r.error)enterGame()}
+async function joinRoom(){const c=(document.getElementById('joinCode').value||'').trim();if(c.length<5)return;if(UI.busy)return;UI.busy=true;G=null;const r=await api('join',{code:c});UI.busy=false;if(r&&!r.error)enterGame()}
+async function resumeOnline(){
+  const s=LS.get('onlineGame',null);if(!s)return;
+  const{data}=await sb.from('games').select('id,code,state,version').eq('id',s.id).maybeSingle();
+  if(!data||['finished','closed'].includes(data.state.status)||!data.state.players.some(p=>p.uid===session.user.id&&!p.left)){LS.del('onlineGame');renderOnlineHome();return}
+  G=null;applyState(data.id,data.code,data.state,data.version);enterGame();
+  const r=await api('sync');if(r&&r.priv)handlePriv(r.priv);
+}
+
+function applyState(id,code,state,version){
+  if(G&&G.id===id&&version<=G.version)return;
+  const prevStatus=G&&G.id===id?G.pub.status:null;
+  const prevTurn=G&&G.id===id?G.pub.turn:null,prevPhase=G&&G.id===id?G.pub.phase:null;
+  if(!G||G.id!==id){lastEventId=0;UI.flash={};UI.hl={}}
+  if(G&&G.pub.phase==='special_k2'&&state.phase!=='special_k2'){const lim=Date.now()+4000;for(const k in UI.flash)if(UI.flash[k].until>lim)delete UI.flash[k]}
+  G={id,code:code||(G&&G.code),pub:state,version};
+  LS.set('onlineGame',{id,code:G.code});
+  const me=myIdx();
+  // limpiar selección local cuando cambia la fase
+  if(state.phase!=='decide'||state.turn!==me)UI.pending=null;
+  if(state.status!=='peek')UI.peekSel=[];
+  if(state.phase!=='special')UI.qFirst=null;
+  processEvents(state);
+  if(state.status==='play'&&state.turn===me&&state.phase==='draw'&&(prevTurn!==me||prevPhase!=='draw'))buzz(80);
+  const scr=currentScreen();
+  if(state.status==='lobby'){if(scr!=='screen-lobby')showScreen('screen-lobby');renderLobby()}
+  else if(['peek','play','round_end','finished'].includes(state.status)){if(scr!=='screen-game')showScreen('screen-game');renderGame()}
+  if(state.status==='finished'&&prevStatus&&prevStatus!=='finished'){LS.del('onlineGame');loadProfile()}
+}
+function myIdx(){if(!G||!session)return -1;return G.pub.players.findIndex(p=>p.uid===session.user.id)}
+function pname(i){if(!G||!G.pub.players[i])return '?';return i===myIdx()?t('g.you'):esc(G.pub.players[i].name)}
+
+function enterGame(){
+  if(!G)return;
+  subscribe();
+  if(G.pub.status==='lobby'){showScreen('screen-lobby');renderLobby()}else{showScreen('screen-game');renderGame()}
+}
+function subscribe(){
+  unsubscribe();
+  const id=G.id;
+  channel=sb.channel('game:'+id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'games',filter:'id=eq.'+id},p=>{if(G&&G.id===id)applyState(id,p.new.code,p.new.state,p.new.version)}).subscribe();
+  pollTimer=setInterval(async()=>{if(!G)return;const{data}=await sb.from('games').select('code,state,version').eq('id',G.id).maybeSingle();if(data&&G)applyState(G.id,data.code,data.state,data.version)},5000);
+  tickTimer=setInterval(tick,250);
+}
+function unsubscribe(){if(channel){sb.removeChannel(channel);channel=null}clearInterval(pollTimer);clearInterval(tickTimer)}
+async function leaveOnline(confirmed){
+  if(G&&G.pub.status!=='finished'){
+    if(G.pub.status!=='lobby'&&!confirmed){openModal('leaveModal');return}
+    await api('leave');
+  }
+  unsubscribe();G=null;LS.del('onlineGame');
+  openOnline();
+}
+
+// Reloj: barra de tiempo y aviso al servidor cuando vence un plazo
+function tick(){
+  if(!G)return;
+  const p=G.pub;
+  const bar=document.getElementById('gTimer');
+  if(p.deadline&&bar){
+    const total=p.status==='peek'?12000:p.phase==='snap'?3000:p.status==='round_end'?15000:p.phase==='draw'?25000:20000;
+    const left=Math.max(0,p.deadline-serverNow());
+    const pct=Math.max(0,Math.min(100,left/total*100));
+    bar.firstChild.style.width=pct+'%';
+    bar.classList.toggle('hot',left<4000&&p.phase!=='snap');
+    bar.style.visibility='visible';
+  }else if(bar)bar.style.visibility='hidden';
+  if(p.status==='lobby'&&p.isPublic&&currentScreen()==='screen-lobby'){const el=document.getElementById('lobbyCountdown');if(el&&p.deadline)el.textContent=t('lob.auto',{s:Math.max(0,Math.ceil((p.deadline-serverNow())/1000))})}
+  if(p.status==='round_end'){const el=document.getElementById('nextIn');if(el)el.textContent=t('g.nextIn',{s:Math.max(0,Math.ceil((p.deadline-serverNow())/1000))})}
+  // limpiar flashes caducados
+  let changed=false;const now=Date.now();
+  for(const k in UI.flash)if(UI.flash[k].until<now){delete UI.flash[k];changed=true}
+  for(const k in UI.hl)if(UI.hl[k]<now){delete UI.hl[k];changed=true}
+  if(changed&&currentScreen()==='screen-game')renderGame();
+  // vencimiento de plazo
+  if(p.deadline&&serverNow()>p.deadline+350&&!inFlight){
+    const key=G.version+':'+p.deadline;
+    if(advanceKey!==key){advanceKey=key;inFlight=true;api('advance').finally(()=>{inFlight=false})}
+  }
+}
+
+// ---------- eventos → avisos ----------
+function cardName(c){if(!c)return '';if(c[0]==='X')return 'JOKER';const r=c.slice(0,-1),s=c.slice(-1);return r+({S:'♠',H:'♥',D:'♦',C:'♣'}[s])}
+function processEvents(st){
+  const evs=st.events||[];
+  if(lastEventId===0||evs.length&&evs[0].id>lastEventId+12){lastEventId=evs.length?evs[evs.length-1].id:0;return}
+  const me=myIdx();
+  evs.filter(e=>e.id>lastEventId).forEach(e=>{
+    const n=pname(e.p),until=Date.now()+1800;
+    switch(e.type){
+      case 'keep': if(e.p!==me)toast(t('ev.keep',{n,c:cardName(e.card)}));UI.hl[e.p+'-'+e.s]=until;break;
+      case 'discard': if(e.p!==me)toast(t('ev.discard',{n,c:cardName(e.card)}));break;
+      case 'snap': toast(t('ev.snap',{n,c:cardName(e.card)}),'good');break;
+      case 'snap_fail': toast(t('ev.snapFail',{n,c:cardName(e.card)}),'bad');UI.flash[e.p+'-'+e.s]={card:e.card,until:Date.now()+2200};if(e.p===me)buzz(200);break;
+      case 'talmut': toast(t(e.auto?'ev.talmutAuto':'ev.talmut',{n}),'big',3200);buzz(150);break;
+      case 'look_own': if(e.p!==me){toast(t('ev.lookOwn',{n}));UI.hl[e.p+'-'+e.s]=until}break;
+      case 'look_other': if(e.p!==me){toast(t('ev.lookOther',{n,t:pname(e.t)}));UI.hl[e.t+'-'+e.s]=until}break;
+      case 'swap_blind': if(e.p!==me)toast(t('ev.swap',{n}));UI.hl[e.a.p+'-'+e.a.s]=until;UI.hl[e.b.p+'-'+e.b.s]=until;break;
+      case 'k_swap': if(e.p!==me)toast(t('ev.kswap',{n}));UI.hl[e.a.p+'-'+e.a.s]=until;UI.hl[e.b.p+'-'+e.b.s]=until;break;
+      case 'auto': toast(t('ev.auto',{n}));break;
+      case 'left': toast(t('ev.left',{n}),'bad');break;
+      case 'join': if(e.p!==me)toast(t('ev.join',{n}));break;
+      case 'reshuffle': toast(t('ev.reshuffle'));break;
+    }
+  });
+  if(evs.length)lastEventId=evs[evs.length-1].id;
+}
+
+// ---------- sala de espera ----------
+function renderLobby(){
+  if(!G)return;
+  const p=G.pub,me=myIdx(),isHost=p.players[me]&&p.players[me].uid===p.hostUid;
+  document.getElementById('lobbyTitle').textContent=p.isPublic?t('lob.quick'):t('lob.room');
+  document.getElementById('lobbySub').textContent=t('lob.rounds',{n:p.totalRounds});
+  const max=p.isPublic?4:6;
+  let h='';
+  if(p.isPublic){
+    h+=`<div class="card-box" style="text-align:center;padding:22px"><span class="spinner"></span><p style="margin:12px 0 4px;font-family:'Cinzel',serif;color:var(--cream)">${t('lob.searching')}</p><p class="muted" id="lobbyCountdown" style="margin:0"></p></div>`;
+  }else{
+    h+=`<div class="card-box" style="text-align:center"><p class="muted" style="margin:0">${t('lob.share')}</p><div class="code-big">${esc(G.code)}</div><button class="btn btn-ghost btn-sm" onclick="shareText(t('lob.invite',{c:G.code}))">${t('lob.shareBtn')}</button></div>`;
+  }
+  h+=`<div class="section-label"><span>${t('lob.players',{n:p.players.length,m:max})}</span></div><div style="display:flex;flex-direction:column;gap:8px">`;
+  p.players.forEach((pl,i)=>{h+=`<div class="lobby-player">${avatar(pl.name,34)}<span class="nm">${esc(pl.name)}${i===me?` <span class="muted">(${t('lob.you')})</span>`:''}</span>${pl.uid===p.hostUid?`<span class="tag off">${t('lob.host')}</span>`:''}</div>`});
+  for(let i=p.players.length;i<Math.min(max,p.players.length+1);i++)h+=`<div class="lobby-slot">${t('lob.wait')}</div>`;
+  h+='</div><div class="grow"></div><div style="padding-bottom:calc(env(safe-area-inset-bottom) + 24px);display:flex;flex-direction:column;gap:8px">';
+  if(!p.isPublic){
+    if(isHost)h+=`<button class="btn btn-gold" ${p.players.length<2?'disabled':''} onclick="api('start')">${t('lob.start')}</button>${p.players.length<2?`<p class="muted" style="text-align:center;margin:0">${t('lob.need')}</p>`:''}`;
+    else h+=`<p class="muted" style="text-align:center"><span class="spinner"></span>&nbsp; ${t('lob.waitHost')}</p>`;
+  }
+  h+=`<button class="btn btn-ghost" onclick="leaveOnline()">${t('cancel')}</button></div>`;
+  document.getElementById('lobbyBody').innerHTML=h;
+}
+
+// ---------- cartas ----------
+function cardHtml(card,o){
+  o=o||{};
+  const cls=['pc'];if(o.size)cls.push(o.size);if(card)cls.push('up');if(o.click)cls.push('click');if(o.sel)cls.push('sel');if(o.flash)cls.push('flash');if(o.empty)cls.push('empty');
+  let face='';
+  if(card){
+    if(card[0]==='X'){face=`<div class="face${card==='XR'?' red':''}"><span class="s">★</span><span class="jk">JOKER</span></div>`}
+    else{const r=card.slice(0,-1),s=card.slice(-1),sym={S:'♠',H:'♥',D:'♦',C:'♣'}[s],red=s==='H'||s==='D';face=`<div class="face${red?' red':''}"><span class="c">${r}${sym}</span><span class="r">${r}</span><span class="s">${sym}</span></div>`}
+  }else face='<div class="face"></div>';
+  const on=o.onclick?` onclick="${o.onclick}"`:'';
+  return `<div class="${cls.join(' ')}"${on}>${face}<div class="back"></div></div>`;
+}
+
+// Qué cartas se pueden tocar ahora mismo
+function canTap(pi,s){
+  const p=G.pub,me=myIdx();
+  const has=p.players[pi]&&p.players[pi].slots[s];
+  if(!has||me<0||p.players[me].left)return false;
+  const immune=p.talmut&&p.talmut.by===pi;
+  const oppOk=pi!==me&&!p.players[pi].left&&!immune;
+  if(p.status==='peek')return pi===me&&!p.peekDone[me];
+  if(p.status!=='play')return false;
+  if(p.phase==='decide'&&p.turn===me)return pi===me;
+  if(p.phase==='snap')return pi===me&&(p.snap.owner===null||p.snap.owner===me);
+  if(p.special&&p.special.by===me){
+    if(p.phase==='special'){
+      const ty=p.special.type;
+      if(ty==='10')return pi===me;
+      if(ty==='J'||ty==='K')return oppOk;
+      if(ty==='Q'){if(!(pi===me||oppOk))return false;if(UI.qFirst&&UI.qFirst.p===pi)return UI.qFirst.s===s;return true}
+    }
+    if(p.phase==='special_k2'){const k=p.special.k;return pi!==k.p&&(pi===me||oppOk)}
+  }
+  return false;
+}
+async function tapCard(pi,s){
+  if(!G||!canTap(pi,s)||inFlightAction)return;
+  const p=G.pub,me=myIdx();
+  if(p.status==='peek'){
+    const i=UI.peekSel.indexOf(s);if(i>=0)UI.peekSel.splice(i,1);else UI.peekSel.push(s);
+    renderGame();
+    if(UI.peekSel.length===2){const sel=UI.peekSel.slice();const r=await act('peek',{slots:sel});if(r&&r.priv&&r.priv.cards)r.priv.cards.forEach(c=>{UI.flash[me+'-'+c.s]={card:c.card,until:Date.now()+3500}});UI.peekSel=[];renderGame()}
+    return;
+  }
+  if(p.phase==='decide'){await act('keep',{slot:s});return}
+  if(p.phase==='snap'){const r=await act('snap',{slot:s});if(r&&r.priv&&r.priv.ok===false)buzz(200);return}
+  if(p.phase==='special'){
+    const ty=p.special.type;
+    if(ty==='10'){const r=await act('special',{slot:s});handlePriv(r&&r.priv);return}
+    if(ty==='J'||ty==='K'){const r=await act('special',{p:pi,s});handlePriv(r&&r.priv);return}
+    if(ty==='Q'){
+      if(!UI.qFirst){UI.qFirst={p:pi,s};renderGame();return}
+      if(UI.qFirst.p===pi&&UI.qFirst.s===s){UI.qFirst=null;renderGame();return}
+      if(UI.qFirst.p===pi){UI.qFirst={p:pi,s};renderGame();return}
+      const a=UI.qFirst;UI.qFirst=null;await act('special',{a,b:{p:pi,s}});return;
+    }
+  }
+  if(p.phase==='special_k2'){await act('special',{with:{p:pi,s}});return}
+}
+let inFlightAction=false;
+async function act(action,payload){inFlightAction=true;try{return await api(action,payload)}finally{inFlightAction=false}}
+function handlePriv(pv){
+  if(!pv)return;
+  if(pv.pending)UI.pending=pv.pending;
+  if(pv.look){UI.flash[pv.look.p+'-'+pv.look.s]={card:pv.look.card,until:Date.now()+(G&&G.pub.phase==='special_k2'?20000:3500)}}
+  renderGame();
+}
+async function doDraw(){const r=await act('draw');if(r&&r.priv&&r.priv.card){UI.pending=r.priv.card;renderGame()}}
+async function doDiscard(){UI.pending=null;await act('discard')}
+async function doTalmut(){await act('talmut')}
+async function doSkip(){for(const k in UI.flash)delete UI.flash[k];UI.qFirst=null;await act('skip')}
+
+const POWER_TXT={es:{'10':'mirar una de tus cartas','J':'mirar una carta de un rival','Q':'intercambiar dos cartas a ciegas','K':'mirar una carta de un rival y moverla'},en:{'10':'look at one of your cards','J':'look at an opponent’s card','Q':'blindly swap two cards','K':'look at an opponent’s card and move it'}};
+function rankOfC(c){return c[0]==='X'?'X':c.slice(0,-1)}
+
+// ---------- mesa ----------
+function renderGame(){
+  if(!G||currentScreen()!=='screen-game')return;
+  const p=G.pub,me=myIdx(),meP=p.players[me];
+  document.getElementById('gRound').innerHTML=(p.tiebreak&&p.round>p.baseRounds?t('g.tiebreak'):t('g.round',{r:Math.max(1,p.round),t:p.totalRounds}))+(p.talmut?`<small style="color:#F08A8A">${t('g.talmutOn',{n:pname(p.talmut.by)})}</small>`:`<small>${esc(G.code||'')}</small>`);
+  // rivales (en orden de juego empezando por el siguiente a mí)
+  const n=p.players.length,order=[];
+  for(let k=1;k<n;k++)order.push((Math.max(me,0)+k)%n);
+  const oppEl=document.getElementById('gOpps');
+  oppEl.className='opps n'+Math.min(5,order.length);
+  oppEl.innerHTML=order.map(i=>{
+    const pl=p.players[i],isTurn=p.status==='play'&&p.turn===i,immune=p.talmut&&p.talmut.by===i;
+    const cards=pl.slots.map((has,s)=>{
+      if(!has)return cardHtml(null,{size:'sm',empty:true});
+      const f=UI.flash[i+'-'+s];
+      return cardHtml(f?f.card:null,{size:'sm',click:canTap(i,s),sel:UI.qFirst&&UI.qFirst.p===i&&UI.qFirst.s===s,flash:!!UI.hl[i+'-'+s],onclick:`tapCard(${i},${s})`});
+    }).join('');
+    return `<div class="opp${isTurn?' turn':''}${pl.left?' gone':''}"><div class="who">${avatar(pl.name,18)}<span>${esc(pl.name)}</span></div><div class="pts">${t('g.pts',{n:pl.total})}${immune?` · <span class="shield">${t('g.immune')}</span>`:''}${pl.left?' · '+t('g.left'):''}</div><div class="row">${cards}</div></div>`;
+  }).join('');
+  // centro
+  let piles=`<div class="pile">${p.deckCount>0?cardHtml(null,{}):'<div class="pile-empty"></div>'}<small>${t('g.deck')} · ${p.deckCount}</small></div>`;
+  if(p.phase==='decide'&&p.turn===me&&UI.pending)piles+=`<div class="drawn-wrap">${cardHtml(UI.pending,{size:'lg'})}<small>${t('g.drawn')}</small></div>`;
+  piles+=`<div class="pile">${p.discardTop?cardHtml(p.discardTop,{flash:p.phase==='snap'}):`<div class="pile-empty">${t('g.discard')}</div>`}<small>${t('g.discard')}</small></div>`;
+  document.getElementById('gPiles').innerHTML=piles;
+  // mis cartas
+  document.getElementById('gMeName').innerHTML=meP?`<b>${esc(meP.name)}</b>${p.talmut&&p.talmut.by===me?` · <span class="shield">${t('g.immune')}</span>`:''}`:'';
+  document.getElementById('gMePts').textContent=meP?t('g.pts',{n:meP.total}):'';
+  document.getElementById('gMe').innerHTML=meP?meP.slots.map((has,s)=>{
+    if(!has)return cardHtml(null,{empty:true});
+    const f=UI.flash[me+'-'+s];
+    return cardHtml(f?f.card:null,{click:canTap(me,s),sel:UI.peekSel.includes(s)||(UI.qFirst&&UI.qFirst.p===me&&UI.qFirst.s===s),flash:!!UI.hl[me+'-'+s],onclick:`tapCard(${me},${s})`});
+  }).join(''):'';
+  renderActions();
+  renderOverlay();
+}
+function renderActions(){
+  const p=G.pub,me=myIdx(),el=document.getElementById('gActions'),st=document.getElementById('gStatus');
+  let hint='',btns='',status='';
+  const turnName=pname(p.turn);
+  if(p.status==='peek'){
+    hint=p.peekDone[me]?t('g.peekWait'):t('g.peek');
+  }else if(p.status==='play'){
+    const myTurn=p.turn===me;
+    if(p.phase==='draw'){
+      if(myTurn){hint=t('g.yourTurn');btns=`<button class="btn btn-gold" onclick="doDraw()">${t('g.draw')}</button>${!p.talmut?`<button class="btn btn-talmut" onclick="doTalmut()">${t('g.talmut')}</button>`:''}`}
+      else status=t('g.waitTurn',{n:turnName});
+    }else if(p.phase==='decide'){
+      if(myTurn){
+        hint=t('g.decide');
+        if(UI.pending){const r=rankOfC(UI.pending);if(['10','J','Q','K'].includes(r))hint+='<br><span style="color:var(--gold2)">'+t('g.decideSp',{p:POWER_TXT[LANG][r]})+'</span>'}
+        btns=`<button class="btn btn-ghost" onclick="doDiscard()">${t('g.discardBtn')}</button>`;
+      }else status=t('g.waitDecide',{n:turnName});
+    }else if(p.phase==='special'||p.phase==='special_k2'){
+      const sp=p.special;
+      if(sp.by===me){
+        if(p.phase==='special_k2'){hint=t('g.spK2');btns=`<button class="btn btn-ghost" onclick="doSkip()">${t('g.noSwap')}</button>`}
+        else{hint=sp.type==='Q'?(UI.qFirst?t('g.spQ2'):t('g.spQ1')):t('g.sp'+sp.type);btns=`<button class="btn btn-ghost" onclick="doSkip()">${t('g.noUse')}</button>`}
+      }else status=t('g.waitSpecial',{n:pname(sp.by),c:sp.type});
+    }else if(p.phase==='snap'){
+      const r=p.discardTop?(p.discardTop[0]==='X'?'JOKER':p.discardTop.slice(0,-1)):'';
+      hint=t('g.snap',{r});
+      if(p.snap.actor===me&&!p.talmut)btns=`<button class="btn btn-talmut" onclick="doTalmut()">${t('g.talmut')}</button>`;
+      status=t('g.snapOwn',{r});
+    }
+  }
+  st.innerHTML=status;
+  el.innerHTML=(hint?`<div class="hint">${hint}</div>`:'')+(btns?`<div class="btn-row">${btns}</div>`:'');
+  el.style.display=(hint||btns)?'flex':'none';
+}
+function renderOverlay(){
+  const p=G.pub,ov=document.getElementById('gOverlay'),me=myIdx();
+  if(p.status==='round_end'&&p.reveal){
+    const rv=p.reveal,isHost=p.players[me]&&p.players[me].uid===p.hostUid;
+    const rows=p.players.map((pl,i)=>({pl,i,sc:rv.scores[i]})).sort((a,b)=>a.pl.total-b.pl.total);
+    let h=`<h2 style="margin:0 0 4px;text-align:center;font-family:'Cinzel',serif;color:var(--cream);letter-spacing:2px">${t('g.roundEnd',{r:rv.round})}</h2>`;
+    if(rv.wrong)h+=`<p style="text-align:center;color:#F08A8A;font-size:13px;margin:4px 0 0">${t('g.wrong',{n:pname(rv.declarer)})}</p>`;
+    h+='<div style="margin-top:16px">';
+    p.players.forEach((pl,i)=>{
+      const win=rv.winners.includes(i);
+      h+=`<div class="reveal-row${win?' win':''}"><div class="nm">${win?'🏆 ':''}${esc(pl.name)}${rv.declarer===i?' <span class="shield">T</span>':''}</div><div class="cards">${(rv.hands[i]||[]).filter(c=>c).map(c=>cardHtml(c,{size:'sm'})).join('')||'<span class="muted">—</span>'}</div><div class="sc"><b style="color:${win?'#7EE29A':rv.scores[i]>=50?'#F08A8A':'var(--cream)'}">${rv.scores[i]>0?'+':''}${rv.scores[i]}</b><small>${t('g.pts',{n:pl.total})}</small></div></div>`;
+    });
+    h+=`</div><div class="grow"></div><p id="nextIn" class="muted" style="text-align:center"></p>`;
+    if(isHost)h+=`<button class="btn btn-gold" onclick="api('next')">${p.gameOver?t('g.final'):t('g.next')}</button>`;
+    ov.innerHTML=h;ov.classList.remove('hidden');
+  }else if(p.status==='finished'&&p.standings){
+    const w=p.standings[0];
+    let h=`<div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:10px"><p class="muted" style="letter-spacing:2px;text-transform:uppercase">${t('g.finished')}</p>${avatar(p.players[w.i].name,72)}<h1 style="margin:14px 0 2px;font-family:'Cinzel',serif;font-weight:900;color:var(--gold2);letter-spacing:2px">${esc(p.players[w.i].name)}</h1><p style="margin:0;font-family:'Cinzel',serif;font-size:26px;color:var(--cream)">${w.total} <span class="muted">${t('pts')}</span></p></div><div style="margin-top:22px">`;
+    p.standings.forEach((r,k)=>{const pl=p.players[r.i];h+=`<div class="reveal-row${k===0?' win':''}"><span style="width:20px;font-family:'Cinzel',serif;font-weight:700">${k+1}</span>${avatar(pl.name,26)}<div style="flex:1;font-weight:600">${esc(pl.name)}${r.i===me?' <span class="muted">('+t('lob.you')+')</span>':''}${pl.left?' <span class="muted">· '+t('g.left')+'</span>':''}</div><b style="font-family:'Cinzel',serif">${r.total}</b></div>`});
+    h+=`</div><div class="grow"></div><div style="display:flex;flex-direction:column;gap:8px"><button class="btn btn-gold" onclick="playAgain(${p.isPublic})">${t('g.playAgain')}</button><button class="btn btn-ghost" onclick="leaveOnline(true)">${t('g.backMenu')}</button></div>`;
+    ov.innerHTML=h;ov.classList.remove('hidden');
+    if(!ov.dataset.done){ov.dataset.done='1';if(me===w.i)buzz(300)}
+  }else{ov.classList.add('hidden');ov.dataset.done=''}
+}
+async function playAgain(pub){unsubscribe();G=null;LS.del('onlineGame');lastEventId=0;if(pub)await quickMatch();else await createRoom()}
+function openScoresModal(){
+  if(!G)return;const p=G.pub;
+  const rows=p.players.map((pl,i)=>({pl,i})).sort((a,b)=>a.pl.total-b.pl.total);
+  let h='<div style="margin-top:10px">';
+  rows.forEach(({pl,i},k)=>{h+=`<div style="display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid rgba(255,255,255,.05)"><span style="width:18px;font-family:'Cinzel',serif;color:${k===0?'#D4A83A':'var(--faint)'}">${k+1}</span>${avatar(pl.name,24)}<span style="flex:1;font-weight:600;font-size:13px">${esc(pl.name)}</span><span class="muted" style="font-size:10px">${pl.rounds.join(' · ')}</span><b style="min-width:30px;text-align:right">${pl.total}</b></div>`});
+  document.getElementById('scoresBody').innerHTML=h+'</div>';
+  openModal('scoresModal');
+}
+
+// =====================================================================
+//  ARRANQUE
+// =====================================================================
+applyI18n();
+refreshMenu();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(()=>{})})}
+</script>
+</body>
+</html>
