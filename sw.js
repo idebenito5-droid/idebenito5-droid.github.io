@@ -1,6 +1,6 @@
 // TALMUT — service worker: permite abrir la app sin conexión (marcador, historial, instrucciones).
 // El modo online siempre va a la red.
-const CACHE = 'talmut-v5';
+const CACHE = 'talmut-v6';
 const SHELL = ['./', './index.html', './manifest.json', './privacy.html', './icon-192.png', './icon-256.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {

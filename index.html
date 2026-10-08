@@ -591,7 +591,7 @@ body{background:#070708}
     </button>
   </div>
 
-  <p class="footer-v">v3.0 · SM42</p>
+  <p class="footer-v">v3.1 · SM42</p>
 </div>
 
 <!-- ==================== MARCADOR: CONFIGURACIÓN ==================== -->
@@ -1741,7 +1741,7 @@ async function renderOnlineStats(body){
     if(histTab!=='online')return;
     let h=`<div class="card-box" style="margin-top:14px"><div style="display:flex;align-items:center;gap:12px">${avatar(P.nickname,44)}<div style="flex:1;min-width:0"><b style="font-size:17px;color:var(--cream)">${esc(P.nickname)}</b>${P.is_guest?`<span class="f-tag">${t('st.guestTag')}</span>`:''}</div></div>
       <div class="me-stats"><div><b>${P.games}</b><small>${t('st.games')}</small></div><div><b>${P.wins}</b><small>${t('st.wins')}</small></div><div><b>${pct(P.wins,P.games)}</b><small>${t('st.wp')}</small></div><div><b>${P.rounds_won}</b><small>${t('st.rounds')}</small></div></div></div>`;
-    if(P.is_guest){h+=`<p class="muted" style="text-align:center;margin:14px 0">${t('st.guest')}</p>`;body.innerHTML=h;return}
+    if(P.is_guest)h+=`<p class="muted" style="text-align:center;margin:10px 0 0;font-size:12px">${t('on.guestNote')}</p>`;
     const rows=[me,...FR.mine].map(id=>FR.people[id]).filter(Boolean).sort((a,b)=>b.wins-a.wins||(b.games?b.wins/b.games:0)-(a.games?a.wins/a.games:0)||b.rounds_won-a.rounds_won);
     h+=`<div class="section-label"><span>${t('st.board')}</span></div>`;
     if(rows.length<2)h+=`<div class="empty" style="padding:20px 0">${t('st.noFriends')}</div>`;
@@ -1766,7 +1766,6 @@ async function renderFriends(){
   if(!sb){body.innerHTML=`<div class="empty">${t('on.off.d')}</div>`;return}
   if(!await ensureSession()){needLogin(body,false);return}
   if(!profile)await loadProfile();
-  if(profile&&profile.is_guest){needLogin(body,true);return}
   const tabs=`<div class="tabs" style="margin:12px 0 10px"><button class="${FR.tab==='mine'?'on':''}" onclick="setFrTab('mine')">${t('fr.mine')}</button><button class="${FR.tab==='all'?'on':''}" onclick="setFrTab('all')">${t('fr.all')}</button></div>`;
   if(FR.tab==='all'){
     if(!document.getElementById('frSearch')){
@@ -1790,7 +1789,7 @@ async function renderFriends(){
 async function searchPeople(){
   const el=document.getElementById('frList');if(!el)return;
   const q=(FR.q||'').trim().replace(/[%_,()]/g,'');
-  let qb=sb.from('profiles').select('id,nickname,games,wins,rounds_won,is_guest').eq('is_guest',false).neq('id',session.user.id);
+  let qb=sb.from('profiles').select('id,nickname,games,wins,rounds_won,is_guest').neq('id',session.user.id);
   if(q)qb=qb.ilike('nickname','%'+q+'%');
   const{data,error}=await qb.order('games',{ascending:false}).order('created_at',{ascending:false}).limit(60);
   if(error){el.innerHTML=`<div class="empty">${t('err.net')}</div>`;return}
