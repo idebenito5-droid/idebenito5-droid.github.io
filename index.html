@@ -1039,7 +1039,7 @@ body[data-back=poker] .pc .back::after,body[data-back=real] .pc .back::after,bod
 </head>
 <body>
 <div id="intro" onclick="endIntro()" aria-label="SM42 Developer Studio"><div class="tapgo" data-t="intro.tap">Toca para empezar</div><div class="flash"></div><div class="stage"><div class="word"><span>S</span><span>M</span><span>4</span><span>2</span></div><div class="sub">DEVELOPER STUDIO</div></div></div>
-<div id="splash7" class="hidden" onclick="enterGame()"><div class="s7-bg"></div><div class="s7-vign"></div><div class="s7-mid"><div class="s7-w"><span class="s7-gold">TALMUT</span></div><div class="s7-tag">HIC LUDUS ERROREM PUNIT</div></div><div class="s7-press">PULSA PARA ENTRAR</div></div>
+<div id="splash7" class="hidden" onclick="enterSplash7()"><div class="s7-bg"></div><div class="s7-vign"></div><div class="s7-mid"><div class="s7-w"><span class="s7-gold">TALMUT</span></div><div class="s7-tag">HIC LUDUS ERROREM PUNIT</div></div><div class="s7-press">PULSA PARA ENTRAR</div></div>
 
 
 <div class="toast-wrap" id="toasts"></div>
@@ -4579,7 +4579,7 @@ SFX.chest=function(){
 // la intro SM42 de siempre y, al acabar, la portada
 function showSplash(){const s=document.getElementById('splash7');if(s)s.classList.remove('hidden')}
 function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;showSplash();el.classList.add('out');setTimeout(()=>el.remove(),600)}
-function enterGame(){
+function enterSplash7(){
   const s=document.getElementById('splash7');if(!s||s.dataset.done)return;s.dataset.done=1;
   const c=sndInit();const go=()=>{try{play('chest')}catch(e){}};
   if(c&&c.state!=='running')c.resume().then(go).catch(()=>{});else go();
