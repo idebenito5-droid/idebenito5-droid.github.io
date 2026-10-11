@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TALMUT · Boceto v6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+  <div class="scene-bg bg-castle" id="bg"></div>
+  <div class="crows" id="crows"></div>
+  <canvas class="embers" id="embers"></canvas>
+  <div class="vign"></div>
+  <div class="grain"></div>
+
+  <!-- ============ 0 · SPLASH ============ -->
+  <section class="screen splash on" id="s-splash" data-name="Inicio" onclick="go('menu');caw()">
+    <div class="crest"></div>
+    <div class="w"><span class="gold-text sweep" data-t="TALMUT">TALMUT</span></div>
+    <div class="tag">HIC LUDUS ERROREM PUNIT</div>
+    <div class="press">PULSA PARA ENTRAR</div>
+  </section>
+
+  <!-- ============ 1 · MENÚ ============ -->
+  <section class="screen" id="s-menu" data-name="Menú principal">
+    <div class="topbar">
+      <button class="prof frame ch shine slow" onclick="go('profile')">
+        <span class="fr"></span>
+        <span class="medal" style="background-image:url(img/lv2.webp)"></span>
+        <span class="pinfo">
+          <span class="nm">Nacho<span class="chip">SOLDADO MALTÉS</span></span>
+          <span class="xp"><span class="bar"><b style="width:58%"></b></span><small>35 / 60</small></span>
+        </span>
+      </button>
+      <div class="logo"><div class="w"><span class="gold-text sweep" data-t="TALMUT">TALMUT</span></div><div class="sub">EST · MMXXV</div></div>
+      <div class="tr-icons">
+        <button class="iconbtn ch" onclick="toggleSound(this)" aria-label="Sonido"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></button>
+        <button class="iconbtn ch" onclick="toast('Ajustes')" aria-label="Ajustes"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></button>
+      </div>
+    </div>
+
+    <div class="caps" id="caps">
+      <button class="cap c1" onclick="go('online')" style="--i:0">
+        <div class="brk"><i></i><i></i><i></i><i></i></div>
+        <div class="card shine d1"><div class="art"></div><div class="tint"></div><div class="edge"></div></div>
+        <span class="tag"><i></i>EN LÍNEA</span><span class="badge">128 JUGANDO</span>
+        <div class="txt"><div class="t">ONLINE</div><div class="s">Partida rápida o sala privada con tus amigos.</div><div class="rule"></div></div>
+        <div class="go"><span>JUGAR ›</span></div>
+      </button>
+      <button class="cap c2" onclick="go('arcade')" style="--i:1">
+        <div class="brk"><i></i><i></i><i></i><i></i></div>
+        <div class="card shine d2"><div class="art"></div><div class="tint"></div><div class="edge"></div></div>
+        <span class="tag"><i></i>SIN CONEXIÓN</span>
+        <div class="txt"><div class="t">ARCADE</div><div class="s">Contra la máquina. Tres rivales, tres niveles.</div><div class="rule"></div></div>
+        <div class="go"><span>JUGAR ›</span></div>
+      </button>
+      <button class="cap c3" onclick="go('local')" style="--i:2">
+        <div class="brk"><i></i><i></i><i></i><i></i></div>
+        <div class="card shine d3"><div class="art"></div><div class="tint"></div><div class="edge"></div></div>
+        <span class="tag"><i></i>EN LA MESA</span>
+        <div class="txt"><div class="t">LOCAL</div><div class="s">Tabla para jugar con baraja real.</div><div class="rule"></div></div>
+        <div class="go"><span>ABRIR TABLA ›</span></div>
+      </button>
+      <button class="cap c4" onclick="go('tutorial')" style="--i:3">
+        <div class="brk"><i></i><i></i><i></i><i></i></div>
+        <div class="card shine"><div class="art"></div><div class="tint"></div><div class="edge"></div></div>
+        <span class="tag"><i></i>3 MINUTOS</span>
+        <div class="txt"><div class="t">APRENDE</div><div class="s">Con Juanjo, el Cuervo.</div><div class="rule"></div></div>
+        <div class="go"><span>EMPEZAR ›</span></div>
+      </button>
+    </div>
+
+    <div class="ticker frame ch"><span class="fr"></span><span class="av"></span><b>Juanjo, el Cuervo</b><span id="tick">Te faltan 8 chapitas para As del Talmutaje. ¿Una partidita?</span></div>
+
+    <nav class="nav">
+      <button onclick="go('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5"/></svg><span>Perfil</span></button>
+      <button onclick="go('badges')"><svg viewBox="0 0 24 24"><path d="M12 2l8 4.5v9L12 22l-8-6.5v-9z"/><path d="M12 8l1.4 2.8 3 .4-2.2 2.1.5 3L12 14.9 9.3 16.3l.5-3-2.2-2.1 3-.4z"/></svg><span>Chapitas</span><em class="dot">3</em></button>
+      <button onclick="toast('Amigos')"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.6 3.2-5.8 6.5-5.8s6 2.2 6.5 5.8"/><path d="M19 8v6M16 11h6"/></svg><span>Amigos</span></button>
+      <button onclick="go('profile')"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg><span>Estadísticas</span></button>
+      <button onclick="toast('Reglas')"><svg viewBox="0 0 24 24"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6"/><path d="M6 3a2 2 0 0 0 0 4h2M6 21a2 2 0 0 1 0-4h2V7"/><path d="M11 9h5M11 13h4"/></svg><span>Reglas</span></button>
+    </nav>
+    <span class="ver">v6 · BOCETO · SM42</span>
+  </section>
+
+  <!-- ============ 2 · ONLINE ============ -->
+  <section class="screen" id="s-online" data-name="Online · salas">
+    <div class="shead"><button class="back ch" onclick="go('menu')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div><div class="crumb">MODO DE JUEGO</div><h2 class="gold-text">ONLINE</h2></div><div class="sp"></div></div>
+    <div class="hline"></div>
+    <div class="body">
+      <div class="on-grid">
+        <button class="quick ch shine" onclick="go('game')">
+          <div class="art"></div><div class="tint"></div>
+          <div class="txt">
+            <span class="eyebrow" style="color:var(--teal)">● PARTIDA RÁPIDA</span>
+            <h3>Busca mesa</h3>
+            <p>Te sentamos con jugadores de tu nivel en segundos. Cuatro sillas, una baraja, un cuervo mirando.</p>
+            <div class="live"><span><b>128</b>JUGANDO</span><span><b>~12 s</b>ESPERA</span></div>
+            <span class="btn btn-gold ch">BUSCAR PARTIDA <span class="arr">›</span></span>
+          </div>
+        </button>
+        <div class="side">
+          <div class="pnl frame ch"><span class="fr"></span>
+            <h4>Unirse con código</h4><p>Te lo pasa quien creó la sala.</p>
+            <div class="code"><input maxlength="1" value="K"><input maxlength="1" value="7"><input maxlength="1"><input maxlength="1"><button class="btn btn-ghost ch" style="height:62px;margin-left:6px" onclick="toast('Entrando en la sala…')">ENTRAR</button></div>
+          </div>
+          <div class="pnl frame ch shine slow"><span class="fr"></span>
+            <div class="room-code"><div><div class="eyebrow">TU SALA</div><div class="big gold-text">K7QX</div></div><div class="sp" style="flex:1"></div><button class="iconbtn ch" onclick="toast('Código copiado')"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="1"/><path d="M4 16V5a1 1 0 0 1 1-1h11"/></svg></button></div>
+            <div class="slots">
+              <div class="slot host ready"><span class="av" style="background-image:url(img/lv2.webp)"></span><b>Nacho</b></div>
+              <div class="slot ready"><span class="av" style="background-image:url(img/lv3.webp)"></span><b>Lucía</b></div>
+              <div class="slot"><span class="av" style="background-image:url(img/lv1.webp)"></span><b>Pablo</b></div>
+              <div class="slot empty">ESPERANDO</div><div class="slot empty">LIBRE</div><div class="slot empty">LIBRE</div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:14px"><button class="btn btn-ghost ch" style="flex:1" onclick="toast('Invitación copiada')">INVITAR</button><button class="btn btn-gold ch" style="flex:1.4" onclick="go('game')">EMPEZAR <span class="arr">›</span></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · ARCADE ============ -->
+  <section class="screen" id="s-arcade" data-name="Arcade · rivales">
+    <div class="shead"><button class="back ch" onclick="go('menu')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div><div class="crumb">CONTRA LA MÁQUINA</div><h2 class="gold-text">ARCADE</h2></div></div>
+    <div class="hline"></div>
+    <div class="body">
+      <div class="rivals" id="rivals">
+        <button class="rv r1 ch" onclick="pickRv(this)"><div class="in"><div class="art"></div><div class="tint"></div></div><span class="bd ch"></span>
+          <span class="emb ch"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span>
+          <div class="txt"><div class="lvl">FÁCIL</div><h3>Escudero</h3><p>Olvida cartas y canta TALMUT tarde. Para calentar.</p><div class="pips"><i class="on"></i><i></i><i></i></div></div></button>
+        <button class="rv r2 ch sel" onclick="pickRv(this)"><div class="in"><div class="art"></div><div class="tint"></div></div><span class="bd ch"></span>
+          <span class="emb ch"><svg viewBox="0 0 24 24"><path d="M5 19L19 5M15 5h4v4M5 5l14 14M5 15v4h4"/></svg></span>
+          <div class="txt"><div class="lvl">NORMAL</div><h3>Caballero</h3><p>Recuerda lo que ve y descarta rápido si puede.</p><div class="pips"><i class="on"></i><i class="on"></i><i></i></div></div></button>
+        <button class="rv r3 ch" onclick="pickRv(this)"><div class="in"><div class="art"></div><div class="tint"></div></div><span class="bd ch"></span>
+          <span class="emb ch"><svg viewBox="0 0 24 24"><path d="M12 2c2 4 6 5 6 10a6 6 0 0 1-12 0c0-3 2-4 2-7 2 1 3 3 3 5 1-2 1-5 1-8z"/></svg></span>
+          <div class="txt"><div class="lvl">DIFÍCIL</div><h3>Señor de la Guerra</h3><p>Memoria de hierro. No perdona un descarte.</p><div class="pips"><i class="on"></i><i class="on"></i><i class="on"></i></div></div></button>
+      </div>
+      <div class="opts">
+        <div class="opt"><label>Rivales</label><div class="seg" data-seg><button class="ch">1</button><button class="ch">2</button><button class="ch on">3</button><button class="ch">4</button><button class="ch">5</button></div></div>
+        <div class="opt"><label>Ritmo</label><div class="seg" data-seg><button class="ch">Tranquilo</button><button class="ch on">Normal</button><button class="ch">Rápido</button></div></div>
+      </div>
+      <div class="foot-cta"><button class="btn btn-gold ch shine" style="min-width:260px;height:56px;font-size:17px" onclick="go('game')">A LA MESA <span class="arr">›</span></button></div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · LOCAL ============ -->
+  <section class="screen" id="s-local" data-name="Local · tabla">
+    <div class="shead"><button class="back ch" onclick="go('menu')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div><div class="crumb">BARAJA REAL</div><h2 class="gold-text">LOCAL</h2></div><div class="sp"></div><button class="btn btn-gold ch" onclick="toast('Ronda añadida')">+ RONDA</button></div>
+    <div class="hline"></div>
+    <div class="body">
+      <div class="scorer frame ch"><span class="fr"></span>
+        <table class="sc-table">
+          <thead><tr><th>JUGADOR</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th><th>R5</th><th>TOTAL</th></tr></thead>
+          <tbody>
+            <tr class="lead"><td>Nacho</td><td>4</td><td class="t">2</td><td>12</td><td>0</td><td>7</td><td class="tot">25</td></tr>
+            <tr><td>Lucía</td><td>9</td><td>21</td><td class="t">3</td><td>5</td><td>11</td><td class="tot">49</td></tr>
+            <tr><td>Pablo</td><td>15</td><td>8</td><td>40</td><td class="t">1</td><td>6</td><td class="tot">70</td></tr>
+            <tr><td>Marta</td><td>30</td><td>12</td><td>6</td><td>22</td><td class="t">5</td><td class="tot">75</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:14px"><button class="btn btn-ghost ch" onclick="toast('Deshecho')">DESHACER</button><button class="btn btn-crim ch" onclick="go('review')">CERRAR PARTIDA</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · MESA ============ -->
+  <section class="screen" id="s-game" data-name="Mesa de juego">
+    <div class="table-ui" id="tableUI">
+      <div>
+        <div class="hud">
+          <button class="iconbtn ch" onclick="go('menu')" aria-label="Salir"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="round frame ch"><span class="fr"></span>RONDA<b>3</b> · TU TURNO</div>
+          <button class="iconbtn ch" onclick="go('review')" aria-label="Marcador"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg></button>
+        </div>
+        <div class="opps" id="opps"></div>
+      </div>
+      <div class="center">
+        <div class="pile"><div class="stack deck-btn" id="deck" onclick="drawCard()"><div class="cd back"></div><div class="cd back"></div><div class="cd back"></div></div><span class="lbl">MAZO</span><span class="count">31 CARTAS</span></div>
+        <div class="pile"><div class="stack" id="discard"></div><span class="lbl">DESCARTE</span><span class="count">ÚLTIMA: 7♥</span></div>
+      </div>
+      <div class="me">
+        <div class="pl frame ch turn" style="align-self:center"><span class="fr"></span><span class="ring"><span class="av" style="background-image:url(img/lv2.webp)"></span><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" stroke="rgba(255,255,255,.12)"/><circle id="myTimer" cx="22" cy="22" r="20" stroke="#FFE6A1" stroke-dasharray="125.6" stroke-dashoffset="30"/></svg></span><span class="nm">Nacho<small>TU TURNO · 18 s</small></span></div>
+        <div class="hand" id="myHand"></div>
+        <button class="talmut-btn" onclick="talmut()"><span>TALMUT<small>≤ 5 PUNTOS</small></span></button>
+      </div>
+    </div>
+    <div class="drawn" id="drawn">
+      <div class="eyebrow">HAS ROBADO</div>
+      <div id="drawnCard"></div>
+      <div class="pw frame ch"><span class="fr"></span><b>REINA · 30</b> &nbsp;Poder: mira una carta tuya y otra de un rival.</div>
+      <div class="acts"><button class="btn btn-gold ch" onclick="swapMode()">CAMBIAR POR UNA MÍA</button><button class="btn btn-ghost ch" onclick="closeDrawn()">DESCARTAR</button><button class="btn btn-crim ch" onclick="closeDrawn();toast('Poder de la Reina activado')">USAR PODER</button></div>
+    </div>
+    <div class="epic" id="epic">
+      <div class="rays"></div>
+      <svg class="wings" viewBox="0 0 1000 420" aria-hidden="true"><defs><linearGradient id="wg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1a0a0d"/><stop offset="1" stop-color="#000"/></linearGradient></defs>
+        <path fill="url(#wg)" d="M500 250 C440 200 380 120 250 60 C170 24 80 18 0 40 C70 60 120 80 150 110 C90 108 40 122 0 150 C80 150 130 160 170 185 C110 195 70 215 40 245 C120 232 190 236 250 255 C210 275 180 300 165 330 C240 300 320 290 400 300 C440 305 480 290 500 270Z"/>
+        <path fill="url(#wg)" transform="matrix(-1 0 0 1 1000 0)" d="M500 250 C440 200 380 120 250 60 C170 24 80 18 0 40 C70 60 120 80 150 110 C90 108 40 122 0 150 C80 150 130 160 170 185 C110 195 70 215 40 245 C120 232 190 236 250 255 C210 275 180 300 165 330 C240 300 320 290 400 300 C440 305 480 290 500 270Z"/>
+      </svg>
+      <div class="word"><span class="gold-text">¡TALMUT!</span></div>
+      <div class="who">NACHO CANTA · ÚLTIMA VUELTA</div>
+      <button class="btn btn-gold ch" onclick="go('review')">VER RONDA <span class="arr">›</span></button>
+    </div>
+  </section>
+
+  <!-- ============ 6 · FIN DE RONDA ============ -->
+  <section class="screen" id="s-review" data-name="Fin de ronda">
+    <div class="shead"><button class="back ch" onclick="go('game')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div><div class="crumb">RONDA 3 · RESULTADO</div><h2 class="gold-text">FIN DE RONDA</h2></div><div class="sp"></div><button class="btn btn-gold ch shine" onclick="go('game')">SIGUIENTE RONDA <span class="arr">›</span></button></div>
+    <div class="hline"></div>
+    <div class="body"><div class="review" id="review"></div></div>
+  </section>
+
+  <!-- ============ 7 · PERFIL ============ -->
+  <section class="screen" id="s-profile" data-name="Perfil">
+    <div class="shead"><button class="back ch" onclick="go('menu')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div><div class="crumb">TU CUERVO</div><h2 class="gold-text">PERFIL</h2></div><div class="sp"></div><button class="btn btn-ghost ch" onclick="go('levelup')">VER SUBIDA DE NIVEL</button></div>
+    <div class="tabs"><button class="on">Perfil</button><button onclick="toast('Estilo: marcos, dorsos y colores')">Estilo</button><button onclick="go('badges')">Chapitas</button></div>
+    <div class="hline" style="margin-top:0"></div>
+    <div class="body">
+      <div class="prof-grid">
+        <div class="hero frame ch"><span class="fr"></span>
+          <div class="big-medal"><div class="m"></div></div>
+          <h3>Nacho</h3><div class="lvname">SOLDADO MALTÉS</div>
+          <div class="xp"><span class="bar"><b style="width:58%"></b></span><small>35 / 60</small></div>
+          <div style="font-size:12px;color:var(--mute);margin-top:6px">8 chapitas más para <b style="color:var(--gold2)">As del Talmutaje</b></div>
+          <div class="path" id="path"></div>
+        </div>
+        <div>
+          <div class="stats">
+            <div class="stat frame ch"><span class="fr"></span><small>Partidas</small><b>142</b><em>+6 esta semana</em></div>
+            <div class="stat frame ch"><span class="fr"></span><small>Victorias</small><b>61</b><em>43 %</em></div>
+            <div class="stat frame ch"><span class="fr"></span><small>TALMUT cantados</small><b>87</b><em>79 % acertados</em></div>
+            <div class="stat frame ch"><span class="fr"></span><small>Mejor ronda</small><b>−1</b><em>con el comodín</em></div>
+          </div>
+          <div class="split">
+            <div class="pnl frame ch" style="--acc:#3FE0CF"><span class="fr"></span><h4><i></i>Online</h4>
+              <div class="kv"><span>Partidas</span><b>88</b><span>Victorias</span><b>36</b><span>Racha máxima</span><b>5</b></div><div class="wr"><b style="width:41%"></b></div></div>
+            <div class="pnl frame ch m" style="--acc:#FF8A3D"><span class="fr"></span><h4><i></i>Contra la máquina</h4>
+              <div class="kv"><span>Partidas</span><b>54</b><span>Victorias</span><b>25</b><span>Nivel favorito</span><b>Caballero</b></div><div class="wr"><b style="width:46%"></b></div></div>
+          </div>
+          <div class="pnl frame ch recent"><span class="fr"></span><h4>Últimas chapitas</h4><p>Pulsa para verlas todas</p><div class="ach-row" id="recent"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8 · CHAPITAS ============ -->
+  <section class="screen" id="s-badges" data-name="Chapitas">
+    <div class="shead"><button class="back ch" onclick="go('menu')"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div><div class="crumb">COLECCIÓN</div><h2 class="gold-text">CHAPITAS</h2></div></div>
+    <div class="tabs"><button onclick="go('profile')">Perfil</button><button onclick="toast('Estilo')">Estilo</button><button class="on">Chapitas</button></div>
+    <div class="hline" style="margin-top:0"></div>
+    <div class="body">
+      <div class="ach-head">
+        <div class="prog"><b>35</b><span style="color:var(--mute)">DE 60 CONSEGUIDAS</span><span class="xp" style="margin:0"><span class="bar" style="width:220px;height:7px"><b style="width:58%"></b></span></span></div>
+        <div class="seg" data-seg><button class="ch on">Todas</button><button class="ch">Conseguidas</button><button class="ch">Pendientes</button></div>
+      </div>
+      <div class="ach-grid" id="achGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · TUTORIAL ============ -->
+  <section class="screen" id="s-tutorial" data-name="Aprende con Juanjo">
+    <div class="table-ui" style="pointer-events:none">
+      <div><div class="hud"><span></span><div class="round frame ch"><span class="fr"></span>APRENDE<b id="tutN">1/7</b></div><span></span></div><div class="opps" id="tOpps"></div></div>
+      <div class="center"><div class="pile"><div class="stack"><div class="cd back"></div><div class="cd back"></div><div class="cd back"></div></div><span class="lbl">MAZO</span></div><div class="pile"><div class="stack" id="tDiscard"></div><span class="lbl">DESCARTE</span></div></div>
+      <div class="me"><div class="hand" id="tHand"></div></div>
+    </div>
+    <div class="dim" id="dim"></div>
+    <div class="coach">
+      <div class="jj"></div>
+      <div class="box frame ch shine slow"><span class="fr"></span><span class="nameplate">JUANJO, EL CUERVO</span>
+        <p id="coachTxt"></p>
+        <div class="row"><div class="steps" id="steps"></div><div style="display:flex;gap:8px"><button class="btn btn-ghost ch" style="height:40px" onclick="go('menu')">SALIR</button><button class="btn btn-gold ch" style="height:40px" onclick="tutNext()">SIGUIENTE ›</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10 · SUBIDA DE NIVEL ============ -->
+  <section class="screen" id="s-levelup" data-name="Subida de nivel">
+    <div class="lvup">
+      <div class="rays"></div>
+      <div class="eyebrow">¡SUBES DE NIVEL!</div>
+      <div class="medal-xl"></div>
+      <h2 class="gold-text">Soldado Maltés</h2>
+      <div class="q"><b>JUANJO, EL CUERVO</b><br>“La Orden te reconoce. Ahora, a por el As.”</div>
+      <button class="btn btn-gold ch shine" onclick="go('menu')">¡A POR MÁS! <span class="arr">›</span></button>
+    </div>
+  </section>
+
+  <div class="dock" id="dock"><button class="ch" onclick="this.parentNode.classList.toggle('open')">☰ PANTALLAS</button><div class="list ch" id="dockList"></div></div>
+  <div class="toast" id="toast"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
