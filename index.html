@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Talmut">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter+Tight:wght@400;500;600;700;800;900&family=Saira:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@900&family=IM+Fell+English+SC&family=Inter+Tight:wght@400;500;600;700;800;900&family=Saira:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
@@ -285,7 +285,7 @@ button{font-family:inherit;color:inherit}
   body{background:var(--navy2)}
   .screen{max-width:100%}
 }
-@media (min-width:1100px),(orientation:landscape) and (min-width:800px){
+@media (min-width:1100px) and (min-height:600px),(orientation:landscape) and (min-width:800px) and (min-height:600px){
   body{background:#040C17;display:flex;justify-content:center;align-items:center;min-height:100dvh;padding:24px 0}
   .screen{max-width:480px;border-radius:26px;overflow:hidden}
   .screen.active{min-height:min(calc(100dvh - 48px),920px);box-shadow:0 24px 80px rgba(0,0,0,.85),0 0 0 1px rgba(184,134,11,.12)}
@@ -732,6 +732,127 @@ body[data-face=four] .pc .face.su-C{color:#1E8C4E}
 #screen-profile .pc.pv-face-dark .face.red{color:#FF5A63}
 #screen-profile .pc.pv-face-four .face.su-D{color:#2D6CDF}
 #screen-profile .pc.pv-face-four .face.su-C{color:#1E8C4E}
+
+/* =================== v5: tema cuervo · medieval moderno =================== */
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes spinAng{to{--ang:360deg}}
+:root{--gold:#B8860B;--goldL:#FFE7A8;--goldM:#E3BC55;--parch1:#F1E4C3;--parch2:#D9C495;--wine:#6A0A10;--fm:'IM Fell English SC',Georgia,serif}
+/* borde con brillo que recorre el contorno */
+.shine{position:relative;isolation:isolate}
+.shine::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:2.5px;pointer-events:none;z-index:3;
+  background:conic-gradient(from var(--ang),transparent 0deg,transparent 250deg,rgba(255,231,168,.3) 280deg,#FFFBEA 316deg,#FFE7A8 328deg,rgba(255,231,168,.25) 348deg,transparent 360deg),linear-gradient(160deg,#E3BC55,#7A5A2A 42%,#C9A04A 68%,#4A3010);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spinAng 4.5s linear infinite}
+.shine.slow::before{animation-duration:7s}
+.shine.delay1::before{animation-delay:-1.1s}.shine.delay2::before{animation-delay:-2.3s}.shine.delay3::before{animation-delay:-3.4s}
+
+/* ---------- MENÚ ---------- */
+#screen-menu.active{display:flex!important;flex-direction:column;align-items:stretch!important;max-width:none!important;padding:calc(env(safe-area-inset-top) + 8px) calc(env(safe-area-inset-right) + 14px) 0 calc(env(safe-area-inset-left) + 14px)!important;min-height:100dvh;height:100dvh;box-sizing:border-box;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 55% 60% at 50% 46%,rgba(255,160,70,.16),transparent 70%),radial-gradient(ellipse 80% 60% at 50% 110%,rgba(200,32,42,.22),transparent 60%),linear-gradient(180deg,#2A1E18 0%,#16100D 55%,#0A0706 100%)}
+#screen-menu .m-bg{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#screen-menu .m-bg::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 36px),repeating-linear-gradient(90deg,rgba(0,0,0,.1) 0 1px,transparent 1px 72px);opacity:.7}
+#screen-menu .m-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 40%,rgba(0,0,0,.75) 100%)}
+.m-glow{position:absolute;border-radius:50%;filter:blur(40px);opacity:.55;mix-blend-mode:screen}
+.m-glow.g1{width:340px;height:220px;left:8%;top:18%;background:radial-gradient(circle,rgba(232,52,62,.55),transparent 70%);animation:drift1 14s ease-in-out infinite alternate}
+.m-glow.g2{width:380px;height:240px;right:6%;top:28%;background:radial-gradient(circle,rgba(227,188,85,.45),transparent 70%);animation:drift2 17s ease-in-out infinite alternate}
+.m-glow.g3{width:300px;height:200px;left:38%;bottom:-6%;background:radial-gradient(circle,rgba(123,79,168,.4),transparent 70%);animation:drift1 19s ease-in-out infinite alternate-reverse}
+@keyframes drift1{to{transform:translate(60px,30px) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-70px,-20px) scale(.9)}}
+.m-dust{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFE7A8;box-shadow:0 0 6px #FFE7A8;opacity:0;animation:dust 7s linear infinite}
+@keyframes dust{0%{opacity:0;transform:translateY(0)}15%{opacity:.8}85%{opacity:.5}100%{opacity:0;transform:translateY(-120px)}}
+.m-crow{position:absolute;left:0;top:0;will-change:transform}
+.m-crow svg{display:block;animation:flap .5s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.38)}}
+@keyframes crowR{from{transform:translate(-90px,var(--y0))}to{transform:translate(calc(100vw + 90px),var(--y1))}}
+@keyframes crowL{from{transform:translate(calc(100vw + 90px),var(--y0)) scaleX(-1)}to{transform:translate(-90px,var(--y1)) scaleX(-1)}}
+#screen-menu:not(.active) .m-crow,#screen-menu:not(.active) .m-glow{animation-play-state:paused}
+
+.m-top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.m-prof{all:unset;position:relative;cursor:pointer;display:flex;align-items:center;gap:10px;padding:4px 14px 4px 4px;border-radius:999px;background:linear-gradient(135deg,rgba(0,0,0,.6),rgba(40,20,10,.5));min-height:44px;max-width:44vw}
+.lvimg{display:block;flex-shrink:0;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#5A3E1A,#1A0F05);background-image:url(niveles.jpg);background-size:500% 100%;background-repeat:no-repeat;box-shadow:0 0 0 2px #E3BC55,0 0 12px rgba(227,188,85,.45)}
+.lvimg[data-l="0"]{background-position:0% 0}.lvimg[data-l="1"]{background-position:25% 0}.lvimg[data-l="2"]{background-position:50% 0}.lvimg[data-l="3"]{background-position:75% 0}.lvimg[data-l="4"]{background-position:100% 0}
+.m-pinfo{display:flex;flex-direction:column;gap:4px;min-width:0}
+.m-row{display:flex;align-items:center;gap:7px;min-width:0}
+.m-row b{font-size:14px;font-weight:800;color:#F3E6C8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lvchip{font-family:'Cinzel',serif;font-size:9px;font-weight:900;letter-spacing:1px;padding:2px 8px;border-radius:3px;background:linear-gradient(135deg,#FFE7A8,#E3BC55 40%,#9A7209);color:#1A0F05;white-space:nowrap;box-shadow:0 0 10px rgba(227,188,85,.35)}
+.m-bar{display:block;width:96px;height:5px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
+.m-bar i{display:block;height:100%;background:linear-gradient(90deg,#B8860B,#FFE7A8);box-shadow:0 0 8px #E3BC55}
+.m-row small{font-size:10px;color:rgba(243,230,200,.75);white-space:nowrap}
+.m-logo{display:flex;align-items:center;gap:9px}
+.m-t{width:40px;height:46px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#5A0D14,#1A0709);border-radius:6px 6px 22px 22px;box-shadow:0 6px 18px rgba(0,0,0,.6),0 0 22px rgba(232,52,62,.35);font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;font-size:27px;color:#FFE7A8;text-shadow:0 0 12px rgba(255,231,168,.6)}
+.m-logo span{font-family:'Cinzel',serif;font-weight:900;font-size:20px;letter-spacing:5px;color:#F3E6C8;text-shadow:0 2px 18px rgba(232,52,62,.45)}
+.m-icons{display:flex;gap:8px}
+.m-icons .iconbtn{width:42px;height:42px;border-radius:10px;background:rgba(0,0,0,.5)}
+.m-cont{all:unset;cursor:pointer;position:relative;z-index:2;align-self:center;margin-top:6px;display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(30,70,45,.55);border:1px solid rgba(107,191,122,.5);font-size:12px;color:#CFF5D8;max-width:90%}
+.m-cont small{color:rgba(207,245,216,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-caps{position:relative;z-index:2;flex:1;min-height:0;display:flex;justify-content:center;align-items:center;gap:clamp(10px,2.4vw,24px);padding:6px 0}
+.cap{all:unset;box-sizing:border-box;cursor:pointer;position:relative;width:clamp(112px,17vw,150px);height:clamp(150px,calc(100dvh - 182px),250px);border-radius:16px;padding:3px;transition:transform .18s cubic-bezier(.3,1.4,.5,1),filter .2s;-webkit-tap-highlight-color:transparent}
+.cap:active{transform:scale(.95)}
+.cap:hover{transform:translateY(-4px)}
+.cap-in{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;height:100%;box-sizing:border-box;padding:0 6px 14px;border-radius:13px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.55),inset 0 -40px 50px rgba(0,0,0,.55),0 14px 30px rgba(0,0,0,.6)}
+.cap-in::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 55% at 50% 0%,rgba(255,255,255,.28),transparent 60%);pointer-events:none}
+.cap-in::after{content:'';position:absolute;top:-30%;left:-80%;width:50%;height:160%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent);transform:rotate(14deg);animation:sheen 5.5s ease-in-out infinite;pointer-events:none}
+.cap:nth-child(2) .cap-in::after{animation-delay:1.3s}.cap:nth-child(3) .cap-in::after{animation-delay:2.6s}.cap:nth-child(4) .cap-in::after{animation-delay:3.9s}
+@keyframes sheen{0%,60%{left:-80%}85%,100%{left:140%}}
+.cap-art{position:absolute;top:12%;left:50%;transform:translateX(-50%);width:84%;filter:drop-shadow(0 8px 14px rgba(0,0,0,.55));animation:float 4s ease-in-out infinite}
+.cap:nth-child(2) .cap-art{animation-delay:-1s}.cap:nth-child(3) .cap-art{animation-delay:-2s}.cap:nth-child(4) .cap-art{animation-delay:-3s}
+@keyframes float{50%{transform:translate(-50%,-5px)}}
+.cap-tag{position:absolute;top:9px;left:50%;transform:translateX(-50%);font-size:8.5px;font-weight:800;letter-spacing:1.2px;padding:3px 8px;border-radius:3px;background:rgba(0,0,0,.55);border:1px solid rgba(227,188,85,.45);white-space:nowrap;z-index:2}
+.cap-t{position:relative;z-index:2;font-family:'Cinzel',serif;font-weight:900;font-size:clamp(17px,2.6vw,22px);letter-spacing:2px;line-height:1;color:#FFF3DA;text-shadow:0 2px 0 rgba(0,0,0,.6),0 0 18px rgba(255,200,120,.35)}
+.cap-s{position:relative;z-index:2;margin-top:6px;font-family:var(--fm);font-size:12px;line-height:1.2;text-align:center;color:#F3E6C8;min-height:15px}
+.cap.c1 .cap-in{background:radial-gradient(ellipse at 50% 25%,#FF4A55 0%,#C8202A 35%,#5A0910 75%,#2A0306 100%)}
+.cap.c2 .cap-in{background:radial-gradient(ellipse at 50% 25%,#F5CF6A 0%,#B8862E 35%,#5A3E0C 75%,#2A1C04 100%)}
+.cap.c3 .cap-in{background:radial-gradient(ellipse at 50% 25%,#5FB89A 0%,#2E7A62 35%,#0E3A2C 75%,#06180F 100%)}
+.cap.c4 .cap-in{background:radial-gradient(ellipse at 50% 25%,#9A7AD8 0%,#5A3E9A 35%,#241444 75%,#0E0820 100%)}
+.cap.c1{box-shadow:0 0 30px rgba(232,52,62,.25)}.cap.c2{box-shadow:0 0 30px rgba(227,188,85,.22)}.cap.c3{box-shadow:0 0 30px rgba(95,184,154,.18)}.cap.c4{box-shadow:0 0 30px rgba(154,122,216,.22)}
+.m-ticker{position:relative;z-index:2;align-self:center;display:flex;align-items:center;gap:8px;width:min(620px,94%);box-sizing:border-box;margin:2px 0 6px;padding:5px 14px;border-radius:5px;background:linear-gradient(180deg,var(--parch1),var(--parch2));color:#2A1A08;font-size:12.5px;box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 0 14px rgba(90,58,26,.3)}
+.m-ticker b{font-family:'Cinzel',serif;color:var(--wine);white-space:nowrap;font-size:12px}
+.m-ticker span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity .35s}
+.m-nav{position:relative;z-index:2;margin:0 calc(-1*(env(safe-area-inset-right) + 14px)) 0 calc(-1*(env(safe-area-inset-left) + 14px));display:flex;justify-content:space-around;align-items:center;padding:2px 0 calc(env(safe-area-inset-bottom) + 2px);background:linear-gradient(180deg,rgba(58,42,28,.92),rgba(20,13,8,.98));border-top:1.5px solid #8A6A2E;box-shadow:0 -6px 20px rgba(0,0,0,.5)}
+.m-nav button{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:64px;min-height:44px;font-family:var(--fm);font-size:12.5px;color:#E8D9B5}
+.m-nav button:active{color:#FFE7A8}
+.m-ver{position:absolute;right:calc(env(safe-area-inset-right) + 14px);bottom:calc(env(safe-area-inset-bottom) + 54px);z-index:2;font-size:9px;letter-spacing:2px;color:rgba(227,188,85,.35)}
+#screen-menu .footer-v,#screen-menu .menu-brand,#screen-menu .menu-list{display:none!important}
+@media (orientation:portrait){
+  .m-caps{display:grid;grid-template-columns:repeat(2,auto);align-content:center;gap:14px}
+  .cap{width:40vw;height:26vh}
+  .m-logo span{display:none}
+}
+
+/* ---------- Juanjo, el Cuervo ---------- */
+.coach{width:min(520px,62vw);display:flex;gap:10px;align-items:flex-end;background:linear-gradient(180deg,var(--parch1),var(--parch2));border:2px solid #8A6A2E;border-radius:6px;box-shadow:0 14px 36px rgba(0,0,0,.65),inset 0 0 22px rgba(90,58,26,.35);padding:10px 14px 10px 8px}
+.coach .jj{flex-shrink:0;width:74px;height:86px;margin-bottom:-4px}
+.coach .jj svg{width:100%;height:100%;animation:jjBob 2.6s ease-in-out infinite}
+@keyframes jjBob{50%{transform:translateY(-3px) rotate(-1.5deg)}}
+.coach .cb{flex:1;min-width:0}
+.coach .stp{font-family:'Cinzel',serif;color:var(--wine);letter-spacing:1px}
+.coach > .cb > b{display:block;font-family:'Cinzel',serif;font-size:14.5px;font-weight:900;margin-bottom:2px;color:#2A1A08}
+.coach button{background:var(--wine);font-family:'Cinzel',serif;box-shadow:inset 0 0 0 1px #E3BC55}
+.coach button.gh{background:none;color:var(--wine);border:1px solid rgba(106,10,16,.45);box-shadow:none}
+.jj-toast{display:flex;align-items:center;gap:8px}
+.jj-toast svg{flex-shrink:0}
+
+/* ---------- toques medievales en el resto ---------- */
+.topbar h1{font-family:'Cinzel',serif!important;letter-spacing:2px}
+.big-cta{position:relative;overflow:hidden;background:linear-gradient(135deg,#E8343E,#8E0F17);font-family:'Cinzel',serif;letter-spacing:1px}
+.big-cta::after{content:'';position:absolute;top:-40%;left:-60%;width:40%;height:180%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:rotate(14deg);animation:sheen 4.5s ease-in-out infinite}
+.hold-btn{font-family:'Cinzel',serif}
+.lvl-chip{font-family:'Cinzel',serif}
+.ach .ic{background:radial-gradient(circle at 35% 30%,#FFE7A8,#D4A83A 55%,#7A5A10)}
+.prof-av{position:relative}
+.lv-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:4px 0 12px}
+.lv-row .lv{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;opacity:.5;filter:grayscale(.7)}
+.lv-row .lv.on{opacity:1;filter:none}
+.lv-row .lv.cur .lvimg{box-shadow:0 0 0 3px #FFE7A8,0 0 22px rgba(255,216,102,.7)}
+.lv-row .lvimg{width:min(86px,15vw);height:min(86px,15vw)}
+.lv-row b{font-family:'Cinzel',serif;font-size:11.5px;color:#F3E6C8;line-height:1.15}
+.lv-row small{font-family:var(--fm);font-size:11.5px;color:#D9C495}
+.lvup{position:fixed;inset:0;z-index:140;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(ellipse at 50% 45%,rgba(90,58,26,.85),rgba(5,3,2,.94));animation:fadeIn .3s ease}
+.lvup .lvimg{width:150px;height:150px;animation:lvPop .7s cubic-bezier(.2,1.5,.4,1);box-shadow:0 0 0 4px #FFE7A8,0 0 50px rgba(255,216,102,.75)}
+.lvup small{font-family:'Cinzel',serif;letter-spacing:3px;color:#E3BC55;font-weight:900}
+.lvup h2{margin:0;font-family:'Cinzel',serif;font-size:34px;font-weight:900;color:#FFF3DA;text-shadow:0 0 22px rgba(255,200,120,.5)}
+.lvup button{margin-top:8px}
+@keyframes lvPop{from{transform:scale(.2) rotate(-40deg);opacity:0}}
+
 </style>
 </head>
 <body>
@@ -742,84 +863,63 @@ body[data-face=four] .pc .face.su-C{color:#1E8C4E}
 
 <!-- ==================== MENÚ ==================== -->
 <div id="screen-menu" class="screen active">
-  <div class="menu-top">
-    <button class="iconbtn" id="muteBtn" onclick="toggleMusic()" aria-label="Música"></button>
-    <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  <div class="m-bg" id="mBg"><div class="m-glow g1"></div><div class="m-glow g2"></div><div class="m-glow g3"></div></div>
+  <div class="m-top">
+    <button class="m-prof shine slow" onclick="openProfile()" aria-label="Tu perfil">
+      <span class="lvimg" id="mLvImg" data-l="0"></span>
+      <span class="m-pinfo">
+        <span class="m-row"><b id="mName"></b><span class="lvchip" id="mLvChip"></span></span>
+        <span class="m-row"><i class="m-bar"><i id="mBar"></i></i><small id="mCount"></small></span>
+      </span>
+    </button>
+    <div class="m-logo"><div class="m-t">T</div><span>TALMUT</span></div>
+    <div class="m-icons">
+      <button class="iconbtn" id="muteBtn" onclick="toggleMusic()" aria-label="Música"></button>
+      <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
+  </div>
+
+  <button id="continueBtn" class="m-cont hidden" onclick="continueScorer()"><svg width="12" height="14" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg><b data-t="m.continue"></b><small id="continueDesc"></small></button>
+
+  <div class="m-caps">
+    <button class="cap c1 shine" onclick="openOnline()">
+      <span class="cap-in">
+        <span class="cap-tag" style="color:#9FE6B4">● EN LÍNEA</span>
+        <svg class="cap-art" viewBox="0 0 130 130" aria-hidden="true"><defs><linearGradient id="gShield" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A0D12"/><stop offset="1" stop-color="#120305"/></linearGradient></defs><path d="M65 10 L106 25 V62 C106 89 87 109 65 120 C43 109 24 89 24 62 V25 Z" fill="url(#gShield)" stroke="#E3BC55" stroke-width="3.5"/><path d="M65 18 L99 30 V62 C99 84 84 101 65 111 C46 101 31 84 31 62 V30 Z" fill="none" stroke="rgba(227,188,85,.35)" stroke-width="1.2"/><path d="M65 40 L57 52 L45 50 L51 62 L45 74 L57 72 L65 84 L73 72 L85 74 L79 62 L85 50 L73 52 Z" fill="#F3E6C8"/><circle cx="65" cy="62" r="5" fill="#C8202A"/></svg>
+        <span class="cap-t">ONLINE</span><span class="cap-s">&nbsp;</span>
+      </span>
+    </button>
+    <button class="cap c2 shine delay1" onclick="openBots()">
+      <span class="cap-in">
+        <span class="cap-tag" style="color:#FFE7A8">SIN CONEXIÓN</span>
+        <svg class="cap-art" viewBox="0 0 130 126" aria-hidden="true"><g transform="rotate(-35 65 63)"><rect x="61" y="8" width="8" height="80" fill="#E4E4EA" stroke="#5A5A66" stroke-width="1.5"/><path d="M61 8 L65 0 L69 8Z" fill="#E4E4EA"/><rect x="44" y="86" width="42" height="8" rx="2" fill="#E3BC55"/><rect x="61" y="94" width="8" height="18" fill="#5A3A1A"/><circle cx="65" cy="116" r="5" fill="#E3BC55"/></g><g transform="rotate(35 65 63)"><rect x="61" y="8" width="8" height="80" fill="#E4E4EA" stroke="#5A5A66" stroke-width="1.5"/><path d="M61 8 L65 0 L69 8Z" fill="#E4E4EA"/><rect x="44" y="86" width="42" height="8" rx="2" fill="#E3BC55"/><rect x="61" y="94" width="8" height="18" fill="#5A3A1A"/><circle cx="65" cy="116" r="5" fill="#E3BC55"/></g></svg>
+        <span class="cap-t">ARCADE</span><span class="cap-s">Contra la máquina</span>
+      </span>
+    </button>
+    <button class="cap c3 shine delay2" onclick="openSetup()">
+      <span class="cap-in">
+        <svg class="cap-art" viewBox="0 0 130 126" aria-hidden="true"><rect x="30" y="16" width="70" height="94" fill="#EAD9B0"/><path d="M30 16 C22 16 20 26 30 26 M100 16 C108 16 110 26 100 26 M30 110 C22 110 20 100 30 100 M100 110 C108 110 110 100 100 100" stroke="#B89A60" stroke-width="3" fill="#D9C79A"/><path d="M42 40h46M42 54h46M42 68h46M42 82h30" stroke="#7A5A2A" stroke-width="2.2" stroke-linecap="round"/><path d="M66 34v60" stroke="#7A5A2A" stroke-width="1.2"/><circle cx="99" cy="98" r="15" fill="#8E0F17" stroke="#E3BC55" stroke-width="2.5"/><text x="99" y="103" text-anchor="middle" font-family="Cinzel,serif" font-weight="900" font-size="13" fill="#E3BC55">42</text></svg>
+        <span class="cap-t">LOCAL</span><span class="cap-s">Tabla para jugar con baraja real</span>
+      </span>
+    </button>
+    <button class="cap c4 shine delay3" onclick="startTutorial()">
+      <span class="cap-in">
+        <span class="cap-art" style="width:76%;top:8%;display:block;height:58%" id="capJJ"></span>
+        <span class="cap-t">APRENDE</span><span class="cap-s">Con Juanjo, el Cuervo</span>
+      </span>
     </button>
   </div>
 
-  <div class="menu-brand">
-  <div class="logo"><img src="icon-256.png" alt="" onerror="this.outerHTML='<span style=&quot;font-family:Cinzel,serif;font-weight:900;font-size:44px;color:#D4A83A&quot;>T</span>'"></div>
-  <h1 class="game-title">TALMUT</h1>
-  <p class="tagline">&middot; Hic ludus errorem punit &middot;</p>
-  <p class="claim" data-t="claim"></p>
-  </div>
+  <div class="m-ticker"><span style="flex:0 0 auto;display:flex" id="mJJHead"></span><b>Juanjo, el Cuervo:</b><span id="mTicker"></span></div>
 
-  <div class="menu-list">
-    <button id="continueBtn" class="menu-btn cont hidden" onclick="continueScorer()">
-      <div class="ic" style="background:rgba(107,191,122,.12)"><svg width="18" height="20" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg></div>
-      <div class="tx"><b data-t="m.continue"></b><small id="continueDesc"></small></div>
-    </button>
-
-    <button class="menu-btn hero" onclick="openOnline()">
-      <div class="ic">
-        <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round">
-          <circle cx="12" cy="11" r="4"/><path d="M4 26c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
-          <path d="M22 8.5a6 6 0 0 1 6 0"/><path d="M20 5a10 10 0 0 1 10 0"/><circle cx="25" cy="12" r="1.3" fill="#D4A83A" stroke="none"/>
-          <circle cx="23" cy="20" r="3"/><path d="M19 26.5c.4-2.6 2-4 4-4s3.6 1.4 4 4"/>
-        </svg>
-      </div>
-      <div class="tx"><b><span data-t="m.online"></span> &nbsp;<span class="badge-live">ONLINE</span></b><small data-t="m.online.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-
-    <button class="menu-btn" onclick="openBots()">
-      <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9.5 16.5h5"/><circle cx="12" cy="3.5" r="1" fill="#D4A83A"/></svg></div>
-      <div class="tx"><b data-t="m.bots"></b><small data-t="m.bots.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-    </button>
-
-    <button class="menu-btn" onclick="openSetup()">
-      <div class="ic">
-        <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="3" y="3" width="15" height="21" rx="2.5" stroke="#B8860B" stroke-width="1.4" fill="rgba(184,134,11,.08)"/><rect x="9" y="5" width="15" height="21" rx="2.5" stroke="#D4A83A" stroke-width="1.4" fill="#1A1012"/><path d="M13 12h7M13 16h7M13 20h4" stroke="#D4A83A" stroke-width="1.3" stroke-linecap="round"/></svg>
-      </div>
-      <div class="tx"><b data-t="m.scorer"></b><small data-t="m.scorer.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-    </button>
-
-    <button class="menu-btn" onclick="openHistory()">
-      <div class="ic">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg>
-      </div>
-      <div class="tx"><b data-t="m.history"></b><small data-t="m.history.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-    </button>
-
-    <button class="menu-btn" onclick="openFriends()">
-      <div class="ic">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.6 3.2-5.8 6.5-5.8s6 2.2 6.5 5.8"/><path d="M19 8v6M16 11h6"/></svg>
-      </div>
-      <div class="tx"><b data-t="m.friends"></b><small data-t="m.friends.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-    </button>
-
-    <button class="menu-btn" onclick="openProfile()">
-      <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5"/><path d="M17.5 3.5l.8 1.6 1.7.3-1.2 1.2.3 1.7-1.6-.8" fill="#D4A83A" stroke="none"/></svg></div>
-      <div class="tx"><b data-t="m.prof"></b><small id="menuLevel" data-t="m.prof.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-    </button>
-
-    <button class="menu-btn" onclick="showScreen('screen-rules')">
-      <div class="ic">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#B8860B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/><path d="M9 8h7M9 11h5"/></svg>
-      </div>
-      <div class="tx"><b data-t="m.rules"></b><small data-t="m.rules.d"></small></div>
-      <svg width="7" height="12" viewBox="0 0 7 12"><polyline points="1,1 6,6 1,11" fill="none" stroke="#B8860B" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-    </button>
-  </div>
-
-  <p class="footer-v">v4.0 · SM42</p>
+  <nav class="m-nav">
+    <button onclick="openProfile('me')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5"/></svg><span>Perfil</span></button>
+    <button onclick="openProfile('ach')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2 L20 5 V11 C20 16 16.5 20 12 22 C7.5 20 4 16 4 11 V5 Z"/><path d="M12 7l1.2 2.6 2.8.3-2.1 1.9.6 2.8L12 13.2l-2.5 1.4.6-2.8L8 9.9l2.8-.3z" fill="#E3BC55" stroke="none"/></svg><span>Chapitas</span></button>
+    <button onclick="openFriends()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.6 3.2-5.8 6.5-5.8s6 2.2 6.5 5.8"/><path d="M19 8v6M16 11h6"/></svg><span data-t="m.friends"></span></button>
+    <button onclick="openHistory()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg><span>Estadísticas</span></button>
+    <button onclick="showScreen('screen-rules')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6"/><path d="M6 3a2 2 0 0 0 0 4h2M6 21a2 2 0 0 1 0-4h2V7"/><path d="M11 9h5M11 13h4"/></svg><span>Reglas</span></button>
+  </nav>
+  <span class="m-ver">v5.0 · SM42</span>
 </div>
 
 <!-- ==================== MARCADOR: CONFIGURACIÓN ==================== -->
@@ -2295,6 +2395,7 @@ function toggleSound(){const v=!LS.get('vibrate',true);LS.set('vibrate',v);docum
 
 // ---------- menú ----------
 function refreshMenu(){
+  refreshMenuV5();menuCaw();
   setTimeout(()=>{const ml=document.getElementById('menuLevel');if(ml)ml.textContent=`${levelOf(achCount())[1]} · ${achCount()} ${L('chapitas','badges')} · ${L('color y estilo','colour & style')}`},0);
   const m=LS.get('current',null);
   const btn=document.getElementById('continueBtn');
@@ -3340,8 +3441,8 @@ function openScoresModal(){
 }
 
 
-Object.assign(STR.es,{'m.bots':'Contra bots','m.bots.d':'Practica sin conexión contra la máquina','m.prof':'Tu perfil','m.prof.d':'Color, estilo y chapitas','bots.off':'SIN CONEXIÓN','g.tapDeck':'<b>Tu turno.</b> Toca el <b>mazo</b> para robar. TALMUT está abajo, separado.'});
-Object.assign(STR.en,{'m.bots':'Vs bots','m.bots.d':'Practise offline against the machine','m.prof':'Your profile','m.prof.d':'Colour, style and badges','bots.off':'OFFLINE','g.tapDeck':'<b>Your turn.</b> Tap the <b>deck</b> to draw. TALMUT is below, apart.'});
+Object.assign(STR.es,{'m.bots':'Arcade','m.bots.d':'Practica sin conexión contra la máquina','m.prof':'Tu perfil','m.prof.d':'Color, estilo y chapitas','bots.off':'SIN CONEXIÓN','g.tapDeck':'<b>Tu turno.</b> Toca el <b>mazo</b> para robar. TALMUT está abajo, separado.'});
+Object.assign(STR.en,{'m.bots':'Arcade','m.bots.d':'Practise offline against the machine','m.prof':'Your profile','m.prof.d':'Colour, style and badges','bots.off':'OFFLINE','g.tapDeck':'<b>Your turn.</b> Tap the <b>deck</b> to draw. TALMUT is below, apart.'});
 
 // =====================================================================
 //  v4 · PERFIL, ESTILO, CHAPITAS
@@ -3437,6 +3538,8 @@ const ACH_LIST=[
  ['look','🛋️','Decorador','Cambia el tapete o las cartas',()=>cnt('look')>=1],
  ['phrase','📝','Frase célebre','Pon una frase al ganar',()=>!!ME.phrase],
  ['night','🦉','Búho','Juega una partida entre las 00:00 y las 05:00',()=>cnt('night')>=1],
+ ['c42','4️⃣','Cuarenta y dos','Acaba una partida con exactamente 42 puntos',()=>cnt('c42')>=1],
+ ['nido','🪺','Nido lleno','Juega una partida online con 6 jugadores',()=>cnt('nido')>=1],
 ];
 const LEVELS=[[0,'Noob'],[5,'Aguililla'],[25,'As del Talmut'],[50,'Sheriff']];
 function achCount(){return ACH_LIST.filter(a=>ACH.got[a[0]]).length}
@@ -3450,7 +3553,7 @@ function achCheck(silent){
     const before=achCount()-fresh.length;
     fresh.slice(0,3).forEach((a,i)=>setTimeout(()=>{toast(`<span class="ach-toast"><span class="ic">${a[1]}</span><span><small style="display:block;font-size:9.5px;color:#E3BC55;letter-spacing:1px">${L('CHAPITA CONSEGUIDA','BADGE UNLOCKED')}</small>${esc(a[2])}</span></span>`,'good',3200);play('snapOk')},i*900));
     const lb=levelOf(before),la=levelOf(achCount());
-    if(la!==lb)setTimeout(()=>{toast(`${L('¡Subes de nivel!','Level up!')} <b>${la[1]}</b>`,'big',3600);play('win')},fresh.length*900+300);
+    if(la!==lb)setTimeout(()=>showLevelUp(la),fresh.length*900+300);
   }
   if(fresh.length)syncProfileSoon();
 }
@@ -3509,6 +3612,8 @@ function trackFinish(st){
   const min=st.standings[0].total,mine=st.players[me],win=!mine.left&&mine.total===min;
   const h=new Date().getHours();if(h<5)bump('night');
   if(st.totalRounds>=15)bump('r15');
+  if(!mine.left&&mine.total===42)bump('c42');
+  if(!G.local&&st.players.length>=6)bump('nido');
   if(win&&mine.total<=10)bump('fino');
   if(win&&st.round>=3&&mine.roundWins>=st.round)bump('clean');
   if(G.local&&!LOCAL.tut){
@@ -3578,7 +3683,7 @@ function talmutZoneHtml(){
   if(p.status!=='play'||p.talmut||me<0)return '';
   const ok=(p.phase==='draw'&&p.turn===me)||(p.phase==='snap'&&p.snap&&p.snap.actor===me);
   if(!ok)return '';
-  return `<button class="hold-btn" id="holdBtn" onpointerdown="holdStart(event)" onpointerup="holdEnd()" onpointerleave="holdEnd()" onpointercancel="holdEnd()" oncontextmenu="return false"><i class="fill"></i><span>TALMUT</span></button><small>${L('Mantén pulsado 1 segundo para cantar','Hold 1 second to call it')}</small>`;
+  return `<button class="hold-btn shine" id="holdBtn" onpointerdown="holdStart(event)" onpointerup="holdEnd()" onpointerleave="holdEnd()" onpointercancel="holdEnd()" oncontextmenu="return false"><i class="fill"></i><span>TALMUT</span></button><small>${L('Mantén pulsado 1 segundo para cantar','Hold 1 second to call it')}</small>`;
 }
 function setHtml(el,h){if(el&&el.dataset.h!==h){el.dataset.h=h;el.innerHTML=h}}
 
@@ -4010,14 +4115,14 @@ function avatarC(name,color,size){return `<div class="avatar" style="width:${siz
 //  TUTORIAL: partida de prueba guiada contra «El Profe»
 // =====================================================================
 const TUT_STEPS=[
- {id:'hi',t:'Bienvenido a TALMUT',d:'Gana quien acaba la ronda con <b>menos puntos</b>. A=1, números lo que marcan, J=20, Q=30, K=40 y el comodín −1. Tienes 4 cartas boca abajo y casi nunca las ves: hay que tener memoria.',next:1},
+ {id:'hi',t:'Soy Juanjo, el Cuervo',d:'Te enseño a jugar en 3 minutos. Gana quien acaba la ronda con <b>menos puntos</b>. A=1, números lo que marcan, J=20, Q=30, K=40 y el comodín −1. Tienes 4 cartas boca abajo y casi nunca las ves: hay que tener memoria.',next:1},
  {id:'peek',t:'Mira 2 cartas',d:'Al empezar cada ronda puedes mirar 2. Toca las <b>2 que brillan</b> (las de abajo) y memorízalas.',wait:'peeked'},
  {id:'peek2',t:'¿Las tienes?',d:'Tienes un <b>3♦</b> y un <b>7♣</b> (puestos 3 y 4). Las demás no las conoces. Las vuelves a tapar y empieza el juego.',next:1},
  {id:'draw1',t:'Tu turno: roba',d:'<b>Toca el mazo</b> para coger una carta. Solo la ves tú.',wait:'drew'},
  {id:'keep1',t:'¡Un 2!',d:'Es mejor que tu 7♣. <b>Toca tu carta 4</b> para cambiarla: el 2 se queda boca abajo en su sitio y el 7 va al descarte.',wait:'kept'},
  {id:'bot1',t:'Turno del Profe',d:'Ahora juega él. Mira lo que descarta…',wait:'botsnap',bot:true},
  {id:'snap',t:'¡Descarte rápido!',d:'El Profe ha tirado un <b>3</b>. ¡Tú tienes un 3♦ (carta 3)! Cuando alguien descarta, tienes 3 segundos para tirar una carta igual. <b>Toca tu carta 3</b>. Si fallas, te comes una carta de castigo.',wait:'snapped'},
- {id:'snapok',t:'¡Aguililla!',d:'Una carta menos = menos puntos. Sigamos.',next:1},
+ {id:'snapok',t:'¡Eso es, Cuervecillo!',d:'Una carta menos = menos puntos. Sigamos.',next:1},
  {id:'draw2',t:'Roba otra vez',d:'<b>Toca el mazo.</b>',wait:'drew'},
  {id:'ten',t:'Un 10: carta especial',d:'Si <b>descartas</b> un 10, puedes mirar una de tus cartas. Pulsa <b>Descartar</b>.',wait:'special'},
  {id:'ten2',t:'Mira una tuya',d:'Toca tu <b>carta 1</b>, la que no conoces.',wait:'looked'},
@@ -4062,10 +4167,10 @@ function tutStep(){return TUT&&TUT_STEPS[TUT.i]}
 function tutShow(){
   document.querySelectorAll('.coach').forEach(e=>e.remove());const s=tutStep();if(!s)return;
   const d=document.createElement('div');d.className='coach'+(['jack2','queen2','king2'].includes(s.id)?' low':s.id==='end'?' bot':'');
-  d.innerHTML=`<span class="stp">${L('PARTIDA DE PRUEBA','PRACTICE')} · ${TUT.i+1}/${TUT_STEPS.length}</span><b>${s.t}</b><p>${s.d}</p>`+
+  d.innerHTML=`<div class="jj">${juanjoSvg(s.fin?'cheer':'talk')}</div><div class="cb"><span class="stp">JUANJO, EL CUERVO · ${TUT.i+1}/${TUT_STEPS.length}</span><b>${s.t}</b><p>${s.d}</p>`+
    (s.next?`<div class="row"><button class="gh" onclick="tutQuit()">${L('Salir','Quit')}</button><button onclick="tutNext()">${L('Siguiente','Next')} ›</button></div>`:'')+
-   (s.fin?`<div class="row"><button class="gh" onclick="tutQuit()">${L('Menú','Menu')}</button><button onclick="tutQuit(1)">${L('Jugar contra bots','Play vs bots')} ›</button></div>`:'');
-  document.body.appendChild(d);
+   (s.fin?`<div class="row"><button class="gh" onclick="tutQuit()">${L('Menú','Menu')}</button><button onclick="tutQuit(1)">${L('Jugar en ARCADE','Play ARCADE')} ›</button></div>`:'')+'</div>';
+  document.body.appendChild(d);if(TUT.i===0||s.fin||Math.random()<.25)play('caw');
   if(G)renderGame();
 }
 function tutLater(ms){const i=TUT.i;if(TUT.later===i)return;TUT.later=i;setTimeout(()=>{if(TUT&&TUT.i===i)tutNext()},ms)}
@@ -4142,7 +4247,7 @@ function renderProfile(){
   const n=achCount(),lv=levelOf(n),col=ME.color||avColor(myName());
   if(profTab==='me'){
     h+=`<div class="split" style="grid-template-columns:minmax(220px,260px) minmax(0,1fr)">
-     <div class="prof-card"><div class="prof-av" id="profAv" style="background:${col}">${esc(myName().charAt(0).toUpperCase())}</div><b style="font-size:19px">${esc(myName())}</b><span class="lvl-chip">${lv[1]}</span><small class="muted">${n} ${L('chapitas','badges')}</small>${statsBlock()}</div>
+     <div class="prof-card"><div style="display:flex;align-items:center;gap:12px"><div class="prof-av" id="profAv" style="background:${col};width:80px;height:80px;font-size:34px">${esc(myName().charAt(0).toUpperCase())}</div>${lvImg(n,80)}</div><b style="font-size:19px">${esc(myName())}</b><span class="lvl-chip">${lv[1]}</span><small class="muted">${n} ${L('chapitas','badges')}</small>${statsBlock()}</div>
      <div style="display:flex;flex-direction:column;gap:14px">
       <div><p class="lbl">${L('APODO','NICKNAME')}</p><input id="pfName" class="text-input" maxlength="16" value="${esc(myName())}"></div>
       <div><p class="lbl">${L('TU COLOR','YOUR COLOUR')}</p><div class="sw-row">${COLORS.map(c=>`<button class="sw${(ME.color||'')===c?' on':''}" style="background:${c}" onclick="pickColor('${c}')" aria-label="${c}"></button>`).join('')}</div><p class="muted" style="font-size:11px;margin:6px 0 0">${L('Tu inicial con tu color. Se ve igual en la mesa y en Amigos.','Your initial in your colour, at the table and in Friends.')}</p></div>
@@ -4164,7 +4269,7 @@ function renderProfile(){
       <button class="big-cta" onclick="useLook()">${L('Usar este estilo','Use this style')}</button><p class="muted" style="font-size:10.5px;margin:0">${L('Solo lo ves tú en tu móvil: cada uno juega con su estilo.','Only you see it: everyone plays with their own style.')}</p></div></div>`;
   }else{
     const nx=LEVELS.find(x=>x[0]>n);
-    h+=`<div class="card-box" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:10px"><span class="lvl-chip">${lv[1]}</span><b style="flex:1">${n} / ${ACH_LIST.length} ${L('chapitas','badges')}</b><small class="muted">${nx?L(`${nx[0]-n} para ${nx[1]}`,`${nx[0]-n} to ${nx[1]}`):L('¡Nivel máximo!','Max level!')}</small></div><div class="lvl-bar"><i style="width:${Math.round(100*n/ACH_LIST.length)}%"></i></div><small class="muted">Noob 0–4 · Aguililla 5–24 · As del Talmut 25–49 · Sheriff 50+</small></div>`;
+    h+=`<div class="card-box" style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:10px"><span class="lvl-chip">${lv[1]}</span><b style="flex:1">${n} / ${ACH_LIST.length} ${L('chapitas','badges')}</b><small class="muted">${nx?L(`${nx[0]-n} para ${nx[1]}`,`${nx[0]-n} to ${nx[1]}`):L('¡Nivel máximo!','Max level!')}</small></div><div class="lvl-bar"><i style="width:${Math.round(100*n/ACH_LIST.length)}%"></i></div></div><div class="lv-row">${LEVELS.map((x,i)=>`<div class="lv${n>=x[0]?' on':''}${levelIdx(n)===i?' cur':''}"><span class="lvimg" data-l="${i}"></span><b>${x[1]}</b><small>${i===4?L('las 60','all 60'):x[0]+' – '+(LEVELS[i+1][0]-1)}</small></div>`).join('')}</div>`;
     h+=`<div class="ach-grid">${ACH_LIST.map(a=>{const got=ACH.got[a[0]];return `<div class="ach${got?'':' off'}"><div class="ic">${a[1]}</div><b>${esc(a[2])}</b><small>${esc(a[3])}</small></div>`}).join('')}</div>`;
   }
   b.innerHTML=h;
@@ -4186,12 +4291,105 @@ async function saveProfile(){
 }
 function useLook(){const ch=['felt','back','face'].some(k=>LOOK[k]!==draftLook[k]);Object.assign(LOOK,draftLook);LS.set('look',LOOK);applyLook();if(ch)bump('look');play('win');toast(L('Estilo aplicado','Style applied'),'good')}
 
+
+// =====================================================================
+//  v5 · TEMA CUERVO: Juanjo, menú con cápsulas, graznidos
+// =====================================================================
+const JJ_BODY='<path d="M28 118 L40 96 C38 80 44 62 58 50 C62 40 66 30 74 24 C80 18 90 17 96 21 C99 22 101 24 103 25 L118 27 C112 30 106 32 100 32 C98 40 96 46 92 52 C96 64 94 80 84 92 C80 98 74 100 70 101 L48 108 Z" fill="#141414"/><path d="M44 102 C46 80 54 64 70 56 C82 52 90 60 88 74 C84 88 70 98 44 102 Z" fill="#242424"/><path d="M76 22 C84 18 92 18 97 22 C92 26 84 30 78 36 C74 32 74 26 76 22Z" fill="#1C1C1C"/>';
+const JJ_LEGS='<path d="M70 101 L68 126 M68 126 L62 130 M68 126 L72 131 M80 97 L84 125 M84 125 L78 130 M84 125 L90 129" stroke="#3A3A3A" stroke-width="2.5" stroke-linecap="round" fill="none"/>';
+function juanjoSvg(pose){
+  const beak=pose==='talk'?'<path d="M100 23 L118 21 L102 27 Z" fill="#303030"/><path d="M100 31 L116 35 L100 34 Z" fill="#303030"/>':'<path d="M100 23 L118 27 L100 32 Z" fill="#303030"/>';
+  const wing=pose==='cheer'?'<path d="M58 52 C50 36 40 20 26 8 C32 22 30 26 36 34 C30 34 26 38 22 38 C30 44 38 50 50 60 Z" fill="#1E1E1E"/>':'';
+  return `<svg viewBox="0 0 120 140" aria-hidden="true">${wing}${JJ_BODY}${beak}<circle cx="91" cy="25" r="2.3" fill="#9A9A9A"/>${JJ_LEGS}</svg>`;
+}
+function juanjoHead(size){return `<svg width="${size}" height="${size}" viewBox="70 14 50 42" aria-hidden="true"><path d="M74 24 C80 18 90 17 96 21 C99 22 101 24 103 25 L118 27 C112 30 106 32 100 32 C98 40 96 46 92 52 L72 54 C70 40 70 30 74 24Z" fill="#141414"/><path d="M100 23 L118 27 L100 32 Z" fill="#303030"/><circle cx="91" cy="25" r="2.2" fill="#9A9A9A"/></svg>`}
+
+// ---------- graznido sintetizado ----------
+SFX.caw=function(){
+  const c=SND.ctx;[0,.3].forEach((t0,i)=>{
+    const t=c.currentTime+t0,o=c.createOscillator(),o2=c.createOscillator(),lfo=c.createOscillator(),lg=c.createGain(),g=c.createGain(),f=c.createBiquadFilter(),f2=c.createBiquadFilter(),mix=c.createGain();
+    const p=i?470:540;
+    o.type='sawtooth';o.frequency.setValueAtTime(p,t);o.frequency.linearRampToValueAtTime(p*1.08,t+.05);o.frequency.exponentialRampToValueAtTime(p*.68,t+.24);
+    o2.type='square';o2.frequency.setValueAtTime(p*1.5,t);o2.frequency.exponentialRampToValueAtTime(p*.95,t+.24);
+    lfo.frequency.value=62;lg.gain.value=.5;lfo.connect(lg);lg.connect(g.gain);
+    f.type='bandpass';f.frequency.value=1250;f.Q.value=3;f2.type='bandpass';f2.frequency.value=2700;f2.Q.value=4;
+    o.connect(f);o2.connect(f);o.connect(f2);f.connect(mix);f2.connect(mix);mix.gain.value=.9;mix.connect(g);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.32,t+.025);g.gain.setValueAtTime(.28,t+.14);g.gain.exponentialRampToValueAtTime(.0001,t+.27);
+    g.connect(SND.master);g.connect(SND.rev);
+    [o,o2,lfo].forEach(x=>{x.start(t);x.stop(t+.3)});
+    noise({t:t0,f:2000,q:1.4,a:.01,d:.2,v:.08});
+  });
+};
+SFX.wings=function(){for(let i=0;i<5;i++)noise({t:i*.09,f:600+Math.random()*300,type:'lowpass',a:.02,d:.06,v:.14})};
+
+// ---------- niveles ----------
+LEVELS.splice(0,LEVELS.length,[0,'Noob'],[11,'Cuervecillo'],[26,'Soldado Maltés'],[43,'As del Talmutaje'],[60,'Sheriff']);
+function levelIdx(n){let k=0;LEVELS.forEach((x,i)=>{if(n>=x[0])k=i});return k}
+function lvImg(n,size){const k=levelIdx(n);return `<span class="lvimg" data-l="${k}"${size?` style="width:${size}px;height:${size}px"`:''}></span>`}
+function showLevelUp(lv){
+  document.querySelectorAll('.lvup').forEach(e=>e.remove());
+  const k=LEVELS.indexOf(lv);const d=document.createElement('div');d.className='lvup';
+  d.innerHTML=`<small>${L('¡SUBES DE NIVEL!','LEVEL UP!')}</small><span class="lvimg" data-l="${k}"></span><h2>${esc(lv[1])}</h2><div class="m-ticker" style="width:min(460px,88vw)">${juanjoHead(22)}<b>Juanjo, el Cuervo:</b><span>${esc(JJ_LEVEL[k]||'')}</span></div><button class="big-cta" onclick="this.parentNode.remove()">${L('¡A por más!','Onwards!')}</button>`;
+  document.body.appendChild(d);play('win');setTimeout(()=>play('caw'),500);buzz([60,40,120]);
+}
+const JJ_LEVEL=['Bienvenido al nido.','Ya no eres un polluelo: Cuervecillo.','Soldado Maltés. La Orden te reconoce.','As del Talmutaje. Las cartas te temen.','Sheriff. Las 60. No hay nada más alto que tú… salvo yo, que vuelo.'];
+
+// ---------- frases de Juanjo para el menú ----------
+function jjLines(){
+  const n=achCount(),k=levelIdx(n),nx=LEVELS[k+1];
+  const a=[];
+  if(nx)a.push(L(`Te faltan ${nx[0]-n} chapitas para ${nx[1]}. ¿Una partidita?`,`${nx[0]-n} badges to ${nx[1]}. One more game?`));
+  else a.push(L('Sheriff con las 60. Respeto.','Sheriff with all 60. Respect.'));
+  if(!cnt('tut'))a.push(L('¿Primera vez? Pulsa APRENDE y te enseño en 3 minutos.','First time? Tap LEARN and I’ll teach you in 3 minutes.'));
+  a.push(L('Con 5 o menos, canta TALMUT. Si no… cra, cra.','5 or less? Call TALMUT. If not… caw, caw.'),
+    L('Yo tengo buena memoria. ¿Y tú?','I have a great memory. Do you?'),
+    L('Una K son 40 puntos. Eso pesa más que yo.','A K is 40 points. Heavier than me.'),
+    L('Mantén pulsada una carta para moverla de sitio.','Hold a card to move it around.'),
+    L('En ARCADE los bots no se cansan. Yo tampoco.','In ARCADE the bots never tire. Neither do I.'),
+    L('Descarte rápido: si sale tu número, ¡tírala!','Quick discard: if your rank shows up, throw it!'));
+  return a;
+}
+let jjI=0,jjT=null;
+function tickerNext(){
+  const el=document.getElementById('mTicker');if(!el)return;
+  const a=jjLines();jjI=(jjI+1)%a.length;el.style.opacity=0;
+  setTimeout(()=>{el.textContent=a[jjI];el.style.opacity=1},350);
+}
+function refreshMenuV5(){
+  const n=achCount(),k=levelIdx(n),lv=LEVELS[k],nx=LEVELS[k+1];
+  const nm=document.getElementById('mName');if(!nm)return;
+  nm.textContent=myName();
+  document.getElementById('mLvImg').dataset.l=k;
+  document.getElementById('mLvChip').textContent=lv[1].toUpperCase();
+  document.getElementById('mBar').style.width=Math.round(100*n/ACH_LIST.length)+'%';
+  document.getElementById('mCount').textContent=`${n}/${ACH_LIST.length}`;
+  const tk=document.getElementById('mTicker');if(tk&&!tk.textContent)tk.textContent=jjLines()[0];
+  clearInterval(jjT);jjT=setInterval(()=>{if(currentScreen()==='screen-menu')tickerNext()},8000);
+}
+// cuervos volando y motas de luz detrás de las cápsulas
+(function(){
+  const cj=document.getElementById('capJJ');if(cj)cj.innerHTML=juanjoSvg('stand');
+  const jh=document.getElementById('mJJHead');if(jh)jh.innerHTML=juanjoHead(20);
+  const bg=document.getElementById('mBg');if(!bg)return;
+  const crow='<svg width="100%" height="100%" viewBox="0 0 40 20" aria-hidden="true"><path d="M20 11 C17 8 12 3 2 5 C8 6 12 9 14 12 C16 13 18 13 19 13 L17 16 L21 14 L24 15 C26 13 29 9 38 4 C30 4 25 7 22 10 Z" fill="#050303"/></svg>';
+  for(let i=0;i<7;i++){
+    const d=document.createElement('div');d.className='m-crow';
+    const w=18+Math.random()*30,dur=14+Math.random()*16,y0=8+Math.random()*55,y1=y0+(Math.random()*24-12);
+    d.style.cssText=`width:${w}px;height:${w/2}px;opacity:${(.3+w/60).toFixed(2)};--y0:${y0}vh;--y1:${y1}vh;animation:${i%2?'crowL':'crowR'} ${dur.toFixed(1)}s linear ${(-Math.random()*dur).toFixed(1)}s infinite`;
+    d.innerHTML=crow;d.firstChild.style.animationDuration=(.38+Math.random()*.25).toFixed(2)+'s';bg.appendChild(d);
+  }
+  for(let i=0;i<16;i++){const s=document.createElement('i');s.className='m-dust';s.style.cssText=`left:${Math.random()*100}%;top:${30+Math.random()*65}%;animation-delay:${(-Math.random()*7).toFixed(1)}s;animation-duration:${(5+Math.random()*5).toFixed(1)}s`;bg.appendChild(s)}
+})();
+// graznido al llegar al menú (una vez por sesión, y a veces después)
+let cawDone=false;
+function menuCaw(){if(!SND.ctx||SND.ctx.state!=='running')return;if(!cawDone){cawDone=true;setTimeout(()=>{play('caw');play('wings')},600)}else if(Math.random()<.15)play('caw')}
+
 // =====================================================================
 //  ARRANQUE
 // =====================================================================
 
 // ---------- intro del estudio ----------
-function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;el.classList.add('out');setTimeout(()=>{el.remove();sndUnlock()},600)}
+function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;el.classList.add('out');setTimeout(()=>{el.remove();sndUnlock();setTimeout(menuCaw,300)},600)}
 function startIntro(){
   const el=document.getElementById('intro');if(!el||el.dataset.started)return;el.dataset.started=1;
   const c=sndInit();el.classList.remove('wait');setTimeout(endIntro,3300);
