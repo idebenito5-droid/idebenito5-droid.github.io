@@ -857,8 +857,8 @@ body[data-face=four] .pc .face.su-C{color:#1E8C4E}
 /* =================== v6 · NIDO DE CUERVOS (diseño nuevo) =================== */
 :root{--k-gold:#E3BC55;--k-gold2:#FFE6A1;--k-gold3:#9A7424;--k-ui:'Rajdhani','Inter Tight',sans-serif;--k-title:'Cinzel',serif;--k-deco:'Cinzel Decorative','Cinzel',serif}
 html{background:#06060a}
-body{background:#06060a url(boceto-v6/img/bg.jpg) center/cover fixed no-repeat}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 90% at 50% 35%,rgba(6,6,10,.45),rgba(6,6,10,.85) 70%,rgba(4,4,6,.97))}
+body{background:#06060a}
+body::before{content:'';position:fixed;inset:-14px;pointer-events:none;z-index:0;background:radial-gradient(120% 90% at 50% 35%,rgba(6,6,10,.4),rgba(6,6,10,.85) 70%,rgba(4,4,6,.97)),url(boceto-v6/img/bg.jpg) center/cover no-repeat;filter:blur(3px)}
 .screen{position:relative;z-index:1;background:linear-gradient(180deg,rgba(8,7,10,.78),rgba(8,6,9,.86) 40%,rgba(6,5,7,.94))!important}
 #screen-menu{background:transparent!important}
 /* tipografía */
@@ -868,45 +868,25 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .topbar::after{content:'';position:absolute;left:16px;right:16px;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(227,188,85,.55),transparent)}
 .section-label span{font-family:var(--k-ui);font-weight:700;letter-spacing:.28em;color:var(--k-gold)}
 /* botones biselados */
-.btn,.big-cta{font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.16em!important;border-radius:0!important;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px)}
+.btn,.big-cta{font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.16em!important;border-radius:10px!important}
 .btn-gold,.big-cta,.nk.ok{background:linear-gradient(180deg,#FFF0C2,var(--k-gold) 45%,#B58A2C)!important;color:#1A1206!important;box-shadow:inset 0 0 0 1px rgba(255,240,194,.6)!important;text-shadow:none!important}
 .btn-ghost{background:rgba(227,188,85,.08)!important;border:0!important;box-shadow:inset 0 0 0 1px rgba(227,188,85,.35)!important;color:var(--k-gold2)!important}
 .btn-red{background:linear-gradient(180deg,#FF5A61,#C21D2B 50%,#6E0A12)!important}
-.iconbtn{border-radius:0!important;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);background:rgba(10,9,12,.7)!important;box-shadow:inset 0 0 0 1px rgba(227,188,85,.3)}
+.iconbtn{border-radius:10px!important;background:rgba(10,9,12,.7)!important;box-shadow:inset 0 0 0 1px rgba(227,188,85,.3)}
 /* paneles con marco dorado */
-.card-box,.prof-card,.stepper,.menu-btn,.modal-box,.pchip{border-radius:4px!important;border:1px solid rgba(227,188,85,.32)!important;background:linear-gradient(180deg,rgba(26,20,22,.82),rgba(12,10,13,.88))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.6),0 10px 30px rgba(0,0,0,.45)}
-.seg{border-radius:2px!important;background:rgba(10,9,12,.7)!important;border-color:rgba(227,188,85,.25)!important}
-.seg button{border-radius:0!important;font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.08em;font-size:13px!important}
+.card-box,.prof-card,.stepper,.menu-btn,.modal-box,.pchip{border-radius:12px!important;border:1px solid rgba(227,188,85,.32)!important;background:linear-gradient(180deg,rgba(26,20,22,.82),rgba(12,10,13,.88))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.6),0 10px 30px rgba(0,0,0,.45)}
+.seg{border-radius:10px!important;background:rgba(10,9,12,.7)!important;border-color:rgba(227,188,85,.25)!important}
+.seg button{border-radius:8px!important;font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.08em;font-size:13px!important}
 .seg button.on{background:linear-gradient(180deg,#FFF0C2,var(--k-gold))!important;color:#170F04!important;box-shadow:none!important}
-.text-input{border-radius:2px!important;background:rgba(0,0,0,.45)!important;border-color:rgba(227,188,85,.35)!important}
+.text-input{border-radius:10px!important;background:rgba(0,0,0,.45)!important;border-color:rgba(227,188,85,.35)!important}
 .tabs button{font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.16em!important;text-transform:uppercase}
-.tabs button.on{background:linear-gradient(180deg,#FFF0C2,var(--k-gold))!important;color:#170F04!important;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);border-radius:0!important}
+.tabs button.on{background:linear-gradient(180deg,#FFF0C2,var(--k-gold))!important;color:#170F04!important;border-radius:8px!important}
 
-/* ---------- INTRO SM42 con cuervos ---------- */
-#intro{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse 70% 55% at 50% 48%,#141a24 0%,#090b10 60%,#040507 100%);overflow:hidden;transition:opacity .6s ease;display:flex;align-items:center;justify-content:center}
-#intro.out{opacity:0;pointer-events:none}
-#intro .i7-glow{position:absolute;left:50%;top:50%;width:80vmin;height:40vmin;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(110,160,255,.22),transparent 65%);opacity:0;animation:i7glow 4.4s ease forwards}
-@keyframes i7glow{30%{opacity:1}68%{opacity:1}85%,100%{opacity:0}}
-#intro .i7-logo{position:relative;text-align:center;clip-path:inset(0 100% 0 0);animation:i7logo 4.4s linear forwards}
-@keyframes i7logo{0%,12%{clip-path:inset(0 100% 0 0)}36%{clip-path:inset(0 0 0 0)}62%{clip-path:inset(0 0 0 0)}86%,100%{clip-path:inset(0 100% 0 0)}}
-#intro .i7-w{font-family:'Saira',sans-serif;font-style:italic;font-weight:900;font-size:min(26vw,150px);line-height:.9;letter-spacing:-.02em;color:#f4f8ff;-webkit-text-stroke:2px #1d4f9c;paint-order:stroke fill;text-shadow:0 0 18px rgba(120,170,255,.55),0 0 42px rgba(60,120,255,.35),3px 4px 0 #0d2a5e}
-#intro .i7-s{margin-top:min(3.5vw,18px);font-family:'Saira',sans-serif;font-weight:500;font-size:min(4.4vw,24px);letter-spacing:.42em;padding-left:.42em;color:#c9d0da}
-#intro .i7-flock{position:absolute;left:0;top:50%;width:120vw;height:60vmin;margin-top:-30vmin;pointer-events:none}
-#intro .i7-flock.f1{transform:translateX(-130vw);animation:i7f1 4.4s linear forwards}
-#intro .i7-flock.f2{transform:translateX(110vw);animation:i7f2 4.4s linear forwards}
-@keyframes i7f1{0%,8%{transform:translateX(-130vw)}40%{transform:translateX(110vw)}100%{transform:translateX(110vw)}}
-@keyframes i7f2{0%,58%{transform:translateX(110vw)}90%,100%{transform:translateX(-130vw)}}
-#intro .i7-crow{position:absolute}
-#intro .i7-crow svg{width:100%;height:100%;animation:i7flap .32s ease-in-out infinite alternate;transform-origin:50% 60%}
-#intro .f2 .i7-crow svg{transform:scaleX(-1)}
-@keyframes i7flap{from{transform:scaleY(1)}to{transform:scaleY(-.4) translateY(-16%)}}
-#intro .f2 .i7-crow svg{animation-name:i7flapR}
-@keyframes i7flapR{from{transform:scaleX(-1) scaleY(1)}to{transform:scaleX(-1) scaleY(-.4) translateY(-16%)}}
 
 /* ---------- SPLASH ---------- */
 #splash7{position:fixed;inset:0;z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;background:#05050a;transition:opacity .7s ease}
 #splash7.out{opacity:0;pointer-events:none}
-#splash7 .s7-bg{position:absolute;inset:-3%;background:url(boceto-v6/img/bg.jpg) center/cover;animation:s7zoom 20s ease-in-out infinite alternate}
+#splash7 .s7-bg{position:absolute;inset:-3%;filter:blur(2px);background:url(boceto-v6/img/bg.jpg) center/cover;animation:s7zoom 20s ease-in-out infinite alternate}
 @keyframes s7zoom{to{transform:scale(1.08)}}
 #splash7 .s7-vign{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 30%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.94)),linear-gradient(180deg,rgba(0,0,0,.4),transparent 30%,transparent 60%,rgba(0,0,0,.85))}
 #splash7 .s7-mid{position:relative;text-align:center}
@@ -923,12 +903,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 /* ---------- MENÚ ---------- */
 #screen-menu.active{display:flex!important;flex-direction:column;align-items:stretch!important;max-width:none!important;height:100dvh;min-height:0!important;overflow:hidden;padding:calc(env(safe-area-inset-top) + 10px) calc(env(safe-area-inset-right) + 14px) 0 calc(env(safe-area-inset-left) + 14px)!important;box-sizing:border-box}
 .k-top{display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:3}
-.k-prof{all:unset;position:relative;cursor:pointer;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;background:linear-gradient(90deg,rgba(20,15,18,.92),rgba(20,15,18,.6));clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);min-width:0}
+.k-prof{all:unset;position:relative;cursor:pointer;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;background:linear-gradient(90deg,rgba(20,15,18,.92),rgba(20,15,18,.6));border-radius:14px;min-width:0}
 .k-prof .lvimg{width:46px!important;height:46px!important}
 .k-pinfo{display:flex;flex-direction:column;gap:5px;min-width:0}
 .k-row{display:flex;align-items:center;gap:8px}
 .k-row b{font-family:var(--k-title);font-size:15px;color:#F4EBD6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
-.k-chip{font-family:var(--k-ui);font-weight:700;font-size:9.5px;letter-spacing:.16em;padding:2px 8px;color:#1A1206;background:linear-gradient(180deg,var(--k-gold2),var(--k-gold));clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);white-space:nowrap}
+.k-chip{font-family:var(--k-ui);font-weight:700;font-size:9.5px;letter-spacing:.16em;padding:2px 8px;color:#1A1206;background:linear-gradient(180deg,var(--k-gold2),var(--k-gold));border-radius:4px;white-space:nowrap}
 .k-bar{position:relative;display:block;width:110px;height:5px;background:rgba(255,255,255,.1);overflow:hidden}
 .k-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--k-gold3),var(--k-gold2));box-shadow:0 0 10px var(--k-gold)}
 .k-row small{font-family:var(--k-ui);font-weight:600;font-size:12px;color:#A79F8C}
@@ -936,7 +916,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 .k-logo{text-align:center;margin-top:6px;z-index:2}
 .k-w{font-family:var(--k-deco);font-weight:900;font-size:clamp(34px,10vw,52px);letter-spacing:.07em;line-height:1;background:linear-gradient(180deg,#FFF6D8,var(--k-gold2) 30%,var(--k-gold) 55%,#8E6A1E);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(227,188,85,.35))}
 .k-sub{margin-top:4px;font-family:var(--k-title);font-weight:700;font-size:10px;letter-spacing:.3em;color:var(--k-gold)}
-.k-cont{all:unset;cursor:pointer;margin:10px auto 0;display:flex;align-items:center;gap:8px;padding:8px 14px;max-width:100%;background:rgba(20,40,26,.7);box-shadow:inset 0 0 0 1px rgba(107,191,122,.5);font-family:var(--k-ui);font-size:13px;color:#DFF5E3;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.k-cont{all:unset;cursor:pointer;margin:10px auto 0;display:flex;align-items:center;gap:8px;padding:8px 14px;max-width:100%;background:rgba(20,40,26,.7);box-shadow:inset 0 0 0 1px rgba(107,191,122,.5);font-family:var(--k-ui);font-size:13px;color:#DFF5E3;border-radius:8px}
 .k-cont b{letter-spacing:.12em;text-transform:uppercase}.k-cont small{color:#9FC8A8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .k-caps{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px 12px;padding:16px 6px 10px;align-content:stretch}
 .k-cap{all:unset;--sk:-4deg;position:relative;cursor:pointer;transform:skewX(var(--sk));transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .35s;min-height:0}
@@ -1009,8 +989,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;bac
 /* ---------- mesa: tapete Nido (sin logos) y reverso Cuervo ---------- */
 body[data-felt=nido] #screen-game .g-main{background:radial-gradient(ellipse 75% 70% at 50% 48%,rgba(110,24,32,.55) 0%,transparent 70%),radial-gradient(ellipse 90% 85% at 50% 50%,#3C1016 0%,#240A0E 55%,#0E0507 100%);box-shadow:inset 0 0 0 4px #120709,inset 0 0 0 5.5px rgba(227,188,85,.55),inset 0 0 0 10px #120709,inset 0 0 0 11px rgba(227,188,85,.2),inset 0 0 60px rgba(0,0,0,.6)}
 body[data-felt=nido] #screen-game{background:radial-gradient(ellipse 90% 60% at 50% 46%,#2A0A0E 0%,#140507 55%,#060304 100%)!important}
-body[data-back=nido] .pc .back,body[data-back=nido] .fly-card,#screen-profile .pc.pv-back-nido .back{background:url(boceto-v6/img/back.jpg) center/cover no-repeat,#1A0B0E!important;border:1.5px solid #C9A04A!important;box-shadow:0 3px 8px rgba(0,0,0,.55)!important}
-body[data-back=nido] .pc .back::after,body[data-back=nido] .fly-card::after,#screen-profile .pc.pv-back-nido .back::after{content:''!important}
+body[data-back=nido] .pc:not([class*=pv-back]) .back,body[data-back=nido] .fly-card,#screen-profile .pc.pv-back-nido .back{background:url(boceto-v6/img/back.jpg) center/cover no-repeat,#1A0B0E!important;border:1.5px solid #C9A04A!important;box-shadow:0 3px 8px rgba(0,0,0,.55)!important}
+body[data-back=nido] .pc:not([class*=pv-back]) .back::after,body[data-back=nido] .fly-card::after,#screen-profile .pc.pv-back-nido .back::after{content:''!important}
 /* perfil y chapitas sin scroll */
 @media (orientation:portrait){#profBody .split{grid-template-columns:1fr!important;gap:12px!important}}
 #screen-profile .ach b{display:none}
@@ -1026,11 +1006,39 @@ body[data-back=nido] .pc .back::after,body[data-back=nido] .fly-card::after,#scr
   #screen-profile .lv-row small{display:none}
   #profBody>.card-box{padding:8px 12px!important;margin-bottom:6px!important}
 }
+/* ---------- reversos nuevos ---------- */
+body[data-back=poker] .pc:not([class*=pv-back]) .back,body[data-back=poker] .fly-card,#screen-profile .pc.pv-back-poker .back{background:repeating-linear-gradient(45deg,#1A1A1A 0 3px,#0A0A0A 3px 6px),#111!important;border:3px solid #F4F1EA!important;box-shadow:inset 0 0 0 2px #111,inset 0 0 0 3px #C8202A,0 3px 8px rgba(0,0,0,.55)!important}
+body[data-back=real] .pc:not([class*=pv-back]) .back,body[data-back=real] .fly-card,#screen-profile .pc.pv-back-real .back{background:radial-gradient(circle at 50% 50%,rgba(227,188,85,.35) 0 12%,transparent 13%),repeating-radial-gradient(circle at 50% 50%,#13245A 0 4px,#0C1840 4px 8px)!important;border:2px solid #E3BC55!important;box-shadow:inset 0 0 0 3px #0C1840,inset 0 0 0 4px rgba(227,188,85,.6),0 3px 8px rgba(0,0,0,.55)!important}
+body[data-back=esmeralda] .pc:not([class*=pv-back]) .back,body[data-back=esmeralda] .fly-card,#screen-profile .pc.pv-back-esmeralda .back{background:repeating-linear-gradient(60deg,rgba(255,255,255,.06) 0 2px,transparent 2px 7px),repeating-linear-gradient(-60deg,rgba(255,255,255,.06) 0 2px,transparent 2px 7px),linear-gradient(160deg,#1E7A52,#0B3B27)!important;border:2px solid #E8E2CF!important;box-shadow:inset 0 0 0 3px #0B3B27,inset 0 0 0 4px rgba(232,226,207,.55),0 3px 8px rgba(0,0,0,.55)!important}
+body[data-back=poker] .pc .back::after,body[data-back=real] .pc .back::after,body[data-back=esmeralda] .pc .back::after,body[data-back=poker] .fly-card::after,body[data-back=real] .fly-card::after,body[data-back=esmeralda] .fly-card::after,#screen-profile .pc.pv-back-poker .back::after,#screen-profile .pc.pv-back-real .back::after,#screen-profile .pc.pv-back-esmeralda .back::after{content:''!important}
+/* ---------- datos del perfil que quepan ---------- */
+.prof-card .vs-box{gap:6px}
+.prof-card .vs-box>div{padding:6px 5px!important;min-width:0}
+.prof-card .stat-ttl{font-size:9.5px!important;letter-spacing:.06em!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prof-card .stat-blk{gap:3px!important}
+.prof-card .stat-blk div{padding:5px 1px!important;min-width:0;border-radius:6px!important}
+.prof-card .stat-blk b{font-size:14px!important}
+.prof-card .stat-blk small{font-size:8px!important;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ---------- 2 arriba y 2 abajo: misma mesa, mazo en medio ---------- */
+.g-main.l22{display:flex!important;flex-direction:column!important;justify-content:space-between}
+.g-main.l22 .me-area{padding-right:0!important;align-self:auto!important}
+.g-main.l22 #gMe.grid{margin:0 auto}
+/* ---------- frases rápidas en cápsulas laterales ---------- */
+.react-dock{position:fixed;z-index:60;right:auto;display:flex;flex-direction:column;gap:5px;width:88px;transition:opacity .25s}
+.react-dock.min{opacity:0;pointer-events:none}
+.g-main.has-dock .center{padding-right:96px}
+.react-dock button{all:unset;cursor:pointer;padding:5px 8px;border-radius:999px;font-family:var(--k-ui);font-weight:700;font-size:10.5px;line-height:1.15;color:#F4EBD6;background:rgba(18,12,14,.85);box-shadow:inset 0 0 0 1px rgba(227,188,85,.45),0 4px 12px rgba(0,0,0,.5);text-align:center}
+.react-dock button:active{transform:scale(.95);background:rgba(227,188,85,.25)}
+.react-dock button.ctx{box-shadow:inset 0 0 0 1px #3FE0CF,0 0 10px rgba(63,224,207,.4)}
+.react-dock button.mx{box-shadow:inset 0 0 0 1px #19FF56,0 0 10px rgba(25,255,86,.35)}
+
+.react-dock.side{flex-direction:row;flex-wrap:wrap;justify-content:flex-end}
+@media (orientation:landscape) and (max-height:600px){.g-main.l22 .center .pc{width:48px!important;height:68px!important}.g-main.l22 #gMe.grid .pc{width:44px!important;height:62px!important}.g-main.l22 #gMe.grid{gap:4px!important}}
 
 </style>
 </head>
 <body>
-<div id="intro" aria-label="SM42 Developer Studio"><div class="i7-glow"></div><div class="i7-logo"><div class="i7-w">SM42</div><div class="i7-s">DEVELOPER STUDIO</div></div><div class="i7-flock f1"></div><div class="i7-flock f2"></div></div>
+<div id="intro" onclick="endIntro()" aria-label="SM42 Developer Studio"><div class="tapgo" data-t="intro.tap">Toca para empezar</div><div class="flash"></div><div class="stage"><div class="word"><span>S</span><span>M</span><span>4</span><span>2</span></div><div class="sub">DEVELOPER STUDIO</div></div></div>
 <div id="splash7" class="hidden" onclick="enterGame()"><div class="s7-bg"></div><div class="s7-vign"></div><div class="s7-mid"><div class="s7-w"><span class="s7-gold">TALMUT</span></div><div class="s7-tag">HIC LUDUS ERROREM PUNIT</div></div><div class="s7-press">PULSA PARA ENTRAR</div></div>
 
 
@@ -4411,7 +4419,7 @@ function renderProfile(){
     const K=['nido','classic','noir','casino','taberna','neon'];
     h+=`<div class="split"><div style="display:flex;flex-direction:column;gap:14px">
       <div><p class="lbl">${L('TAPETE','TABLE')}</p><div class="look-row">${K.map(felt).join('')}</div></div>
-      <div><p class="lbl">${L('REVERSO DE LAS CARTAS','CARD BACK')}</p><div class="look-row">${K.map(back).join('')}</div></div>
+      <div><p class="lbl">${L('REVERSO DE LAS CARTAS','CARD BACK')}</p><div class="look-row">${BACK_KEYS.map(back).join('')}</div></div>
       <div><p class="lbl">${L('CARAS DE LAS CARTAS','CARD FACES')}</p><div class="look-row">${['classic','big','dark','four'].map(face).join('')}</div></div>
      </div><div style="display:flex;flex-direction:column;gap:10px"><p class="lbl" style="margin:0">${L('VISTA PREVIA','PREVIEW')}</p>
       <div class="prev-felt" style="background:${FELTS[d.felt]};border:2px solid #C9A04A"><div style="display:flex;gap:10px">${backPreview(d.back,58,80)}${facePreview(d.face,'QS',58,80)}${facePreview(d.face,'7D',58,80)}</div><div style="font-size:13px;letter-spacing:3px;color:#E3BC55;font-weight:800">${THEME_NAMES[d.felt].toUpperCase()}</div></div>
@@ -4537,30 +4545,40 @@ function menuCaw(){if(!SND.ctx||SND.ctx.state!=='running')return;if(!cawDone){ca
 //  ARRANQUE
 // =====================================================================
 
+// ---------- intro del estudio ----------
+function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;el.classList.add('out');setTimeout(()=>{el.remove();sndUnlock();setTimeout(menuCaw,300)},600)}
+function startIntro(){
+  const el=document.getElementById('intro');if(!el||el.dataset.started)return;el.dataset.started=1;
+  const c=sndInit();el.classList.remove('wait');setTimeout(endIntro,3300);
+  if(c&&c.state!=='running'){c.resume().then(()=>{if(c.state==='running'&&!el.dataset.done)play('intro')}).catch(()=>{})}else play('intro');
+}
+(function(){
+  const el=document.getElementById('intro');if(!el)return;
+  let seen=false;try{seen=sessionStorage.getItem('talmut.intro')==='1';sessionStorage.setItem('talmut.intro','1')}catch(e){}
+  if(seen||location.hash.includes('access_token')){el.remove();return}
+  const snip=['const deck = shuffle(cards);','if (talmut) lastRound();','sync(state, secret);','export function deal(n){','  return hand.map(c => c);','await save(game, v);','players.forEach(p => p.peek(2));','// SM42 · build 1.0','snap(card, 3000);','score += value(card);'];
+  const mk=(side)=>{const d=document.createElement('div');d.className='code';d.style[side]=(4+Math.random()*10)+'%';d.style.top=(18+Math.random()*50)+'%';d.textContent=Array.from({length:4+Math.floor(Math.random()*4)},()=>snip[Math.floor(Math.random()*snip.length)]).join('\n');el.appendChild(d)};
+  mk('left');mk('right');mk('right');
+  for(let i=0;i<34;i++){const d=document.createElement('div');d.className='dot';d.style.left=Math.random()*100+'%';d.style.top=(15+Math.random()*70)+'%';d.style.animationDelay=(Math.random()*2.4)+'s';d.style.animationDuration=(1.8+Math.random()*2)+'s';el.appendChild(d)}
+  // Si el móvil deja sonar sin tocar, arranca ya; si no, "toca para empezar" (para que se oiga el ¡PAM!)
+  startIntro(); // arranca siempre sola (el sonido, si el móvil lo permite)
+})();
 
 // =====================================================================
-//  v6 · NIDO DE CUERVOS — intro con cuervos, portada, cofre mágico
+//  v6 · NIDO DE CUERVOS — portada, cofre mágico, estilos, bots, frases
 // =====================================================================
 SFX.chest=function(){
-  // crujido de la tapa
   noise({f:220,f2:520,q:6,type:'bandpass',a:.05,d:.45,v:.22});
   tone({f:95,f2:60,type:'sawtooth',a:.02,d:.35,v:.08,lp:400});
-  // cerrojo
   noise({t:.38,f:3200,q:2,d:.03,v:.35});tone({t:.38,f:1800,f2:900,type:'square',d:.03,v:.05,lp:3000});
-  // brillo mágico ascendente
   [523,659,784,1047,1319,1568,2093].forEach((f,i)=>tone({t:.5+i*.06,f,type:'triangle',a:.01,d:.9,v:.09,rev:1}));
   [1568,2093,2637,3136].forEach((f,i)=>tone({t:.95+i*.05,f,type:'sine',a:.005,d:1.2,v:.05,rev:1}));
   noise({t:.5,f:7000,f2:12000,type:'highpass',a:.3,d:1.4,v:.07,rev:1});
   tone({t:.5,f:261,type:'sine',a:.2,d:1.6,v:.1,rev:1});tone({t:.5,f:392,type:'sine',a:.2,d:1.6,v:.07,rev:1});
 };
-const CROW7='<svg viewBox="0 0 60 30"><path d="M30 17 C26 12 18 4 2 7 C11 9 17 13 20 17 C23 19 27 19 29 19 L26 24 L31 21 L35 23 C38 19 43 13 58 6 C46 6 38 10 33 15 Z" fill="#020203"/></svg>';
-function buildFlock(el,n){
-  for(let i=0;i<n;i++){const d=document.createElement('div');d.className='i7-crow';const w=34+Math.random()*70;
-    d.style.cssText=`width:${w}px;height:${w/2}px;left:${Math.random()*100}%;top:${Math.random()*92}%;opacity:${(.75+Math.random()*.25).toFixed(2)}`;
-    d.innerHTML=CROW7;d.firstChild.style.animationDuration=(.22+Math.random()*.18).toFixed(2)+'s';d.firstChild.style.animationDelay=(-Math.random()*.3).toFixed(2)+'s';el.appendChild(d)}
-}
+// la intro SM42 de siempre y, al acabar, la portada
 function showSplash(){const s=document.getElementById('splash7');if(s)s.classList.remove('hidden')}
-function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;showSplash();el.classList.add('out');setTimeout(()=>el.remove(),650)}
+function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;showSplash();el.classList.add('out');setTimeout(()=>el.remove(),600)}
 function enterGame(){
   const s=document.getElementById('splash7');if(!s||s.dataset.done)return;s.dataset.done=1;
   const c=sndInit();const go=()=>{try{play('chest')}catch(e){}};
@@ -4568,20 +4586,45 @@ function enterGame(){
   const b=document.createElement('div');b.className='s7-burst';s.appendChild(b);
   setTimeout(()=>{s.classList.add('out');sndUnlock()},700);setTimeout(()=>s.remove(),1500);
 }
-(function(){
-  const el=document.getElementById('intro'),sp=document.getElementById('splash7');if(!el)return;
-  let seen=false;try{seen=sessionStorage.getItem('talmut.intro')==='1';sessionStorage.setItem('talmut.intro','1')}catch(e){}
-  if(seen||location.hash.includes('access_token')){el.remove();if(sp)sp.remove();return}
-  el.querySelectorAll('.i7-flock').forEach(f=>buildFlock(f,30));
-  el.addEventListener('click',endIntro);
-  try{const c=sndInit();if(c&&c.state==='running'){play('wings');setTimeout(()=>play('caw'),300);setTimeout(()=>play('wings'),2600)}}catch(e){}
-  setTimeout(endIntro,4300);
-})();
-// estilo por defecto nuevo: tapete Nido + reverso Cuervo (una vez)
-FELTS.nido='radial-gradient(ellipse at 50% 42%,#4A1418,#240A0E 55%,#0B0506 85%)';THEME_NAMES.nido='Nido';
+if(!document.getElementById('intro')){const s=document.getElementById('splash7');if(s)s.remove()}
+// estilos: tapete Nido y reversos nuevos
+FELTS.nido='radial-gradient(ellipse at 50% 42%,#4A1418,#240A0E 55%,#0B0506 85%)';
+Object.assign(THEME_NAMES,{nido:'Nido',poker:L('Póker','Poker'),real:'Real',esmeralda:L('Esmeralda','Emerald')});
+const BACK_KEYS=['nido','classic','casino','poker','real','esmeralda','noir','taberna','neon'];
 if(!LS.get('look7',false)){LOOK.felt='nido';LOOK.back='nido';LS.set('look',LOOK);LS.set('look7',true);applyLook()}
 // chapitas: toca para ver el nombre
 document.addEventListener('click',e=>{const a=e.target.closest('#screen-profile .ach');if(!a)return;const b=a.querySelector('b'),s=a.querySelector('small');toast((b?b.textContent:'')+(s?' — '+s.textContent:''),a.classList.contains('off')?'':'good')});
+// bots con nombres normales
+const BOT_NAMES_ES=['Lucía','Carlos','Marta','Javier','Laura','Pablo','Elena','Sergio','Carmen','David','Ana','Diego','Irene','Álvaro','Sara','Raúl','Nuria','Andrés','Paula','Miguel','Cristina','Jorge','Beatriz','Alberto'];
+const BOT_NAMES_EN=['Emma','James','Olivia','Liam','Sophie','Noah','Grace','Ethan','Chloe','Lucas','Mia','Jack','Ella','Oliver','Amy','Henry','Lily','Daniel','Kate','Ryan','Hannah','Adam','Zoe','Tom'];
+function rollBotNames(){const pool=L(BOT_NAMES_ES,BOT_NAMES_EN).slice();const me=(typeof myName==='function'?myName():'');
+  BOTS.forEach(b=>{let i,n;do{i=Math.floor(Math.random()*pool.length);n=pool[i]}while(n===me&&pool.length>1);pool.splice(i,1);b.name=n})}
+rollBotNames();
+if(typeof openBots==='function'){const _ob=openBots;openBots=function(){rollBotNames();return _ob.apply(this,arguments)}}
+// «Está empezando a creer»: una vez por partida
+function creerKey(){return G?(G.local?LOCAL:G.id):null}
+const _sendReact=sendReact;
+sendReact=function(k){if(k==='creer'){const key=creerKey();if(key&&UI.creerKey===key){toast(L('Solo una vez por partida','Only once per game'));return}UI.creerKey=key}return _sendReact.apply(this,arguments)};
+// frases en cápsulas a un lado: solo hay que tocarlas
+function reactDock(){
+  let d=document.getElementById('reactDock');
+  const on=currentScreen()==='screen-game'&&G&&myIdx()>=0&&!(typeof TUT!=='undefined'&&TUT);
+  if(!on){if(d)d.remove();return}
+  if(!d){d=document.createElement('div');d.id='reactDock';d.className='react-dock'+(LS.get('dockMin',false)?' min':'');document.body.appendChild(d)}
+  const used=UI.creerKey&&UI.creerKey===creerKey();
+  const h=REACTS.filter(reactAllowed).filter(r=>!(r.mx&&used)).map(r=>`<button class="${r.ctx?'ctx':''}${r.mx?' mx':''}" onclick="sendReact('${r.k}')">${esc(r.es)}</button>`).join('');
+  if(d.dataset.h!==h){d.innerHTML=h;d.dataset.h=h}
+  const gm=document.querySelector('#screen-game .g-main'),ce=gm&&gm.querySelector('.center'),mp=document.getElementById('gMePts');
+  if(!gm)return;const r=gm.getBoundingClientRect();
+  const side=innerWidth>innerHeight&&innerWidth-r.right>150;
+  d.classList.toggle('side',side);gm.classList.toggle('has-dock',!side);
+  if(side){d.style.width=Math.round(innerWidth-r.right-18)+'px';d.style.left=Math.round(r.right+8)+'px';d.style.top=Math.round(r.bottom-d.offsetHeight)+'px'}
+  else{d.style.width='';const rc=ce?ce.getBoundingClientRect():r,lim=mp?mp.getBoundingClientRect().top-6:r.bottom-8;
+    d.style.left=Math.round(r.right-d.offsetWidth-10)+'px';d.style.top=Math.round(Math.max(r.top+8,Math.min(lim-d.offsetHeight,rc.top+rc.height/2-d.offsetHeight/2)))+'px'}
+}
+const _ss=showScreen;showScreen=function(){const r=_ss.apply(this,arguments);try{reactDock()}catch(e){}return r};
+openReacts=function(){const d=document.getElementById('reactDock');if(!d)return;d.classList.toggle('min');LS.set('dockMin',d.classList.contains('min'));play('tap')};
+setInterval(reactDock,500);addEventListener('resize',()=>{try{reactDock()}catch(e){}});
 
 applyI18n();
 refreshMenu();
