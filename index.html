@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Talmut">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@900&family=IM+Fell+English+SC&family=Inter+Tight:wght@400;500;600;700;800;900&family=Saira:ital,wght@0,500;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@900&family=IM+Fell+English+SC&family=Inter+Tight:wght@400;500;600;700;800;900&family=Saira:ital,wght@0,500;1,900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
@@ -853,76 +853,225 @@ body[data-face=four] .pc .face.su-C{color:#1E8C4E}
 .lvup button{margin-top:8px}
 @keyframes lvPop{from{transform:scale(.2) rotate(-40deg);opacity:0}}
 
+
+/* =================== v6 · NIDO DE CUERVOS (diseño nuevo) =================== */
+:root{--k-gold:#E3BC55;--k-gold2:#FFE6A1;--k-gold3:#9A7424;--k-ui:'Rajdhani','Inter Tight',sans-serif;--k-title:'Cinzel',serif;--k-deco:'Cinzel Decorative','Cinzel',serif}
+html{background:#06060a}
+body{background:#06060a url(boceto-v6/img/bg.jpg) center/cover fixed no-repeat}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(120% 90% at 50% 35%,rgba(6,6,10,.45),rgba(6,6,10,.85) 70%,rgba(4,4,6,.97))}
+.screen{position:relative;z-index:1;background:linear-gradient(180deg,rgba(8,7,10,.78),rgba(8,6,9,.86) 40%,rgba(6,5,7,.94))!important}
+#screen-menu{background:transparent!important}
+/* tipografía */
+.topbar h1,.modal-box h2,.oath-line,.finger-title h2,#winnerName,.g-top .rd{font-family:var(--k-title)!important;letter-spacing:.08em!important}
+.topbar h1{background:linear-gradient(180deg,#FFF6D8,var(--k-gold2) 30%,var(--k-gold) 60%,#8E6A1E);-webkit-background-clip:text;background-clip:text;color:transparent!important;font-size:19px!important}
+.topbar{position:relative}
+.topbar::after{content:'';position:absolute;left:16px;right:16px;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(227,188,85,.55),transparent)}
+.section-label span{font-family:var(--k-ui);font-weight:700;letter-spacing:.28em;color:var(--k-gold)}
+/* botones biselados */
+.btn,.big-cta{font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.16em!important;border-radius:0!important;clip-path:polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px)}
+.btn-gold,.big-cta,.nk.ok{background:linear-gradient(180deg,#FFF0C2,var(--k-gold) 45%,#B58A2C)!important;color:#1A1206!important;box-shadow:inset 0 0 0 1px rgba(255,240,194,.6)!important;text-shadow:none!important}
+.btn-ghost{background:rgba(227,188,85,.08)!important;border:0!important;box-shadow:inset 0 0 0 1px rgba(227,188,85,.35)!important;color:var(--k-gold2)!important}
+.btn-red{background:linear-gradient(180deg,#FF5A61,#C21D2B 50%,#6E0A12)!important}
+.iconbtn{border-radius:0!important;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);background:rgba(10,9,12,.7)!important;box-shadow:inset 0 0 0 1px rgba(227,188,85,.3)}
+/* paneles con marco dorado */
+.card-box,.prof-card,.stepper,.menu-btn,.modal-box,.pchip{border-radius:4px!important;border:1px solid rgba(227,188,85,.32)!important;background:linear-gradient(180deg,rgba(26,20,22,.82),rgba(12,10,13,.88))!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.6),0 10px 30px rgba(0,0,0,.45)}
+.seg{border-radius:2px!important;background:rgba(10,9,12,.7)!important;border-color:rgba(227,188,85,.25)!important}
+.seg button{border-radius:0!important;font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.08em;font-size:13px!important}
+.seg button.on{background:linear-gradient(180deg,#FFF0C2,var(--k-gold))!important;color:#170F04!important;box-shadow:none!important}
+.text-input{border-radius:2px!important;background:rgba(0,0,0,.45)!important;border-color:rgba(227,188,85,.35)!important}
+.tabs button{font-family:var(--k-ui)!important;font-weight:700!important;letter-spacing:.16em!important;text-transform:uppercase}
+.tabs button.on{background:linear-gradient(180deg,#FFF0C2,var(--k-gold))!important;color:#170F04!important;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);border-radius:0!important}
+
+/* ---------- INTRO SM42 con cuervos ---------- */
+#intro{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse 70% 55% at 50% 48%,#141a24 0%,#090b10 60%,#040507 100%);overflow:hidden;transition:opacity .6s ease;display:flex;align-items:center;justify-content:center}
+#intro.out{opacity:0;pointer-events:none}
+#intro .i7-glow{position:absolute;left:50%;top:50%;width:80vmin;height:40vmin;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(110,160,255,.22),transparent 65%);opacity:0;animation:i7glow 4.4s ease forwards}
+@keyframes i7glow{30%{opacity:1}68%{opacity:1}85%,100%{opacity:0}}
+#intro .i7-logo{position:relative;text-align:center;clip-path:inset(0 100% 0 0);animation:i7logo 4.4s linear forwards}
+@keyframes i7logo{0%,12%{clip-path:inset(0 100% 0 0)}36%{clip-path:inset(0 0 0 0)}62%{clip-path:inset(0 0 0 0)}86%,100%{clip-path:inset(0 100% 0 0)}}
+#intro .i7-w{font-family:'Saira',sans-serif;font-style:italic;font-weight:900;font-size:min(26vw,150px);line-height:.9;letter-spacing:-.02em;color:#f4f8ff;-webkit-text-stroke:2px #1d4f9c;paint-order:stroke fill;text-shadow:0 0 18px rgba(120,170,255,.55),0 0 42px rgba(60,120,255,.35),3px 4px 0 #0d2a5e}
+#intro .i7-s{margin-top:min(3.5vw,18px);font-family:'Saira',sans-serif;font-weight:500;font-size:min(4.4vw,24px);letter-spacing:.42em;padding-left:.42em;color:#c9d0da}
+#intro .i7-flock{position:absolute;left:0;top:50%;width:120vw;height:60vmin;margin-top:-30vmin;pointer-events:none}
+#intro .i7-flock.f1{transform:translateX(-130vw);animation:i7f1 4.4s linear forwards}
+#intro .i7-flock.f2{transform:translateX(110vw);animation:i7f2 4.4s linear forwards}
+@keyframes i7f1{0%,8%{transform:translateX(-130vw)}40%{transform:translateX(110vw)}100%{transform:translateX(110vw)}}
+@keyframes i7f2{0%,58%{transform:translateX(110vw)}90%,100%{transform:translateX(-130vw)}}
+#intro .i7-crow{position:absolute}
+#intro .i7-crow svg{width:100%;height:100%;animation:i7flap .32s ease-in-out infinite alternate;transform-origin:50% 60%}
+#intro .f2 .i7-crow svg{transform:scaleX(-1)}
+@keyframes i7flap{from{transform:scaleY(1)}to{transform:scaleY(-.4) translateY(-16%)}}
+#intro .f2 .i7-crow svg{animation-name:i7flapR}
+@keyframes i7flapR{from{transform:scaleX(-1) scaleY(1)}to{transform:scaleX(-1) scaleY(-.4) translateY(-16%)}}
+
+/* ---------- SPLASH ---------- */
+#splash7{position:fixed;inset:0;z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;background:#05050a;transition:opacity .7s ease}
+#splash7.out{opacity:0;pointer-events:none}
+#splash7 .s7-bg{position:absolute;inset:-3%;background:url(boceto-v6/img/bg.jpg) center/cover;animation:s7zoom 20s ease-in-out infinite alternate}
+@keyframes s7zoom{to{transform:scale(1.08)}}
+#splash7 .s7-vign{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 30%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.94)),linear-gradient(180deg,rgba(0,0,0,.4),transparent 30%,transparent 60%,rgba(0,0,0,.85))}
+#splash7 .s7-mid{position:relative;text-align:center}
+#splash7 .s7-w{font-family:var(--k-deco);font-weight:900;font-size:min(19vw,128px);letter-spacing:.06em;line-height:1;filter:drop-shadow(0 4px 0 rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(227,188,85,.45));animation:s7in 1.2s .2s both}
+#splash7 .s7-gold{background:linear-gradient(180deg,#FFF6D8 0%,var(--k-gold2) 30%,var(--k-gold) 55%,#8E6A1E 100%);-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
+#splash7 .s7-tag{margin-top:14px;font-family:var(--k-title);font-weight:700;letter-spacing:.32em;padding-left:.32em;font-size:min(3.6vw,15px);color:var(--k-gold);animation:s7in 1.2s .7s both}
+#splash7 .s7-tag::before,#splash7 .s7-tag::after{content:'';display:inline-block;vertical-align:middle;width:28px;height:1px;margin:0 10px;background:linear-gradient(90deg,transparent,var(--k-gold))}
+#splash7 .s7-tag::after{transform:scaleX(-1)}
+#splash7 .s7-press{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 13vh);text-align:center;font-family:var(--k-ui);font-weight:700;letter-spacing:.5em;padding-left:.5em;font-size:13px;color:#EADFC6;animation:pulseDot 2s infinite}
+@keyframes s7in{from{opacity:0;transform:translateY(14px) scale(.96)}}
+#splash7 .s7-burst{position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 0 rgba(255,230,160,.0);animation:s7burst 1s ease-out forwards}
+@keyframes s7burst{0%{box-shadow:0 0 60px 30px rgba(255,230,160,.9)}100%{box-shadow:0 0 400px 260px rgba(255,214,120,0)}}
+
+/* ---------- MENÚ ---------- */
+#screen-menu.active{display:flex!important;flex-direction:column;align-items:stretch!important;max-width:none!important;height:100dvh;min-height:0!important;overflow:hidden;padding:calc(env(safe-area-inset-top) + 10px) calc(env(safe-area-inset-right) + 14px) 0 calc(env(safe-area-inset-left) + 14px)!important;box-sizing:border-box}
+.k-top{display:flex;align-items:center;justify-content:space-between;gap:10px;z-index:3}
+.k-prof{all:unset;position:relative;cursor:pointer;display:flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;background:linear-gradient(90deg,rgba(20,15,18,.92),rgba(20,15,18,.6));clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);min-width:0}
+.k-prof .lvimg{width:46px!important;height:46px!important}
+.k-pinfo{display:flex;flex-direction:column;gap:5px;min-width:0}
+.k-row{display:flex;align-items:center;gap:8px}
+.k-row b{font-family:var(--k-title);font-size:15px;color:#F4EBD6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.k-chip{font-family:var(--k-ui);font-weight:700;font-size:9.5px;letter-spacing:.16em;padding:2px 8px;color:#1A1206;background:linear-gradient(180deg,var(--k-gold2),var(--k-gold));clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);white-space:nowrap}
+.k-bar{position:relative;display:block;width:110px;height:5px;background:rgba(255,255,255,.1);overflow:hidden}
+.k-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--k-gold3),var(--k-gold2));box-shadow:0 0 10px var(--k-gold)}
+.k-row small{font-family:var(--k-ui);font-weight:600;font-size:12px;color:#A79F8C}
+.k-icons{display:flex;gap:8px}
+.k-logo{text-align:center;margin-top:6px;z-index:2}
+.k-w{font-family:var(--k-deco);font-weight:900;font-size:clamp(34px,10vw,52px);letter-spacing:.07em;line-height:1;background:linear-gradient(180deg,#FFF6D8,var(--k-gold2) 30%,var(--k-gold) 55%,#8E6A1E);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(227,188,85,.35))}
+.k-sub{margin-top:4px;font-family:var(--k-title);font-weight:700;font-size:10px;letter-spacing:.3em;color:var(--k-gold)}
+.k-cont{all:unset;cursor:pointer;margin:10px auto 0;display:flex;align-items:center;gap:8px;padding:8px 14px;max-width:100%;background:rgba(20,40,26,.7);box-shadow:inset 0 0 0 1px rgba(107,191,122,.5);font-family:var(--k-ui);font-size:13px;color:#DFF5E3;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.k-cont b{letter-spacing:.12em;text-transform:uppercase}.k-cont small{color:#9FC8A8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k-caps{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px 12px;padding:16px 6px 10px;align-content:stretch}
+.k-cap{all:unset;--sk:-4deg;position:relative;cursor:pointer;transform:skewX(var(--sk));transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .35s;min-height:0}
+.k-card{position:absolute;inset:0;overflow:hidden;border-radius:4px;background:#000;box-shadow:0 18px 40px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,230,161,.35)}
+.k-art{position:absolute;inset:-6% -14%;background-size:cover;background-position:center 30%;transform:skewX(calc(var(--sk)*-1)) scale(1.02);transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .4s;filter:saturate(.95) brightness(.85)}
+.k-tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,transparent 28%,transparent 46%,var(--tint) 78%,rgba(4,3,6,.96))}
+.k-tag{position:absolute;top:10px;left:12px;z-index:4;transform:skewX(calc(var(--sk)*-1));font-family:var(--k-ui);font-weight:700;font-size:9.5px;letter-spacing:.2em;display:flex;align-items:center;gap:6px;color:var(--acc)}
+.k-tag i{width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc);animation:pulseDot 1.6s infinite}
+.k-txt{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 12px 14px;transform:skewX(calc(var(--sk)*-1))}
+.k-t{font-family:var(--k-title);font-weight:900;font-size:clamp(20px,6vw,32px);letter-spacing:.06em;line-height:1;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.85)}
+.k-s{margin-top:5px;font-size:11.5px;color:#E6DCC6;opacity:.85;line-height:1.3}
+.k-rule{height:2px;margin-top:9px;width:40%;background:linear-gradient(90deg,var(--acc),transparent);box-shadow:0 0 12px var(--acc);transition:width .4s}
+.k-brk{position:absolute;inset:-7px;pointer-events:none;opacity:0;transition:opacity .25s,inset .25s;z-index:5}
+.k-brk i{position:absolute;width:14px;height:14px;border:2px solid var(--k-gold2);filter:drop-shadow(0 0 6px rgba(255,214,120,.9))}
+.k-brk i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.k-brk i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}.k-brk i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.k-brk i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.k-cap:hover,.k-cap:active{transform:skewX(var(--sk)) translateY(-6px);z-index:6}
+.k-cap:hover .k-art,.k-cap:active .k-art{transform:skewX(calc(var(--sk)*-1)) scale(1.1);filter:saturate(1.1) brightness(1)}
+.k-cap:hover .k-brk,.k-cap:active .k-brk{opacity:1;inset:-9px}
+.k-cap:hover .k-rule{width:85%}
+.k-cap:hover .k-card{box-shadow:0 26px 50px rgba(0,0,0,.7),0 0 0 1px var(--k-gold2),0 0 40px -6px var(--glow)}
+.kc1{--acc:#3FE0CF;--tint:rgba(6,40,44,.75);--glow:rgba(63,224,207,.55)}.kc1 .k-art{background-image:url(boceto-v6/img/online.jpg)}
+.kc2{--acc:#FF8A3D;--tint:rgba(60,10,6,.78);--glow:rgba(255,120,60,.6)}.kc2 .k-art{background-image:url(boceto-v6/img/arcade.jpg)}
+.kc3{--acc:#FFE6A1;--tint:rgba(50,32,8,.78);--glow:rgba(255,210,120,.55)}.kc3 .k-art{background-image:url(boceto-v6/img/local.jpg)}
+.kc4{--acc:#A98BFF;--tint:rgba(26,14,52,.8);--glow:rgba(169,139,255,.55)}.kc4 .k-art{background-image:url(boceto-v6/img/aprende.jpg)}
+.k-nav{display:flex;justify-content:center;gap:5px;padding:8px 0 calc(env(safe-area-inset-bottom) + 12px);z-index:3}
+.k-nav button{all:unset;cursor:pointer;position:relative;flex:1 1 0;max-width:190px;height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:var(--k-ui);font-weight:700;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#CBBE9E;transform:skewX(-8deg);background:linear-gradient(180deg,rgba(28,24,28,.88),rgba(10,9,12,.94));box-shadow:inset 0 0 0 1px rgba(227,188,85,.2),0 8px 20px rgba(0,0,0,.5);transition:.25s}
+.k-nav button>*{transform:skewX(8deg)}
+.k-nav svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.k-nav button::after{content:'';position:absolute;left:22%;right:22%;bottom:5px;height:2px;background:#FF3B47;box-shadow:0 0 8px #FF3B47;transform:skewX(8deg) scaleX(.3);transition:.3s;opacity:.7}
+.k-nav button:hover,.k-nav button:active{color:var(--k-gold2);background:linear-gradient(180deg,rgba(60,46,20,.92),rgba(20,15,8,.96))}
+.k-nav button:hover::after{transform:skewX(8deg) scaleX(1);background:var(--k-gold2)}
+.k-ver{position:absolute;right:14px;bottom:2px;font-family:var(--k-ui);font-size:9px;letter-spacing:.2em;color:#6E675A}
+@media (min-width:820px) and (orientation:landscape),(min-width:1000px){
+  .k-caps{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;align-items:center;padding:18px 4vw 10px;gap:22px}
+  .k-cap{--sk:-7deg;height:min(58vh,430px)}
+  .k-t{font-size:clamp(24px,2.6vw,36px)}.k-s{font-size:13px}.k-tag{font-size:11px;top:16px;left:18px}.k-txt{padding:0 18px 20px}
+  .k-nav button{flex-direction:row;gap:9px;font-size:13px;letter-spacing:.18em;transform:skewX(-14deg);height:52px}
+  .k-nav button>*{transform:skewX(14deg)}
+  .k-logo{position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 12px);transform:translateX(-50%);margin:0}
+  .k-w{font-size:clamp(34px,4vw,50px)}
+}
+
+/* ---------- medallas de nivel (fichas) ---------- */
+.lvimg{background-image:none;background-size:112%!important;background-position:center!important;border-radius:50%}
+.lvimg[data-l="0"]{background-image:url(boceto-v6/img/lv0.webp)}
+.lvimg[data-l="1"]{background-image:url(boceto-v6/img/lv1.webp)}
+.lvimg[data-l="2"]{background-image:url(boceto-v6/img/lv2.webp)}
+.lvimg[data-l="3"]{background-image:url(boceto-v6/img/lv3.webp)}
+.lvimg[data-l="4"]{background-image:url(boceto-v6/img/lv4.webp)}
+.k-medal{position:relative;width:min(150px,36vw);aspect-ratio:1;margin:4px auto 2px}
+.k-medal .lvimg{position:absolute!important;inset:0;width:100%!important;height:100%!important;box-shadow:0 0 0 3px #E3BC55,0 0 0 7px rgba(0,0,0,.7),0 0 0 8px #9A7424,0 0 46px rgba(227,188,85,.45)!important}
+.k-medal::before{content:'';position:absolute;inset:-14px;border-radius:50%;background:conic-gradient(from var(--ang),transparent 0 62%,#FFE6A1 80%,#fff 82%,transparent 90%);-webkit-mask:radial-gradient(circle closest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));mask:radial-gradient(circle closest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));animation:spinAng 3.5s linear infinite}
+.k-medal::after{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);background-size:300% 100%;animation:k7shine 4s infinite;mix-blend-mode:overlay;pointer-events:none}
+@keyframes k7shine{0%,60%{background-position:120% 0}100%{background-position:-40% 0}}
+.prof-card{gap:6px!important;padding:16px 14px!important}
+.prof-card .k-name{font-family:var(--k-title);font-size:20px;font-weight:700;color:#F4EBD6;margin-top:6px}
+.prof-card .k-lv{font-family:var(--k-ui);font-weight:700;letter-spacing:.28em;color:var(--k-gold);font-size:12px}
+.lv-row .lvimg{box-shadow:0 0 0 2px #9A7424}
+.lvup .lvimg{width:min(220px,50vw)!important;height:min(220px,50vw)!important}
+
+/* ---------- chapitas en una sola pantalla ---------- */
+#screen-profile .ach-grid{grid-template-columns:repeat(auto-fill,minmax(52px,1fr))!important;gap:6px!important}
+#screen-profile .ach{padding:6px 2px!important;border-radius:3px!important;background:rgba(12,10,14,.7)!important;border-color:rgba(227,188,85,.16)!important;cursor:pointer}
+#screen-profile .ach .ic{width:36px!important;height:40px!important;border-radius:0!important;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);font-size:18px!important;box-shadow:none!important}
+#screen-profile .ach b{font-size:8.5px!important;line-height:1.1;max-height:2.2em;overflow:hidden}
+#screen-profile .ach small{display:none}
+#screen-profile .ach.off .ic{background:linear-gradient(160deg,#3A3530,#1A1714)!important;filter:grayscale(1) brightness(.6)}
+#screen-profile .lv-row .lvimg{width:min(64px,13vw)!important;height:min(64px,13vw)!important}
+
+/* ---------- mesa: tapete Nido (sin logos) y reverso Cuervo ---------- */
+body[data-felt=nido] #screen-game .g-main{background:radial-gradient(ellipse 75% 70% at 50% 48%,rgba(110,24,32,.55) 0%,transparent 70%),radial-gradient(ellipse 90% 85% at 50% 50%,#3C1016 0%,#240A0E 55%,#0E0507 100%);box-shadow:inset 0 0 0 4px #120709,inset 0 0 0 5.5px rgba(227,188,85,.55),inset 0 0 0 10px #120709,inset 0 0 0 11px rgba(227,188,85,.2),inset 0 0 60px rgba(0,0,0,.6)}
+body[data-felt=nido] #screen-game{background:radial-gradient(ellipse 90% 60% at 50% 46%,#2A0A0E 0%,#140507 55%,#060304 100%)!important}
+body[data-back=nido] .pc .back,body[data-back=nido] .fly-card,#screen-profile .pc.pv-back-nido .back{background:url(boceto-v6/img/back.jpg) center/cover no-repeat,#1A0B0E!important;border:1.5px solid #C9A04A!important;box-shadow:0 3px 8px rgba(0,0,0,.55)!important}
+body[data-back=nido] .pc .back::after,body[data-back=nido] .fly-card::after,#screen-profile .pc.pv-back-nido .back::after{content:''!important}
+/* perfil y chapitas sin scroll */
+@media (orientation:portrait){#profBody .split{grid-template-columns:1fr!important;gap:12px!important}}
+#screen-profile .ach b{display:none}
+#screen-profile .ach-grid{grid-template-columns:repeat(auto-fill,minmax(40px,1fr))!important;gap:5px!important}
+#screen-profile .ach{padding:4px 0!important}
+#screen-profile .ach .ic{width:32px!important;height:36px!important;font-size:16px!important}
+@media (orientation:landscape) and (max-height:600px){
+  .k-medal{width:min(110px,24vh)}
+  .prof-card{padding:10px!important}
+  #screen-profile .topbar p{display:none}
+  #screen-profile .lv-row{margin:0 0 6px!important}
+  #screen-profile .lv-row .lvimg{width:38px!important;height:38px!important}
+  #screen-profile .lv-row small{display:none}
+  #profBody>.card-box{padding:8px 12px!important;margin-bottom:6px!important}
+}
+
 </style>
 </head>
 <body>
-<div id="intro" onclick="endIntro()" aria-label="SM42 Developer Studio"><div class="tapgo" data-t="intro.tap">Toca para empezar</div><div class="flash"></div><div class="stage"><div class="word"><span>S</span><span>M</span><span>4</span><span>2</span></div><div class="sub">DEVELOPER STUDIO</div></div></div>
+<div id="intro" aria-label="SM42 Developer Studio"><div class="i7-glow"></div><div class="i7-logo"><div class="i7-w">SM42</div><div class="i7-s">DEVELOPER STUDIO</div></div><div class="i7-flock f1"></div><div class="i7-flock f2"></div></div>
+<div id="splash7" class="hidden" onclick="enterGame()"><div class="s7-bg"></div><div class="s7-vign"></div><div class="s7-mid"><div class="s7-w"><span class="s7-gold">TALMUT</span></div><div class="s7-tag">HIC LUDUS ERROREM PUNIT</div></div><div class="s7-press">PULSA PARA ENTRAR</div></div>
 
 
 <div class="toast-wrap" id="toasts"></div>
 
 <!-- ==================== MENÚ ==================== -->
 <div id="screen-menu" class="screen active">
-  <div class="m-bg" id="mBg"><div class="m-glow g1"></div><div class="m-glow g2"></div><div class="m-glow g3"></div></div>
-  <div class="m-top">
-    <button class="m-prof shine slow" onclick="openProfile()" aria-label="Tu perfil">
+  <div class="k-top">
+    <button class="k-prof shine slow" onclick="openProfile()" aria-label="Tu perfil">
       <span class="lvimg" id="mLvImg" data-l="0"></span>
-      <span class="m-pinfo">
-        <span class="m-row"><b id="mName"></b><span class="lvchip" id="mLvChip"></span></span>
-        <span class="m-row"><i class="m-bar"><i id="mBar"></i></i><small id="mCount"></small></span>
+      <span class="k-pinfo">
+        <span class="k-row"><b id="mName"></b><span class="k-chip" id="mLvChip"></span></span>
+        <span class="k-row"><i class="k-bar"><i id="mBar"></i></i><small id="mCount"></small></span>
       </span>
     </button>
-    <div class="m-logo"><div class="m-t">T</div><span>TALMUT</span></div>
-    <div class="m-icons">
+    <div class="k-icons">
       <button class="iconbtn" id="muteBtn" onclick="toggleMusic()" aria-label="Música"></button>
-      <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+      <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE6A1" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></button>
     </div>
   </div>
+  <div class="k-logo"><div class="k-w">TALMUT</div><div class="k-sub">HIC LUDUS ERROREM PUNIT</div></div>
 
-  <button id="continueBtn" class="m-cont hidden" onclick="continueScorer()"><svg width="12" height="14" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg><b data-t="m.continue"></b><small id="continueDesc"></small></button>
+  <button id="continueBtn" class="k-cont hidden" onclick="continueScorer()"><svg width="12" height="14" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg><b data-t="m.continue"></b><small id="continueDesc"></small></button>
 
-  <div class="m-caps">
-    <button class="cap c1 shine" onclick="openOnline()">
-      <span class="cap-in">
-        <span class="cap-tag" style="color:#9FE6B4">● EN LÍNEA</span>
-        <svg class="cap-art" viewBox="0 0 130 130" aria-hidden="true"><defs><linearGradient id="gShield" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A0D12"/><stop offset="1" stop-color="#120305"/></linearGradient></defs><path d="M65 10 L106 25 V62 C106 89 87 109 65 120 C43 109 24 89 24 62 V25 Z" fill="url(#gShield)" stroke="#E3BC55" stroke-width="3.5"/><path d="M65 18 L99 30 V62 C99 84 84 101 65 111 C46 101 31 84 31 62 V30 Z" fill="none" stroke="rgba(227,188,85,.35)" stroke-width="1.2"/><path d="M65 40 L57 52 L45 50 L51 62 L45 74 L57 72 L65 84 L73 72 L85 74 L79 62 L85 50 L73 52 Z" fill="#F3E6C8"/><circle cx="65" cy="62" r="5" fill="#C8202A"/></svg>
-        <span class="cap-t">ONLINE</span><span class="cap-s">&nbsp;</span>
-      </span>
-    </button>
-    <button class="cap c2 shine delay1" onclick="openBots()">
-      <span class="cap-in">
-        <span class="cap-tag" style="color:#FFE7A8">SIN CONEXIÓN</span>
-        <svg class="cap-art" viewBox="0 0 130 126" aria-hidden="true"><g transform="rotate(-35 65 63)"><rect x="61" y="8" width="8" height="80" fill="#E4E4EA" stroke="#5A5A66" stroke-width="1.5"/><path d="M61 8 L65 0 L69 8Z" fill="#E4E4EA"/><rect x="44" y="86" width="42" height="8" rx="2" fill="#E3BC55"/><rect x="61" y="94" width="8" height="18" fill="#5A3A1A"/><circle cx="65" cy="116" r="5" fill="#E3BC55"/></g><g transform="rotate(35 65 63)"><rect x="61" y="8" width="8" height="80" fill="#E4E4EA" stroke="#5A5A66" stroke-width="1.5"/><path d="M61 8 L65 0 L69 8Z" fill="#E4E4EA"/><rect x="44" y="86" width="42" height="8" rx="2" fill="#E3BC55"/><rect x="61" y="94" width="8" height="18" fill="#5A3A1A"/><circle cx="65" cy="116" r="5" fill="#E3BC55"/></g></svg>
-        <span class="cap-t">ARCADE</span><span class="cap-s">Contra la máquina</span>
-      </span>
-    </button>
-    <button class="cap c3 shine delay2" onclick="openSetup()">
-      <span class="cap-in">
-        <svg class="cap-art" viewBox="0 0 130 126" aria-hidden="true"><rect x="30" y="16" width="70" height="94" fill="#EAD9B0"/><path d="M30 16 C22 16 20 26 30 26 M100 16 C108 16 110 26 100 26 M30 110 C22 110 20 100 30 100 M100 110 C108 110 110 100 100 100" stroke="#B89A60" stroke-width="3" fill="#D9C79A"/><path d="M42 40h46M42 54h46M42 68h46M42 82h30" stroke="#7A5A2A" stroke-width="2.2" stroke-linecap="round"/><path d="M66 34v60" stroke="#7A5A2A" stroke-width="1.2"/><circle cx="99" cy="98" r="15" fill="#8E0F17" stroke="#E3BC55" stroke-width="2.5"/><text x="99" y="103" text-anchor="middle" font-family="Cinzel,serif" font-weight="900" font-size="13" fill="#E3BC55">42</text></svg>
-        <span class="cap-t">LOCAL</span><span class="cap-s">Tabla para jugar con baraja real</span>
-      </span>
-    </button>
-    <button class="cap c4 shine delay3" onclick="startTutorial()">
-      <span class="cap-in">
-        <span class="cap-art" style="width:76%;top:8%;display:block;height:58%" id="capJJ"></span>
-        <span class="cap-t">APRENDE</span><span class="cap-s">Con Juanjo, el Cuervo</span>
-      </span>
-    </button>
+  <div class="k-caps">
+    <button class="k-cap kc1" onclick="openOnline()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay1"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>EN LÍNEA</span><div class="k-txt"><div class="k-t">ONLINE</div><div class="k-s">Partida rápida o sala con amigos</div><div class="k-rule"></div></div></button>
+    <button class="k-cap kc2" onclick="openBots()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay2"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>SIN CONEXIÓN</span><div class="k-txt"><div class="k-t">ARCADE</div><div class="k-s">Contra la máquina</div><div class="k-rule"></div></div></button>
+    <button class="k-cap kc3" onclick="openSetup()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay3"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>EN LA MESA</span><div class="k-txt"><div class="k-t">LOCAL</div><div class="k-s">Tabla para jugar con baraja real</div><div class="k-rule"></div></div></button>
+    <button class="k-cap kc4" onclick="startTutorial()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>3 MINUTOS</span><div class="k-txt"><div class="k-t">APRENDE</div><div class="k-s">Con Juanjo, el Cuervo</div><div class="k-rule"></div></div></button>
   </div>
 
-  <div class="m-ticker"><span style="flex:0 0 auto;display:flex" id="mJJHead"></span><b>Juanjo, el Cuervo:</b><span id="mTicker"></span></div>
-
-  <nav class="m-nav">
-    <button onclick="openProfile('me')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5"/></svg><span>Perfil</span></button>
-    <button onclick="openProfile('ach')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2 L20 5 V11 C20 16 16.5 20 12 22 C7.5 20 4 16 4 11 V5 Z"/><path d="M12 7l1.2 2.6 2.8.3-2.1 1.9.6 2.8L12 13.2l-2.5 1.4.6-2.8L8 9.9l2.8-.3z" fill="#E3BC55" stroke="none"/></svg><span>Chapitas</span></button>
-    <button onclick="openFriends()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.6 3.2-5.8 6.5-5.8s6 2.2 6.5 5.8"/><path d="M19 8v6M16 11h6"/></svg><span data-t="m.friends"></span></button>
-    <button onclick="openHistory()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg><span>Estadísticas</span></button>
-    <button onclick="showScreen('screen-rules')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E3BC55" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6"/><path d="M6 3a2 2 0 0 0 0 4h2M6 21a2 2 0 0 1 0-4h2V7"/><path d="M11 9h5M11 13h4"/></svg><span>Reglas</span></button>
+  <nav class="k-nav">
+    <button onclick="openProfile('me')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4.2 4-6.5 8-6.5s7.2 2.3 8 6.5"/></svg><span>Perfil</span></button>
+    <button onclick="openProfile('ach')"><svg viewBox="0 0 24 24"><path d="M12 2l8 4.5v9L12 22l-8-6.5v-9z"/><path d="M12 8l1.4 2.8 3 .4-2.2 2.1.5 3L12 14.9 9.3 16.3l.5-3-2.2-2.1 3-.4z"/></svg><span>Chapitas</span></button>
+    <button onclick="openFriends()"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.6 3.2-5.8 6.5-5.8s6 2.2 6.5 5.8"/><path d="M19 8v6M16 11h6"/></svg><span data-t="m.friends"></span></button>
+    <button onclick="openHistory()"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-6M21 20H3"/></svg><span>Estadísticas</span></button>
+    <button onclick="showScreen('screen-rules')"><svg viewBox="0 0 24 24"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6"/><path d="M6 3a2 2 0 0 0 0 4h2M6 21a2 2 0 0 1 0-4h2V7"/><path d="M11 9h5M11 13h4"/></svg><span>Reglas</span></button>
   </nav>
-  <span class="m-ver">v5.0 · SM42</span>
+  <span class="k-ver">v6.0 · SM42</span>
 </div>
 
-<!-- ==================== MARCADOR: CONFIGURACIÓN ==================== -->
 <div id="screen-setup" class="screen">
   <div class="topbar">
     <button class="iconbtn" onclick="goMenu()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button>
@@ -3458,7 +3607,7 @@ const _avColor=avColor;
 avColor=function(name){return AVC[name]||_avColor(name)};
 
 // ---------- estilo (cada uno ve el suyo) ----------
-const LOOK=Object.assign({felt:'noir',back:'noir',face:'classic'},LS.get('look',{}));
+const LOOK=Object.assign({felt:'nido',back:'nido',face:'classic'},LS.get('look',{}));
 function applyLook(){const b=document.body;b.dataset.felt=LOOK.felt;b.dataset.back=LOOK.back;b.dataset.face=LOOK.face}
 applyLook();
 const FELTS={classic:'radial-gradient(ellipse at 50% 40%,#1E3F7A,#0B1A3A 70%)',noir:'radial-gradient(ellipse at 50% 40%,#3A0D12,#080506 75%)',casino:'radial-gradient(ellipse at 50% 40%,#1F6B45,#0B2E1D 75%)',taberna:'linear-gradient(135deg,#6B4426,#3A2413)',neon:'radial-gradient(ellipse at 50% 40%,#2A1450,#0A0618 75%)'};
@@ -4247,7 +4396,7 @@ function renderProfile(){
   const n=achCount(),lv=levelOf(n),col=ME.color||avColor(myName());
   if(profTab==='me'){
     h+=`<div class="split" style="grid-template-columns:minmax(220px,260px) minmax(0,1fr)">
-     <div class="prof-card"><div style="display:flex;align-items:center;gap:12px"><div class="prof-av" id="profAv" style="background:${col};width:80px;height:80px;font-size:34px">${esc(myName().charAt(0).toUpperCase())}</div>${lvImg(n,80)}</div><b style="font-size:19px">${esc(myName())}</b><span class="lvl-chip">${lv[1]}</span><small class="muted">${n} ${L('chapitas','badges')}</small>${statsBlock()}</div>
+     <div class="prof-card"><div class="k-medal">${lvImg(n)}</div><div class="k-name">${esc(myName())}</div><div class="k-lv">${lv[1].toUpperCase()} · ${n}/${ACH_LIST.length}</div>${statsBlock()}<span id="profAv" style="display:none"></span></div>
      <div style="display:flex;flex-direction:column;gap:14px">
       <div><p class="lbl">${L('APODO','NICKNAME')}</p><input id="pfName" class="text-input" maxlength="16" value="${esc(myName())}"></div>
       <div><p class="lbl">${L('TU COLOR','YOUR COLOUR')}</p><div class="sw-row">${COLORS.map(c=>`<button class="sw${(ME.color||'')===c?' on':''}" style="background:${c}" onclick="pickColor('${c}')" aria-label="${c}"></button>`).join('')}</div><p class="muted" style="font-size:11px;margin:6px 0 0">${L('Tu inicial con tu color. Se ve igual en la mesa y en Amigos.','Your initial in your colour, at the table and in Friends.')}</p></div>
@@ -4259,7 +4408,7 @@ function renderProfile(){
     const felt=k=>`<button class="tile${d.felt===k?' on':''}" onclick="draftLook.felt='${k}';play('tap');renderProfile()"><div class="felt" style="background:${FELTS[k]}"></div>${THEME_NAMES[k]}</button>`;
     const back=k=>`<button class="tile${d.back===k?' on':''}" data-back="${k}" onclick="draftLook.back='${k}';play('tap');renderProfile()">${backPreview(k)}${THEME_NAMES[k]}</button>`;
     const face=k=>`<button class="tile${d.face===k?' on':''}" onclick="draftLook.face='${k}';play('tap');renderProfile()">${facePreview(k,'QS')}${FACE_NAMES[k]}</button>`;
-    const K=['classic','noir','casino','taberna','neon'];
+    const K=['nido','classic','noir','casino','taberna','neon'];
     h+=`<div class="split"><div style="display:flex;flex-direction:column;gap:14px">
       <div><p class="lbl">${L('TAPETE','TABLE')}</p><div class="look-row">${K.map(felt).join('')}</div></div>
       <div><p class="lbl">${L('REVERSO DE LAS CARTAS','CARD BACK')}</p><div class="look-row">${K.map(back).join('')}</div></div>
@@ -4388,24 +4537,52 @@ function menuCaw(){if(!SND.ctx||SND.ctx.state!=='running')return;if(!cawDone){ca
 //  ARRANQUE
 // =====================================================================
 
-// ---------- intro del estudio ----------
-function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;el.classList.add('out');setTimeout(()=>{el.remove();sndUnlock();setTimeout(menuCaw,300)},600)}
-function startIntro(){
-  const el=document.getElementById('intro');if(!el||el.dataset.started)return;el.dataset.started=1;
-  const c=sndInit();el.classList.remove('wait');setTimeout(endIntro,3300);
-  if(c&&c.state!=='running'){c.resume().then(()=>{if(c.state==='running'&&!el.dataset.done)play('intro')}).catch(()=>{})}else play('intro');
+
+// =====================================================================
+//  v6 · NIDO DE CUERVOS — intro con cuervos, portada, cofre mágico
+// =====================================================================
+SFX.chest=function(){
+  // crujido de la tapa
+  noise({f:220,f2:520,q:6,type:'bandpass',a:.05,d:.45,v:.22});
+  tone({f:95,f2:60,type:'sawtooth',a:.02,d:.35,v:.08,lp:400});
+  // cerrojo
+  noise({t:.38,f:3200,q:2,d:.03,v:.35});tone({t:.38,f:1800,f2:900,type:'square',d:.03,v:.05,lp:3000});
+  // brillo mágico ascendente
+  [523,659,784,1047,1319,1568,2093].forEach((f,i)=>tone({t:.5+i*.06,f,type:'triangle',a:.01,d:.9,v:.09,rev:1}));
+  [1568,2093,2637,3136].forEach((f,i)=>tone({t:.95+i*.05,f,type:'sine',a:.005,d:1.2,v:.05,rev:1}));
+  noise({t:.5,f:7000,f2:12000,type:'highpass',a:.3,d:1.4,v:.07,rev:1});
+  tone({t:.5,f:261,type:'sine',a:.2,d:1.6,v:.1,rev:1});tone({t:.5,f:392,type:'sine',a:.2,d:1.6,v:.07,rev:1});
+};
+const CROW7='<svg viewBox="0 0 60 30"><path d="M30 17 C26 12 18 4 2 7 C11 9 17 13 20 17 C23 19 27 19 29 19 L26 24 L31 21 L35 23 C38 19 43 13 58 6 C46 6 38 10 33 15 Z" fill="#020203"/></svg>';
+function buildFlock(el,n){
+  for(let i=0;i<n;i++){const d=document.createElement('div');d.className='i7-crow';const w=34+Math.random()*70;
+    d.style.cssText=`width:${w}px;height:${w/2}px;left:${Math.random()*100}%;top:${Math.random()*92}%;opacity:${(.75+Math.random()*.25).toFixed(2)}`;
+    d.innerHTML=CROW7;d.firstChild.style.animationDuration=(.22+Math.random()*.18).toFixed(2)+'s';d.firstChild.style.animationDelay=(-Math.random()*.3).toFixed(2)+'s';el.appendChild(d)}
+}
+function showSplash(){const s=document.getElementById('splash7');if(s)s.classList.remove('hidden')}
+function endIntro(){const el=document.getElementById('intro');if(!el||el.dataset.done)return;el.dataset.done=1;showSplash();el.classList.add('out');setTimeout(()=>el.remove(),650)}
+function enterGame(){
+  const s=document.getElementById('splash7');if(!s||s.dataset.done)return;s.dataset.done=1;
+  const c=sndInit();const go=()=>{try{play('chest')}catch(e){}};
+  if(c&&c.state!=='running')c.resume().then(go).catch(()=>{});else go();
+  const b=document.createElement('div');b.className='s7-burst';s.appendChild(b);
+  setTimeout(()=>{s.classList.add('out');sndUnlock()},700);setTimeout(()=>s.remove(),1500);
 }
 (function(){
-  const el=document.getElementById('intro');if(!el)return;
+  const el=document.getElementById('intro'),sp=document.getElementById('splash7');if(!el)return;
   let seen=false;try{seen=sessionStorage.getItem('talmut.intro')==='1';sessionStorage.setItem('talmut.intro','1')}catch(e){}
-  if(seen||location.hash.includes('access_token')){el.remove();return}
-  const snip=['const deck = shuffle(cards);','if (talmut) lastRound();','sync(state, secret);','export function deal(n){','  return hand.map(c => c);','await save(game, v);','players.forEach(p => p.peek(2));','// SM42 · build 1.0','snap(card, 3000);','score += value(card);'];
-  const mk=(side)=>{const d=document.createElement('div');d.className='code';d.style[side]=(4+Math.random()*10)+'%';d.style.top=(18+Math.random()*50)+'%';d.textContent=Array.from({length:4+Math.floor(Math.random()*4)},()=>snip[Math.floor(Math.random()*snip.length)]).join('\n');el.appendChild(d)};
-  mk('left');mk('right');mk('right');
-  for(let i=0;i<34;i++){const d=document.createElement('div');d.className='dot';d.style.left=Math.random()*100+'%';d.style.top=(15+Math.random()*70)+'%';d.style.animationDelay=(Math.random()*2.4)+'s';d.style.animationDuration=(1.8+Math.random()*2)+'s';el.appendChild(d)}
-  // Si el móvil deja sonar sin tocar, arranca ya; si no, "toca para empezar" (para que se oiga el ¡PAM!)
-  startIntro(); // arranca siempre sola (el sonido, si el móvil lo permite)
+  if(seen||location.hash.includes('access_token')){el.remove();if(sp)sp.remove();return}
+  el.querySelectorAll('.i7-flock').forEach(f=>buildFlock(f,30));
+  el.addEventListener('click',endIntro);
+  try{const c=sndInit();if(c&&c.state==='running'){play('wings');setTimeout(()=>play('caw'),300);setTimeout(()=>play('wings'),2600)}}catch(e){}
+  setTimeout(endIntro,4300);
 })();
+// estilo por defecto nuevo: tapete Nido + reverso Cuervo (una vez)
+FELTS.nido='radial-gradient(ellipse at 50% 42%,#4A1418,#240A0E 55%,#0B0506 85%)';THEME_NAMES.nido='Nido';
+if(!LS.get('look7',false)){LOOK.felt='nido';LOOK.back='nido';LS.set('look',LOOK);LS.set('look7',true);applyLook()}
+// chapitas: toca para ver el nombre
+document.addEventListener('click',e=>{const a=e.target.closest('#screen-profile .ach');if(!a)return;const b=a.querySelector('b'),s=a.querySelector('small');toast((b?b.textContent:'')+(s?' — '+s.textContent:''),a.classList.contains('off')?'':'good')});
+
 applyI18n();
 refreshMenu();
 refreshMuteIcon();
