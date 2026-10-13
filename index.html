@@ -30,9 +30,9 @@
   function fit(){
     var w=innerWidth,hh=innerHeight;
     r.style.display=(touch&&hh>w)?'flex':'none';
-    var H=420,W=Math.round(H*w/hh);
-    if(W<720){W=720;H=Math.round(W*hh/w)}
-    if(W>1000)W=1000;
+    var H=Math.max(440,Math.min(590,Math.round(hh/1.2))),W=Math.round(H*w/hh);
+    if(W<760){W=760;H=Math.round(W*hh/w)}
+    if(W>H*2.3)W=Math.round(H*2.3);
     var s=Math.min(w/W,hh/H);
     f.style.width=W+'px';f.style.height=H+'px';
     f.style.transform='translate('+Math.round((w-W*s)/2)+'px,'+Math.round((hh-H*s)/2)+'px) scale('+s+')';
@@ -1130,10 +1130,6 @@ html.in-frame .k-nav{padding-bottom:10px!important}
 /* carta robada: DESCARTAR en grande */
 .drawn-big .big-dis{font-size:17px!important;padding:16px 10px!important;letter-spacing:.2em!important}
 .drawn-big .swap-hint{font-size:9.5px!important;color:#cdbb9a!important;text-transform:none!important;letter-spacing:.02em!important;font-weight:600!important}
-/* últimas descartadas, con su orden */
-.disc-hist .mini{position:relative;width:20px!important;height:28px!important}
-.disc-hist .mini em{position:absolute;top:-7px;left:-4px;font-style:normal;font-size:8px;font-weight:900;background:#D0781A;color:#fff;border-radius:6px;padding:0 3px;line-height:12px}
-.disc-hist .mini:first-child{box-shadow:0 0 0 2px #FFC85A}
 /* descarte cruzado abierto */
 #gDisc.snap-open .pc{box-shadow:0 0 0 2px #19FF56,0 0 18px rgba(25,255,86,.6)!important;animation:snapGlow 1s ease-in-out infinite alternate}
 @keyframes snapGlow{to{box-shadow:0 0 0 2px #19FF56,0 0 6px rgba(25,255,86,.3)}}
@@ -1187,6 +1183,134 @@ html.in-frame .hito-head .lvimg{width:36px!important;height:36px!important}
 .g-reacts::-webkit-scrollbar{display:none}
 .g-chatlog{min-height:22px}
 .g-chatin{flex:0 0 auto}
+
+/* =================== v7.1 · más pequeño, ordenado y simétrico =================== */
+/* letras oficiales: oro limpio y moderno (sin grano) */
+.k-w,#splash7 .s7-gold,.topbar h1{background:linear-gradient(180deg,#FFF4CF 0%,#FFD978 34%,#F2A93B 58%,#C9731C 78%,#FFCF73 100%)!important;background-size:100% 100%!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.k-w{filter:drop-shadow(0 1px 0 rgba(60,25,4,.9)) drop-shadow(0 0 14px rgba(255,150,40,.3))!important;letter-spacing:.12em!important}
+html.in-frame .k-logo{top:14px}
+html.in-frame .k-w{font-size:30px!important;line-height:1}
+html.in-frame .k-sub{font-size:7.5px!important;letter-spacing:.46em!important;margin-top:5px;color:rgba(255,206,120,.75)!important;font-weight:600!important;padding-left:.46em}
+/* cabecera: píldora y botones compactos y a la misma altura */
+html.in-frame .k-top{padding:12px 22px 0!important;align-items:center}
+html.in-frame .k-prof{gap:8px!important;padding:4px 12px 4px 4px!important;border-radius:999px!important;box-shadow:inset 0 0 0 1px rgba(227,188,85,.35)!important;background:rgba(14,10,12,.72)!important}
+html.in-frame .k-prof::before,html.in-frame .k-prof::after{border-radius:999px!important}
+html.in-frame .k-prof .lvimg{width:30px!important;height:30px!important;box-shadow:0 0 0 1.5px #E3BC55!important}
+html.in-frame .k-pinfo{display:flex;flex-direction:column;gap:3px}
+html.in-frame .k-row{gap:6px!important}
+html.in-frame .k-row b{font-size:11.5px!important;max-width:84px}
+html.in-frame .k-chip{font-size:7px!important;letter-spacing:.16em!important;padding:2px 6px!important;border-radius:999px!important;line-height:1.2!important}
+html.in-frame .k-bar{width:70px!important;height:3px!important;border-radius:2px}
+html.in-frame .k-row small{font-size:9px!important}
+html.in-frame .k-icons{gap:6px}
+html.in-frame .k-icons .iconbtn{width:34px!important;height:34px!important;border-radius:999px!important;min-width:0!important}
+html.in-frame .k-icons .iconbtn svg{width:15px!important;height:15px!important}
+/* cápsulas: bloque centrado y proporcionado */
+html.in-frame #screen-menu.active{display:flex!important;flex-direction:column}
+html.in-frame .k-caps{flex:1 1 auto;width:100%;max-width:980px;margin:0 auto;padding:62px 34px 10px!important;gap:16px!important;align-content:center}
+html.in-frame .k-cap{height:min(58vh,330px)!important}
+html.in-frame .k-t{font-size:clamp(17px,2.1vw,24px)!important;letter-spacing:.04em}
+html.in-frame .k-s{font-size:9.5px!important;line-height:1.35}
+html.in-frame .k-tag{font-size:7.5px!important;letter-spacing:.22em!important;top:10px!important;left:12px!important}
+html.in-frame .k-txt{padding:0 12px 12px!important}
+/* menú inferior: más fino y centrado */
+html.in-frame .k-nav{width:100%;max-width:820px;margin:0 auto;gap:8px!important;padding:4px 34px 14px!important}
+html.in-frame .k-nav button{height:32px!important;font-size:8.5px!important;letter-spacing:.2em!important;gap:6px!important}
+html.in-frame .k-nav svg{width:13px!important;height:13px!important}
+html.in-frame .k-nav button::after{bottom:3px;height:1.5px}
+html.in-frame .k-ver{font-size:7px;bottom:4px;right:12px}
+/* resto de pantallas: contenido en un bloque centrado */
+html.in-frame .screen:not(#screen-menu):not(#screen-game){padding-left:max(20px,calc((100% - 860px)/2))!important;padding-right:max(20px,calc((100% - 860px)/2))!important}
+html.in-frame .topbar{padding-top:12px!important;padding-bottom:8px!important}
+html.in-frame .topbar h1{font-size:17px!important;letter-spacing:.06em!important}
+html.in-frame .topbar p{font-size:10px!important}
+html.in-frame .topbar .iconbtn,html.in-frame .topbar .back{width:32px!important;height:32px!important;min-width:0!important}
+html.in-frame .tabs button{padding:7px 10px!important;font-size:10px!important;letter-spacing:.14em!important}
+html.in-frame .tabs{gap:6px!important;margin-bottom:10px!important}
+html.in-frame .btn{font-size:12px}
+html.in-frame .hito-head .lvimg{width:32px!important;height:32px!important}
+html.in-frame .hh-t b{font-size:13px}
+html.in-frame .hh-t span{font-size:10px}
+html.in-frame .hito-pg button{width:28px;height:28px;font-size:16px}
+html.in-frame .hito{padding:5px 8px}
+html.in-frame .hito .tx b{font-size:10px}
+html.in-frame .hito .tx small{font-size:8.5px}
+html.in-frame .hito .ic{width:24px;height:24px;font-size:12px}
+/* partida: frases más finas */
+html.in-frame .g-reacts button{font-size:9px;padding:2px 7px}
+html.in-frame .g-chatlog{font-size:10px}
+html.in-frame .g-chatin input{height:24px;font-size:11px}
+html.in-frame .g-chatin button{height:24px;width:30px}
+/* bloque central más estrecho y centrado en vertical */
+html.in-frame .screen:not(#screen-menu):not(#screen-game){padding-left:max(20px,calc((100% - 780px)/2))!important;padding-right:max(20px,calc((100% - 780px)/2))!important;padding-bottom:16px!important}
+html.in-frame .screen.active:not(#screen-menu):not(#screen-game){display:flex!important;flex-direction:column}
+html.in-frame .screen.active:not(#screen-menu):not(#screen-game)>.topbar{flex:0 0 auto}
+html.in-frame .screen.active:not(#screen-menu):not(#screen-game)>.topbar+*{margin-top:auto!important}
+html.in-frame .screen.active:not(#screen-menu):not(#screen-game)>*:last-child{margin-bottom:auto!important}
+/* formularios más finos */
+html.in-frame .screen input:not([type=checkbox]):not([type=radio]),html.in-frame .screen select{height:36px!important;font-size:13px!important;padding:0 12px!important;border-radius:10px!important}
+html.in-frame .screen label,html.in-frame .lbl,html.in-frame .field>span{font-size:9.5px!important;letter-spacing:.18em!important}
+html.in-frame .screen .btn{padding:9px 16px!important;font-size:12px!important;border-radius:10px!important}
+html.in-frame .swatch,html.in-frame .colors button{width:24px!important;height:24px!important}
+html.in-frame .prof-card .k-name{font-size:16px}
+html.in-frame .prof-card .k-lv{font-size:9.5px}
+html.in-frame .k-medal{width:110px}
+html.in-frame .screen.active:not(#screen-menu):not(#screen-game)>*{width:100%;box-sizing:border-box;flex-shrink:0}
+html.in-frame #profBody .pv-felt,html.in-frame #profBody .preview,html.in-frame #profBody [class*=preview]{max-height:150px}
+/* perfil, hitos y amigos: centrados y un pelín más grandes */
+html.in-frame #profBody{zoom:1.1}
+html.in-frame #profBody>*:first-child{margin-top:auto!important}
+html.in-frame #profBody>*:last-child{margin-bottom:auto!important}
+html.in-frame #screen-profile.active>.topbar+*{margin-top:0!important}
+/* partida: nada se pisa */
+.bubble{font-size:11px!important;padding:5px 9px!important;border-radius:11px!important;max-width:170px}
+.bubble small{font-size:8.5px!important}
+.bubble.below::after{left:50%!important;margin-left:-6px;bottom:auto!important;top:-6px;border:6px solid transparent!important;border-bottom-color:#fff!important;border-top:0!important}
+body.ingame .toast-wrap{top:auto!important;bottom:31%!important;left:46%!important;width:min(320px,38%)!important;gap:4px!important}
+body.ingame .toast{font-size:11.5px!important;padding:6px 11px!important;text-align:center;background:rgba(14,10,12,.88)!important}
+.drawn-big .big-dis{min-width:150px;padding:13px 18px!important;font-size:15px!important;letter-spacing:.24em!important;text-transform:uppercase}
+/* panel derecho compacto: siempre caben frases y chat */
+html.in-frame .live>div:nth-child(n+4){display:none}
+html.in-frame .hold-btn{height:36px!important;font-size:13px!important;border-radius:10px!important}
+html.in-frame .talmut-zone{padding-top:6px!important;gap:3px!important;margin-top:6px!important}
+html.in-frame .talmut-zone small{font-size:8.5px!important}
+html.in-frame .g-chat{margin-top:6px!important}
+@media (max-height:480px){
+  html.in-frame .live>div:nth-child(n+3){display:none}
+  html.in-frame .live{font-size:10.5px}
+  html.in-frame .turn-box{padding:7px 9px!important}
+  html.in-frame .turn-box b,html.in-frame .turn-box h2{font-size:15px!important}
+  html.in-frame #gInfo>p,html.in-frame #gInfo .hint{font-size:10.5px!important;margin:4px 0!important}
+  html.in-frame .g-chat{min-height:80px!important}
+}
+/* sin chat escrito: solo las cápsulas de frases */
+.g-chatlog,.g-chatin{display:none!important}
+.g-chat{flex:0 0 auto!important;min-height:0!important;margin-top:auto!important;padding-top:8px!important}
+.g-reacts{max-height:none!important;overflow:visible!important;gap:5px!important}
+html.in-frame .g-reacts button{font-size:9.5px;padding:3px 8px}
+html.in-frame .talmut-zone{margin-top:auto!important}
+html.in-frame .talmut-zone+.g-chat{margin-top:8px!important}
+/* columna izquierda: más fina, aireada y elegante */
+html.in-frame .g-side .g-top{padding:10px 10px 6px!important}
+html.in-frame .g-side .g-top .rd{font-size:11.5px!important;letter-spacing:.14em!important}
+html.in-frame .g-side .g-top .rd small{font-size:8px!important;letter-spacing:.24em!important;opacity:.7}
+html.in-frame .g-side .iconbtn{width:26px!important;height:26px!important}
+html.in-frame .g-side .iconbtn svg{transform:scale(.85)}
+html.in-frame .g-plist{flex:0 1 auto!important;gap:3px!important;padding:6px 8px!important}
+html.in-frame .pl-row{padding:6px 8px!important;gap:8px!important;border-radius:9px!important;min-height:0!important;background:rgba(255,255,255,.025)!important;border:1px solid transparent!important}
+html.in-frame .pl-row.act{background:linear-gradient(90deg,rgba(232,52,62,.16),rgba(232,52,62,.04))!important;border-color:rgba(232,52,62,.45)!important;box-shadow:none!important}
+html.in-frame .pl-row .av,html.in-frame .pl-row [class*=avatar]{transform:scale(.9)}
+html.in-frame .pl-row .nm b{font-size:11px!important;font-weight:700!important}
+html.in-frame .pl-row .nm small{font-size:9px!important;opacity:.75}
+html.in-frame .pl-row .tot{font-size:13px!important}
+html.in-frame .pl-row .mini-bar{height:2px!important;margin-top:3px!important}
+.g-sinfo{margin:auto 10px 12px;padding:8px 2px 0;border-top:1px solid rgba(227,188,85,.18);display:flex;flex-direction:column;gap:5px}
+.g-sinfo:empty{display:none}
+.g-sinfo div{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.g-sinfo small{font-family:var(--k-ui);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:#9C9078}
+.g-sinfo b{font-size:12px;font-weight:800;color:#FFD978;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g-sinfo b.g{color:#7EE2A0}
+#gInfo .info-grid{display:none}
 
 </style>
 </head>
@@ -1440,6 +1564,7 @@ html.in-frame .hito-head .lvimg{width:36px!important;height:36px!important}
       <button class="iconbtn" onclick="openScoresModal()" aria-label="Puntuaciones"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></button>
     </div>
     <div class="g-plist" id="gPlayers"></div>
+    <div class="g-sinfo" id="gSideInfo"></div>
   </aside>
   <main class="g-main">
     <div id="gOpps" class="opps"></div>
@@ -2055,7 +2180,7 @@ var TENG = (() => {
     }
     const scores = pub.players.map((p, i) => {
       if (p.left) return 0;
-      if (winners.includes(i)) return jokers[i] ? -jokers[i] : 0;
+      if (winners.includes(i)) return jokers[i] && jokers[i] === (sec.hands[i] || []).filter((c) => c !== null).length ? -jokers[i] : 0;
       return raw[i];
     });
     if (wrong) scores[d] = act2.filter((i) => i !== d).reduce((a, i) => a + raw[i], 0);
@@ -2492,7 +2617,7 @@ es:`
 <span>J</span><span>20</span>
 <span>Q</span><span>30</span>
 <span>K</span><span>40</span>
-<span>Comodín</span><span>−1 si ganas la ronda · 50 si no</span>
+<span>Comodín</span><span>−1 si ganas con él solo · 0 si ganas con más cartas · 50 si no ganas</span>
 </div></div>
 
 <div class="rule"><h3><span class="n">2</span>Preparación</h3>
@@ -2533,7 +2658,7 @@ es:`
 <ul>
 <li>Quien tenga <b>menos puntos</b> gana la ronda y se anota <b>0</b>.</li>
 <li>Los demás se anotan los puntos de sus cartas.</li>
-<li>Si el ganador tiene un comodín, se anota <b>−1</b> por cada uno. Si no ganas, cada comodín vale <b>50</b>. (Para decidir quién gana, el comodín cuenta como −1.)</li>
+<li>Si el ganador se queda <b>solo con el comodín</b>, se anota <b>−1</b>. Si gana con el comodín y alguna carta más, se anota <b>0</b>. Si no ganas, cada comodín vale <b>50</b>. (Para decidir quién gana, el comodín cuenta como −1.)</li>
 <li>Si empata quien cantó TALMUT con otro jugador, gana el otro.</li>
 </ul></div>
 
@@ -2567,7 +2692,7 @@ en:`
 <span>J</span><span>20</span>
 <span>Q</span><span>30</span>
 <span>K</span><span>40</span>
-<span>Joker</span><span>−1 if you win the round · 50 if not</span>
+<span>Joker</span><span>−1 if you win with only the joker · 0 if you win with more cards · 50 if you don't win</span>
 </div></div>
 
 <div class="rule"><h3><span class="n">2</span>Setup</h3>
@@ -2608,7 +2733,7 @@ en:`
 <ul>
 <li>The player with the <b>fewest points</b> wins the round and scores <b>0</b>.</li>
 <li>Everyone else scores the points of their cards.</li>
-<li>If the winner holds a joker, they score <b>−1</b> for each one. If you do not win, each joker is worth <b>50</b>. (To decide who wins, a joker counts as −1.)</li>
+<li>If the winner is left with <b>only the joker</b>, they score <b>−1</b>. If they win with the joker plus other cards, they score <b>0</b>. If you do not win, each joker is worth <b>50</b>. (To decide who wins, a joker counts as −1.)</li>
 <li>If the TALMUT caller ties with another player, the other player wins.</li>
 </ul></div>
 
@@ -3671,8 +3796,8 @@ function renderGame(){
   let piles=`<div class="pile${cd?' can-draw':''}" id="gDeck" onclick="tapDeck()">${p.deckCount>0?cardHtml(null,{}):'<div class="pile-empty"></div>'}<small>${cd?L('¡Toca!','Tap!'):t('g.deck')+' · '+p.deckCount}</small></div>`;
   if(showBig)piles+=drawnBigHtml();
   piles+=`<div class="pile" id="gDisc">${p.discardTop?cardHtml(p.discardTop,{flash:p.phase==='snap'}):`<div class="pile-empty">${t('g.discard')}</div>`}<small>${t('g.discard')}</small></div>`;
-  const hist=UI.discards.slice(0,6);
-  if(hist.length)piles+=`<div class="disc-hist"><small>${L('Últimas descartadas (1 = la última)','Last discards (1 = latest)')}</small><div>${hist.map((c,i)=>{const r=c[0]==='X'?'★':c.slice(0,-1),red=c[0]==='X'?c==='XR':/[HD]$/.test(c);return `<span class="mini${red?' red':''}"><em>${i+1}</em>${r}</span>`}).join('')}</div></div>`;
+  const hist=UI.discards.slice(1,5);
+  if(hist.length&&!showBig)piles+=`<div class="disc-hist"><small>${t('g.lastDisc')}</small><div>${hist.map(c=>{const r=c[0]==='X'?'★':c.slice(0,-1),red=c[0]==='X'?c==='XR':/[HD]$/.test(c);return `<span class="mini${red?' red':''}">${r}</span>`}).join('')}</div></div>`;
   document.getElementById('gPiles').innerHTML=piles;
   // mis cartas
   document.getElementById('gMeName').innerHTML=meP?`<b>${esc(meP.name)}</b>${p.talmut&&p.talmut.by===me?` · <span class="shield">${t('g.immune')}</span>`:''}`:'';
@@ -3694,7 +3819,8 @@ function renderGame(){
   const tbox=document.getElementById('gTurn');tbox.className=cls;tbox.innerHTML=tb;tbox.style.display=tb?'':'none';
   // información de la partida + en directo
   const leaderName=leaderOn?act.filter(x=>x.pl.total===minT).map(x=>x.i===me?t('g.you'):esc(x.pl.name)).join(', '):'—';
-  let info=`<div class="info-grid"><div><b>${Math.max(1,p.round)}/${p.totalRounds}</b><small>${t('g.roundShort')}</small></div><div><b>${p.deckCount}</b><small>${t('g.inDeck')}</small></div><div><b class="g">${leaderName}</b><small>${t('g.leaderShort')}</small></div></div>`;
+  setHtml(document.getElementById('gSideInfo'),`<div><small>${t('g.roundShort')}</small><b>${Math.max(1,p.round)}/${p.totalRounds}</b></div><div><small>${t('g.inDeck')}</small><b>${p.deckCount}</b></div><div><small>${t('g.leaderShort')}</small><b class="g">${leaderName}</b></div>`);
+  let info='';
   if(UI.log.length)info+=`<div class="live-lbl">${t('g.live')}</div><div class="live">${UI.log.slice(0,5).map((l,k)=>`<div class="${k===0?'new':''}">${l}</div>`).join('')}</div>`;
   document.getElementById('gInfo').innerHTML=info;
   renderActions();
@@ -3842,7 +3968,7 @@ const ACH_LIST=[
  // rondas y partidas
  ['r1','🌱','Primera ronda','Gana una ronda',()=>cnt('rw')>=1],
  ['r50','🌳','Media centena','Gana 50 rondas',()=>cnt('rw')>=50],
- ['joker','🤡','Comodín en la manga','Gana una ronda con comodín (puntos en negativo)',()=>cnt('joker')>=1],
+ ['joker','🤡','Comodín en la manga','Gana una ronda quedándote solo con el comodín (−1)',()=>cnt('joker')>=1],
  ['zero','🫧','Mano limpia','Acaba una ronda con 0 puntos en la mano',()=>cnt('zero')>=1],
  ['ruin','💸','Ruina','Cómete 80 puntos o más en una ronda',()=>cnt('ruin')>=1],
  ['fino','🎩','Fino filipino','Gana una partida con 10 puntos o menos',()=>cnt('fino')>=1],
@@ -4847,14 +4973,20 @@ function chatSend(){
   const me=myIdx();chatPush(myName(),t,true);
   if(channel&&!G.local){try{channel.send({type:'broadcast',event:'chat',payload:{p:me,t}})}catch(e){}}
 }
-const _showReact=showReact;showReact=function(pi,k){const r=REACTS.find(x=>x.k===k);if(r&&G&&G.pub.players[pi])chatPush(G.pub.players[pi].name,'«'+r.es+'»',pi===myIdx());return _showReact.apply(this,arguments)};
+const _showReact=showReact;showReact=function(pi,k){const r=REACTS.find(x=>x.k===k);if(r&&G&&G.pub.players[pi])chatPush(G.pub.players[pi].name,'«'+r.es+'»',pi===myIdx());
+  const out=_showReact.apply(this,arguments);
+  try{
+    const bs=document.querySelectorAll('body>.bubble'),b=bs[bs.length-1];
+    if(b&&pi!==myIdx()){const tr=boxRect(pi);if(tr){const bw=b.offsetWidth;let x=tr.left+tr.width/2-bw/2;x=Math.max(6,Math.min(innerWidth-bw-6,x));b.classList.add('below');b.style.left=Math.round(x)+'px';b.style.top=Math.round(tr.bottom+8)+'px'}}}catch(e){}
+  return out};
 reactDock=function(){
   const d=document.getElementById('gReacts');if(!d)return;
   const on=currentScreen()==='screen-game'&&G&&myIdx()>=0&&!TUT;
-  document.getElementById('gChat').style.display=on?'':'none';if(!on)return;
+  document.getElementById('gChat').style.display=on?'':'none';if(!on){document.body.classList.remove('ingame');return}
   const used=UI.creerKey&&UI.creerKey===creerKey();
   const h=REACTS.filter(reactAllowed).filter(r=>!(r.mx&&used)).map(r=>`<button class="${r.ctx?'ctx':''}${r.mx?' mx':''}" onclick="sendReact('${r.k}')">${esc(r.es)}</button>`).join('');
   if(d.dataset.h!==h){d.innerHTML=h;d.dataset.h=h;chatRender()}
+  document.body.classList.toggle('ingame',on);
   const disc=document.getElementById('gDisc');if(disc){const p=G.pub;disc.classList.toggle('snap-open',p.status==='play'&&p.phase==='draw'&&!!p.lastSnap&&(p.lastSnap.owner===null||p.lastSnap.owner===myIdx()))}
 };
 openReacts=function(){const i=document.getElementById('gChatIn');if(i)i.focus()};
@@ -4915,6 +5047,16 @@ setInterval(invListen,3000);
 
 // ---------- intervalos ----------
 setInterval(()=>{try{reactDock()}catch(e){}},400);
+
+// ---------- comodín descartado: «co-có» de gallina, sutil ----------
+SFX.hen=function(){
+  const k=(t,f,d)=>{tone({t,f,f2:f*.68,type:'sawtooth',a:.004,d,v:.045,lp:1700});tone({t,f:f*2.02,f2:f*1.35,type:'triangle',a:.004,d:d*.8,v:.018});noise({t,f:1300,q:4,a:.002,d:.025,v:.03})};
+  k(0,560,.07);k(.17,760,.12);
+};
+const _trk=trackEvents;trackEvents=function(st,evs){
+  try{(evs||[]).forEach(e=>{if((e.type==='discard'||e.type==='snap'||e.type==='auto')&&e.card&&rankOfC(e.card)==='X')setTimeout(()=>{try{play('hen')}catch(x){}},420)})}catch(x){}
+  return _trk.apply(this,arguments);
+};
 
 applyI18n();
 refreshMenu();
