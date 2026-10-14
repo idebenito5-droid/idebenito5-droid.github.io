@@ -1128,8 +1128,6 @@ html.in-frame .k-nav{padding-bottom:10px!important}
 .g-chatin input{flex:1;min-width:0;height:28px;padding:0 8px;border-radius:8px;border:1px solid rgba(255,200,90,.35);background:rgba(0,0,0,.5);color:#F4EBD6;font-size:12px;-webkit-user-select:text;user-select:text}
 .g-chatin button{width:34px;height:28px;border-radius:8px;border:0;background:linear-gradient(180deg,#FFE07A,#D0781A);color:#1a0d02;font-weight:900;cursor:pointer}
 /* carta robada: DESCARTAR en grande */
-.drawn-big .big-dis{font-size:17px!important;padding:16px 10px!important;letter-spacing:.2em!important}
-.drawn-big .swap-hint{font-size:9.5px!important;color:#cdbb9a!important;text-transform:none!important;letter-spacing:.02em!important;font-weight:600!important}
 /* descarte cruzado abierto */
 #gDisc.snap-open .pc{box-shadow:0 0 0 2px #19FF56,0 0 18px rgba(25,255,86,.6)!important;animation:snapGlow 1s ease-in-out infinite alternate}
 @keyframes snapGlow{to{box-shadow:0 0 0 2px #19FF56,0 0 6px rgba(25,255,86,.3)}}
@@ -1268,7 +1266,6 @@ html.in-frame #screen-profile.active>.topbar+*{margin-top:0!important}
 .bubble.below::after{left:50%!important;margin-left:-6px;bottom:auto!important;top:-6px;border:6px solid transparent!important;border-bottom-color:#fff!important;border-top:0!important}
 body.ingame .toast-wrap{top:auto!important;bottom:31%!important;left:46%!important;width:min(320px,38%)!important;gap:4px!important}
 body.ingame .toast{font-size:11.5px!important;padding:6px 11px!important;text-align:center;background:rgba(14,10,12,.88)!important}
-.drawn-big .big-dis{min-width:150px;padding:13px 18px!important;font-size:15px!important;letter-spacing:.24em!important;text-transform:uppercase}
 /* panel derecho compacto: siempre caben frases y chat */
 html.in-frame .live>div:nth-child(n+4){display:none}
 html.in-frame .hold-btn{height:36px!important;font-size:13px!important;border-radius:10px!important}
@@ -1311,6 +1308,41 @@ html.in-frame .pl-row .mini-bar{height:2px!important;margin-top:3px!important}
 .g-sinfo b{font-size:12px;font-weight:800;color:#FFD978;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .g-sinfo b.g{color:#7EE2A0}
 #gInfo .info-grid{display:none}
+
+/* carta robada: como antes */
+.drawn-big .swap-hint{display:block;font-size:9px!important;color:#cdbb9a!important;text-transform:none!important;letter-spacing:.02em!important;font-weight:600!important;text-align:center;line-height:1.3}
+/* perfil, personalización e hitos: cada uno por separado */
+#profBody .tabs{display:none!important}
+/* amigos y reglas: centrados y más pequeños */
+html.in-frame #screen-rules,html.in-frame #screen-friends,html.in-frame #screen-history{padding-left:max(20px,calc((100% - 620px)/2))!important;padding-right:max(20px,calc((100% - 620px)/2))!important}
+html.in-frame .rules{padding:4px 0 20px!important;gap:8px!important}
+html.in-frame .rule{padding:11px 13px!important;border-radius:11px!important}
+html.in-frame .rule h3{font-size:11.5px!important;margin-bottom:6px!important}
+html.in-frame .rule h3 .n{width:18px;height:18px;font-size:9.5px}
+html.in-frame .rule p,html.in-frame .rule li{font-size:11px!important;line-height:1.5!important;margin-bottom:5px!important}
+html.in-frame .rule .row,html.in-frame .rule .vals span,html.in-frame .rule div>span{font-size:11px}
+html.in-frame #screen-friends .f-row{padding:8px 10px!important}
+html.in-frame #screen-friends .f-row b{font-size:12px!important}
+html.in-frame #screen-friends .card-box,html.in-frame #screen-friends .card{padding:12px 14px!important;font-size:11.5px}
+html.in-frame #profBody>.tabs+*{margin-top:auto!important}
+html.in-frame #screen-friends.active>.topbar+*,html.in-frame #screen-friends.active>.divider+*{margin-top:auto!important}
+/* carta robada: botón cuadrado y grande, descarte más pequeño, todo centrado */
+.piles{justify-content:center!important;gap:14px!important}
+.drawn-big{gap:12px!important}
+.drawn-big .opts{width:118px!important;align-items:stretch}
+.drawn-big .opts .btn-gold{height:78px;padding:6px!important;border-radius:14px!important;font-size:15px!important;font-weight:900!important;letter-spacing:.12em!important;text-transform:uppercase;display:flex;align-items:center;justify-content:center}
+.piles:has(.drawn-big) #gDisc .pc{transform:scale(.72);transform-origin:center;margin:-10px -8px}
+.piles:has(.drawn-big) #gDisc small{margin-top:-8px}
+/* móvil: mazo, carta robada, botón y descarte más compactos */
+@media (max-height:480px){
+  html.in-frame .piles{zoom:.82}
+  html.in-frame .piles:has(.drawn-big){zoom:.74}
+}
+.lvimg[data-l="0"]{background-image:url(boceto-v6/img/lv0.webp?v=74)!important}
+.lvimg[data-l="1"]{background-image:url(boceto-v6/img/lv1.webp?v=74)!important}
+.lvimg[data-l="2"]{background-image:url(boceto-v6/img/lv2.webp?v=74)!important}
+.lvimg[data-l="3"]{background-image:url(boceto-v6/img/lv3.webp?v=74)!important}
+.lvimg[data-l="4"]{background-image:url(boceto-v6/img/lv4.webp?v=74)!important}
 
 </style>
 </head>
@@ -4947,11 +4979,11 @@ const _btk=botTick;botTick=function(){
   return _btk.apply(this,arguments);
 };
 
-// ---------- carta robada: solo DESCARTAR en grande ----------
+// ---------- carta robada: como antes, sin «Cambiar por una mía» ----------
 drawnBigHtml=function(){
   const c=UI.pending,r=rankOfC(c);
   const sp=['10','J','Q','K'].includes(r)?`<div class="sp">${L('Si la descartas:','If you discard it:')} ${POWER_TXT[LANG][r]}</div>`:'';
-  return `<div class="drawn-big"><div id="gDrawnCard">${cardHtml(c,{size:'xl'})}</div><div class="opts"><button class="btn btn-gold big-dis" onclick="doDiscard()">${L('Descartar','Discard')}</button><small class="swap-hint">${L('o toca una carta tuya para cambiarla','or tap one of your cards to swap')}</small>${sp}</div></div>`;
+  return `<div class="drawn-big"><div id="gDrawnCard">${cardHtml(c,{size:'xl'})}</div><div class="opts"><small>${L('Tu carta','Your card')}</small><button class="btn btn-gold" onclick="doDiscard()">${L('Descartar','Discard')}</button><small class="swap-hint">${L('o toca una tuya para cambiarla','or tap one of yours to swap')}</small>${sp}</div></div>`;
 };
 
 // ---------- chat en vivo + frases ----------
@@ -4997,6 +5029,7 @@ const _rp=renderProfile;renderProfile=function(){
   _rp.apply(this,arguments);
   const tb=document.querySelectorAll('#profBody .tabs button');
   if(tb.length===3){tb[0].textContent=L('Perfil','Profile');tb[1].textContent=L('Personalización','Customize');tb[2].textContent=L('Hitos','Milestones')+' · '+achCount()}
+  try{const h=document.querySelector('#screen-profile .topbar h1');if(h)h.textContent=profTab==='look'?L('Personalización','Customize'):profTab==='ach'?L('Hitos','Milestones'):L('Perfil','Profile');const sp=document.querySelector('#screen-profile .topbar p');if(sp)sp.textContent=profTab==='ach'?(achCount()+' / '+ACH_LIST.length):'';}catch(e){}
   if(profTab==='ach')renderHitos();
 };
 function renderHitos(){
