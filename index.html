@@ -26,10 +26,21 @@
   var touch=matchMedia('(pointer:coarse)').matches;
   function full(){var e=d.documentElement;try{if(!d.fullscreenElement&&e.requestFullscreen)e.requestFullscreen({navigationUI:'hide'}).then(function(){try{screen.orientation.lock('landscape').catch(function(){})}catch(x){}}).catch(function(){})}catch(x){}}
   r.addEventListener('click',full);
-  window.addEventListener('message',function(e){if(e.origin===location.origin&&e.data==='talmut:full'&&touch)full()});
+  var port=false;
+  window.addEventListener('message',function(e){
+    if(e.origin!==location.origin)return;
+    if(e.data==='talmut:full'&&touch)full();
+    if(e.data==='talmut:portrait'||e.data==='talmut:landscape'){
+      var np=e.data==='talmut:portrait';if(np===port)return;port=np;
+      try{if(np){screen.orientation.unlock&&screen.orientation.unlock()}else if(d.fullscreenElement){screen.orientation.lock('landscape').catch(function(){})}}catch(x){}
+      fit();
+    }
+  });
   function fit(){
     var w=innerWidth,hh=innerHeight;
-    r.style.display=(touch&&hh>w)?'flex':'none';
+    r.style.display=(touch&&hh>w&&!port)?'flex':'none';
+    if(port&&hh>w){var PW=Math.max(360,Math.min(430,w)),PH=Math.round(PW*hh/w),ps=w/PW;
+      f.style.width=PW+'px';f.style.height=PH+'px';f.style.transform='translate(0px,0px) scale('+ps+')';return}
     var H=Math.max(440,Math.min(590,Math.round(hh/1.2))),W=Math.round(H*w/hh);
     if(W<760){W=760;H=Math.round(W*hh/w)}
     if(W>H*2.3)W=Math.round(H*2.3);
@@ -1403,6 +1414,31 @@ html.in-frame #onlineBody,html.in-frame #lobbyBody{flex:1 1 auto;display:flex!im
 .on-box.lob .lob-acts{margin-top:auto;padding-bottom:0!important}
 @media (max-height:480px){.on-box{padding:12px;gap:10px}.on-box .card-box{padding:10px 12px!important}}
 .on-box .on-logout{background:none!important;border:0!important;box-shadow:none!important;color:#8a7f6c!important;text-decoration:underline;text-underline-offset:3px}
+/* v7.8 */
+.pc.swap-tgt{z-index:3;box-shadow:0 0 0 2px #3FE0CF,0 0 16px rgba(63,224,207,.65)!important;border-radius:8px}
+.drop-slot{font-weight:900}
+body.creer-on .g-reacts,body.creer-on .toast-wrap,body.creer-on #gNotice,body.creer-on .bubble:not(.mx),body.creer-on .inv-pop{opacity:0!important;visibility:hidden!important}
+body.creer-on .bubble.mx{z-index:120}
+body.creer-on #screen-game .g-main,body.creer-on #screen-game .g-side,body.creer-on #screen-game .g-panel{filter:grayscale(.85) brightness(.75);transition:filter .3s}
+body.creer-on #gTimer *{animation-play-state:paused!important;transition:none!important}
+#roundsPills{display:flex;gap:6px}
+/* v7.9 · cartas proporcionales (opción B): número y palo nunca se pisan */
+.pc{container-type:size}
+.pc .face .c{display:block!important;font-size:13cqh!important;top:4cqh!important;left:7cqw!important;line-height:1!important}
+.pc .face .r{font-size:31cqh!important;line-height:.95!important}
+.pc .face .s{display:block!important;font-size:24cqh!important;margin:2cqh 0 0!important;line-height:1!important}
+.pc .face .jk{font-size:11cqh!important;letter-spacing:0!important}
+body[data-face=big] .pc .face .c{display:none!important}
+body[data-face=big] .pc .face .r{font-size:44cqh!important}
+body[data-face=big] .pc .face .s{font-size:20cqh!important}
+/* aviso partida francesa */
+.fr-warn{position:fixed;inset:0;z-index:400;display:grid;place-items:center;background:rgba(0,0,0,.72);animation:fadeIn .2s}
+.fr-card{width:min(420px,88vw);padding:18px 20px;border-radius:16px;background:linear-gradient(180deg,#24100c,#0d0607);border:1px solid #E8343E;box-shadow:0 0 40px rgba(232,52,62,.35);text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.fr-card b{font-family:var(--k-title);font-size:18px;color:#FF6A6F;letter-spacing:.06em}
+.fr-card p{margin:0;font-size:12px;line-height:1.45;color:#EADFC6}.fr-card p b{font-family:inherit;font-size:inherit;color:#FFD978;letter-spacing:0}
+.fr-card .fr-s{color:#a99c86;font-style:italic;font-size:11px}
+.fr-card .btn{width:auto!important;padding:9px 18px!important;font-size:12px!important;margin-top:4px}
+.fr-flag{display:flex;width:42px;height:28px;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.5)}.fr-flag i{flex:1}.fr-flag i:nth-child(1){background:#1F4FB5}.fr-flag i:nth-child(2){background:#F3EBDD}.fr-flag i:nth-child(3){background:#D8343E}
 
 </style>
 </head>
@@ -1466,7 +1502,7 @@ html.in-frame #onlineBody,html.in-frame #lobbyBody{flex:1 1 auto;display:flex!im
 
     <div class="stepper" id="roundsStepper">
       <span class="muted" style="font-size:13px" data-t="setup.rounds"></span>
-      <div class="ctr"><button onclick="changeRounds(-1)">&minus;</button><span class="val" id="roundsValue">5</span><button onclick="changeRounds(1)">+</button></div>
+      <div class="pill-row" id="roundsPills"></div><span id="roundsValue" hidden>5</span>
     </div>
 
     <div>
@@ -3491,7 +3527,7 @@ function renderOnlineHome(){
     <button class="menu-btn hero" onclick="quickMatch()"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="#D4A83A"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><div class="tx"><b>${t('on.quick')}</b><small>${t('on.quick.d')}</small></div></button>
     <div class="card-box">
       <p style="margin:0 0 4px;font-weight:600">${t('on.create')}</p><p class="muted" style="margin:0 0 12px">${t('on.create.d')}</p>
-      <div class="seg" id="roundSeg">${[1,3,5,10].map(n=>`<button class="${n===createRounds?'on':''}" onclick="createRounds=${n};renderOnlineHome()">${n} R${n===10?' ★':''}</button>`).join('')}</div>
+      <div class="seg" id="roundSeg">${[3,5,10].map(n=>`<button class="${n===createRounds?'on':''}" onclick="createRounds=${n};renderOnlineHome()">${n} R${n===10?' ★':''}</button>`).join('')}</div>
       <button class="btn btn-gold" style="margin-top:12px" onclick="createRoom()">${t('on.create')}</button>
     </div>
     <div class="card-box">
@@ -3642,7 +3678,7 @@ function processEvents(st){
       case 'keep': if(e.p!==me)toast(t('ev.keep',{n,c:cardName(e.card)}));UI.hl[e.p+'-'+e.s]=until;play('place');break;
       case 'discard': if(e.p!==me)toast(t('ev.discard',{n,c:cardName(e.card)}));play('discard');break;
       case 'snap': toast(t('ev.snap',{n,c:cardName(e.card)}),'good');play('snapOk');break;
-      case 'snap_fail': toast(t('ev.snapFail',{n,c:cardName(e.card)}),'bad');UI.flash[e.p+'-'+e.s]={card:e.card,until:Date.now()+2200};if(e.p===me)buzz(200);play('snapFail');break;
+      case 'snap_fail': toast(L(`${n} ha fallado: carta de castigo`,`${n} missed: penalty card`),'bad');if(e.p===me)buzz(200);play('snapFail');break;
       case 'talmut': talmutMoment(n,e.auto,e.p===me);break;
       case 'k_swap_mark':break;
       case 'look_own': if(e.p!==me){UI.hl[e.p+'-'+e.s]=until;play('flip')}break;
@@ -4316,14 +4352,14 @@ function dragMove(x,y){
   let best=0,bd=1e9;DR.rects.forEach((r,i)=>{const d=Math.hypot(r.left+r.width/2-cx,(r.top+r.height/2-cy)*1.3);if(d<bd){bd=d;best=i}});
   if(best!==DR.to){DR.to=best;play('tick');buzz(10)}
   const j=DR.to,others=DR.kids.map((k,i)=>i).filter(i=>i!==DR.s);
-  others.forEach((i,k)=>{const pos=k<j?k:k+1;const a=DR.rects[i],b=DR.rects[pos];DR.kids[i].style.transform=`translate(${b.left-a.left}px,${b.top-a.top}px)`});
+  others.forEach(i=>{const a=DR.rects[i];if(i===j){const b=DR.rects[DR.s];DR.kids[i].style.transform=`translate(${b.left-a.left}px,${b.top-a.top}px)`;DR.kids[i].classList.add('swap-tgt')}else{DR.kids[i].style.transform='';DR.kids[i].classList.remove('swap-tgt')}});
   const t=DR.rects[j];DR.mark.style.left=t.left+'px';DR.mark.style.top=t.top+'px';
-  DR.mark.innerHTML=`${j+1}<small>${L('AQUÍ','HERE')}</small>`;
+  DR.mark.innerHTML=j===DR.s?`${j+1}<small>${L('AQUÍ','HERE')}</small>`:`⇄<small>${L('CAMBIO','SWAP')}</small>`;
 }
 function dragEnd(commit){
   const row=document.getElementById('gMe');
   const from=DR.s,to=DR.to,ghost=DR.ghost,mark=DR.mark,kids=DR.kids,src=DR.el,tr=DR.rects[to];
-  const finish=()=>{ghost.remove();mark.remove();kids.forEach(k=>k.style.transform='');src.classList.remove('drag-src');row.classList.remove('dragging');UI.dragging=false;UI.noClickUntil=Date.now()+450};
+  const finish=()=>{ghost.remove();mark.remove();kids.forEach(k=>{k.style.transform='';k.classList.remove('swap-tgt')});src.classList.remove('drag-src');row.classList.remove('dragging');UI.dragging=false;UI.noClickUntil=Date.now()+450};
   if(!commit||to===from||!G){
     const fr=DR.rects[from];if(ghost.animate){ghost.animate([{left:ghost.style.left,top:ghost.style.top},{left:fr.left+'px',top:fr.top+'px'}],{duration:180}).onfinish=()=>{finish();renderGame()}}else{finish();renderGame()}
     return;
@@ -4331,7 +4367,7 @@ function dragEnd(commit){
   const doIt=()=>{
     finish();
     const me=myIdx(),n=G.pub.players[me].slots.length,order=[...Array(n).keys()];
-    order.splice(from,1);order.splice(to,0,from);
+    order[from]=to;order[to]=from;
     const sl=G.pub.players[me].slots,old=sl.slice();order.forEach((x,i)=>sl[i]=old[x]);
     moveKnown(me,order);play('place');buzz(20);renderGame();
     const landed=cardEl(me,to);if(landed){landed.classList.add('landed');setTimeout(()=>landed.classList.remove('landed'),1100)}
@@ -4632,13 +4668,13 @@ function openBots(){renderBotsScreen();showScreen('screen-bots')}
 function setBotCfg(k,v){BOTCFG[k]=v;LS.set('botcfg',BOTCFG);play('select');renderBotsScreen()}
 function renderBotsScreen(){
   const c=BOTCFG,pill=(k,v,lbl)=>`<button class="pill${c[k]===v?' on':''}" onclick="setBotCfg('${k}',${typeof v==='string'?`'${v}'`:v})">${lbl}</button>`;
-  const dd={easy:L('Fácil: se olvida de cartas y canta tarde.','Easy: forgets cards and calls late.'),normal:L('Normal: juega con cabeza, a veces se despista.','Normal: plays sensibly, sometimes slips.'),hard:L('Tiburón: lo recuerda todo y usa la Q y la K con mala idea.','Shark: remembers everything and uses Q and K nastily.')};
+  const dd={easy:L('Fácil: se olvida de cartas y canta tarde.','Easy: forgets cards and calls late.'),normal:L('Normal: juega con cabeza, a veces se despista.','Normal: plays sensibly, sometimes slips.'),hard:L('Tiburón: lo recuerda todo y usa la Q y la K con mala idea.','Shark: remembers everything and uses Q and K nastily.'),french:L('Partida francesa: todos los bots van solo a por ti.','French game: every bot plays only against you.')};
   document.getElementById('botsBody').innerHTML=`<div class="split">
    <div style="display:flex;flex-direction:column;gap:14px">
         <div><p class="lbl">${L('RIVALES','RIVALS')}</p><div class="pill-row">${[1,2,3,4,5].map(n=>pill('n',n,n)).join('')}</div></div>
-    <div><p class="lbl">${L('DIFICULTAD','DIFFICULTY')}</p><div class="pill-row">${pill('diff','easy',L('Fácil','Easy'))}${pill('diff','normal','Normal')}${pill('diff','hard',L('Tiburón','Shark'))}</div><p class="muted" style="font-size:11px;margin:6px 0 0">${dd[c.diff]}</p></div>
-    <div><p class="lbl">${L('RONDAS','ROUNDS')}</p><div class="pill-row">${pill('rounds',5,5)}${pill('rounds',10,10)}${pill('rounds',15,15)}</div></div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="big-cta" onclick="startBots()">${L('Empezar partida','Start game')}</button><button class="btn btn-ghost" style="width:auto;padding:10px 16px" onclick="startTutorial()">🎓 ${L('Partida de prueba','Practice game')}</button></div>
+    <div><p class="lbl">${L('DIFICULTAD','DIFFICULTY')}</p><div class="pill-row">${pill('diff','easy',L('Fácil','Easy'))}${pill('diff','normal','Normal')}${pill('diff','hard',L('Tiburón','Shark'))}${pill('diff','french',L('Partida francesa','French game'))}</div><p class="muted" style="font-size:11px;margin:6px 0 0">${dd[c.diff]}</p></div>
+    <div><p class="lbl">${L('RONDAS','ROUNDS')}</p><div class="pill-row">${pill('rounds',3,3)}${pill('rounds',5,5)}${pill('rounds',10,10)}</div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="big-cta" onclick="startBots()">${L('Empezar partida','Start game')}</button></div>
    </div>
    <div class="side-box"><p class="lbl" style="margin:0">${L('EN LA MESA','AT THE TABLE')}</p>
     <div class="bot-row">${avatarC(myName(),ME.color,28)}<div><b>${esc(myName())}</b><small>${L('tú','you')}</small></div></div>
@@ -5186,6 +5222,95 @@ const _rlb=renderLobby;renderLobby=function(){
     box.appendChild(L1);box.appendChild(R1);b.innerHTML='';b.appendChild(box);
   }catch(e){}
 };
+
+// ---------- LOCAL (tabla con baraja real): se puede usar en vertical ----------
+const LOCAL_PORTRAIT=['screen-setup','screen-oath','screen-finger','screen-score','screen-winner'];
+function orientSync(){try{if(window.top!==window.self)window.top.postMessage(LOCAL_PORTRAIT.includes(currentScreen())?'talmut:portrait':'talmut:landscape',location.origin)}catch(e){}}
+const _ss8=showScreen;showScreen=function(){const r=_ss8.apply(this,arguments);orientSync();return r};
+setInterval(orientSync,1500);
+
+// ---------- v7.8 ----------
+// rondas en LOCAL libre: 3, 5 o 10
+function setRounds(n){setup.rounds=n;play('tap');renderSetup()}
+const _rs8=renderSetup;renderSetup=function(){
+  if(setup&&![3,5,10].includes(setup.rounds))setup.rounds=5;
+  const r=_rs8.apply(this,arguments);
+  const pr=document.getElementById('roundsPills');if(pr)pr.innerHTML=[3,5,10].map(n=>`<button class="pill${setup.rounds===n?' on':''}" onclick="setRounds(${n})">${n}</button>`).join('');
+  return r;
+};
+if(BOTCFG&&![3,5,10].includes(BOTCFG.rounds)){BOTCFG.rounds=10;LS.set('botcfg',BOTCFG)}
+if(typeof createRounds!=='undefined'&&![3,5,10].includes(createRounds))createRounds=10;
+
+// «Está empezando a creer»: solo eso en pantalla y el tiempo se para
+UI.freezeUntil=0;
+function creerFreeze(ms){
+  UI.freezeUntil=Date.now()+ms;document.body.classList.add('creer-on');
+  try{if(G&&G.local&&LOCAL&&LOCAL.pub&&LOCAL.pub.deadline)LOCAL.pub.deadline+=ms}catch(e){}
+  setTimeout(()=>{if(Date.now()>=UI.freezeUntil-30)document.body.classList.remove('creer-on')},ms);
+}
+const _sr8=showReact;showReact=function(pi,k){const r=REACTS.find(x=>x.k===k);if(r&&r.mx)creerFreeze(3400);const out=_sr8.apply(this,arguments);if(r&&r.mx){const bs=document.querySelectorAll('body>.bubble');const b=bs[bs.length-1];if(b)b.classList.add('mx')}return out};
+const _bt8=botTick;botTick=function(){if(Date.now()<UI.freezeUntil)return;return _bt8.apply(this,arguments)};
+
+// botón: buscar la última versión (borra la copia guardada y recarga)
+async function forceUpdate(){
+  toast(L('Buscando la última versión…','Getting the latest version…'));
+  try{const regs=await navigator.serviceWorker.getRegistrations();await Promise.all(regs.map(r=>r.unregister()))}catch(e){}
+  try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
+  const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
+}
+const APP_VER='7.8';
+(function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
+  const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
+  last.after(d)})();
+document.querySelectorAll('.k-ver').forEach(e=>e.textContent='v'+APP_VER+' · SM42');
+const _tk8=tick;tick=function(){if(Date.now()<UI.freezeUntil)return;return _tk8.apply(this,arguments)};
+
+// ---------- v7.9 · PARTIDA FRANCESA: todos los bots van solo a por ti ----------
+const _fc9=forgetChance;forgetChance=function(b){return LOCAL&&LOCAL.diff==='french'?0:_fc9.apply(this,arguments)};
+const _tm9=thinkMs;thinkMs=function(){return LOCAL&&LOCAL.diff==='french'?380+Math.random()*520:_tm9.apply(this,arguments)};
+const _bd9=botDecide;botDecide=function(b){
+  if(!LOCAL||LOCAL.diff!=='french')return _bd9.apply(this,arguments);
+  const p=LOCAL.pub;
+  try{
+    if((p.phase==='special'||p.phase==='special_k2')&&p.special&&p.special.by===b){
+      const ty=p.special.type,m=memOf(b),hi=handInfo(b),you=0;
+      const canHit=oppTargets(b).includes(you);
+      const yourSlots=p.players[you].slots.map((h,s)=>h?s:-1).filter(s=>s>=0);
+      const yourUnk=yourSlots.filter(s=>m[you+'-'+s]===undefined);
+      if(p.phase==='special_k2'){
+        const k=p.special.k;if(!k||k.p!==you)return _bd9.apply(this,arguments);
+        const seen=m[you+'-'+k.s];
+        const mine=hi.worst>=0?{s:hi.worst,v:hi.worstV}:hi.unk.length?{s:rnd(hi.unk),v:8}:null;
+        // te quita tu carta buena y te deja su peor carta
+        if(mine&&(seen===undefined||val(seen)<mine.v||mine.v>=7))return{action:'special',with:{p:b,s:mine.s}};
+        return{action:'skip'};
+      }
+      if((ty==='J'||ty==='K')&&canHit){
+        const ss=yourUnk.length?yourUnk:yourSlots;
+        return{action:'special',p:you,s:rnd(ss)};
+      }
+      if(ty==='Q'&&canHit){
+        // cambio a ciegas: te da su peor carta y se lleva tu carta más baja conocida
+        let tgt=null;yourSlots.forEach(s=>{const c=m[you+'-'+s];if(c!==undefined&&(!tgt||val(c)<tgt.v))tgt={s,v:val(c)}});
+        if(!tgt)tgt={s:rnd(yourSlots),v:5};
+        const own=hi.worst>=0?hi.worst:(hi.unk.length?rnd(hi.unk):null);
+        if(own!==null&&yourSlots.length)return{action:'special',a:{p:b,s:own},b:{p:you,s:tgt.s}};
+      }
+    }
+  }catch(e){}
+  return _bd9.apply(this,arguments);
+};
+// aviso al elegir «Partida francesa»
+const _sbc9=setBotCfg;setBotCfg=function(k,v){const r=_sbc9.apply(this,arguments);if(k==='diff'&&v==='french')frenchWarn();return r};
+function frenchWarn(){
+  document.querySelectorAll('.fr-warn').forEach(e=>e.remove());
+  const d=document.createElement('div');d.className='fr-warn';
+  d.innerHTML=`<div class="fr-card"><div class="fr-flag"><i></i><i></i><i></i></div><b>${L('Ojo: Partida francesa','Careful: French game')}</b><p>${L('En este modo <b>todos y cada uno</b> de los bots van a por ti. No juegan entre ellos: miran tus cartas con la J y la K, te roban las buenas, te endosan las malas con la Q y harán lo que sea para que no ganes.','In this mode <b>every single bot</b> goes after you. They do not play against each other: they peek at your cards with J and K, steal your good ones, dump their bad ones on you with the Q, and will do anything to stop you winning.')}</p><p class="fr-s">${L('Solo el azar de las cartas puede salvarte. Suerte.','Only the luck of the cards can save you. Good luck.')}</p><button class="btn btn-gold" onclick="this.closest('.fr-warn').remove()">${L('Acepto el reto','I accept')}</button></div>`;
+  document.body.appendChild(d);play('error');buzz([60,40,60]);
+}
+// gallina real (sonido elegido por Ignacio)
+const HEN_AUDIO=(()=>{try{const a=new Audio('gallina.mp3');a.preload='auto';a.volume=.85;return a}catch(e){return null}})();
+SFX.hen=function(){try{if(!HEN_AUDIO)return;const a=HEN_AUDIO.cloneNode();a.volume=.85;a.play().catch(()=>{})}catch(e){}};
 
 applyI18n();
 refreshMenu();
