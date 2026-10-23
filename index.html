@@ -1861,6 +1861,46 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .u10-bar.many .u10-sg{font-size:9.5px;letter-spacing:.5px;padding:0 2px}
 .u10-sg.fr>span::before{width:5px;height:5px;margin-right:5px}
 .u10-bar.many{display:flex}.u10-bar.many .u10-sg{flex:1 1 auto;padding:0 6px}
+/* ajustes como pantalla */
+#screen-settings.active{display:flex!important;flex-direction:column;height:100dvh;overflow:hidden!important}
+#setBody{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin-top:12px}
+#setBody>.u10{flex:1 1 auto;min-height:0;height:100%}
+.u10-seat.s10{height:40px}
+.u10-sw{all:unset;cursor:pointer;flex:none;width:40px;height:22px;border-radius:999px;background:rgba(255,255,255,.14);position:relative;box-shadow:inset 0 0 0 1px rgba(255,214,120,.25)}
+.u10-sw i{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#CDBB9A;transition:left .15s}
+.u10-sw.on{background:linear-gradient(180deg,#FFE07A,#D0781A)}
+.u10-sw.on i{left:21px;background:#fff}
+.s10-vol{display:flex;align-items:center;gap:10px;height:20px;padding:0 6px 0 14px;margin-top:-4px}
+.s10-vol input{flex:1;accent-color:#D4A83A;margin:0;cursor:pointer}
+.s10-vol b{width:36px;text-align:right;font-size:11px;color:#FFE7A8;font-variant-numeric:tabular-nums}
+.u10-mini{all:unset;cursor:pointer;flex:none;height:26px;padding:0 10px;border-radius:3px;display:inline-flex;align-items:center;font-size:11px;font-weight:800;color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#C9952E);text-decoration:none}
+/* idioma en el menú */
+#screen-menu.m10 .k-icons{justify-content:space-between!important}
+.lg-btn{all:unset;cursor:pointer;transform:skewX(7deg);display:flex;align-items:center;gap:6px;height:34px;padding:0 9px;margin-right:auto;border-radius:3px;background:rgba(0,0,0,.35);box-shadow:inset 0 0 0 1px rgba(255,214,120,.3);color:#E9D7AE;font-size:11.5px;font-weight:700;min-width:0}
+.lg-flag{display:inline-flex;width:20px;height:14px;flex:none;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+.lg-flag svg{width:100%;height:100%;display:block}
+.lg-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px}
+.lg-car{width:9px;height:6px;flex:none;color:#D4A83A}
+.lg-pop{position:fixed;z-index:300;display:flex;flex-direction:column;padding:5px;border-radius:6px;background:linear-gradient(180deg,#24100c,#0d0607);box-shadow:0 14px 30px rgba(0,0,0,.6),inset 0 0 0 1.2px rgba(255,214,120,.45);animation:f9in .15s ease-out}
+.lg-pop button{all:unset;cursor:pointer;display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:4px;font-size:12.5px;color:#F4EBD6}
+.lg-pop button.on{background:rgba(227,188,85,.18);color:#FFE7A8}
+.lg-pop button.soon{opacity:.55}
+.lg-pop button small{margin-left:auto;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:#D4A83A}
+#screen-menu.m10 .k-prof,#screen-menu.m10 .k-icons{width:min(29vw,272px)!important}
+#screen-menu.m10 .k-icons{gap:6px!important;padding:0 10px!important}
+#screen-menu.m10 .k-icons .iconbtn{width:34px!important;height:34px!important}
+.lg-name{max-width:96px}
+/* recuadro de idioma/sonido/ajustes: todo inclinado como el recuadro y con el mismo margen a cada lado */
+#screen-menu.m10 .k-icons{justify-content:flex-start!important;gap:7px!important;padding:0 12px!important}
+#screen-menu.m10 .k-icons .iconbtn{transform:none!important;flex:none}
+#screen-menu.m10 .k-icons .iconbtn>*{transform:skewX(7deg)}
+#screen-menu.m10 .lg-btn{transform:none!important;flex:1 1 auto;margin:0!important;height:34px;justify-content:flex-start}
+#screen-menu.m10 .lg-btn>*{transform:skewX(7deg)}
+#screen-menu.m10 .lg-car{margin-left:auto}
+/* ajustes: deslizadores también dentro de una franja inclinada */
+.s10-vol{transform:skewX(-7deg);border-radius:3px;background:rgba(0,0,0,.22);box-shadow:inset 0 0 0 1px rgba(255,214,120,.12);height:24px;margin-top:-3px;padding:0 10px}
+.s10-vol>*{transform:skewX(7deg)}
+.u10-mini{transform:none;border-radius:3px}.u10-seat.s10>.u10-mini{transform:none!important}
 </style>
 </head>
 <body>
@@ -5690,7 +5730,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='2.4';
+const APP_VER='2.6';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6717,6 +6757,57 @@ function smDuck(on){
   els.forEach(([a,v])=>{if(!a||a.paused)return;musFade(a,on?v*.15:v)});
   UI.smDucked=on;clearTimeout(UI.smDuckT);if(on)UI.smDuckT=setTimeout(()=>smDuck(false),12000);
 }
+
+// =====================================================================
+//  v2.5 · AJUSTES como pantalla (mismo diseño que preparar partida) + idioma en el menú
+// =====================================================================
+const FLAGS={
+  en:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="1.6"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="3.4"/></svg>',
+  es:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg>',
+  fr:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg>',
+  it:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#009246"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE2B37"/></svg>',
+  de:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="7" fill="#000"/><rect y="6.6" width="30" height="7" fill="#DD0000"/><rect y="13.3" width="30" height="6.7" fill="#FFCE00"/></svg>',
+  ca:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#FCDD09"/><g fill="#DA121A"><rect y="2.2" width="30" height="2.2"/><rect y="6.7" width="30" height="2.2"/><rect y="11.1" width="30" height="2.2"/><rect y="15.6" width="30" height="2.2"/></g></svg>',
+  he:'<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect y="2" width="30" height="2.4" fill="#0038B8"/><rect y="15.6" width="30" height="2.4" fill="#0038B8"/><path d="M15 6l3.2 5.5H11.8zM15 14l-3.2-5.5h6.4z" fill="none" stroke="#0038B8" stroke-width=".9"/></svg>'};
+const LANGS=[['en','English',true],['es','Español',true],['fr','Français',false],['it','Italiano',false],['de','Deutsch',false],['ca','Català',false],['he','עברית',false]];
+function langBtnHtml(){const c=LANGS.find(x=>x[0]===LANG)||LANGS[1];return `<span class="lg-flag">${FLAGS[c[0]]}</span><span class="lg-name">${c[1]}</span><svg class="lg-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>`}
+(function(){const ic=document.querySelector('#screen-menu .k-icons');if(!ic||document.getElementById('langBtn'))return;
+  ic.insertAdjacentHTML('afterbegin',`<button class="lg-btn" id="langBtn" onclick="langMenu(event)" aria-label="Idioma / Language">${langBtnHtml()}</button>`)})();
+function langMenu(e){
+  e.stopPropagation();const old=document.querySelector('.lg-pop');if(old){old.remove();return}
+  const b=document.getElementById('langBtn'),r=b.getBoundingClientRect();
+  const d=document.createElement('div');d.className='lg-pop';
+  d.innerHTML=LANGS.map(([k,n,ok])=>`<button class="${k===LANG?'on':''}${ok?'':' soon'}" onclick="pickLang('${k}',${ok})"><span class="lg-flag">${FLAGS[k]}</span><span class="lg-name">${n}</span>${ok?'':`<small>${L('pronto','soon')}</small>`}</button>`).join('');
+  document.body.appendChild(d);d.style.left=Math.round(r.left)+'px';d.style.top=Math.round(r.bottom+6)+'px';d.style.minWidth=Math.round(r.width)+'px';
+  play('tap');setTimeout(()=>document.addEventListener('pointerdown',function f(ev){if(!d.contains(ev.target)){d.remove();document.removeEventListener('pointerdown',f,true)}},true),10);
+}
+function pickLang(k,ok){document.querySelectorAll('.lg-pop').forEach(e=>e.remove());if(!ok){toast(L('Este idioma llegará pronto','This language is coming soon'));return}setLang(k);const b=document.getElementById('langBtn');if(b)b.innerHTML=langBtnHtml();play('select')}
+const _rm25=refreshMenu;refreshMenu=function(){const r=_rm25.apply(this,arguments);const b=document.getElementById('langBtn');if(b)b.innerHTML=langBtnHtml();return r};
+
+// ---------- pantalla de ajustes ----------
+(function(){if(document.getElementById('screen-settings'))return;const s=document.createElement('div');s.id='screen-settings';s.className='screen';
+  s.innerHTML=`<div class="topbar"><button class="iconbtn" onclick="closeSettings10()" aria-label="Volver"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="ttl"><h1 id="setTtl"></h1><p id="setSub"></p></div><div class="spacer36"></div></div><div class="divider"></div><div id="setBody" class="u10-host"></div>`;
+  document.body.appendChild(s)})();
+UI.setFrom='screen-menu';
+function sw10(on,fn,lbl){return `<button class="u10-sw${on?' on':''}" onclick="${fn}" aria-label="${lbl}" aria-pressed="${on}"><i></i></button>`}
+function setRow10(title,sub,right){return `<div class="u10-seat s10"><span class="u10-st"><b>${title}</b>${sub?`<small>${sub}</small>`:''}</span>${right}</div>`}
+function volRow10(kind){const v=Math.round((kind==='music'?musVol():sfxVol())*100);return `<div class="s10-vol"><input type="range" min="0" max="100" value="${v}" oninput="setVol('${kind}',this.value);this.nextElementSibling.textContent=this.value+'%'" aria-label="${kind==='music'?L('Volumen de la música','Music volume'):L('Volumen de los efectos','Effects volume')}"><b>${v}%</b></div>`}
+function renderSettings10(){
+  const b=document.getElementById('setBody');if(!b)return;
+  document.getElementById('setTtl').textContent=L('Ajustes','Settings');document.getElementById('setSub').textContent=L('Sonido, partida y app','Sound, game and app');
+  const left=`<span class="u10-lbl">${L('Sonido','Sound')}</span>`+
+    setRow10(L('Música','Music'),L('Música de fondo','Background music'),sw10(SND.musicOn,'toggleMusic();renderSettings10()',L('Música','Music')))+volRow10('music')+
+    setRow10(L('Efectos de sonido','Sound effects'),L('Cartas, botones y avisos','Cards, buttons and alerts'),sw10(SND.sfxOn,'toggleSfx();renderSettings10()',L('Efectos','Effects')))+volRow10('sfx')+
+    setRow10(L('Vibración','Vibration'),L('Vibrar en tu turno','Vibrate on your turn'),sw10(LS.get('vibrate',true),'toggleSound();renderSettings10()',L('Vibración','Vibration')));
+  const right=`<span class="u10-lbl">${L('Partida y app','Game and app')}</span>`+
+    setRow10(L('Ritual de inicio','Opening ritual'),L('Pantalla del lema antes de las partidas oficiales','Motto screen before official games'),sw10(LS.get('ritual',true),'toggleRitual();renderSettings10()',L('Ritual','Ritual')))+
+    setRow10(L('Actualizar la app','Update the app'),L('Versión','Version')+' '+APP_VER,`<button class="u10-mini" onclick="forceUpdate()"><span>↻ ${L('Actualizar','Update')}</span></button>`)+
+    setRow10(L('Política de privacidad','Privacy policy'),'',`<a class="u10-mini" href="privacy.html"><span>${L('Ver','View')} →</span></a>`)+
+    `<p class="u10-hint small">TALMUT · SM42 · v${APP_VER}</p>`;
+  b.innerHTML=u10Wrap(left,right,u10Cta(L('LISTO','DONE'),'closeSettings10()'));
+}
+openSettings=function(){const c=currentScreen();if(c&&c!=='screen-settings')UI.setFrom=c;try{closeModal('settingsModal')}catch(e){}renderSettings10();showScreen('screen-settings');play('tap')};
+function closeSettings10(){const to=UI.setFrom&&document.getElementById(UI.setFrom)?UI.setFrom:'screen-menu';if(to==='screen-menu')goMenu();else showScreen(to)}
 
 applyI18n();
 refreshMenu();
