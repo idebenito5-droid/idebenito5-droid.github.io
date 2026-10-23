@@ -5500,7 +5500,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='9.4';
+const APP_VER='9.6';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6207,11 +6207,22 @@ const _os9v=openSettings;openSettings=function(){const r=_os9v.apply(this,argume
 // =====================================================================
 // Lista de canciones del reproductor. Para añadir una: sube el mp3 y su portada a la carpeta
 // «musica/» y añade una línea {t:'Título',a:'Artista',src:'musica/archivo.mp3',img:'musica/portada.jpg'}
-const MUSICA=[
-  {t:'Hic Ludus · Menú',a:'TALMUT',src:'musica.mp3',img:'icon-512.png'},
-  {t:'La Partida',a:'TALMUT',src:'musica-juego.mp3',img:'icon-512.png'}
+const MUSICA_ALL=[
+  {t:'La Maltesa',a:'SM42',src:'musica/la-maltesa.mp3',img:'musica/la-maltesa.webp'},
+  {t:'Este Juego Penaliza El Fallo',a:'SM42',src:'musica/este-juego-penaliza-el-fallo.mp3',img:'musica/este-juego-penaliza-el-fallo.webp'},
+  {t:'Eterna y sincera',a:'SM42',src:'musica/eterna-y-sincera.mp3',img:'musica/eterna-y-sincera.webp'},
+  {t:"Surfin' USA A Veces Es El KKK",a:'SM42',src:'musica/surfin-usa.mp3',img:'musica/surfin-usa.webp'},
+  // sin portada todavía: aparecen en cuanto tengan foto (img)
+  {t:'H.L.E.P',a:'SM42',src:'musica/hlep.mp3',img:'musica/hlep.webp'},
+  {t:'Ni Piedad Ni Consuelo',a:'SM42',src:'musica/ni-piedad-ni-consuelo.mp3',img:''}
 ];
-function eggOn(){return !!LS.get('egg42',false)}
+const MUSICA=MUSICA_ALL.filter(m=>m.img);
+// sonidos de la habilidad secreta (LOCAL): sube los mp3 a «sonidos/» y añade sus nombres aquí
+const SONIDOS_EGG=["sonidos/africa.mp3","sonidos/bastardo.mp3","sonidos/basura-feo.mp3","sonidos/billy.mp3","sonidos/caja.mp3","sonidos/cara-al-sol.mp3","sonidos/cerdo-mixta.mp3","sonidos/choza.mp3","sonidos/cilantro.mp3","sonidos/curazao.mp3","sonidos/dano-tio.mp3","sonidos/doblaos.mp3","sonidos/en-tu-p-cara.mp3","sonidos/fanta1.mp3","sonidos/fieshta.mp3","sonidos/frances.mp3","sonidos/gij-rojbla.mp3","sonidos/helikopter.mp3","sonidos/huele-raro.mp3","sonidos/juego-entero.mp3","sonidos/kkk.mp3","sonidos/lavate-manos.mp3","sonidos/liar-otro.mp3","sonidos/lo-he-quemado-todo.mp3","sonidos/maraton.mp3","sonidos/marc.mp3","sonidos/maria-teresa.mp3","sonidos/mlg-blaazu.mp3","sonidos/mosca-fanta.mp3","sonidos/negros.mp3","sonidos/osasuna.mp3","sonidos/oso-caja.mp3","sonidos/pajaro-2.mp3","sonidos/pajaro-3.mp3","sonidos/palo.mp3","sonidos/parche-hdp.mp3","sonidos/parches-ofi.mp3","sonidos/paujaro.mp3","sonidos/pedro1.mp3","sonidos/peinaguindillas.mp3","sonidos/pes-verdad.mp3","sonidos/pitapita.mp3","sonidos/porra.mp3","sonidos/pues-esto-ya-esta.mp3","sonidos/rasgaprepucios.mp3","sonidos/rocas.mp3","sonidos/rubiales.mp3","sonidos/september.mp3","sonidos/siuuu.mp3","sonidos/stelio-kontos.mp3","sonidos/tiki-taka.mp3","sonidos/tirate.mp3","sonidos/tqm.mp3","sonidos/vodka.mp3"];
+function eggOn(){return !!(LS.get('egg42',false)||(profile&&profile.egg42))}
+// con cuenta de Google el desbloqueo se guarda en la cuenta: lo tienes en cualquier móvil
+async function eggSave(){try{if(sb&&session&&!session.user.is_anonymous){const{error}=await sb.from('profiles').update({egg42:true}).eq('id',session.user.id);if(!error&&profile)profile.egg42=true}}catch(e){}}
+const _lp94=loadProfile;loadProfile=async function(){const r=await _lp94.apply(this,arguments);try{if(profile&&profile.egg42)LS.set('egg42',true);else if(LS.get('egg42',false)&&profile&&session&&!session.user.is_anonymous&&profile.egg42===false)eggSave()}catch(e){}navMusicSync();return r};
 UI.eggN=0;
 function eggTap(b){
   UI.eggN++;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');play('tap');
@@ -6227,9 +6238,9 @@ function eggCode(){
 function eggCheck(){
   const i=document.getElementById('eggIn');if(!i)return;
   if(i.value==='0042'){
-    LS.set('egg42',true);document.querySelectorAll('.egg-ov').forEach(e=>e.remove());navMusicSync();
+    LS.set('egg42',true);eggSave();document.querySelectorAll('.egg-ov').forEach(e=>e.remove());navMusicSync();
     const o=document.createElement('div');o.className='egg-ov';
-    o.innerHTML=`<div class="egg-card win"><div class="egg-star">★</div><b class="egg-t">${L('¡Enhorabuena!','Congratulations!')}</b><p>${L('Has desbloqueado una nueva ventana.','You have unlocked a new window.')}</p><div class="egg-btns"><button class="btn btn-ghost" onclick="this.closest('.egg-ov').remove()">${L('Cerrar','Close')}</button><button class="btn btn-gold" onclick="this.closest('.egg-ov').remove();openMusic()">♪ ${L('Ir a MÚSICA','Open MUSIC')}</button></div></div>`;
+    o.innerHTML=`<div class="egg-card win"><div class="egg-star">★</div><b class="egg-t">${L('¡Enhorabuena!','Congratulations!')}</b><p>${L('Has desbloqueado una nueva ventana y una nueva habilidad.','You have unlocked a new window and a new skill.')}</p><div class="egg-btns"><button class="btn btn-ghost" onclick="this.closest('.egg-ov').remove()">${L('Cerrar','Close')}</button><button class="btn btn-gold" onclick="this.closest('.egg-ov').remove();openMusic()">♪ ${L('Ver MÚSICA','See MUSIC')}</button></div></div>`;
     document.body.appendChild(o);play('win');buzz([60,40,120]);try{createConfetti()}catch(e){}
   }else{
     const e=document.getElementById('eggErr');if(e)e.textContent=L('Código incorrecto','Wrong code');
@@ -6300,6 +6311,11 @@ function plRender(){
   setHtml(b,now+list);plProgress();
 }
 const _tm94=toggleMusic;toggleMusic=function(){const r=_tm94.apply(this,arguments);if(!SND.musicOn&&PLAYER.a)PLAYER.a.pause();return r};
+
+// ---------- habilidad secreta: en LOCAL, al tocar un usuario suena un sonido al azar ----------
+const EGG_SND={};
+function eggSound(){if(!eggOn()||!SONIDOS_EGG.length||!SND.sfxOn)return;let f;do{f=SONIDOS_EGG[Math.floor(Math.random()*SONIDOS_EGG.length)]}while(f===UI.eggLast&&SONIDOS_EGG.length>1);UI.eggLast=f;try{if(UI.eggA)UI.eggA.pause();const a=new Audio(f);a.volume=Math.min(1,.9*sfxVol());UI.eggA=a;a.play().catch(()=>{})}catch(e){}}
+const _lt94=luToggle;luToggle=function(){const r=_lt94.apply(this,arguments);eggSound();return r};
 
 applyI18n();
 refreshMenu();
