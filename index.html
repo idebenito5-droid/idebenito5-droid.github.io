@@ -1615,6 +1615,62 @@ body.paused9 #screen-game *{animation-play-state:paused!important}
 .k-logoimg{display:block;width:clamp(200px,30vw,330px);height:auto;margin:0 auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
 html.in-frame .k-logoimg{width:250px}
 @media (max-width:800px){html.in-frame .k-logoimg{width:210px}}
+/* frases: 9 cápsulas, «Está empezando a creer» a lo ancho */
+.r9 button.mx{grid-column:span 2}
+.r9 button{height:23px!important}
+/* barras de volumen en Ajustes */
+.set-row.vol9{flex-direction:column;align-items:stretch;gap:4px;padding-top:0;border-top:0;margin-top:-6px}
+.vol9 .vol-l{display:flex;justify-content:space-between;align-items:baseline}
+.vol9 .vol-l small{font-size:11px;color:var(--dim)}
+.vol9 .vol-l b{font-size:12px;color:#FFE7A8;font-variant-numeric:tabular-nums}
+.vol9 input[type=range]{width:100%;accent-color:#D4A83A;height:22px;margin:0;cursor:pointer}
+/* Easter egg */
+.egg9{all:unset;cursor:pointer;align-self:flex-start;margin-top:8px;padding:7px 16px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:1px;color:#FFE7A8;background:rgba(30,18,14,.9);box-shadow:inset 0 0 0 1.3px rgba(255,200,90,.45);-webkit-user-select:none;user-select:none}
+.egg9.pop{animation:egg9p .18s ease-out}
+@keyframes egg9p{50%{transform:scale(.9)}}
+.egg-ov{position:fixed;inset:0;z-index:260;display:flex;align-items:center;justify-content:center;background:rgba(6,2,3,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:f9in .25s ease-out}
+.egg-card{width:min(320px,86vw);display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 20px;border-radius:18px;background:linear-gradient(180deg,#2A0A0E,#140506);border:1.5px solid #E3BC55;box-shadow:0 18px 50px rgba(0,0,0,.6);text-align:center}
+.egg-card.shake{animation:shake9 .4s}
+@keyframes shake9{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.egg-t{font-family:'Cinzel',serif;font-weight:900;font-size:21px;letter-spacing:2px;color:#FFE7A8}
+.egg-card p{margin:0;font-size:13px;color:var(--dim)}
+.egg-card input{width:160px;text-align:center;font-size:30px;font-weight:800;letter-spacing:14px;padding:8px 0 8px 14px;border-radius:12px;border:1.5px solid rgba(227,188,85,.6);background:rgba(0,0,0,.5);color:#FFE7A8;font-variant-numeric:tabular-nums;-webkit-user-select:text;user-select:text}
+.egg-card small{min-height:14px;font-size:11.5px;color:#F7B0B0;font-weight:700}
+.egg-btns{display:flex;gap:8px;width:100%}.egg-btns .btn{flex:1}
+.egg-card.win{gap:10px}.egg-star{font-size:44px;color:#FFD45A;text-shadow:0 0 24px rgba(255,212,90,.8);animation:tt .6s cubic-bezier(.2,1.5,.4,1)}
+@keyframes tt{from{transform:scale(.3);opacity:0}}
+/* MÚSICA */
+#screen-music.active{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+.pl9{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:18px;padding:12px 22px calc(env(safe-area-inset-bottom) + 14px);max-width:900px;width:100%;margin:0 auto;box-sizing:border-box}
+.pl-now{display:flex;flex-direction:column;align-items:center;gap:9px;min-height:0;padding:14px;border-radius:18px;background:rgba(0,0,0,.32);box-shadow:inset 0 0 0 1px rgba(255,200,90,.16)}
+.pl-art{width:min(150px,26vh);aspect-ratio:1;border-radius:16px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.6),0 0 0 1.5px rgba(227,188,85,.5);flex:none}
+.pl-art img{width:100%;height:100%;object-fit:cover;display:block}
+.pl-art.spin{animation:plb 2.4s ease-in-out infinite}
+@keyframes plb{50%{box-shadow:0 10px 34px rgba(255,150,40,.35),0 0 0 1.5px rgba(227,188,85,.8)}}
+.pl-meta{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1px;max-width:100%}
+.pl-meta small{font-size:9.5px;letter-spacing:1.6px;font-weight:800;color:#D4A83A}
+.pl-meta b{font-family:'Cinzel',serif;font-size:17px;color:#FFE7A8;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl-meta span{font-size:12px;color:var(--dim)}
+.pl-bar{display:flex;align-items:center;gap:8px;width:100%;font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+.pl-bar input,.pl-vol input{flex:1;accent-color:#D4A83A;margin:0;cursor:pointer}
+.pl-ctl{display:flex;align-items:center;gap:12px}
+.pl-ctl button{all:unset;cursor:pointer;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FFE7A8}
+.pl-ctl button svg{width:20px;height:20px}
+.pl-ctl .pl-s{color:rgba(255,231,168,.4)}.pl-ctl .pl-s.on{color:#FFD45A}
+.pl-ctl .pl-s svg{width:17px;height:17px}
+.pl-ctl .pl-play{width:52px;height:52px;background:radial-gradient(circle at 50% 25%,#D3222E,#6E0910 75%);box-shadow:0 0 0 2px #E3BC55,0 8px 20px rgba(200,32,43,.5);color:#FFE7A8}
+.pl-ctl .pl-play svg{width:22px;height:22px}
+.pl-vol{display:flex;align-items:center;gap:8px;width:100%;color:#D4A83A;font-size:11px}.pl-vol svg{width:16px;height:16px;flex:none}.pl-vol b{width:34px;text-align:right;color:#FFE7A8}
+.pl-list{min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding-right:2px}
+.pl-row{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:7px 10px 7px 7px;border-radius:12px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.pl-row img{width:40px;height:40px;border-radius:8px;object-fit:cover;flex:none}
+.pl-row span{flex:1;min-width:0;display:flex;flex-direction:column}
+.pl-row b{font-size:13px;color:#F4EBD6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl-row small{font-size:11px;color:var(--dim)}
+.pl-row.cur{background:rgba(227,188,85,.12);box-shadow:inset 0 0 0 1.3px rgba(227,188,85,.55)}
+.pl-row.cur b{color:#FFE7A8}
+.eq{display:flex;align-items:flex-end;gap:2px;height:14px}.eq i{width:3px;background:#FFD45A;border-radius:1px;animation:eq .8s ease-in-out infinite}.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}
+@keyframes eq{0%,100%{height:4px}50%{height:14px}}
 </style>
 </head>
 <body>
@@ -5444,7 +5500,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='9.2';
+const APP_VER='9.4';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6103,6 +6159,147 @@ const _sl9p=stopLocal;stopLocal=function(){if(UI.paused){UI.paused=false;documen
 setInterval(()=>{const b=document.getElementById('pauseBtn');if(b)b.style.display=canPause9()?'':'none'},500);
 // si sales de la app en mitad de una partida de Arcade, se pausa sola
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&canPause9())pauseGame(true)});
+
+// ---------- frase nueva ----------
+REACTS.push({k:'biri',es:'Biribiribiriwey'});
+R9_ORDER.splice(R9_ORDER.indexOf('ajena'),0,'biri');
+
+// ---------- música: una canción para el menú y otra para la partida + volúmenes ----------
+const MUS={src:{menu:'musica.mp3',game:'musica-juego.mp3'},el:{},cur:null,gameOk:true};
+function musVol(){return Math.max(0,Math.min(100,+LS.get('volMusic',32)))/100}
+function sfxVol(){return Math.max(0,Math.min(100,+LS.get('volSfx',100)))/100}
+function musWant(){return currentScreen()==='screen-game'&&MUS.gameOk?'game':'menu'}
+function musFade(a,to,done){clearInterval(a._f);a._f=setInterval(()=>{const v=a.volume+(to>a.volume?.03:-.03);if(Math.abs(to-a.volume)<=.03){a.volume=Math.max(0,Math.min(1,to));clearInterval(a._f);if(done)done()}else a.volume=Math.max(0,Math.min(1,v))},90)}
+function musEl(k){
+  if(!MUS.el[k]){const a=new Audio(MUS.src[k]);a.loop=true;a.preload='auto';a.volume=0;
+    if(k==='game')a.addEventListener('error',()=>{MUS.gameOk=false;if(MUS.cur==='game'){MUS.cur=null;startMusic()}});
+    MUS.el[k]=a}
+  return MUS.el[k];
+}
+startMusic=function(){
+  if(!SND.musicOn||!SND.unlocked||document.hidden)return;
+  const k=musWant();
+  if(MUS.cur&&MUS.cur!==k){const old=MUS.el[MUS.cur];if(old)musFade(old,0,()=>old.pause())}
+  const m=musEl(k);MUS.cur=k;SND.music=m;
+  if(!m.paused){musFade(m,musVol());return}
+  m.play().then(()=>musFade(m,musVol())).catch(()=>{});
+};
+stopMusic=function(){for(const k in MUS.el){clearInterval(MUS.el[k]._f);MUS.el[k].pause()}MUS.cur=null};
+const _ss9m=showScreen;showScreen=function(){const r=_ss9m.apply(this,arguments);try{if(MUS.cur&&MUS.cur!==musWant())startMusic()}catch(e){}return r};
+const _si9=sndInit;sndInit=function(){const c=_si9.apply(this,arguments);try{if(SND.master)SND.master.gain.value=.75*sfxVol()}catch(e){}return c};
+SFX.hen=function(){try{if(!HEN_AUDIO||!SND.sfxOn)return;const a=HEN_AUDIO.cloneNode();a.volume=.85*sfxVol();a.play().catch(()=>{})}catch(e){}};
+function setVol(kind,v){
+  v=Math.round(+v);LS.set(kind==='music'?'volMusic':'volSfx',v);
+  const o=document.getElementById(kind==='music'?'volMusicVal':'volSfxVal');if(o)o.textContent=v+'%';
+  if(kind==='music'){const m=MUS.cur&&MUS.el[MUS.cur];if(m){clearInterval(m._f);m.volume=musVol()}}
+  else{try{if(SND.master)SND.master.gain.value=.75*sfxVol()}catch(e){}clearTimeout(UI.volT);UI.volT=setTimeout(()=>play('tap'),120)}
+}
+(function(){
+  const row=(kind,val)=>`<div class="set-row vol9"><div class="vol-l"><small>${kind==='music'?L('Volumen de la música','Music volume'):L('Volumen de los efectos','Effects volume')}</small><b id="${kind==='music'?'volMusicVal':'volSfxVal'}">${val}%</b></div><input type="range" min="0" max="100" step="1" value="${val}" oninput="setVol('${kind}',this.value)" aria-label="${kind==='music'?L('Volumen de la música','Music volume'):L('Volumen de los efectos','Effects volume')}"></div>`;
+  const ms=document.getElementById('musicSwitch'),fx=document.getElementById('sfxSwitch');
+  if(ms&&!document.getElementById('volMusicVal'))ms.closest('.set-row').insertAdjacentHTML('afterend',row('music',Math.round(musVol()*100)));
+  if(fx&&!document.getElementById('volSfxVal'))fx.closest('.set-row').insertAdjacentHTML('afterend',row('sfx',Math.round(sfxVol()*100)));
+})();
+const _os9v=openSettings;openSettings=function(){const r=_os9v.apply(this,arguments);try{document.querySelectorAll('.vol9').forEach((row,i)=>{const mus=!!row.querySelector('#volMusicVal');const t=mus?L('Volumen de la música','Music volume'):L('Volumen de los efectos','Effects volume');row.querySelector('small').textContent=t;const inp=row.querySelector('input');inp.setAttribute('aria-label',t);const v=Math.round((mus?musVol():sfxVol())*100);inp.value=v;row.querySelector('b').textContent=v+'%'})}catch(e){}return r};
+
+// =====================================================================
+//  v9.4 · EASTER EGG (42 toques + código 0042) y ventana MÚSICA
+// =====================================================================
+// Lista de canciones del reproductor. Para añadir una: sube el mp3 y su portada a la carpeta
+// «musica/» y añade una línea {t:'Título',a:'Artista',src:'musica/archivo.mp3',img:'musica/portada.jpg'}
+const MUSICA=[
+  {t:'Hic Ludus · Menú',a:'TALMUT',src:'musica.mp3',img:'icon-512.png'},
+  {t:'La Partida',a:'TALMUT',src:'musica-juego.mp3',img:'icon-512.png'}
+];
+function eggOn(){return !!LS.get('egg42',false)}
+UI.eggN=0;
+function eggTap(b){
+  UI.eggN++;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');play('tap');
+  if(UI.eggN>=42){UI.eggN=0;eggCode()}
+}
+function eggCode(){
+  document.querySelectorAll('.egg-ov').forEach(e=>e.remove());
+  const o=document.createElement('div');o.className='egg-ov';
+  o.innerHTML=`<div class="egg-card"><b class="egg-t">${L('Código secreto','Secret code')}</b><p>${L('Introduce las 4 cifras','Enter the 4 digits')}</p><input id="eggIn" type="tel" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="····"><small id="eggErr"></small><div class="egg-btns"><button class="btn btn-ghost" onclick="this.closest('.egg-ov').remove()">${L('Cancelar','Cancel')}</button><button class="btn btn-gold" onclick="eggCheck()">${L('Abrir','Open')}</button></div></div>`;
+  document.body.appendChild(o);play('notify');
+  const i=o.querySelector('#eggIn');i.addEventListener('input',()=>{i.value=i.value.replace(/\D/g,'').slice(0,4);if(i.value.length===4)eggCheck()});setTimeout(()=>i.focus(),50);
+}
+function eggCheck(){
+  const i=document.getElementById('eggIn');if(!i)return;
+  if(i.value==='0042'){
+    LS.set('egg42',true);document.querySelectorAll('.egg-ov').forEach(e=>e.remove());navMusicSync();
+    const o=document.createElement('div');o.className='egg-ov';
+    o.innerHTML=`<div class="egg-card win"><div class="egg-star">★</div><b class="egg-t">${L('¡Enhorabuena!','Congratulations!')}</b><p>${L('Has desbloqueado una nueva ventana.','You have unlocked a new window.')}</p><div class="egg-btns"><button class="btn btn-ghost" onclick="this.closest('.egg-ov').remove()">${L('Cerrar','Close')}</button><button class="btn btn-gold" onclick="this.closest('.egg-ov').remove();openMusic()">♪ ${L('Ir a MÚSICA','Open MUSIC')}</button></div></div>`;
+    document.body.appendChild(o);play('win');buzz([60,40,120]);try{createConfetti()}catch(e){}
+  }else{
+    const e=document.getElementById('eggErr');if(e)e.textContent=L('Código incorrecto','Wrong code');
+    const c=i.closest('.egg-card');c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake');play('error');buzz(120);i.value='';
+  }
+}
+const _rp94=renderProfile;renderProfile=function(){
+  const r=_rp94.apply(this,arguments);
+  try{if(profTab==='me'){const sv=[...document.querySelectorAll('#profBody button')].find(b=>(b.getAttribute('onclick')||'').startsWith('saveProfile'));
+    if(sv&&!document.querySelector('#profBody .egg9')){sv.insertAdjacentHTML('afterend',`<button class="egg9" onclick="eggTap(this)">EasterEgg</button>`)}}}catch(e){}
+  return r;
+};
+// botón MÚSICA en el menú, a la derecha de Reglas (solo si está desbloqueado)
+(function(){const nav=document.querySelector('#screen-menu .k-nav');if(!nav||document.getElementById('navMusic'))return;
+  nav.insertAdjacentHTML('beforeend',`<button id="navMusic" onclick="openMusic()" style="display:none"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span>${L('Música','Music')}</span></button>`)})();
+function navMusicSync(){const b=document.getElementById('navMusic');if(b){b.style.display=eggOn()?'':'none';b.querySelector('span').textContent=L('Música','Music')}}
+navMusicSync();
+const _rm94=refreshMenu;refreshMenu=function(){const r=_rm94.apply(this,arguments);navMusicSync();return r};
+
+// ---------- reproductor ----------
+const PLAYER={a:null,i:LS.get('plI',0),shuffle:LS.get('plSh',false),rep:LS.get('plRep',false),was:false};
+function plAudio(){
+  if(!PLAYER.a){const a=new Audio();a.preload='auto';PLAYER.a=a;
+    a.addEventListener('timeupdate',plProgress);a.addEventListener('loadedmetadata',plProgress);
+    a.addEventListener('ended',()=>{if(PLAYER.rep){a.currentTime=0;a.play().catch(()=>{})}else plNext(true)});
+    a.addEventListener('play',()=>{stopMusic();plRender()});a.addEventListener('pause',()=>plRender());
+    a.addEventListener('error',()=>{toast(L('No se pudo cargar la canción','Could not load the song'),'bad')})}
+  return PLAYER.a;
+}
+function plPlaying(){return !!(PLAYER.a&&!PLAYER.a.paused)}
+function plLoad(i,autoplay){
+  if(!MUSICA.length)return;PLAYER.i=(i+MUSICA.length)%MUSICA.length;LS.set('plI',PLAYER.i);
+  const a=plAudio(),s=MUSICA[PLAYER.i];a.src=s.src;a.volume=musVol();
+  if(autoplay){SND.unlocked=true;a.play().catch(()=>{})}
+  plRender();
+}
+function plToggle(){const a=plAudio();if(!a.src)return plLoad(PLAYER.i,true);if(a.paused){a.volume=musVol();a.play().catch(()=>{})}else a.pause()}
+function plNext(auto){if(PLAYER.shuffle&&MUSICA.length>1){let j;do{j=Math.floor(Math.random()*MUSICA.length)}while(j===PLAYER.i);plLoad(j,true)}else plLoad(PLAYER.i+1,true)}
+function plPrev(){const a=PLAYER.a;if(a&&a.currentTime>3){a.currentTime=0;return}plLoad(PLAYER.i-1,true)}
+function plSeek(v){const a=PLAYER.a;if(a&&a.duration)a.currentTime=a.duration*v/1000}
+function plShuffle(){PLAYER.shuffle=!PLAYER.shuffle;LS.set('plSh',PLAYER.shuffle);play('toggle');plRender()}
+function plRepeat(){PLAYER.rep=!PLAYER.rep;LS.set('plRep',PLAYER.rep);play('toggle');plRender()}
+function fmt9(s){if(!isFinite(s))return '0:00';s=Math.floor(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function plProgress(){
+  const a=PLAYER.a;if(!a)return;const r=document.getElementById('plSeek');
+  if(r&&!r.matches(':active'))r.value=a.duration?Math.round(1000*a.currentTime/a.duration):0;
+  const c=document.getElementById('plCur'),d=document.getElementById('plDur');if(c)c.textContent=fmt9(a.currentTime);if(d)d.textContent=fmt9(a.duration);
+}
+// mientras suena el reproductor no suena la música de fondo
+const _sm94=startMusic;startMusic=function(){if(plPlaying())return;return _sm94.apply(this,arguments)};
+document.addEventListener('visibilitychange',()=>{if(!PLAYER.a)return;if(document.hidden){PLAYER.was=!PLAYER.a.paused;PLAYER.a.pause()}else if(PLAYER.was){PLAYER.was=false;PLAYER.a.play().catch(()=>{})}});
+const _sv94=setVol;setVol=function(kind,v){const r=_sv94.apply(this,arguments);if(kind==='music'&&PLAYER.a)PLAYER.a.volume=musVol();const o=document.getElementById('plVolVal');if(o&&kind==='music')o.textContent=Math.round(v)+'%';return r};
+(function(){if(document.getElementById('screen-music'))return;const s=document.createElement('div');s.id='screen-music';s.className='screen';
+  s.innerHTML=`<div class="topbar"><button class="iconbtn" onclick="musicBack()" aria-label="${L('Volver','Back')}"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="ttl"><h1 id="musTtl">${L('Música','Music')}</h1><p id="musSub"></p></div><div class="spacer36"></div></div><div class="divider"></div><div id="musBody" class="pl9"></div>`;
+  document.body.appendChild(s)})();
+function openMusic(){if(!eggOn())return;showScreen('screen-music');if(!PLAYER.a||!PLAYER.a.src){const a=plAudio();a.src=MUSICA[PLAYER.i%MUSICA.length].src;a.volume=musVol()}plRender()}
+function musicBack(){goMenu();if(!plPlaying())startMusic()}
+function plRender(){
+  const b=document.getElementById('musBody');if(!b||currentScreen()!=='screen-music')return;
+  const s=MUSICA[PLAYER.i%MUSICA.length]||{t:'—',a:'',img:'icon-512.png'},on=plPlaying();
+  document.getElementById('musTtl').textContent=L('Música','Music');document.getElementById('musSub').textContent=L(`${MUSICA.length} canciones · suena también mientras juegas`,`${MUSICA.length} songs · keeps playing while you play`);
+  const ic={prev:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',next:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',play:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="currentColor"/></svg>',pause:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4" width="4.2" height="16" rx="1.2" fill="currentColor"/><rect x="13.8" y="4" width="4.2" height="16" rx="1.2" fill="currentColor"/></svg>',sh:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>',rep:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/><text x="12" y="14.5" font-size="7" text-anchor="middle" fill="currentColor" stroke="none" font-weight="800">1</text></svg>'};
+  const now=`<div class="pl-now"><div class="pl-art${on?' spin':''}"><img src="${esc(s.img||'icon-512.png')}" alt=""></div><div class="pl-meta"><small>${on?L('SONANDO','NOW PLAYING'):L('EN PAUSA','PAUSED')}</small><b>${esc(s.t)}</b><span>${esc(s.a||'')}</span></div>
+    <div class="pl-bar"><span id="plCur">0:00</span><input id="plSeek" type="range" min="0" max="1000" value="0" oninput="plSeek(this.value)" aria-label="${L('Posición','Position')}"><span id="plDur">0:00</span></div>
+    <div class="pl-ctl"><button class="pl-s${PLAYER.shuffle?' on':''}" onclick="plShuffle()" aria-label="${L('Aleatorio','Shuffle')}">${ic.sh}</button><button onclick="plPrev()" aria-label="${L('Anterior','Previous')}">${ic.prev}</button><button class="pl-play" onclick="plToggle()" aria-label="${on?L('Pausa','Pause'):L('Reproducir','Play')}">${on?ic.pause:ic.play}</button><button onclick="plNext()" aria-label="${L('Siguiente','Next')}">${ic.next}</button><button class="pl-s${PLAYER.rep?' on':''}" onclick="plRepeat()" aria-label="${L('Repetir canción','Repeat song')}">${ic.rep}</button></div>
+    <div class="pl-vol"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg><input type="range" min="0" max="100" value="${Math.round(musVol()*100)}" oninput="setVol('music',this.value)" aria-label="${L('Volumen','Volume')}"><b id="plVolVal">${Math.round(musVol()*100)}%</b></div></div>`;
+  const list=`<div class="pl-list">${MUSICA.map((m,i)=>`<button class="pl-row${i===PLAYER.i?' cur':''}" onclick="plLoad(${i},true)"><img src="${esc(m.img||'icon-512.png')}" alt=""><span><b>${esc(m.t)}</b><small>${esc(m.a||'')}</small></span>${i===PLAYER.i&&on?'<i class="eq"><i></i><i></i><i></i></i>':''}</button>`).join('')}</div>`;
+  setHtml(b,now+list);plProgress();
+}
+const _tm94=toggleMusic;toggleMusic=function(){const r=_tm94.apply(this,arguments);if(!SND.musicOn&&PLAYER.a)PLAYER.a.pause();return r};
 
 applyI18n();
 refreshMenu();
