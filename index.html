@@ -1833,6 +1833,13 @@ html.in-frame .k-logoimg{width:250px}
 #screen-online #onlineBody,#screen-bots #botsBody,#u10Local{flex:1 1 auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;margin-top:12px!important;margin-bottom:0!important}
 html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-frame #screen-setup.active{height:100dvh;overflow:hidden!important}
 #onlineBody>.u10,#botsBody>.u10,#u10Local>.u10{flex:1 1 auto;min-height:0;height:100%}
+/* v10.1 · dentro de los recuadros todo sigue la inclinación: misma distancia a ambos bordes en cada fila */
+.u10-in{transform:none!important}
+.u10-in .u10-bar,.u10-in .u10-seat,.u10-in .u10-fld,.u10-in .u10-plus,.u10-in .u10-chip,.u10-in .u10-resume{transform:none!important}
+.u10-in .u10-lbl,.u10-in .u10-hint,.u10-in .u10-hd{display:block;transform:skewX(7deg)}
+.u10-in .u10-hd{display:flex}
+.u10-in .u10-lu .lu-box>*{transform:skewX(7deg)}
+.u10-in .u10-lu .lu-box{background:rgba(255,255,255,.03)!important}
 </style>
 </head>
 <body>
@@ -5662,7 +5669,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='10.0';
+const APP_VER='2.0';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6670,8 +6677,14 @@ function smSound(){
   if(!SONIDOS_EGG.length)return;
   if(!UI.smQ.length){const a=SONIDOS_EGG.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}if(a[0]===UI.eggLast&&a.length>1)a.push(a.shift());UI.smQ=a}
   const f=UI.smQ.shift();UI.eggLast=f;
-  try{if(UI.eggA)UI.eggA.pause();const au=new Audio(f);au.volume=Math.min(1,.95*sfxVol());UI.eggA=au;au.play().catch(()=>{})}catch(e){}
+  try{if(UI.eggA)UI.eggA.pause();const au=new Audio(f);au.volume=Math.min(1,.95*sfxVol());UI.eggA=au;smDuck(true);const end=()=>{if(UI.eggA===au)smDuck(false)};au.addEventListener('ended',end);au.addEventListener('error',end);au.addEventListener('pause',()=>setTimeout(end,60));au.play().catch(end)}catch(e){smDuck(false)}
   buzz(20);
+}
+// mientras suena un sonido SM, la música de fondo baja y luego vuelve sola
+function smDuck(on){
+  const els=[];if(MUS.cur&&MUS.el[MUS.cur])els.push([MUS.el[MUS.cur],musVol()]);if(PLAYER.a&&!PLAYER.a.paused)els.push([PLAYER.a,musVol()]);
+  els.forEach(([a,v])=>{if(!a||a.paused)return;musFade(a,on?v*.15:v)});
+  UI.smDucked=on;clearTimeout(UI.smDuckT);if(on)UI.smDuckT=setTimeout(()=>smDuck(false),12000);
 }
 
 applyI18n();
