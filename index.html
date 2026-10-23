@@ -57,13 +57,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>TALMUT</title>
 <meta name="description" content="TALMUT — el juego de cartas de memoria, reflejos y faroles. Juega online o lleva la puntuación con tu baraja.">
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json?v=10">
 <meta name="theme-color" content="#0A0A0B">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Talmut">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=10">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=10">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png?v=10">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=10">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cinzel+Decorative:wght@900&family=IM+Fell+English+SC&family=Inter+Tight:wght@400;500;600;700;800;900&family=Saira:ital,wght@0,500;1,900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -1550,21 +1552,23 @@ html.in-frame #hist2Body{flex:1 1 auto;display:flex!important;flex-direction:col
 .c9{display:inline-block;padding:0 3px;border-radius:3px;background:#F4EBD6;color:#141414;font-weight:800;font-size:10.5px;line-height:1.35;font-family:var(--fb)}
 .c9.red{color:#C0141E}
 .c9.jk{font-size:8.5px;letter-spacing:.5px;color:#7A4FD6}
-#gTalmut.talmut-zone{margin:0;padding:0;border:0;flex:none;height:52px;display:block}
-.tal9{all:unset;box-sizing:border-box;position:relative;overflow:hidden;width:100%;height:52px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none}
+#gTalmut.talmut-zone{margin:0;padding:0;border:0;flex:none;height:48px;display:block}
+.tal9{all:unset;box-sizing:border-box;position:relative;overflow:hidden;width:100%;height:48px;border-radius:999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none}
 .tal9 span{position:relative;display:flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-weight:900;font-size:19px;letter-spacing:3px;line-height:1}
 .tal9 small{position:relative;font-size:9.5px;letter-spacing:.3px;font-weight:600}
-.tal9.lock{background:rgba(40,8,12,.55);border:1.5px dashed rgba(232,52,62,.42);color:rgba(255,220,220,.38)}
-.tal9.on{cursor:pointer;background:linear-gradient(180deg,#F0444E,#8E0F17);border:2px solid #FF7A82;color:#fff;box-shadow:0 0 0 0 rgba(232,52,62,.6),0 6px 18px rgba(232,52,62,.45);animation:tal9p 1.3s ease-in-out infinite}
-.tal9.on small{color:#FFE2E3}
-@keyframes tal9p{50%{box-shadow:0 0 0 6px rgba(232,52,62,0),0 6px 26px rgba(232,52,62,.75)}}
-.tal9 .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(255,231,168,.25),rgba(255,231,168,.55));transition:width .12s linear}
-.tal9.holding .fill{width:100%;transition:width 1s linear}
+.tal9{border-radius:999px}
+.tal9.lock{background:#2A0B0F;border:2px dashed rgba(227,188,85,.38);color:rgba(255,231,168,.35)}
+.tal9.on{cursor:pointer;background:radial-gradient(circle at 50% 25%,#D3222E,#6E0910 75%);border:2px solid #E3BC55;color:#FFE7A8;box-shadow:inset 0 2px 0 rgba(255,255,255,.22),0 8px 22px rgba(200,32,43,.5);animation:tal9p 1.4s ease-in-out infinite}
+.tal9.on small{color:#FFD9A0}
+@keyframes tal9p{50%{box-shadow:inset 0 2px 0 rgba(255,255,255,.22),0 0 0 6px rgba(227,188,85,.18),0 8px 30px rgba(232,52,62,.8)}}
+.tal9 .fill{position:absolute;left:0;right:0;bottom:0;top:auto;width:auto;height:0;background:linear-gradient(180deg,#FFE7A8,#D4A83A);transition:height .15s ease-out}
+.tal9.holding .fill{height:100%;transition:height 1s linear}
+.tal9.holding span,.tal9.holding small{color:#3A0A0F}
 .tal9.holding{transform:scale(.97)}
-.tal9.done{background:#3A0A0F;border:1.5px solid #E8343E;color:#FF8088}
+.tal9.done{background:#3A0A0F;border:2px solid #E3BC55;color:#FFE7A8}
 .tal9.done small{color:#F4EBD6}
-.r9{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-.r9 button{all:unset;box-sizing:border-box;cursor:pointer;height:32px;padding:0 3px;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--k-ui,inherit);font-weight:700;font-size:10.5px;line-height:1.05;letter-spacing:-.1px;color:#F4EBD6;background:rgba(30,18,14,.92);box-shadow:inset 0 0 0 1.3px rgba(255,200,90,.5);overflow:hidden;transition:transform .1s,opacity .2s}
+.r9{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.r9 button{all:unset;box-sizing:border-box;cursor:pointer;height:25px;padding:0 6px;border-radius:999px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--k-ui,inherit);font-weight:700;font-size:9.5px;line-height:1;letter-spacing:-.1px;color:#F4EBD6;background:rgba(30,18,14,.92);box-shadow:inset 0 0 0 1.3px rgba(255,200,90,.5);overflow:hidden;transition:transform .1s,opacity .2s}
 .r9 button:active{transform:scale(.95);background:rgba(255,190,80,.3)}
 .r9 button.ctx{box-shadow:inset 0 0 0 1.3px #3FE0CF}
 .r9 button.mx{box-shadow:inset 0 0 0 1.3px #19FF56;color:#C9FFD6}
@@ -1583,11 +1587,39 @@ body.creer-on .r9,body.creer-on .tal9{visibility:hidden}
 #gOverlay .reveal-row .cards{justify-content:flex-start}
 #gOverlay .reveal-row .sc{min-width:0}
 #gOverlay h2{margin-top:0!important}
+.r9 button.mx{font-size:9px;letter-spacing:-.3px;padding:0 3px}
+/* pausa (Arcade) */
+#pauseBtn{display:none}
+body.arcade #pauseBtn{display:inline-flex}
+.g-top{gap:4px}
+.pause-ov{position:fixed;inset:0;z-index:250;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(10,3,5,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:pzIn .25s ease-out}
+@keyframes pzIn{from{opacity:0}}
+.pause-ov h2{margin:0;font-family:'Cinzel',serif;font-weight:900;font-size:54px;letter-spacing:8px;color:#FFE7A8;text-shadow:0 6px 24px rgba(0,0,0,.6)}
+.pause-ov p{margin:0;font-size:13px;color:rgba(255,255,255,.7)}
+.pause-ov .btn{width:220px}
+/* pausa (Arcade) */
+.pause-ov{position:fixed;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;background:rgba(6,2,3,.78);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:f9in .25s ease-out}
+.pz-card{width:min(340px,86vw);display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 22px;border-radius:18px;background:linear-gradient(180deg,#2A0A0E,#140506);border:1.5px solid #E3BC55;box-shadow:0 18px 50px rgba(0,0,0,.6);text-align:center}
+.pz-card h2{margin:4px 0 0;font-family:'Cinzel',serif;font-weight:900;letter-spacing:3px;font-size:22px;color:#FFE7A8}
+.pz-card p{margin:0 0 6px;font-size:12.5px;color:var(--dim)}
+.pz-card .btn{width:100%}
+.pz-ic{display:flex;gap:8px}.pz-ic i{width:12px;height:38px;border-radius:3px;background:#E3BC55}
+body.paused9 #screen-game *{animation-play-state:paused!important}
+#screen-game .g-top #pauseBtn{flex:none}
+/* 5 rivales: cartas un poco más pequeñas para que no se monten */
+.g-main .opps.n5 .opp .pc.sm{width:21px;height:30px}
+.g-main .opps.n5 .opp .row{gap:2px}
+.g-main .opps.n4 .opp .pc.sm{width:24px;height:34px}
+/* logo oficial (PNG de Ignacio) */
+#splash7 .s7-logo{display:block;width:min(78vw,720px);height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.7)) drop-shadow(0 0 40px rgba(255,140,40,.35));animation:s7in 1.2s .2s both}
+.k-logoimg{display:block;width:clamp(200px,30vw,330px);height:auto;margin:0 auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+html.in-frame .k-logoimg{width:250px}
+@media (max-width:800px){html.in-frame .k-logoimg{width:210px}}
 </style>
 </head>
 <body>
 <div id="intro" onclick="endIntro()" aria-label="SM42 Developer Studio"><div class="tapgo" data-t="intro.tap">Toca para empezar</div><div class="flash"></div><div class="stage"><div class="word"><span>S</span><span>M</span><span>4</span><span>2</span></div><div class="sub">DEVELOPER STUDIO</div></div></div>
-<div id="splash7" class="hidden" onclick="enterSplash7()"><div class="s7-bg"></div><div class="s7-vign"></div><div class="s7-mid"><div class="s7-w"><span class="s7-gold">TALMUT</span></div><div class="s7-tag">HIC LUDUS ERROREM PUNIT</div></div><div class="s7-press">PULSA PARA ENTRAR</div></div>
+<div id="splash7" class="hidden" onclick="enterSplash7()"><div class="s7-bg"></div><div class="s7-vign"></div><div class="s7-mid"><img class="s7-logo" src="talmut-logo.webp" alt="TALMUT · Hic ludus errorem punit"></div><div class="s7-press">PULSA PARA ENTRAR</div></div>
 
 
 <div class="toast-wrap" id="toasts"></div>
@@ -1607,7 +1639,7 @@ body.creer-on .r9,body.creer-on .tal9{visibility:hidden}
       <button class="iconbtn" onclick="openSettings()" aria-label="Ajustes"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE6A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>
   </div>
-  <div class="k-logo"><div class="k-w">TALMUT</div><div class="k-sub">HIC LUDUS ERROREM PUNIT</div></div>
+  <div class="k-logo"><img class="k-logoimg" src="talmut-logo.webp" alt="TALMUT · Hic ludus errorem punit"></div>
 
   <button id="continueBtn" class="k-cont hidden" onclick="continueScorer()"><svg width="12" height="14" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg><b data-t="m.continue"></b><small id="continueDesc"></small></button>
 
@@ -5412,7 +5444,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='9.0';
+const APP_VER='9.2';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6001,6 +6033,76 @@ const _tmu9=toggleMusic;toggleMusic=function(){const r=_tmu9.apply(this,argument
 const _os9=openSettings;openSettings=function(){const r=_os9.apply(this,arguments);try{document.getElementById('sfxSwitch').classList.toggle('on',SND.sfxOn);document.getElementById('musicSwitch').classList.toggle('on',SND.musicOn)}catch(e){}return r};
 // la gallina también respeta el botón de efectos
 SFX.hen=function(){try{if(!HEN_AUDIO||!SND.sfxOn)return;const a=HEN_AUDIO.cloneNode();a.volume=.85;a.play().catch(()=>{})}catch(e){}};
+
+// ---------- PAUSA en Arcade ----------
+UI.paused=false;UI.pausedAt=0;
+(function(){
+  const top=document.querySelector('#screen-game .g-top');if(!top||document.getElementById('pauseBtn'))return;
+  const sc=top.querySelector('button[onclick="openScoresModal()"]');
+  const b=document.createElement('button');b.className='iconbtn';b.id='pauseBtn';b.setAttribute('aria-label','Pausa');b.setAttribute('onclick','pauseGame()');
+  b.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="#FFE6A1"><rect x="6" y="4" width="4" height="16" rx="1.2"/><rect x="14" y="4" width="4" height="16" rx="1.2"/></svg>';
+  if(sc)top.insertBefore(b,sc);else top.appendChild(b);
+})();
+function canPause(){return !!(G&&G.local&&LOCAL&&!TUT&&['peek','play','round_end'].includes(G.pub.status))}
+function pauseGame(){
+  if(UI.paused||!canPause())return;
+  UI.paused=true;UI.pausedAt=Date.now();holdEnd&&holdEnd();
+  try{stopMusic()}catch(e){}
+  document.querySelectorAll('.pause-ov').forEach(e=>e.remove());
+  const d=document.createElement('div');d.className='pause-ov';
+  d.innerHTML=`<h2>${L('PAUSA','PAUSED')}</h2><p>${L('La partida está parada. Nadie juega hasta que vuelvas.','The game is stopped. Nobody plays until you come back.')}</p><button class="btn btn-gold" onclick="resumeGame()">▶ ${L('Continuar','Resume')}</button><button class="btn btn-ghost" onclick="pauseLeave(this)">${L('Salir de la partida','Leave game')}</button>`;
+  document.body.appendChild(d);play('tap');
+}
+function pauseLeave(b){if(!b.dataset.sure){b.dataset.sure=1;b.textContent=L('Pulsa otra vez para salir','Tap again to leave');return}UI.paused=false;document.querySelectorAll('.pause-ov').forEach(e=>e.remove());leaveOnline(true)}
+function resumeGame(){
+  if(!UI.paused)return;
+  const ms=Date.now()-UI.pausedAt;UI.paused=false;
+  try{if(LOCAL&&LOCAL.pub){if(LOCAL.pub.deadline)LOCAL.pub.deadline+=ms;if(G&&G.pub!==LOCAL.pub&&G.pub.deadline)G.pub.deadline+=ms;if(LOCAL.sched)LOCAL.sched.at+=ms}}catch(e){}
+  advanceKey='';
+  document.querySelectorAll('.pause-ov').forEach(e=>e.remove());
+  try{if(SND.musicOn)startMusic()}catch(e){}
+  play('go');if(G)renderGame();
+}
+const _tkP=tick;tick=function(){if(UI.paused)return;return _tkP.apply(this,arguments)};
+const _btP=botTick;botTick=function(){if(UI.paused)return;return _btP.apply(this,arguments)};
+const _tcP=tapCard;tapCard=function(){if(UI.paused)return;return _tcP.apply(this,arguments)};
+const _tdP=tapDeck;tapDeck=function(){if(UI.paused)return;return _tdP.apply(this,arguments)};
+setInterval(()=>{const on=canPause()&&currentScreen()==='screen-game';document.body.classList.toggle('arcade',on);if(UI.paused&&(!G||!G.local)){UI.paused=false;document.querySelectorAll('.pause-ov').forEach(e=>e.remove())}},500);
+// si sales de la app en mitad de una partida de Arcade, se pausa sola
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&canPause()&&currentScreen()==='screen-game')pauseGame()});
+
+// ---------- ARCADE: pausar la partida ----------
+UI.paused=false;
+function canPause9(){return !!(G&&G.local&&LOCAL&&!TUT&&['peek','play','round_end'].includes(G.pub.status))}
+function pauseGame(auto){
+  if(!canPause9()||UI.paused)return;
+  UI.paused=true;UI.pausedAt=Date.now();try{holdEnd()}catch(e){}
+  document.querySelectorAll('.pause-ov').forEach(e=>e.remove());
+  const o=document.createElement('div');o.className='pause-ov';
+  const p=G.pub;
+  o.innerHTML=`<div class="pz-card"><div class="pz-ic"><i></i><i></i></div><h2>${L('PARTIDA EN PAUSA','GAME PAUSED')}</h2><p>${L(`Ronda ${Math.max(1,p.round)} de ${p.totalRounds} · el tiempo está parado`,`Round ${Math.max(1,p.round)} of ${p.totalRounds} · the clock is stopped`)}</p><button class="btn btn-gold" onclick="resumeGame()">▶ ${L('Continuar','Resume')}</button><button class="btn btn-ghost" onclick="resumeGame(true);leaveOnline(true)">${L('Salir al menú','Quit to menu')}</button></div>`;
+  document.body.appendChild(o);document.body.classList.add('paused9');
+  if(!auto){play('tap');buzz(20)}
+}
+function resumeGame(silent){
+  if(!UI.paused)return;
+  const dt=Date.now()-UI.pausedAt;UI.paused=false;
+  try{if(LOCAL&&LOCAL.pub){if(LOCAL.pub.deadline)LOCAL.pub.deadline+=dt;if(G&&G.pub!==LOCAL.pub&&G.pub.deadline)G.pub.deadline+=dt;if(LOCAL.sched)LOCAL.sched.at+=dt}}catch(e){}
+  for(const k in UI.flash)UI.flash[k].until+=dt;for(const k in UI.hl)UI.hl[k]+=dt;
+  advanceKey='';
+  document.querySelectorAll('.pause-ov').forEach(e=>e.remove());document.body.classList.remove('paused9');
+  if(!silent){play('go');if(G&&currentScreen()==='screen-game')renderGame()}
+}
+const _tk9p=tick;tick=function(){if(UI.paused){if(!G||!G.local)resumeGame(true);return}return _tk9p.apply(this,arguments)};
+const _bt9p=botTick;botTick=function(){if(UI.paused)return;return _bt9p.apply(this,arguments)};
+
+const _sl9p=stopLocal;stopLocal=function(){if(UI.paused){UI.paused=false;document.querySelectorAll('.pause-ov').forEach(e=>e.remove());document.body.classList.remove('paused9')}return _sl9p.apply(this,arguments)};
+// botón de pausa junto a la ronda (solo en Arcade)
+(function(){const top=document.querySelector('#screen-game .g-top');if(!top||document.getElementById('pauseBtn'))return;
+  const sb=top.lastElementChild;sb.insertAdjacentHTML('beforebegin',`<button class="iconbtn" id="pauseBtn" onclick="pauseGame()" aria-label="${L('Pausa','Pause')}"><svg width="16" height="16" viewBox="0 0 24 24" fill="#FFE6A1"><rect x="6" y="4" width="4" height="16" rx="1.2"/><rect x="14" y="4" width="4" height="16" rx="1.2"/></svg></button>`)})();
+setInterval(()=>{const b=document.getElementById('pauseBtn');if(b)b.style.display=canPause9()?'':'none'},500);
+// si sales de la app en mitad de una partida de Arcade, se pausa sola
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&canPause9())pauseGame(true)});
 
 applyI18n();
 refreshMenu();
