@@ -1511,6 +1511,78 @@ html.in-frame #hist2Body{flex:1 1 auto;display:flex!important;flex-direction:col
 .sala-mem.me{border:1px solid rgba(227,188,85,.35)}
 .h2-tbl{max-height:60vh;overflow:auto;margin-top:8px}.h2-tbl table{width:100%;border-collapse:collapse;font-size:11.5px}.h2-tbl th,.h2-tbl td{padding:5px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}.h2-tbl th{font-size:9px;letter-spacing:.12em;color:#E3BC55}.h2-tbl tr.tot td{font-weight:900;color:#FFD978}
 
+
+/* ===== v9 · panel derecho fijo ===== */
+#screen-game .g-panel.p9{display:flex;flex-direction:column;gap:7px;overflow:hidden!important;padding:9px 9px calc(env(safe-area-inset-bottom) + 9px)}
+.g-panel.p9>*{flex:none}
+.turn-box.t9{height:94px;box-sizing:border-box;justify-content:center;gap:4px;padding:8px 10px;margin:0;animation:none}
+.turn-box.t9.mine{animation:turnIn .45s cubic-bezier(.2,1.4,.4,1)}
+.t9-h{display:flex;align-items:center;justify-content:center;gap:6px;max-width:100%;font-size:14px;font-weight:800;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#FFF3DA}
+.t9-h>span{overflow:hidden;text-overflow:ellipsis}
+.t9-h .avatar{flex:none}
+.turn-box.t9.mine .t9-h{font-size:21px;font-weight:900;letter-spacing:-.4px;color:#fff}
+.turn-box.t9.gold .t9-h{color:#FFE7A8}
+.t9-s{font-size:11px;line-height:1.3;height:2.6em;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:var(--dim);text-align:center;max-width:100%}
+.turn-box.t9.mine .t9-s{color:#FFE2E3}
+.t9-s b{color:#FFE7A8}
+.t9-t{display:flex;align-items:center;gap:7px;width:100%}
+.t9-t .timer{flex:1;margin:0!important;height:5px}
+.t9-t .sec{flex:none;width:28px;text-align:right;font-size:10.5px}
+.f9{flex:1 1 auto!important;min-height:0;display:flex;flex-direction:column;gap:5px}
+.f9-l{display:flex;align-items:center;gap:6px;font-size:9.5px;letter-spacing:1.6px;font-weight:800;color:#D4A83A;text-transform:uppercase}
+.f9-l i{width:7px;height:7px;border-radius:50%;background:#E8343E;box-shadow:0 0 8px #E8343E;animation:f9dot 1.4s ease-in-out infinite}
+@keyframes f9dot{50%{opacity:.35}}
+.f9-log{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:4px;padding:7px 8px;border-radius:10px;background:rgba(0,0,0,.38);box-shadow:inset 0 0 0 1px rgba(255,200,90,.14);font-size:11px;line-height:1.35;color:rgba(255,255,255,.8);scrollbar-width:thin;scrollbar-color:rgba(212,168,58,.4) transparent}
+.f9-log:empty::before{content:attr(data-empty);color:rgba(255,255,255,.32);font-style:italic;margin:auto 0;text-align:center}
+.f9-m{flex:none}
+.f9-m.new{animation:f9in .35s ease-out}
+@keyframes f9in{from{opacity:0;transform:translateY(6px)}}
+.f9-m .pn{color:var(--c);color:color-mix(in srgb,var(--c) 72%,#fff);font-weight:800}
+.f9-m.sep{display:flex;align-items:center;gap:6px;color:#D4A83A;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;font-weight:800;margin:3px 0}
+.f9-m.sep::before,.f9-m.sep::after{content:'';flex:1;height:1px;background:rgba(212,168,58,.3)}
+.f9-m.sep i{font-style:normal}
+.f9-m.chat{padding:3px 7px;border-radius:8px;background:rgba(255,255,255,.06)}
+.f9-m.chat .q{color:#F4EBD6;font-style:italic}
+.f9-m.ok{color:#B7F5C6}
+.f9-m.bad{color:#F7B0B0}
+.f9-m.tal{padding:4px 7px;border-radius:8px;background:rgba(232,52,62,.18);box-shadow:inset 0 0 0 1px rgba(232,52,62,.5);color:#fff}
+.f9-m b.tal{color:#FF5A63;letter-spacing:1px}
+.c9{display:inline-block;padding:0 3px;border-radius:3px;background:#F4EBD6;color:#141414;font-weight:800;font-size:10.5px;line-height:1.35;font-family:var(--fb)}
+.c9.red{color:#C0141E}
+.c9.jk{font-size:8.5px;letter-spacing:.5px;color:#7A4FD6}
+#gTalmut.talmut-zone{margin:0;padding:0;border:0;flex:none;height:52px;display:block}
+.tal9{all:unset;box-sizing:border-box;position:relative;overflow:hidden;width:100%;height:52px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none}
+.tal9 span{position:relative;display:flex;align-items:center;gap:6px;font-family:'Cinzel',serif;font-weight:900;font-size:19px;letter-spacing:3px;line-height:1}
+.tal9 small{position:relative;font-size:9.5px;letter-spacing:.3px;font-weight:600}
+.tal9.lock{background:rgba(40,8,12,.55);border:1.5px dashed rgba(232,52,62,.42);color:rgba(255,220,220,.38)}
+.tal9.on{cursor:pointer;background:linear-gradient(180deg,#F0444E,#8E0F17);border:2px solid #FF7A82;color:#fff;box-shadow:0 0 0 0 rgba(232,52,62,.6),0 6px 18px rgba(232,52,62,.45);animation:tal9p 1.3s ease-in-out infinite}
+.tal9.on small{color:#FFE2E3}
+@keyframes tal9p{50%{box-shadow:0 0 0 6px rgba(232,52,62,0),0 6px 26px rgba(232,52,62,.75)}}
+.tal9 .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(255,231,168,.25),rgba(255,231,168,.55));transition:width .12s linear}
+.tal9.holding .fill{width:100%;transition:width 1s linear}
+.tal9.holding{transform:scale(.97)}
+.tal9.done{background:#3A0A0F;border:1.5px solid #E8343E;color:#FF8088}
+.tal9.done small{color:#F4EBD6}
+.r9{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.r9 button{all:unset;box-sizing:border-box;cursor:pointer;height:32px;padding:0 3px;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--k-ui,inherit);font-weight:700;font-size:10.5px;line-height:1.05;letter-spacing:-.1px;color:#F4EBD6;background:rgba(30,18,14,.92);box-shadow:inset 0 0 0 1.3px rgba(255,200,90,.5);overflow:hidden;transition:transform .1s,opacity .2s}
+.r9 button:active{transform:scale(.95);background:rgba(255,190,80,.3)}
+.r9 button.ctx{box-shadow:inset 0 0 0 1.3px #3FE0CF}
+.r9 button.mx{box-shadow:inset 0 0 0 1.3px #19FF56;color:#C9FFD6}
+.r9 button.off{opacity:.28;cursor:default;pointer-events:none}
+body.creer-on .r9,body.creer-on .tal9{visibility:hidden}
+#screen-game .center #gActions{display:flex;justify-content:center;margin-top:6px;background:none;border:0;padding:0}
+#screen-game .center #gActions .btn-row{flex-direction:row}
+#screen-game .center #gActions .btn{width:auto;padding:8px 20px;font-size:12px}
+#screen-game .center #gStatus:empty{display:none}
+/* menú: música · efectos · ajustes */
+.k-icons .iconbtn.off{opacity:.75}
+/* fin de ronda: tabla más estrecha y compacta */
+#gOverlay>*:not(.rv-skip){width:min(470px,100%);margin-left:auto;margin-right:auto;box-sizing:border-box}
+#gOverlay .reveal-row{display:grid;grid-template-columns:92px minmax(0,1fr) 52px;gap:8px;padding:6px 10px;margin-bottom:5px}
+#gOverlay .reveal-row .nm{width:auto}
+#gOverlay .reveal-row .cards{justify-content:flex-start}
+#gOverlay .reveal-row .sc{min-width:0}
+#gOverlay h2{margin-top:0!important}
 </style>
 </head>
 <body>
@@ -2088,7 +2160,8 @@ var TENG = (() => {
       seq: 0,
       standings: null,
       gameOver: false,
-      tiebreak: false
+      tiebreak: false,
+      v9: true
     };
     const sec = { deck: [], discard: [], hands: [], pending: null };
     return { pub, sec };
@@ -2151,9 +2224,10 @@ var TENG = (() => {
     return { cards };
   }
   function openSnap(pub, sec, actor, now) {
+    const own = pub.special && pub.special.owner != null ? pub.special.owner : null;
     pub.phase = "snap";
     pub.lastSnap = null;
-    pub.snap = { actor, owner: null };
+    pub.snap = { actor, owner: own };
     pub.special = null;
     pub.deadline = now + T.snap;
     sync(pub, sec);
@@ -2203,10 +2277,8 @@ var TENG = (() => {
     event(pub, "discard", { p: me, card: c });
     const r = rankOf(c);
     if (SPECIAL.includes(r) && specialPossible(pub, sec, r, me)) {
-      pub.phase = "special";
-      pub.special = { type: r, by: me, k: null };
-      pub.deadline = now + T.special;
-      sync(pub, sec);
+      openSnap(pub, sec, me, now);
+      pub.snap.pre = { type: r, by: me };
     } else {
       openSnap(pub, sec, me, now);
     }
@@ -2333,6 +2405,16 @@ var TENG = (() => {
     }
     if (pub.phase === "snap" && pub.snap && pub.snap.actor === me) {
       setTalmut(pub, me, false);
+      return {};
+    }
+    if (pub.turn === me && ["decide", "special", "special_k2"].includes(pub.phase)) {
+      setTalmut(pub, me, false);
+      pub.players[me].afk = 0;
+      return {};
+    }
+    if (pub.phase === "draw" && pub.lastSnap && pub.lastSnap.actor === me) {
+      setTalmut(pub, me, false);
+      pub.players[me].afk = 0;
       return {};
     }
     fail("bad_phase");
@@ -2528,9 +2610,19 @@ var TENG = (() => {
       case "special_k2":
         openSnap(pub, sec, pub.special ? pub.special.by : t, now);
         return true;
-      case "snap":
+      case "snap": {
+        const pre = pub.snap && pub.snap.pre;
+        if (pre && !pub.players[pre.by].left && specialPossible(pub, sec, pre.type, pre.by)) {
+          pub.phase = "special";
+          pub.special = { type: pre.type, by: pre.by, k: null, owner: pub.snap.owner };
+          pub.snap = null;
+          pub.deadline = now + T.special;
+          sync(pub, sec);
+          return true;
+        }
         endTurn(pub, sec, now);
         return true;
+      }
     }
     return false;
   }
@@ -4008,20 +4100,11 @@ function renderGame(){
     return cardHtml(f?f.card:null,{click:canTap(me,s),sel:UI.peekSel.includes(s)||(UI.qFirst&&UI.qFirst.p===me&&UI.qFirst.s===s),flash:!!UI.hl[me+'-'+s],onclick:`tapCard(${me},${s})`,k:me+'-'+s,s});
   }).join(''):'';
   document.getElementById('gOrder').innerHTML=canOrder()?`<p class="drag-hint">${t('g.dragHint')}</p>`:'';
-  // caja de turno
-  let tb='',cls='turn-box';
-  if(p.status==='peek'){cls+=' gold';tb=`<b>${t('g.doing.peek')}</b><small>${p.peekDone&&p.peekDone[me]?t('g.waitPeek'):t('g.myPeek')}</small>`}
-  else if(p.status==='play'&&p.phase==='snap'){cls+=' gold';tb=`<b>${t('g.doing.snap')}</b><small>${t('g.snapOwn',{r:p.discardTop?(p.discardTop[0]==='X'?'JOKER':p.discardTop.slice(0,-1)):''})}</small>`}
-  else if(p.status==='play'&&p.turn===me){cls+=' mine';tb=`<b class="big">${t('g.yourTurnBig')}</b>`}
-  else if(p.status==='play'){const tp=p.players[p.turn]||{name:'?'};const doing=p.phase==='special'||p.phase==='special_k2'?t('g.doing.special',{c:p.special?p.special.type:''}):t('g.doing.'+(p.phase==='decide'?'decide':'draw'));tb=`<div class="who-turn">${avatar(tp.name,26)}<b>${t('g.turnOf',{n:esc(tp.name)})}</b></div><small>${doing}</small>`}
-  if(tb)tb+=`<div class="timer" id="gTimer"><i></i></div><span class="sec" id="gSec"></span>`;
-  const tbox=document.getElementById('gTurn');tbox.className=cls;tbox.innerHTML=tb;tbox.style.display=tb?'':'none';
+  renderTurn9();
   // información de la partida + en directo
   const leaderName=leaderOn?act.filter(x=>x.pl.total===minT).map(x=>x.i===me?t('g.you'):esc(x.pl.name)).join(', '):'—';
   setHtml(document.getElementById('gSideInfo'),`<div><small>${t('g.roundShort')}</small><b>${Math.max(1,p.round)}/${p.totalRounds}</b></div><div><small>${t('g.inDeck')}</small><b>${p.deckCount}</b></div><div><small>${t('g.leaderShort')}</small><b class="g">${leaderName}</b></div>`);
-  let info='';
-  if(UI.log.length)info+=`<div class="live-lbl">${t('g.live')}</div><div class="live">${UI.log.slice(0,5).map((l,k)=>`<div class="${k===0?'new':''}">${l}</div>`).join('')}</div>`;
-  document.getElementById('gInfo').innerHTML=info;
+  feedSync9();
   renderActions();
   renderOverlay();
   tick();
@@ -4453,7 +4536,7 @@ function buildReview(ov,p){
   const rv=p.reveal,me=myIdx(),isHost=p.players[me]&&p.players[me].uid===p.hostUid;
   const order=p.players.map((pl,i)=>i).filter(i=>!p.players[i].left||(rv.hands[i]||[]).some(Boolean));
   let h=`<button class="rv-skip" onclick="skipReview()">${L('Saltar','Skip')} ›</button><h2 style="margin:0 0 4px;text-align:center;font-family:var(--fd);color:var(--cream);letter-spacing:2px">${t('g.roundEnd',{r:rv.round})}</h2>`;
-  if(rv.declarer>=0)h+=`<p style="text-align:center;color:${rv.wrong?'#F08A8A':'#E3BC55'};font-size:13px;margin:4px 0 0">${rv.wrong?t('g.wrong',{n:pname(rv.declarer)}):rv.declarer===me?L('Cantaste TALMUT y acertaste','You called TALMUT right'):L(`${pname(rv.declarer)} cantó TALMUT`,`${pname(rv.declarer)} called TALMUT`)}</p>`;
+  if(rv.declarer>=0)h+=`<p style="text-align:center;color:${rv.wrong?'#F08A8A':'#E3BC55'};font-size:13px;margin:4px 0 0">${rv.wrong?(rv.declarer===me?L('TALMUT erróneo: sumas los puntos de todos','Wrong TALMUT: you take everyone\'s points'):t('g.wrong',{n:pname(rv.declarer)})):rv.declarer===me?L('Cantaste TALMUT y acertaste','You called TALMUT right'):L(`${pname(rv.declarer)} cantó TALMUT`,`${pname(rv.declarer)} called TALMUT`)}</p>`;
   h+='<div style="margin-top:14px">';
   order.forEach(i=>{
     const pl=p.players[i],win=rv.winners.includes(i),cards=(rv.hands[i]||[]).filter(c=>c);
@@ -5329,7 +5412,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='8.1';
+const APP_VER='9.0';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -5701,6 +5784,223 @@ function histOpen(id){
 }
 // acceso también desde el Perfil
 const _rp81b=renderProfile;renderProfile=function(){const r=_rp81b.apply(this,arguments);try{if(profTab==='me'){const card=document.querySelector('#profBody .prof-card');if(card&&!card.querySelector('.h2-link')){card.insertAdjacentHTML('beforeend',`<button class="h2-link" onclick="openHist()">📜 ${L('Histórico de partidas locales','Local games history')}</button>`)}}}catch(e){}return r};
+
+
+// =====================================================================
+//  v9.0 · panel derecho fijo (tiempo · EN DIRECTO · TALMUT · frases),
+//  descarte cruzado antes del poder, TALMUT hasta que el siguiente roba,
+//  botón de efectos, arreglos de bloqueos
+// =====================================================================
+
+// ---------- nombres con su color y cartas con su palo ----------
+function pcol9(i){const pl=G&&G.pub.players[i];return pl?avColor(pl.name):'#ddd'}
+function pn9(i){const pl=G&&G.pub.players[i];if(!pl)return '<b>?</b>';return `<b class="pn" style="--c:${pcol9(i)}">${esc(pl.name)}</b>`}
+function card9(c){if(!c)return '';if(c[0]==='X')return `<span class="c9 jk">JOKER</span>`;const r=c.slice(0,-1),s=c.slice(-1),sym={S:'♠',H:'♥',D:'♦',C:'♣'}[s];return `<span class="c9${s==='H'||s==='D'?' red':''}">${r}${sym}</span>`}
+function top9(p){return p.discardTop?(p.discardTop[0]==='X'?'JOKER':p.discardTop.slice(0,-1)):''}
+
+// ---------- EN DIRECTO: todo lo que pasa, como un chat ----------
+UI.feed=[];UI.feedK=null;UI.feedSeq=0;
+function feedReset(){
+  const k=chatKey();if(UI.feedK===k)return;
+  UI.feedK=k;UI.feed=[];const el=document.getElementById('gFeed');if(el){el.innerHTML='';el.dataset.last=0}
+  if(G&&G.pub&&G.pub.round>0)UI.feed.push({id:++UI.feedSeq,h:`<i>${L('Ronda','Round')} ${G.pub.round}</i>`,c:'sep'});
+}
+function feedAdd(h,cls){feedReset();UI.feed.push({id:++UI.feedSeq,h,c:cls||''});if(UI.feed.length>150)UI.feed.splice(0,UI.feed.length-150);feedSync9()}
+function feedSync9(){
+  const el=document.getElementById('gFeed');if(!el)return;feedReset();
+  const last=+el.dataset.last||0,fresh=UI.feed.filter(x=>x.id>last);if(!fresh.length)return;
+  const first=!last||!el.children.length,near=el.scrollHeight-el.scrollTop-el.clientHeight<60;
+  if(first)el.innerHTML='';
+  const frag=document.createDocumentFragment();
+  (first?UI.feed:fresh).forEach(x=>{const d=document.createElement('div');d.className='f9-m '+x.c+(first?'':' new');d.innerHTML=x.h;frag.appendChild(d)});
+  el.appendChild(frag);el.dataset.last=UI.feed[UI.feed.length-1].id;
+  while(el.children.length>150)el.firstChild.remove();
+  if(first||near)requestAnimationFrame(()=>{el.scrollTop=el.scrollHeight});
+}
+function feedLine9(e){
+  const P=pn9,c=e.card?card9(e.card):'';
+  switch(e.type){
+    case 'keep':return L(`${P(e.p)} se quedó la carta y descartó ${c}`,`${P(e.p)} kept the card and discarded ${c}`);
+    case 'discard':return L(`${P(e.p)} descartó ${c}`,`${P(e.p)} discarded ${c}`);
+    case 'auto':return L(`${P(e.p)} no jugó a tiempo · ${c} al descarte`,`${P(e.p)} ran out of time · ${c} discarded`);
+    case 'snap':return L(`⚡ ${P(e.p)} hizo descarte cruzado con ${c}`,`⚡ ${P(e.p)} snapped ${c}`);
+    case 'snap_fail':return L(`✖ ${P(e.p)} falló el cruzado con ${c}: carta de castigo`,`✖ ${P(e.p)} missed with ${c}: penalty card`);
+    case 'talmut':return e.auto?L(`${P(e.p)} se quedó sin cartas: <b class="tal">TALMUT</b>`,`${P(e.p)} ran out of cards: <b class="tal">TALMUT</b>`):L(`${P(e.p)} cantó <b class="tal">TALMUT</b>`,`${P(e.p)} called <b class="tal">TALMUT</b>`);
+    case 'look_own':return L(`👁 ${P(e.p)} miró una de sus cartas`,`👁 ${P(e.p)} looked at one of their cards`);
+    case 'look_other':return L(`👁 ${P(e.p)} miró una carta de ${P(e.t)}`,`👁 ${P(e.p)} looked at a card of ${P(e.t)}`);
+    case 'swap_blind':case 'k_swap':{const k=e.type==='k_swap'?'K':'Q';return L(`⇄ ${P(e.p)} usó la ${k}: cambió la carta ${e.a.s+1} de ${P(e.a.p)} por la ${e.b.s+1} de ${P(e.b.p)}`,`⇄ ${P(e.p)} used the ${k}: swapped card ${e.a.s+1} of ${P(e.a.p)} with card ${e.b.s+1} of ${P(e.b.p)}`)}
+    case 'reorder':return L(`${P(e.p)} movió sus cartas`,`${P(e.p)} moved their cards`);
+    case 'left':return L(`${P(e.p)} ha salido de la partida`,`${P(e.p)} left the game`);
+    case 'join':return L(`${P(e.p)} se ha unido`,`${P(e.p)} joined`);
+    case 'reshuffle':return L('Se baraja el descarte','The discard pile is shuffled');
+    case 'round':return `<i>${L('Ronda','Round')} ${e.round}</i>`;
+    case 'round_end':return L(`Fin de la ronda ${e.round}`,`End of round ${e.round}`);
+  }
+  return '';
+}
+logLine=function(e){try{const h=feedLine9(e);if(h)feedAdd(h,e.type==='round'?'sep':e.type==='talmut'?'tal':e.type==='snap'?'ok':e.type==='snap_fail'?'bad':'')}catch(x){}return ''};
+// mensajes y frases también van al EN DIRECTO
+chatPush=function(name,text){const i=G?G.pub.players.findIndex(x=>x.name===name):-1;feedAdd(`${i>=0?pn9(i):'<b>'+esc(name)+'</b>'} <span class="q">${esc(text)}</span>`,'chat')};
+chatRender=function(){};
+// fuera las cápsulas de «X se queda la carta…»: todo va al panel
+showNotice=function(){};
+const _pe9=processEvents;processEvents=function(){const t0=toast;toast=function(m,k){if(k==='bad'&&/err|No se|Could/.test(String(m)))return t0.apply(this,arguments)};try{return _pe9.apply(this,arguments)}finally{toast=t0}};
+
+// ---------- panel derecho: estructura fija ----------
+(function(){
+  const pn=document.querySelector('#screen-game .g-panel');if(!pn)return;
+  ['gInfo','gChat'].forEach(id=>{const e=document.getElementById(id);if(e)e.remove()});
+  const tb=document.getElementById('gTurn');
+  tb.insertAdjacentHTML('afterend',`<div class="f9"><div class="f9-l"><i></i><span data-t="g.live"></span></div><div id="gFeed" class="f9-log"></div></div>`);
+  pn.insertAdjacentHTML('beforeend','<div id="gReacts9" class="r9"></div>');
+  pn.classList.add('p9');
+  // botones «No usar / No cambiar»: en el centro, junto a las cartas
+  const ac=document.getElementById('gActions'),ce=document.querySelector('#screen-game .center');if(ac&&ce)ce.appendChild(ac);
+})();
+
+// caja de tiempo: siempre del mismo tamaño
+function renderTurn9(){
+  const box=document.getElementById('gTurn');if(!box||!G)return;
+  if(!box.querySelector('.t9-h'))box.innerHTML='<div class="t9-h"></div><div class="t9-s"></div><div class="t9-t"><div class="timer" id="gTimer"><i></i></div><span class="sec" id="gSec"></span></div>';
+  const p=G.pub,me=myIdx();let cls='',h='',s='';
+  if(p.status==='peek'){cls=' gold';h=L('Memoriza 2 cartas','Memorise 2 cards');s=p.peekDone&&p.peekDone[me]?t('g.waitPeek'):t('g.myPeek')}
+  else if(p.status==='play'){
+    const r=top9(p);
+    if(p.phase==='snap'){
+      cls=' gold';h=L('¡Descarte cruzado!','Quick discard!');
+      const ok=p.snap&&(p.snap.owner===null||p.snap.owner===me);
+      s=ok?L(`¿Tienes otra <b>${r}</b>? Tócala.`,`Another <b>${r}</b>? Tap it.`):L(`${pn9(p.snap.owner)} ya ha cruzado.`,`${pn9(p.snap.owner)} already snapped.`);
+      const pre=p.snap&&p.snap.pre;
+      if(pre)s+='<br>'+(pre.by===me?L(`Luego usas tu <b>${pre.type}</b>.`,`Then you use your <b>${pre.type}</b>.`):L(`Luego ${pn9(pre.by)} usa la <b>${pre.type}</b>.`,`Then ${pn9(pre.by)} uses the <b>${pre.type}</b>.`));
+    }else if(p.turn===me){
+      cls=' mine';h=t('g.yourTurnBig');
+      if(p.phase==='draw')s=L('Toca el <b>mazo</b> para robar, o canta TALMUT.','Tap the <b>deck</b> to draw, or call TALMUT.');
+      else if(p.phase==='decide'){s=L('Toca una de tus cartas para cambiarla, o descártala.','Tap one of your cards to swap it, or discard it.');if(UI.pending){const rk=rankOfC(UI.pending);if(['10','J','Q','K'].includes(rk))s=L(`Cámbiala por una tuya o descártala: <b>${rk}</b> → ${POWER_TXT[LANG][rk]}`,`Swap it with one of yours or discard it: <b>${rk}</b> → ${POWER_TXT[LANG][rk]}`)}}
+      else if(p.phase==='special_k2')s=t('g.spK2');
+      else if(p.phase==='special'&&p.special)s=p.special.type==='Q'?(UI.qFirst?t('g.spQ2'):t('g.spQ1')):t('g.sp'+p.special.type);
+    }else{
+      const tp=p.players[p.turn]||{name:'?'};
+      h=`${avatar(tp.name,20)}<span>${L('Turno de','Turn:')} ${pn9(p.turn)}</span>`;
+      s=p.phase==='special'||p.phase==='special_k2'?t('g.doing.special',{c:p.special?p.special.type:''}):t('g.doing.'+(p.phase==='decide'?'decide':'draw'));
+      if(p.phase==='draw'&&p.lastSnap&&talAllowed9(p,me))s=L('Aún puedes cantar <b>TALMUT</b> antes de que robe.','You can still call <b>TALMUT</b> before they draw.');
+    }
+  }else if(p.status==='round_end'){h=L('Fin de la ronda','Round over')}
+  else if(p.status==='finished'){h=L('Partida terminada','Game over')}
+  const fe=document.getElementById('gFeed');if(fe&&fe.dataset.lang!==LANG){fe.dataset.lang=LANG;fe.dataset.empty=L('Aquí verás todo lo que pasa en la mesa','Everything that happens at the table shows here')}
+  box.className='turn-box t9'+cls;box.style.display='';
+  setHtml(box.querySelector('.t9-h'),h);setHtml(box.querySelector('.t9-s'),s);
+  if(!p.deadline){const sec=document.getElementById('gSec');if(sec)sec.textContent=''}
+}
+renderActions=function(){
+  const p=G.pub,me=myIdx(),el=document.getElementById('gActions'),st=document.getElementById('gStatus');
+  let btns='';
+  if(!TUT&&p.status==='play'&&(p.phase==='special'||p.phase==='special_k2')&&p.special&&p.special.by===me)btns=p.phase==='special_k2'?`<button class="btn btn-ghost" onclick="doSkip()">${t('g.noSwap')}</button>`:`<button class="btn btn-ghost" onclick="doSkip()">${t('g.noUse')}</button>`;
+  if(st)st.innerHTML='';
+  setHtml(el,btns?`<div class="btn-row">${btns}</div>`:'');el.style.display=btns?'flex':'none';
+  setHtml(document.getElementById('gTalmut'),TUT&&!tutAllow('talmut')?'':talmutZoneHtml());
+};
+
+// ---------- TALMUT: siempre a la vista, bloqueado hasta que puedas ----------
+// Puedes cantarlo desde que empieza tu turno hasta que el siguiente roba del mazo.
+function talAllowed9(p,me){
+  if(!p||p.status!=='play'||p.talmut||me<0||!p.players[me]||p.players[me].left)return false;
+  if(p.phase==='draw'&&p.turn===me)return true;
+  if(p.phase==='snap'&&p.snap&&p.snap.actor===me)return true;
+  if(!p.v9)return false;
+  if(p.turn===me&&['decide','special','special_k2'].includes(p.phase))return true;
+  if(p.phase==='draw'&&p.lastSnap&&p.lastSnap.actor===me)return true;
+  return false;
+}
+const LOCK9='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+talmutZoneHtml=function(){
+  if(!G)return '';const p=G.pub,me=myIdx();if(me<0)return '';
+  if(p.talmut)return `<div class="tal9 done"><span>TALMUT</span><small>${L('Cantado por','Called by')} ${pn9(p.talmut.by)}</small></div>`;
+  if(!talAllowed9(p,me))return `<div class="tal9 lock"><span>${LOCK9}TALMUT</span><small>${L('Se desbloquea en tu turno','Unlocks on your turn')}</small></div>`;
+  return `<button class="tal9 on" id="holdBtn" onpointerdown="holdStart(event)" onpointerup="holdEnd()" onpointerleave="holdEnd()" onpointercancel="holdEnd()" oncontextmenu="return false"><i class="fill"></i><span>TALMUT</span><small>${L('Mantén pulsado 1 segundo','Hold for 1 second')}</small></button>`;
+};
+
+// ---------- frases: fijas, grandes, siempre en el mismo sitio ----------
+const R9_ORDER=['ufff','nohombre','aguila','enhora','suerte','ajena','usa','creer'];
+reactDock=function(){
+  const d=document.getElementById('gReacts9');if(!d)return;
+  const on=currentScreen()==='screen-game'&&G&&myIdx()>=0&&!TUT;
+  document.body.classList.toggle('ingame',!!on);d.style.display=on?'':'none';if(!on)return;
+  const used=UI.creerKey&&UI.creerKey===creerKey();
+  const h=R9_ORDER.map(k=>{const r=REACTS.find(x=>x.k===k);if(!r)return '';const ok=reactAllowed(r)&&!(r.mx&&used);return `<button class="${r.ctx?'ctx':''}${r.mx?' mx':''}${ok?'':' off'}"${ok?` onclick="sendReact('${k}')"`:' disabled'}>${esc(r.es)}</button>`}).join('');
+  setHtml(d,h);
+  const disc=document.getElementById('gDisc');if(disc){const p=G.pub;disc.classList.toggle('snap-open',p.status==='play'&&p.phase==='draw'&&!!p.lastSnap&&(p.lastSnap.owner===null||p.lastSnap.owner===myIdx()))}
+};
+
+// ---------- «Está empezando a creer»: ya no bloquea la partida ----------
+// Antes el tiempo se alargaba solo en la copia interna y el reloj de la pantalla daba la partida por vencida
+// antes de hora; el aviso de «avanzar» quedaba marcado y nadie volvía a pedirlo: la mesa se quedaba parada.
+creerFreeze=function(ms){
+  UI.freezeUntil=Date.now()+ms;document.body.classList.add('creer-on');
+  try{if(G&&G.local&&LOCAL&&LOCAL.pub){if(LOCAL.pub.deadline)LOCAL.pub.deadline+=ms;if(G.pub!==LOCAL.pub&&G.pub.deadline)G.pub.deadline+=ms;if(LOCAL.sched)LOCAL.sched.at+=ms}}catch(e){}
+  advanceKey='';
+  setTimeout(()=>{if(Date.now()>=UI.freezeUntil-30)document.body.classList.remove('creer-on')},ms);
+};
+// red de seguridad: si en local el «avanzar» no hizo nada, se vuelve a intentar
+const _tk9=tick;tick=function(){
+  const r=_tk9.apply(this,arguments);
+  try{
+    if(Date.now()>UI.freezeUntil+400&&document.body.classList.contains('creer-on'))document.body.classList.remove('creer-on');
+    if(G&&G.local){if(advanceKey&&advanceKey===UI.ak9){if(Date.now()-UI.akT>1500&&!inFlight){advanceKey='';UI.ak9=''}}else{UI.ak9=advanceKey;UI.akT=Date.now()}}
+  }catch(e){}
+  return r;
+};
+
+// ---------- dos acciones muy seguidas: nada se queda «pillado» ----------
+let PDOWN9=false;
+addEventListener('pointerdown',()=>{PDOWN9=true},true);
+['pointerup','pointercancel','blur'].forEach(ev=>addEventListener(ev,()=>{PDOWN9=false},true));
+function dragClean9(){
+  try{document.querySelectorAll('body>.drag-ghost,body>.drop-slot').forEach(e=>e.remove())}catch(e){}
+  const row=document.getElementById('gMe');
+  if(row){row.classList.remove('dragging','pick');[...row.children].forEach(k=>{k.style.transform='';k.classList.remove('swap-tgt','drag-src')})}
+  if(DR&&DR.timer)clearTimeout(DR.timer);
+  DR=null;UI.dragging=false;
+  if(G&&currentScreen()==='screen-game')renderGame();
+}
+const _dS9=dragStart,_dM9=dragMove,_dE9=dragEnd;
+dragStart=function(x,y){
+  // si la carta ya no está en pantalla (la mesa se ha redibujado por otra acción), no arrastramos
+  if(!DR||!DR.el||!DR.el.isConnected||!PDOWN9){if(DR)clearTimeout(DR.timer);DR=null;return}
+  try{return _dS9.apply(this,arguments)}catch(e){dragClean9()}
+};
+dragMove=function(){try{return _dM9.apply(this,arguments)}catch(e){dragClean9()}};
+dragEnd=function(){try{return _dE9.apply(this,arguments)}catch(e){dragClean9()}};
+const _td9=tapDeck;tapDeck=async function(){try{return await _td9.apply(this,arguments)}finally{drawing=false}};
+// ninguna acción online se queda esperando para siempre
+act=async function(action,payload){inFlightAction=true;const t0=toast;if(action==='reorder')toast=function(m,k){if(k!=='bad')return t0.apply(this,arguments)};try{return await Promise.race([api(action,payload),new Promise(r=>setTimeout(()=>r({error:'timeout'}),9000))])}finally{inFlightAction=false;if(action==='reorder')toast=t0}};
+setInterval(()=>{
+  try{
+    const ghosts=document.querySelectorAll('body>.drag-ghost,body>.drop-slot').length;
+    if(!PDOWN9&&(UI.dragging||ghosts)&&!(DR&&DR.active))dragClean9();
+    if(!PDOWN9&&DR&&DR.active&&Date.now()-(DR.t9||(DR.t9=Date.now()))>1500)dragClean9();
+    if(!PDOWN9&&!UI.dragging&&G&&currentScreen()==='screen-game'){const me=myIdx(),pl=G.pub.players[me];if(pl&&['peek','play'].includes(G.pub.status)&&document.querySelectorAll('#gMe>.pc').length!==pl.slots.length)renderGame()}
+    const now=Date.now();
+    document.querySelectorAll('body>.fly-pc,body>.fly-card,body>.eye-badge').forEach(e=>{if(!e.dataset.t0)e.dataset.t0=now;else if(now-e.dataset.t0>3000)e.remove()});
+  }catch(e){}
+},600);
+
+// ---------- menú: música · efectos · ajustes ----------
+const ICON_MUS_ON='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+const ICON_MUS_OFF='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" opacity=".7"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M3 3l18 18" stroke="#E8343E"/></svg>';
+(function(){
+  const mb=document.getElementById('muteBtn');if(!mb||document.getElementById('sfxBtn'))return;
+  mb.setAttribute('aria-label',L('Música','Music'));
+  mb.insertAdjacentHTML('afterend',`<button class="iconbtn" id="sfxBtn" onclick="toggleSfx()" aria-label="${L('Efectos de sonido','Sound effects')}"></button>`);
+})();
+refreshMuteIcon=function(){
+  const b=document.getElementById('muteBtn');if(b){b.innerHTML=SND.musicOn?ICON_MUS_ON:ICON_MUS_OFF;b.classList.toggle('off',!SND.musicOn)}
+  const s=document.getElementById('sfxBtn');if(s){s.innerHTML=SND.sfxOn?ICON_SND_ON:ICON_SND_OFF;s.classList.toggle('off',!SND.sfxOn)}
+};
+const _tsx9=toggleSfx;toggleSfx=function(){const r=_tsx9.apply(this,arguments);refreshMuteIcon();if(!SND.sfxOn)toast(L('Efectos de sonido apagados','Sound effects off'));return r};
+const _tmu9=toggleMusic;toggleMusic=function(){const r=_tmu9.apply(this,arguments);refreshMuteIcon();return r};
+const _os9=openSettings;openSettings=function(){const r=_os9.apply(this,arguments);try{document.getElementById('sfxSwitch').classList.toggle('on',SND.sfxOn);document.getElementById('musicSwitch').classList.toggle('on',SND.musicOn)}catch(e){}return r};
+// la gallina también respeta el botón de efectos
+SFX.hen=function(){try{if(!HEN_AUDIO||!SND.sfxOn)return;const a=HEN_AUDIO.cloneNode();a.volume=.85;a.play().catch(()=>{})}catch(e){}};
 
 applyI18n();
 refreshMenu();
