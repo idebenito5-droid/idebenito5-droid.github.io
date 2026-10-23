@@ -1439,6 +1439,77 @@ body[data-face=big] .pc .face .s{font-size:20cqh!important}
 .fr-card .fr-s{color:#a99c86;font-style:italic;font-size:11px}
 .fr-card .btn{width:auto!important;padding:9px 18px!important;font-size:12px!important;margin-top:4px}
 .fr-flag{display:flex;width:42px;height:28px;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.5)}.fr-flag i{flex:1}.fr-flag i:nth-child(1){background:#1F4FB5}.fr-flag i:nth-child(2){background:#F3EBDD}.fr-flag i:nth-child(3){background:#D8343E}
+/* v8.0 · salas privadas de amigos */
+.sala-wrap{display:flex;flex-direction:column;gap:8px;margin:0 0 14px}
+.sala-lbl{margin:0;font-size:8.5px!important;letter-spacing:.24em;color:#E3BC55;font-weight:800;text-transform:uppercase}
+.sala-card{padding:11px 12px;border-radius:12px;border:1px solid rgba(227,188,85,.45);background:linear-gradient(180deg,rgba(70,44,12,.45),rgba(14,10,12,.6))}
+.sala-top{display:flex;align-items:center;gap:8px}.sala-top b{font-size:14px;color:#F4EBD6}
+.sala-ed{all:unset;cursor:pointer;margin-left:auto;font-size:10.5px;color:#cdbb9a}
+.sala-row{display:flex;align-items:center;gap:8px;margin-top:7px}.sala-row small{font-size:10px;color:#a99c86}
+.sala-avs{display:flex}.sala-avs>*{margin-left:-6px;box-shadow:0 0 0 2px #1a100c;border-radius:50%}.sala-avs>*:first-child{margin-left:0}
+.sala-btns{display:flex;gap:6px;margin-top:9px}
+.sala-go{flex:1;border:0;border-radius:10px;padding:9px;font-weight:900;font-size:12px;cursor:pointer;background:linear-gradient(180deg,#FFE07A,#D0781A);color:#1a0d02}
+.sala-new{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px;border-radius:12px;border:1px dashed rgba(227,188,85,.4);text-align:center}
+.sala-new b{font-size:12px;color:#FFE07A}.sala-new small{font-size:9.5px;color:#a99c86}
+.sala-empty{font-size:11px;color:#9C9078;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.03)}
+.sala-modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:rgba(0,0,0,.7);padding:12px;animation:fadeIn .2s}
+.sala-box{width:min(720px,100%);max-height:100%;overflow:auto;padding:16px;border-radius:16px;background:linear-gradient(180deg,#1f130e,#0b0709);border:1px solid rgba(227,188,85,.4);box-shadow:0 18px 50px rgba(0,0,0,.7)}
+.sala-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.sala-col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sala-col .text-input{height:36px!important;font-size:13px!important}
+.sala-pills{display:flex;gap:6px}.sala-pills button{flex:1;padding:7px;border-radius:9px;font-size:11.5px;font-weight:800;border:1px solid rgba(227,188,85,.3);color:#cdbb9a;background:none;cursor:pointer}.sala-pills button.on{background:linear-gradient(180deg,#FFE07A,#D0781A);color:#1a0d02;border:0}.sala-pills button:disabled{cursor:default;opacity:.8}
+.sala-actions{display:flex;flex-direction:column;gap:7px;margin-top:auto}.sala-actions .btn{padding:10px!important;font-size:12px!important}
+.sala-del{all:unset;cursor:pointer;text-align:center;font-size:11px;color:#8a7f6c;text-decoration:underline;text-underline-offset:3px;padding:3px}
+.sala-fl{display:flex;flex-direction:column;gap:5px;max-height:220px;overflow:auto}
+.sala-fr{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:rgba(255,255,255,.03);font-size:12px;color:#F4EBD6}
+.sala-fr i{margin-left:auto;font-style:normal;font-size:9px;letter-spacing:.12em;font-weight:800;padding:2px 7px;border-radius:999px;color:#9C9078;background:rgba(255,255,255,.05)}
+.sala-fr.on i{color:#7EE2A0;background:rgba(126,226,160,.12)}
+.sala-note{margin:0;font-size:9.5px;color:#a99c86;line-height:1.35}
+.sala-hero{text-align:center;padding:11px;border-radius:12px;border:1px solid rgba(227,188,85,.45);background:linear-gradient(180deg,rgba(70,44,12,.45),rgba(14,10,12,.6))}
+.sala-hero .sala-nm{font-family:var(--k-title);font-size:20px;color:#FFE07A;margin:3px 0}.sala-hero small{font-size:10px;color:#a99c86}
+.sala-mem{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:rgba(255,255,255,.03);font-size:12px}
+.sala-mem small{font-size:9.5px;color:#9C9078}.sala-mem .sala-host{color:#FFC85A}
+.sala-st{margin-left:auto;font-size:8.5px;letter-spacing:.12em;font-weight:800;padding:2px 7px;border-radius:999px}.sala-st.in{color:#1a0d02;background:#7EE2A0}.sala-st.off{color:#9C9078;background:rgba(255,255,255,.05)}
+.sala-call{all:unset;cursor:pointer;font-size:12px;padding:0 3px}
+html.in-frame #salaBody{flex:1 1 auto;display:flex!important;flex-direction:column;justify-content:center;padding:6px 0 14px!important}
+html.in-frame #screen-friends .sala-wrap{max-width:none}
+@media (orientation:portrait){.sala-cols{grid-template-columns:1fr}}
+/* v8.1 */
+.acct{display:flex;align-items:center;gap:8px;margin-top:8px;padding:7px 9px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:left;width:100%;box-sizing:border-box}
+.acct.on{border-color:rgba(126,226,160,.35);background:rgba(126,226,160,.06)}
+.acct-ic{width:24px;height:24px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 auto;font-size:13px}
+.acct-t{display:flex;flex-direction:column;min-width:0;flex:1}.acct-t b{font-size:10.5px;color:#F4EBD6}.acct-t small{font-size:9.5px;color:#a99c86;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-dot{width:7px;height:7px;border-radius:50%;background:#7EE2A0;box-shadow:0 0 8px #7EE2A0;flex:0 0 auto}
+.acct-out{all:unset;cursor:pointer;font-size:9.5px;color:#8a7f6c;text-decoration:underline}
+.acct-in{display:inline-flex;align-items:center;gap:5px;border:0;border-radius:8px;padding:6px 9px;font-size:10.5px;font-weight:800;background:#fff;color:#222;cursor:pointer;white-space:nowrap}
+.h2-link{all:unset;cursor:pointer;margin-top:6px;font-size:10.5px;color:#FFD978;text-align:center}
+.fr-hint{padding:22px 12px;text-align:center;font-size:12px;color:#a99c86;border:1px dashed rgba(227,188,85,.25);border-radius:12px}
+html.in-frame #botsBody{justify-content:center!important;padding:6px 0 14px!important}
+.bots-box{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)!important;max-width:760px!important}
+.bots-box .side-box{margin:0!important}
+.pill.pill-fr{position:relative;overflow:hidden;color:#fff!important;border:1px solid transparent!important;background:linear-gradient(#1a0b0d,#1a0b0d) padding-box,linear-gradient(90deg,#2D5BD8,#F3EBDD,#E8343E) border-box!important;box-shadow:0 0 14px rgba(232,52,62,.35),0 0 14px rgba(45,91,216,.25);font-weight:900!important;letter-spacing:.04em}
+.pill.pill-fr::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 66%);background-size:250% 100%;animation:frShine 2.6s ease-in-out infinite}
+@keyframes frShine{0%,40%{background-position:130% 0}100%{background-position:-60% 0}}
+.pill.pill-fr.on{background:linear-gradient(90deg,#2D5BD8,#B8303A) padding-box,linear-gradient(90deg,#9FB8FF,#fff,#FF8A90) border-box!important;box-shadow:0 0 22px rgba(232,52,62,.6),0 0 22px rgba(45,91,216,.45)}
+.lu-box{padding:10px 12px;border-radius:12px;border:1px solid rgba(227,188,85,.3);background:rgba(255,255,255,.03);display:flex;flex-direction:column;gap:8px}
+.lu-box.on{border-color:rgba(227,188,85,.55);background:linear-gradient(180deg,rgba(70,44,12,.35),rgba(14,10,12,.5))}
+.lu-head{display:flex;align-items:center;gap:8px;cursor:pointer}.lu-head b{font-size:12.5px;color:#F4EBD6}
+.lu-sw{margin-left:auto;width:34px;height:20px;border-radius:999px;background:rgba(255,255,255,.12);position:relative;flex:0 0 auto;transition:.2s}.lu-sw::after{content:'';position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#cdbb9a;transition:.2s}
+.lu-sw.on{background:linear-gradient(180deg,#FFE07A,#D0781A)}.lu-sw.on::after{left:16px;background:#1a0d02}
+.lu-chips{display:flex;flex-wrap:wrap;gap:6px}
+.lu-chip{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 3px;border-radius:999px;border:1px solid rgba(227,188,85,.25);font-size:11.5px;font-weight:700;color:#F4EBD6;background:rgba(255,255,255,.03)}
+.lu-chip.sel{border-color:#7EE2A0;background:rgba(126,226,160,.1)}.lu-chip.sel::after{content:'✓';color:#7EE2A0;font-weight:900}
+.lu-note{margin:0;font-size:10px;color:#a99c86;line-height:1.4}
+.pchip.lu-user{border-color:rgba(126,226,160,.5)!important}
+.hist-btn{font-size:15px}
+html.in-frame #hist2Body{flex:1 1 auto;display:flex!important;flex-direction:column;justify-content:center;padding:6px 0 14px!important}
+.h2-box{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)!important;max-width:820px!important}
+.h2-list{display:flex;flex-direction:column;gap:4px;max-height:calc(100dvh - 190px);overflow:auto}
+.h2-row{all:unset;cursor:pointer;display:grid;grid-template-columns:1.2fr auto 1fr auto;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:rgba(255,255,255,.03)}
+.h2-d b{display:block;font-size:11.5px;color:#F4EBD6}.h2-d small{font-size:9px;color:#a99c86}
+.h2-w{display:flex;align-items:center;gap:5px;font-size:11px}.h2-p{font-weight:900;color:#FFD978;font-size:12px}
+.h2-rank{display:flex;flex-direction:column;gap:5px}.h2-fs{margin-left:auto;display:flex;gap:4px}.h2-fs .fs{display:inline-flex;flex-direction:column;align-items:center;min-width:38px;padding:2px 5px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid rgba(227,188,85,.18);line-height:1.1}.h2-fs .fs b{font-size:11px;color:#FFD978}.h2-fs .fs i{font-style:normal;font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:#9C9078}
+.sala-mem.me{border:1px solid rgba(227,188,85,.35)}
+.h2-tbl{max-height:60vh;overflow:auto;margin-top:8px}.h2-tbl table{width:100%;border-collapse:collapse;font-size:11.5px}.h2-tbl th,.h2-tbl td{padding:5px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06)}.h2-tbl th{font-size:9px;letter-spacing:.12em;color:#E3BC55}.h2-tbl tr.tot td{font-weight:900;color:#FFD978}
 
 </style>
 </head>
@@ -5258,7 +5329,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='7.8';
+const APP_VER='8.1';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -5311,6 +5382,325 @@ function frenchWarn(){
 // gallina real (sonido elegido por Ignacio)
 const HEN_AUDIO=(()=>{try{const a=new Audio('gallina.mp3');a.preload='auto';a.volume=.85;return a}catch(e){return null}})();
 SFX.hen=function(){try{if(!HEN_AUDIO)return;const a=HEN_AUDIO.cloneNode();a.volume=.85;a.play().catch(()=>{})}catch(e){}};
+
+
+// =====================================================================
+//  v8.0 · SALAS PRIVADAS DE AMIGOS
+//  Tablas en Supabase: salas + sala_members (ver salas.sql)
+// =====================================================================
+const SALA={list:[],members:{},cur:null,ch:null,present:{},ready:null,auto:null,asked:{}};
+const SALA_C=['#C99A12','#3B7DD8','#2E9E5B','#8452D6','#D24C8E','#C46A1B'];
+function salaAv(name,id){return avatar(name||'?',24)}
+async function salaLoad(){
+  const me=session&&session.user&&session.user.id;if(!sb||!me)return false;
+  const{data,error}=await sb.from('sala_members').select('sala_id,status,salas(id,name,host,rounds)').eq('user_id',me);
+  if(error){SALA.ready=false;return false}
+  SALA.ready=true;
+  SALA.list=(data||[]).filter(r=>r.salas).map(r=>Object.assign({},r.salas,{myStatus:r.status}));
+  const ids=SALA.list.map(s=>s.id);SALA.members={};
+  if(ids.length){
+    const{data:mm}=await sb.from('sala_members').select('sala_id,user_id,status').in('sala_id',ids);
+    (mm||[]).forEach(m=>{(SALA.members[m.sala_id]=SALA.members[m.sala_id]||[]).push(m)});
+    const need=new Set();(mm||[]).forEach(m=>need.add(m.user_id));SALA.list.forEach(s=>need.add(s.host));
+    try{await loadPeople(need)}catch(e){}
+  }
+  return true;
+}
+function salaName(id){const p=FR.people[id];return p?p.nickname:(session&&id===session.user.id?myName():'…')}
+function salaBlock(){
+  if(SALA.ready===false)return `<div class="sala-wrap"><p class="sala-lbl">${L('Salas de amigos','Friend rooms')}</p><div class="sala-empty">${L('Las salas de amigos aún no están activadas en el servidor.','Friend rooms are not enabled on the server yet.')}</div></div>`;
+  const me=session.user.id;
+  const acc=SALA.list.filter(s=>s.myStatus==='accepted');
+  const cards=acc.map(s=>{const mm=(SALA.members[s.id]||[]).filter(m=>m.status==='accepted');const inv=(SALA.members[s.id]||[]).filter(m=>m.status==='invited').length;
+    return `<div class="sala-card"><div class="sala-top"><b>${esc(s.name)}</b>${s.host===me?`<button class="sala-ed" onclick="salaEdit('${s.id}')">✎ ${L('editar','edit')}</button>`:''}</div>
+     <div class="sala-row"><span class="sala-avs">${mm.map(m=>salaAv(salaName(m.user_id))).join('')}</span><small>${mm.length} ${L('miembros','members')}${inv?` · ${inv} ${L('invitados','invited')}`:''} · ${s.rounds} ${L('rondas','rounds')}</small></div>
+     <div class="sala-btns"><button class="sala-go" onclick="salaOpen('${s.id}')">▶ ${L('Entrar en la sala','Enter room')}</button></div></div>`}).join('');
+  return `<div class="sala-wrap"><p class="sala-lbl">${L('Mis salas de amigos','My friend rooms')}</p>${cards}<button class="sala-new" onclick="salaEdit()"><b>＋ ${L('Crear sala de amigos','Create friend room')}</b><small>${L('Pon nombre, elige a tus amigos y les llega la invitación.','Name it, pick your friends and they get an invite.')}</small></button></div>`;
+}
+const _rf80=renderFriends;renderFriends=async function(){
+  await _rf80.apply(this,arguments);
+  try{
+    if(FR.tab!=='mine'||!session)return;
+    await salaLoad();if(FR.tab!=='mine')return;
+    const body=document.getElementById('friendsBody');if(!body)return;
+    body.querySelectorAll('.sala-wrap').forEach(e=>e.remove());
+    const tabs=body.querySelector('.tabs');const d=document.createElement('div');d.innerHTML=salaBlock();
+    if(tabs)tabs.after(d.firstElementChild);else body.prepend(d.firstElementChild);
+  }catch(e){}
+};
+
+// ---------- crear / editar ----------
+async function salaEdit(id){
+  if(!await ensureSession())return;
+  try{await loadFriendIds();await loadPeople(new Set(FR.mine))}catch(e){}
+  const me=session.user.id,s=id?SALA.list.find(x=>x.id===id):null;
+  const cur=new Set(s?(SALA.members[s.id]||[]).map(m=>m.user_id).filter(u=>u!==me):[]);
+  const fr=[...FR.mine].map(i=>FR.people[i]).filter(Boolean).sort((a,b)=>a.nickname.localeCompare(b.nickname));
+  SALA.edit={id:id||null,name:s?s.name:L('Sala Privada ','Private room ')+(myName()||'').slice(0,12),rounds:s?s.rounds:10,sel:cur};
+  const d=document.createElement('div');d.className='sala-modal';d.id='salaModal';
+  d.innerHTML=`<div class="sala-box"><div class="sala-cols"><div class="sala-col">
+    <p class="sala-lbl">${L('Nombre de la sala','Room name')}</p><input id="salaNameIn" class="text-input" maxlength="40" value="${esc(SALA.edit.name)}">
+    <p class="sala-lbl">${L('Rondas','Rounds')}</p><div class="sala-pills" id="salaRounds"></div>
+    <div class="sala-actions"><button class="btn btn-gold" onclick="salaSave()">${id?L('Guardar cambios','Save changes'):L('Crear sala y enviar invitaciones','Create room and send invites')}</button>
+    ${id?`<button class="sala-del" onclick="salaDelete('${id}')">${L('Borrar sala','Delete room')}</button>`:''}<button class="sala-del" onclick="document.getElementById('salaModal').remove()">${L('Cancelar','Cancel')}</button></div></div>
+   <div class="sala-col"><p class="sala-lbl">${L('Elige a tus amigos','Pick your friends')}</p><div class="sala-fl">${fr.length?fr.map(p=>`<button class="sala-fr${cur.has(p.id)?' on':''}" data-id="${p.id}" onclick="salaToggle(this)">${avatar(p.nickname,24)}<span>${esc(p.nickname)}</span><i>${cur.has(p.id)?L('✓ AÑADIDO','✓ ADDED'):L('＋ AÑADIR','＋ ADD')}</i></button>`).join(''):`<div class="sala-empty">${L('Primero añade amigos en la pestaña «Todos».','First add friends in the “All” tab.')}</div>`}</div>
+   <p class="sala-note">${L('Cada uno recibe la invitación como notificación y entra en la sala cuando la acepta.','Each one gets an invite and joins when they accept.')}</p></div></div></div>`;
+  document.body.appendChild(d);salaRoundsUI();
+}
+function salaRoundsUI(){const r=document.getElementById('salaRounds');if(r)r.innerHTML=[3,5,10].map(n=>`<button class="${SALA.edit.rounds===n?'on':''}" onclick="SALA.edit.rounds=${n};salaRoundsUI()">${n}${n===10?' ★':''}</button>`).join('')}
+function salaToggle(b){const id=b.dataset.id,s=SALA.edit.sel;if(s.has(id))s.delete(id);else s.add(id);b.classList.toggle('on',s.has(id));b.querySelector('i').textContent=s.has(id)?L('✓ AÑADIDO','✓ ADDED'):L('＋ AÑADIR','＋ ADD');play('tap')}
+async function salaSave(){
+  const e=SALA.edit,me=session.user.id;const name=(document.getElementById('salaNameIn').value||'').trim().slice(0,40);if(!name)return toast(L('Ponle un nombre','Give it a name'),'bad');
+  if(UI.busy)return;UI.busy=true;
+  try{
+    let id=e.id,added=[];
+    if(!id){
+      const{data,error}=await sb.from('salas').insert({name,host:me,rounds:e.rounds}).select('id').single();if(error)throw error;id=data.id;
+      const rows=[{sala_id:id,user_id:me,status:'accepted'},...[...e.sel].map(u=>({sala_id:id,user_id:u,status:'invited'}))];
+      const r2=await sb.from('sala_members').insert(rows);if(r2.error)throw r2.error;added=[...e.sel];
+    }else{
+      const r1=await sb.from('salas').update({name,rounds:e.rounds}).eq('id',id);if(r1.error)throw r1.error;
+      const old=new Set((SALA.members[id]||[]).map(m=>m.user_id).filter(u=>u!==me));
+      added=[...e.sel].filter(u=>!old.has(u));const gone=[...old].filter(u=>!e.sel.has(u));
+      if(added.length){const r=await sb.from('sala_members').insert(added.map(u=>({sala_id:id,user_id:u,status:'invited'})));if(r.error)throw r.error}
+      if(gone.length){const r=await sb.from('sala_members').delete().eq('sala_id',id).in('user_id',gone);if(r.error)throw r.error}
+    }
+    added.forEach(u=>salaPing(u,'sala_inv',{sala:id,name,from:myName()}));
+    document.getElementById('salaModal')?.remove();toast(L('Sala guardada','Room saved'),'good');renderFriends();
+  }catch(err){toast(L('No se pudo guardar la sala','Could not save the room'),'bad')}
+  UI.busy=false;
+}
+async function salaDelete(id){if(!confirmDel(id))return;const r=await sb.from('salas').delete().eq('id',id);document.getElementById('salaModal')?.remove();if(r.error)toast(L('No se pudo borrar','Could not delete'),'bad');else{toast(L('Sala borrada','Room deleted'));renderFriends()}}
+function confirmDel(id){const b=document.querySelector('#salaModal .sala-del');if(b&&!b.dataset.sure){b.dataset.sure=1;b.textContent=L('Pulsa otra vez para borrar','Tap again to delete');return false}return true}
+
+// ---------- avisos en vivo (canal personal inv:uid) ----------
+function salaPing(uid,event,payload){try{const ch=sb.channel('inv:'+uid);ch.subscribe(st=>{if(st==='SUBSCRIBED')ch.send({type:'broadcast',event,payload}).finally(()=>setTimeout(()=>sb.removeChannel(ch),1500))})}catch(e){}}
+setInterval(()=>{try{if(INV.ch&&!INV.ch.__sala){INV.ch.__sala=1;INV.ch.on('broadcast',{event:'sala_inv'},()=>salaCheckInvites(true)).on('broadcast',{event:'sala_call'},m=>salaCallGot(m&&m.payload))}}catch(e){}},2000);
+async function salaCheckInvites(force){
+  try{
+    if(!sb||!session||document.querySelector('.sala-pop'))return;
+    const me=session.user.id;
+    const{data,error}=await sb.from('sala_members').select('sala_id,salas(id,name,host)').eq('user_id',me).eq('status','invited');
+    if(error||!data||!data.length)return;
+    const r=data.find(x=>x.salas&&(force||!SALA.asked[x.sala_id]));if(!r)return;SALA.asked[r.sala_id]=1;
+    try{await loadPeople(new Set([r.salas.host]))}catch(e){}
+    const host=salaName(r.salas.host);
+    const d=document.createElement('div');d.className='inv-pop sala-pop';
+    d.innerHTML=`<b>⚔ ${esc(host)} ${L('te invita','invites you')}</b><span>${L('a su sala de amigos','to the friend room')} «${esc(r.salas.name)}»</span><div><button class="btn btn-gold" id="salaYes">${L('Aceptar','Accept')}</button><button class="btn btn-ghost" id="salaNo">${L('Ahora no','Not now')}</button></div>`;
+    document.body.appendChild(d);play('pop');buzz([60,40,60]);
+    d.querySelector('#salaYes').onclick=async()=>{d.remove();const u=await sb.from('sala_members').update({status:'accepted'}).eq('sala_id',r.sala_id).eq('user_id',me);if(u.error)return toast(t('err.generic'),'bad');toast(L('¡Ya estás en la sala!','You joined the room!'),'good');if(currentScreen()==='screen-friends')renderFriends()};
+    d.querySelector('#salaNo').onclick=()=>d.remove();
+  }catch(e){}
+}
+setTimeout(()=>salaCheckInvites(false),4000);setInterval(()=>salaCheckInvites(false),60000);
+function salaCallGot(pl){
+  if(!pl||!pl.sala)return;document.querySelectorAll('.sala-pop').forEach(e=>e.remove());
+  const d=document.createElement('div');d.className='inv-pop sala-pop';
+  d.innerHTML=`<b>⚔ ${esc(String(pl.from||'').slice(0,20))} ${L('os espera','is waiting')}</b><span>${L('en la sala','in the room')} «${esc(String(pl.name||'').slice(0,40))}»</span><div><button class="btn btn-gold" id="salaIn">${L('Entrar','Enter')}</button><button class="btn btn-ghost" onclick="this.closest('.sala-pop').remove()">${L('Ahora no','Not now')}</button></div>`;
+  document.body.appendChild(d);play('caw');buzz([80,60,80]);
+  try{if(document.hidden&&'Notification'in window&&Notification.permission==='granted')new Notification('TALMUT',{body:`${pl.from} ${L('os espera en','is waiting in')} «${pl.name}»`,icon:'icon-192.png'})}catch(e){}
+  d.querySelector('#salaIn').onclick=async()=>{d.remove();await salaLoad();salaOpen(pl.sala)};
+  setTimeout(()=>d.remove(),60000);
+}
+
+// ---------- dentro de la sala ----------
+(function(){if(document.getElementById('screen-sala'))return;const s=document.createElement('div');s.id='screen-sala';s.className='screen';
+  s.innerHTML=`<div class="topbar"><button class="iconbtn" onclick="salaLeave()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="ttl"><h1>${L('Sala privada','Private room')}</h1><p></p></div><div class="spacer36"></div></div><div class="divider"></div><div id="salaBody" class="pad"></div>`;
+  const ref=document.getElementById('screen-lobby');(ref&&ref.parentNode?ref.parentNode:document.body).insertBefore(s,ref?ref.nextSibling:null)})();
+async function salaOpen(id){
+  if(!await ensureSession())return;
+  if(!SALA.list.find(s=>s.id===id))await salaLoad();
+  const s=SALA.list.find(x=>x.id===id);if(!s)return toast(L('No encuentro esa sala','Room not found'),'bad');
+  SALA.cur=s;SALA.present={};salaJoinChannel();showScreen('screen-sala');salaRender();
+}
+function salaJoinChannel(){
+  const s=SALA.cur,me=session.user.id;if(SALA.ch){try{sb.removeChannel(SALA.ch)}catch(e){}SALA.ch=null}
+  const ch=sb.channel('sala:'+s.id,{config:{presence:{key:me},broadcast:{self:false}}});
+  ch.on('presence',{event:'sync'},()=>{const st=ch.presenceState();SALA.present={};Object.keys(st).forEach(k=>SALA.present[k]=1);if(currentScreen()==='screen-sala')salaRender()})
+    .on('broadcast',{event:'start'},async m=>{const pl=m&&m.payload;if(!pl||!pl.code||currentScreen()!=='screen-sala')return;toast(L('¡Empieza la partida!','Game starting!'),'good');play('go');G=null;const r=await api('join',{code:pl.code});if(r&&!r.error){salaClose();enterGame()}})
+    .on('broadcast',{event:'rounds'},m=>{const pl=m&&m.payload;if(pl&&SALA.cur){SALA.cur.rounds=pl.rounds;salaRender()}})
+    .subscribe(st=>{if(st==='SUBSCRIBED')ch.track({name:myName(),at:Date.now()})});
+  SALA.ch=ch;
+}
+function salaClose(){if(SALA.ch){try{sb.removeChannel(SALA.ch)}catch(e){}SALA.ch=null}}
+function salaLeave(){salaClose();SALA.cur=null;openFriends()}
+function salaRender(){
+  const s=SALA.cur;if(!s)return;const me=session.user.id,host=s.host===me;
+  const mm=(SALA.members[s.id]||[]).filter(m=>m.status==='accepted');
+  const inRoom=mm.filter(m=>SALA.present[m.user_id]).length;
+  const rows=mm.sort((a,b)=>(SALA.present[b.user_id]?1:0)-(SALA.present[a.user_id]?1:0)).map(m=>{const on=!!SALA.present[m.user_id];return `<div class="sala-mem">${avatar(salaName(m.user_id),26)}<b>${esc(salaName(m.user_id))}</b>${m.user_id===me?`<small>(${L('tú','you')})</small>`:''}${m.user_id===s.host?`<small class="sala-host">${L('anfitrión','host')}</small>`:''}<span class="sala-st ${on?'in':'off'}">${on?L('EN LA SALA','IN THE ROOM'):L('FUERA','AWAY')}</span>${!on&&host?`<button class="sala-call" onclick="salaCall('${m.user_id}')">🔔</button>`:''}</div>`}).join('');
+  const inv=(SALA.members[s.id]||[]).filter(m=>m.status==='invited');
+  document.querySelector('#screen-sala .ttl p').textContent=s.name;
+  document.getElementById('salaBody').innerHTML=`<div class="on-box sala-in"><div class="on-col">
+    <div class="sala-hero"><p class="sala-lbl">${L('Sala de amigos','Friend room')}</p><div class="sala-nm">${esc(s.name)}</div><small>${L('Anfitrión','Host')}: ${esc(salaName(s.host))} · ${s.rounds} ${L('rondas','rounds')}</small></div>
+    <p class="sala-lbl">${L('Rondas','Rounds')}</p><div class="sala-pills">${[3,5,10].map(n=>`<button class="${s.rounds===n?'on':''}" ${host?`onclick="salaRounds(${n})"`:'disabled'}>${n}${n===10?' ★':''}</button>`).join('')}</div>
+    <div class="sala-actions">${host?`<button class="btn btn-gold" ${inRoom<2?'disabled':''} onclick="salaPlay()">▶ ${L('Jugar ya','Play now')} · ${inRoom} ${L('de','of')} ${mm.length}</button>${inRoom<2?`<p class="sala-note" style="text-align:center">${L('Hace falta al menos otro jugador en la sala.','At least one more player must be in the room.')}</p>`:''}<button class="btn btn-ghost" onclick="salaCallAll()">🔔 ${L('Avisar a los que faltan','Call the missing ones')}</button>`:`<p class="sala-note" style="text-align:center"><span class="spinner"></span>&nbsp; ${L('Esperando a que','Waiting for')} ${esc(salaName(s.host))} ${L('dé a jugar…','to start…')}</p>`}
+    <button class="sala-del" onclick="salaLeave()">${L('Salir de la sala','Leave room')}</button></div></div>
+   <div class="on-col"><p class="sala-lbl">${L('Miembros','Members')} · ${inRoom}/${mm.length} ${L('en la sala','in the room')}</p>${rows}${inv.length?`<p class="sala-note">${inv.length} ${L('invitación(es) pendiente(s)','pending invite(s)')}</p>`:''}<p class="sala-note" style="margin-top:auto">${L('Podéis empezar sin esperar a todos.','You can start without everyone.')}</p></div></div>`;
+}
+function salaRounds(n){SALA.cur.rounds=n;salaRender();sb.from('salas').update({rounds:n}).eq('id',SALA.cur.id).then(()=>{});try{SALA.ch.send({type:'broadcast',event:'rounds',payload:{rounds:n}})}catch(e){}}
+function salaCall(uid){const s=SALA.cur;salaPing(uid,'sala_call',{sala:s.id,name:s.name,from:myName()});toast(L('Aviso enviado','Call sent'),'good')}
+function salaCallAll(){const s=SALA.cur,me=session.user.id;(SALA.members[s.id]||[]).filter(m=>m.status==='accepted'&&m.user_id!==me&&!SALA.present[m.user_id]).forEach(m=>salaPing(m.user_id,'sala_call',{sala:s.id,name:s.name,from:myName()}));toast(L('Aviso enviado','Call sent'),'good')}
+async function salaPlay(){
+  const s=SALA.cur;if(!s||UI.busy)return;UI.busy=true;
+  const want=Object.keys(SALA.present).length;
+  const r=await api('create',{rounds:s.rounds});UI.busy=false;if(!r||r.error||!G)return;
+  try{await SALA.ch.send({type:'broadcast',event:'start',payload:{code:G.code}})}catch(e){}
+  salaClose();enterGame();
+  // empieza sola en cuanto entran todos los que estaban en la sala (o a los 12 s si ya hay 2)
+  const t0=Date.now();clearInterval(SALA.auto);
+  SALA.auto=setInterval(()=>{if(!G||!G.pub||G.pub.status!=='lobby'){clearInterval(SALA.auto);return}const n=G.pub.players.length;if(n>=want||(n>=2&&Date.now()-t0>12000)){clearInterval(SALA.auto);api('start')}if(Date.now()-t0>60000)clearInterval(SALA.auto)},700);
+}
+
+
+// =====================================================================
+//  v8.1 · cuenta visible, buscador limpio, arcade centrado, LOCAL con usuarios + histórico
+// =====================================================================
+// ---------- PERFIL: cuenta conectada ----------
+const GSVG='<svg width="14" height="14" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+function acctHtml(){
+  const u=session&&session.user;
+  if(u&&!u.is_anonymous){const em=u.email||(u.user_metadata&&u.user_metadata.email)||'';
+    return `<div class="acct on"><span class="acct-ic">${GSVG}</span><div class="acct-t"><b>${L('Conectado con Google','Signed in with Google')}</b><small>${esc(em)}</small></div><span class="acct-dot"></span><button class="acct-out" onclick="acctOut()">${L('Salir','Sign out')}</button></div>`}
+  if(u&&u.is_anonymous)return `<div class="acct"><span class="acct-ic">👤</span><div class="acct-t"><b>${L('Jugando como invitado','Playing as guest')}</b><small>${L('Tus datos solo están en este móvil','Your data lives only on this phone')}</small></div><button class="acct-in" onclick="signInGoogle()">${GSVG} ${L('Conectar','Connect')}</button></div>`;
+  return `<div class="acct"><span class="acct-ic">👤</span><div class="acct-t"><b>${L('Sin cuenta','No account')}</b><small>${L('Conéctate para jugar online y guardar tu histórico','Sign in to play online and keep your history')}</small></div><button class="acct-in" onclick="signInGoogle()">${GSVG} ${L('Entrar con Google','Sign in with Google')}</button></div>`;
+}
+async function acctOut(){try{if(typeof signOut==='function')await signOut();else await sb.auth.signOut()}catch(e){}session=null;renderProfile()}
+const _rp81=renderProfile;renderProfile=function(){
+  const r=_rp81.apply(this,arguments);
+  try{if(profTab==='me'){const card=document.querySelector('#profBody .prof-card');if(card&&!card.querySelector('.acct')){card.insertAdjacentHTML('beforeend',acctHtml())}
+    if(!session&&sb&&!UI.acctAsk){UI.acctAsk=1;ensureSession().then(()=>{UI.acctAsk=0;if(session&&currentScreen()==='screen-profile'&&profTab==='me')renderProfile()})}}}catch(e){}
+  return r;
+};
+
+// ---------- BUSCAR AMIGOS: solo resultados de lo que buscas ----------
+const _sp81=searchPeople;searchPeople=async function(){
+  const el=document.getElementById('frList');if(!el)return;
+  const q=(FR.q||'').trim();
+  if(q.length<2){el.innerHTML=`<div class="fr-hint">🔎 ${L('Escribe al menos 2 letras del apodo de tu amigo','Type at least 2 letters of your friend’s nickname')}</div>`;return}
+  el.innerHTML='<div style="text-align:center;padding:18px"><span class="spinner"></span></div>';
+  await _sp81.apply(this,arguments);
+};
+
+// ---------- ARCADE: centrado y Partida francesa especial ----------
+const _rb81=renderBotsScreen;renderBotsScreen=function(){
+  const r=_rb81.apply(this,arguments);
+  try{const sp=document.querySelector('#botsBody .split');if(sp)sp.classList.add('on-box','bots-box');
+    document.querySelectorAll('#botsBody .pill').forEach(b=>{if((b.getAttribute('onclick')||'').includes("'french'"))b.classList.add('pill-fr')})}catch(e){}
+  return r;
+};
+// más difícil: los bots comparten lo que saben de tus cartas (equipo contra ti), cantan TALMUT sin dudar y aciertan siempre el descarte rápido
+function frenchShare(){
+  try{const p=LOCAL.pub,n=p.players.length,pool={};
+    for(let b=1;b<n;b++){const m=memOf(b);for(const k in m)if(k.startsWith('0-'))pool[k]=m[k]}
+    for(let b=1;b<n;b++){const m=memOf(b);for(const k in m)if(k.startsWith('0-')&&!(k in pool))delete m[k];Object.assign(m,pool)}
+  }catch(e){}
+}
+const _bd81=botDecide;botDecide=function(b){
+  if(LOCAL&&LOCAL.diff==='french'){frenchShare();
+    try{const p=LOCAL.pub;if(p.status==='play'&&p.phase==='draw'&&p.turn===b&&!p.talmut){const hi=handInfo(b);if(hi.unk.length===0&&hi.sum<=5)return{action:'talmut'}}}catch(e){}}
+  return _bd81.apply(this,arguments);
+};
+const _bsp81=botSnapPlan;botSnapPlan=function(){
+  if(!LOCAL||LOCAL.diff!=='french')return _bsp81.apply(this,arguments);
+  const p=LOCAL.pub;if(p.status!=='play'||p.phase!=='snap'||!p.discardTop)return null;
+  const top=TENG.rankOf(p.discardTop),key=p.seq+':'+p.discardTop;
+  for(let b=1;b<p.players.length;b++){
+    if(p.players[b].left)continue;if(p.snap.owner!==null&&p.snap.owner!==b)continue;
+    const tk=key+':'+b;if(LOCAL.snapTry[tk])continue;LOCAL.snapTry[tk]=1;
+    const m=memOf(b),sl=p.players[b].slots;const s=sl.findIndex((h,i)=>h&&m[b+'-'+i]&&TENG.rankOf(m[b+'-'+i])===top);
+    if(s>=0)return{b,a:{action:'snap',slot:s},at:Date.now()+250+Math.random()*350};
+  }
+  return null;
+};
+
+// ---------- LOCAL con usuarios de TALMUT ----------
+if(setup&&!setup.uids)setup.uids={};
+async function luLoadFriends(){try{if(!sb||!await ensureSession()||session.user.is_anonymous)return;await loadFriendIds();await loadPeople(new Set([session.user.id,...FR.mine]));if(currentScreen()==='screen-setup')renderSetup()}catch(e){}}
+const _os81=openSetup;openSetup=function(){const u=setup&&setup.uids||{},uu=setup&&setup.useUsers;const r=_os81.apply(this,arguments);setup.uids=u;setup.useUsers=uu;renderSetup();luLoadFriends();return r};
+function luBlock(){
+  const u=session&&session.user;
+  if(!u||u.is_anonymous)return `<div class="lu-box"><div class="lu-head"><b>${L('¿Jugáis con usuarios de TALMUT?','Playing with TALMUT users?')}</b></div><p class="lu-note">${L('Entra con Google (Perfil u Online) para guardar estas partidas en el histórico de cada uno.','Sign in with Google (Profile or Online) to save these games in everyone’s history.')}</p></div>`;
+  const on=!!setup.useUsers;
+  let h=`<div class="lu-box${on?' on':''}"><div class="lu-head" onclick="setup.useUsers=!setup.useUsers;play('toggle');renderSetup()"><b>${L('¿Jugáis con usuarios de TALMUT?','Playing with TALMUT users?')}</b><span class="lu-sw${on?' on':''}"></span></div>`;
+  if(on){
+    const ids=[u.id,...[...FR.mine].filter(id=>FR.people[id]).sort((a,b)=>FR.people[a].nickname.localeCompare(FR.people[b].nickname))];
+    const inMesa=id=>Object.values(setup.uids).includes(id);
+    h+=`<div class="lu-chips">${ids.map(id=>{const p=FR.people[id]||{nickname:myName()};return `<button class="lu-chip${inMesa(id)?' sel':''}" onclick="luToggle('${id}')">${avatar(p.nickname,22)}<span>${esc(p.nickname)}${id===u.id?' ('+L('tú','you')+')':''}</span></button>`}).join('')}</div><p class="lu-note">${L('Cada uno juega con su usuario y la partida se guarda en el histórico y en las estadísticas de todos, use el móvil que use. Los invitados sin cuenta se añaden abajo.','Everyone plays with their user and the game is saved in everyone’s history. Guests without an account go below.')}</p>`;
+  }else h+=`<p class="lu-note">${L('Actívalo para elegir a tus amigos y guardar la partida en vuestro histórico.','Turn it on to pick your friends and save the game in your history.')}</p>`;
+  return h+`</div>`;
+}
+function luToggle(id){
+  const p=FR.people[id]||{nickname:myName()};const name=p.nickname;
+  const cur=Object.keys(setup.uids).find(n=>setup.uids[n]===id);
+  if(cur){delete setup.uids[cur];setup.players=setup.players.filter(n=>n!==cur)}
+  else{if(setup.players.length>=8)return toast(L('Máximo 8 jugadores','Max 8 players'),'bad');let n=name;let k=2;while(setup.players.some(x=>x.toLowerCase()===n.toLowerCase())&&setup.uids[n]!==id)n=name+' '+(k++);setup.players.push(n);setup.uids[n]=id}
+  play('tap');renderSetup();
+}
+const _rs81=renderSetup;renderSetup=function(){
+  const r=_rs81.apply(this,arguments);
+  try{
+    if(!setup.uids)setup.uids={};
+    Object.keys(setup.uids).forEach(n=>{if(!setup.players.includes(n))delete setup.uids[n]});
+    document.querySelectorAll('#screen-setup .pchip').forEach(ch=>{const nm=ch.querySelector('.nm');if(nm&&setup.uids[nm.textContent])ch.classList.add('lu-user')});
+    let box=document.getElementById('luWrap');
+    if(!box){const anchor=document.getElementById('roundsStepper');if(!anchor)return r;box=document.createElement('div');box.id='luWrap';anchor.after(box)}
+    box.innerHTML=luBlock();
+    const tb=document.querySelector('#screen-setup .topbar');if(tb&&!tb.querySelector('.hist-btn')){const sp=tb.querySelector('.spacer36');const b=document.createElement('button');b.className='iconbtn hist-btn';b.title=L('Histórico','History');b.innerHTML='📜';b.onclick=()=>openHist();if(sp)sp.replaceWith(b);else tb.appendChild(b)}
+  }catch(e){}
+  return r;
+};
+const _ss81=startScorer;startScorer=function(){
+  const r=_ss81.apply(this,arguments);
+  try{if(M&&setup.useUsers&&setup.uids){M.players.forEach(p=>{if(setup.uids[p.name])p.uid=setup.uids[p.name]});M.byUid=session&&session.user&&session.user.id;saveM()}}catch(e){}
+  return r;
+};
+const _fs81=finishScorer;finishScorer=function(){
+  const m=M;let rec=null;
+  try{if(m&&m.players.some(p=>p.uid)&&sb&&session&&!session.user.is_anonymous){
+    const totals=playerTotals();
+    const players=m.players.map(p=>({uid:p.uid||null,name:p.name,total:totals[p.id],rounds:Object.keys(m.scores).sort((a,b)=>a-b).map(r=>m.scores[r][p.id]??null)}));
+    const min=Math.min(...players.map(p=>p.total));
+    rec={created_by:session.user.id,mode:m.type,rounds:m.totalRounds,players,player_ids:[...new Set(players.map(p=>p.uid).filter(Boolean))],winner_ids:players.filter(p=>p.total===min&&p.uid).map(p=>p.uid)};
+  }}catch(e){}
+  const r=_fs81.apply(this,arguments);
+  if(rec)sb.from('local_games').insert(rec).then(({error})=>{if(error)toast(L('No se pudo guardar en el histórico','Could not save to history'),'bad');else toast(L('Partida guardada en el histórico de todos','Game saved in everyone’s history'),'good')});
+  return r;
+};
+
+// ---------- HISTÓRICO de partidas locales ----------
+(function(){if(document.getElementById('screen-hist2'))return;const s=document.createElement('div');s.id='screen-hist2';s.className='screen';
+  s.innerHTML=`<div class="topbar"><button class="iconbtn" onclick="openSetup()"><svg width="8" height="14" viewBox="0 0 8 14"><polyline points="7,1 1,7 7,13" fill="none" stroke="#D4A83A" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="ttl"><h1>${L('Histórico','History')}</h1><p>${L('Partidas locales con usuarios','Local games with users')}</p></div><div class="spacer36"></div></div><div class="divider"></div><div id="hist2Body" class="pad"></div>`;
+  document.body.appendChild(s)})();
+const HIST={rows:[],filter:'all'};
+async function openHist(){
+  showScreen('screen-hist2');const b=document.getElementById('hist2Body');
+  if(!sb||!await ensureSession()||session.user.is_anonymous){b.innerHTML=`<div class="on-box" style="grid-template-columns:1fr;text-align:center"><p class="lu-note">${L('Entra con Google para ver tu histórico.','Sign in with Google to see your history.')}</p><button class="btn btn-gold" onclick="signInGoogle()">${L('Entrar con Google','Sign in with Google')}</button></div>`;return}
+  b.innerHTML='<div style="text-align:center;padding:30px"><span class="spinner"></span></div>';
+  const{data,error}=await sb.from('local_games').select('id,mode,rounds,players,winner_ids,played_at').order('played_at',{ascending:false}).limit(200);
+  if(error){b.innerHTML=`<div class="on-box" style="grid-template-columns:1fr"><p class="lu-note" style="text-align:center">${L('El histórico aún no está activado en el servidor.','History is not enabled on the server yet.')}</p></div>`;return}
+  HIST.rows=data||[];histRender();
+}
+function histRender(){
+  const b=document.getElementById('hist2Body');const me=session.user.id;
+  const now=new Date(),rows=HIST.rows.filter(g=>HIST.filter==='all'||(HIST.filter==='off'&&g.mode==='official')||(HIST.filter==='year'&&new Date(g.played_at).getFullYear()===now.getFullYear()));
+  const st={};rows.forEach(g=>(g.players||[]).forEach(p=>{if(!p.uid)return;const s=st[p.uid]=st[p.uid]||{name:p.name,n:0,w:0,pts:0};s.name=p.name;s.n++;s.pts+=p.total||0;if((g.winner_ids||[]).includes(p.uid))s.w++}));
+  const rank=Object.entries(st).sort((a,b)=>b[1].w-a[1].w||(a[1].pts/a[1].n)-(b[1].pts/b[1].n));
+  const fmt=d=>new Date(d).toLocaleDateString(LANG==='en'?'en-GB':'es-ES',{weekday:'short',day:'numeric',month:'short'});
+  const list=rows.length?rows.map(g=>{const ps=g.players||[];const min=Math.min(...ps.map(p=>p.total));const w=ps.find(p=>p.total===min)||{name:'?'};
+    return `<button class="h2-row" onclick="histOpen('${g.id}')"><div class="h2-d"><b>${fmt(g.played_at)}</b><small>${g.mode==='official'?L('Oficial','Official'):L('Libre','Free')} · ${g.rounds} ${L('rondas','rounds')}</small></div><span class="sala-avs">${ps.map(p=>avatar(p.name,20)).join('')}</span><span class="h2-w">${avatar(w.name,20)}<b>${esc(w.name)}</b></span><span class="h2-p">${min}</span></button>`}).join(''):`<p class="lu-note" style="text-align:center;padding:16px">${L('Aún no hay partidas. Juega una en LOCAL con usuarios de TALMUT.','No games yet. Play one in LOCAL with TALMUT users.')}</p>`;
+  b.innerHTML=`<div class="on-box h2-box"><div class="on-col"><p class="sala-lbl">${L('Partidas locales','Local games')} · ${rows.length}</p><div class="h2-list">${list}</div></div>
+   <div class="on-col"><p class="sala-lbl">${L('Clasificación histórica','All-time ranking')}</p><div class="h2-rank">${rank.map(([id,s])=>`<div class="sala-mem${id===me?' me':''}">${avatar(s.name,24)}<b>${esc(s.name)}</b><span class="h2-fs"><span class="fs"><b>${s.n}</b><i>${L('partidas','games')}</i></span><span class="fs"><b>${s.w}</b><i>${L('victorias','wins')}</i></span><span class="fs"><b>${Math.round(s.pts/s.n)}</b><i>${L('media','avg')}</i></span></span></div>`).join('')||''}</div>
+   <div class="sala-pills" style="margin-top:auto">${[['all',L('Todo','All')],['off',L('Oficiales','Official')],['year',L('Este año','This year')]].map(([k,l])=>`<button class="${HIST.filter===k?'on':''}" onclick="HIST.filter='${k}';histRender()">${l}</button>`).join('')}</div></div></div>`;
+}
+function histOpen(id){
+  const g=HIST.rows.find(x=>x.id===id);if(!g)return;const ps=g.players||[];const n=Math.max(...ps.map(p=>(p.rounds||[]).length));
+  const d=document.createElement('div');d.className='sala-modal';d.onclick=e=>{if(e.target===d)d.remove()};
+  d.innerHTML=`<div class="sala-box" style="width:min(640px,100%)"><p class="sala-lbl">${new Date(g.played_at).toLocaleString(LANG==='en'?'en-GB':'es-ES')}</p><div class="h2-tbl"><table><tr><th>#</th>${ps.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr>${[...Array(n).keys()].map(r=>`<tr><td>${r+1}</td>${ps.map(p=>`<td>${(p.rounds||[])[r]??'—'}</td>`).join('')}</tr>`).join('')}<tr class="tot"><td>Σ</td>${ps.map(p=>`<td>${p.total}</td>`).join('')}</tr></table></div><button class="btn btn-ghost" style="margin-top:10px" onclick="this.closest('.sala-modal').remove()">${L('Cerrar','Close')}</button></div>`;
+  document.body.appendChild(d);
+}
+// acceso también desde el Perfil
+const _rp81b=renderProfile;renderProfile=function(){const r=_rp81b.apply(this,arguments);try{if(profTab==='me'){const card=document.querySelector('#profBody .prof-card');if(card&&!card.querySelector('.h2-link')){card.insertAdjacentHTML('beforeend',`<button class="h2-link" onclick="openHist()">📜 ${L('Histórico de partidas locales','Local games history')}</button>`)}}}catch(e){}return r};
 
 applyI18n();
 refreshMenu();
