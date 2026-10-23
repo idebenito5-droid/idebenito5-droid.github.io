@@ -1901,6 +1901,85 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .s10-vol{transform:skewX(-7deg);border-radius:3px;background:rgba(0,0,0,.22);box-shadow:inset 0 0 0 1px rgba(255,214,120,.12);height:24px;margin-top:-3px;padding:0 10px}
 .s10-vol>*{transform:skewX(7deg)}
 .u10-mini{transform:none;border-radius:3px}.u10-seat.s10>.u10-mini{transform:none!important}
+/* ===== v2.8 · retratos cuadrados ===== */
+.lvimg{border-radius:3px!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+.lvimg[data-l="0"]{background-image:url(lvsq0.webp)!important}.lvimg[data-l="1"]{background-image:url(lvsq1.webp)!important}.lvimg[data-l="2"]{background-image:url(lvsq2.webp)!important}.lvimg[data-l="3"]{background-image:url(lvsq3.webp)!important}.lvimg[data-l="4"]{background-image:url(lvsq4.webp)!important}
+#screen-menu.m10 .m10-por{overflow:hidden;width:64px}
+#screen-menu.m10 .m10-por .lvimg{width:128%!important;height:100%!important;border-radius:0!important;box-shadow:none!important;flex:none}
+/* ===== v2.8 · perfil ===== */
+#screen-profile.active{display:flex!important;flex-direction:column;height:100dvh;overflow:hidden!important}
+#profBody.p10-host{overflow:hidden!important;padding:12px 0 0!important;flex:1 1 auto;min-height:0}
+.u10.p10{grid-template-columns:minmax(0,.95fr) minmax(0,.95fr) minmax(0,1.12fr);gap:20px;padding:0 22px 14px;flex:1 1 auto;min-height:0;height:100%}
+.p10 .u10-in{gap:8px}
+.p10-id{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.p10-por{position:relative;width:min(132px,25vh);aspect-ratio:1;border-radius:3px;overflow:hidden;transform:skewX(-7deg);box-shadow:0 10px 24px rgba(0,0,0,.6);background:#120808;flex:none}
+.p10-por img{position:absolute;left:-12%;top:0;width:124%;height:100%;object-fit:cover;transform:skewX(7deg)}
+.p10-por::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 2px #E3BC55,inset 0 0 0 4px rgba(0,0,0,.55);border-radius:3px}
+.p10-nm{font-family:'Cinzel',serif;font-weight:900;font-size:20px;letter-spacing:1px;color:#FFE7A8;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p10-who{font-size:11px;color:#CDBB9A;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p10-lv{display:flex;align-items:center;gap:8px;max-width:100%}
+.p10-chip{flex:none;padding:3px 8px;border-radius:2px;font-size:9px;font-weight:800;letter-spacing:1.2px;color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#D4A83A);white-space:nowrap}
+.p10-lv small{font-size:10.5px;color:#D9C9A3;white-space:nowrap}
+.p10-bar{display:block;width:88%;height:5px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+.p10-bar>i{display:block;height:100%;background:linear-gradient(90deg,#D4A83A,#FFE07A)}
+.p10-acc{height:46px!important;flex:none}
+.p10-dot{width:9px;height:9px;flex:none;border-radius:50%;background:#4FD07A;box-shadow:0 0 8px #4FD07A}
+.u10-mini.ghost{background:none;color:#E3BC55;box-shadow:inset 0 0 0 1px rgba(255,214,120,.4)}
+.p10-g{all:unset;cursor:pointer;flex:none;height:30px;padding:0 10px;border-radius:3px;display:flex;align-items:center;background:#fff;color:#1f1f1f;font-size:11px;font-weight:800;white-space:nowrap}
+.p10-g>span{display:flex;align-items:center;gap:6px}.p10-g svg{width:14px;height:14px}
+.p10-cols{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.p10-sw{all:unset;cursor:pointer;height:28px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.4)}
+.p10-sw.on{box-shadow:inset 0 0 0 2px #FFE7A8,0 0 12px rgba(255,231,168,.45)}
+.p10-btns{flex:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:10px}
+.p10-btns .u10-sm{height:48px}
+.p10 .u10-bar .u10-sg{font-size:9px;letter-spacing:.5px;padding:0 3px}
+.p10-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.p10-t{height:52px;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:0 4px;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(255,214,120,.18);min-width:0;overflow:hidden}
+.p10-t b{font-family:'Cinzel',serif;font-size:17px;color:#FFE7A8;line-height:1.05;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p10-t small{font-size:8.5px;color:#BFAE8C;text-align:center;line-height:1.15;max-width:100%}
+.p10-t.hi{box-shadow:inset 0 0 0 1.3px rgba(227,188,85,.6);background:rgba(227,188,85,.1)}
+.p10-rows{display:flex;flex-direction:column;gap:6px}
+.p10-r{display:flex;align-items:center;gap:8px;height:28px;padding:0 10px;border-radius:3px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,214,120,.14);font-size:10.5px;color:#E9D7AE;min-width:0}
+.p10-r span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.p10-r b{margin-left:auto;flex:none;color:#FFE7A8;font-family:'Cinzel',serif;font-size:12.5px;white-space:nowrap}
+.p10 .p10-por{transform:none}
+.p10 .p10-nm,.p10 .p10-who{display:block;transform:skewX(7deg)}
+.p10 .p10-lv{transform:skewX(7deg)}
+.p10-t>*,.p10-r>*{transform:skewX(7deg)}
+.u10.p10{gap:14px;padding:0 14px 12px}
+.p10 .u10-in{padding:12px 16px 12px 18px}
+.p10 .u10-panel{flex:1 1 auto}
+.p10-id{flex:1 1 auto;justify-content:center}
+.p10 .p10-acc{height:42px!important;margin-top:auto}
+.p10 .p10-acc .u10-st b{font-size:11.5px}.p10 .p10-acc .u10-st small{font-size:10px}
+.p10-egg,.p10 .u10-cta{flex:none;height:46px!important}
+.p10-egg{font-size:12px!important;letter-spacing:1.5px!important}
+.p10 .u10-cta{font-size:14px;letter-spacing:2px}
+.p10 .u10-fld input{font-size:12px}
+.p10 .u10-bar{display:flex}
+.p10 .u10-bar .u10-sg{flex:1 1 auto;font-size:9px;letter-spacing:.3px;padding:0 5px}
+.p10-por{width:min(120px,22vh)}
+
+/* 2.8 · ajuste fino: nada sobresale */
+.u10.p10{grid-template-columns:minmax(0,.88fr) minmax(0,.9fr) minmax(0,1.3fr);gap:12px}
+.p10 .u10-col,.p10 .u10-panel,.p10 .u10-in{min-width:0}
+.p10 .u10-bar .u10-sg{font-size:8.5px;letter-spacing:0;padding:0 2px;min-width:0}
+.p10 .u10-bar .u10-sg>span{white-space:nowrap}
+.p10 .p10-acc{padding:0 6px 0 10px!important;gap:7px!important}
+.p10 .p10-acc .u10-st{min-width:0;flex:1 1 auto}
+.p10 .p10-acc .u10-st b,.p10 .p10-acc .u10-st small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p10 .p10-acc .u10-st small{font-size:9.5px}
+.p10-out{all:unset;cursor:pointer;flex:none;width:30px;height:30px;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#FFE7A8;box-shadow:inset 0 0 0 1px rgba(255,214,120,.45);background:rgba(0,0,0,.25)}
+.p10-out svg{width:15px;height:15px;transform:skewX(7deg)}
+.p10-gw{width:100%;box-sizing:border-box;justify-content:center;height:40px;margin-top:auto;transform:skewX(-7deg)}
+.p10-gw>span{transform:skewX(7deg)}
+.p10 .p10-acc .u10-st small{font-size:10px}
+#profBody.p10-host{overflow:visible!important}
+.p10-gw{transform:none}
+.p10 .p10-t small{width:min-content;min-width:9ch}
+.p10 .u10-fld input{font-size:11.5px;padding-left:10px!important;padding-right:8px!important;text-overflow:ellipsis}
+.p10 .u10-fld input::placeholder{font-size:11px}
+.u10.p10{padding:0 26px 12px}
 </style>
 </head>
 <body>
@@ -5730,7 +5809,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='2.7';
+const APP_VER='2.8';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6800,7 +6879,7 @@ function renderSettings10(){
     setRow10(L('Efectos de sonido','Sound effects'),L('Cartas, botones y avisos','Cards, buttons and alerts'),sw10(SND.sfxOn,'toggleSfx();renderSettings10()',L('Efectos','Effects')))+volRow10('sfx')+
     setRow10(L('Vibración','Vibration'),L('Vibrar en tu turno','Vibrate on your turn'),sw10(LS.get('vibrate',true),'toggleSound();renderSettings10()',L('Vibración','Vibration')));
   const right=`<span class="u10-lbl">${L('Partida y app','Game and app')}</span>`+
-    setRow10(L('Ritual de inicio','Opening ritual'),L('Pantalla del lema antes de las partidas oficiales','Motto screen before official games'),sw10(LS.get('ritual',true),'toggleRitual();renderSettings10()',L('Ritual','Ritual')))+
+    setRow10(L('Ritual de inicio','Opening ritual'),L('Lema antes de cada partida','Motto before each game'),sw10(LS.get('ritual',true),'toggleRitual();renderSettings10()',L('Ritual','Ritual')))+
     setRow10(L('Actualizar la app','Update the app'),L('Versión','Version')+' '+APP_VER,`<button class="u10-mini" onclick="forceUpdate()"><span>↻ ${L('Actualizar','Update')}</span></button>`)+
     setRow10(L('Política de privacidad','Privacy policy'),'',`<a class="u10-mini" href="privacy.html"><span>${L('Ver','View')} →</span></a>`)+
     `<p class="u10-hint small">TALMUT · SM42 · v${APP_VER}</p>`;
@@ -6808,6 +6887,86 @@ function renderSettings10(){
 }
 openSettings=function(){const c=currentScreen();if(c&&c!=='screen-settings')UI.setFrom=c;try{closeModal('settingsModal')}catch(e){}renderSettings10();showScreen('screen-settings');play('tap')};
 function closeSettings10(){const to=UI.setFrom&&document.getElementById(UI.setFrom)?UI.setFrom:'screen-menu';if(to==='screen-menu')goMenu();else showScreen(to)}
+
+// =====================================================================
+//  v2.8 · PERFIL (diseño A + Estadísticas) · retratos cuadrados
+// =====================================================================
+UI.p10tab=LS.get('p10tab','res');
+// contadores nuevos: victorias en Partida francesa y racha de victorias
+const _tf28=trackFinish;trackFinish=function(st){
+  try{const key=(G&&G.id)+':'+(st&&st.round)+':'+(st&&st.status);
+    if(st&&st.status==='finished'&&UI.tf28!==key){UI.tf28=key;const w=st.standings&&st.standings[0]&&st.standings[0].i===myIdx();
+      if(w&&G&&G.local&&LOCAL&&LOCAL.diff==='french')bump('bwF');
+      const cur=w?(ACH.c.strk||0)+1:0;ACH.c.strk=cur;if(cur>(ACH.c.strkMax||0))ACH.c.strkMax=cur;}}catch(e){}
+  return _tf28.apply(this,arguments);
+};
+const P10={loc:null,locT:0};
+async function p10LoadLocal(){
+  if(P10.locBusy||Date.now()-P10.locT<60000)return;
+  try{if(!sb||!session||session.user.is_anonymous)return;P10.locBusy=true;
+    const{data,error}=await sb.from('local_games').select('mode,players,winner_ids,played_at').order('played_at',{ascending:false}).limit(500);
+    P10.locT=Date.now();if(error)return;const me=session.user.id;
+    const mine=(data||[]).filter(g=>(g.players||[]).some(p=>p.uid===me));
+    const s={n:mine.length,w:0,pts:0,best:null,off:0,last:mine[0]&&mine[0].played_at,with:{},beat:{}};
+    mine.forEach(g=>{const ps=g.players||[],mp=ps.find(p=>p.uid===me);const won=(g.winner_ids||[]).includes(me);if(won)s.w++;if(g.mode==='official')s.off++;
+      if(mp){s.pts+=mp.total||0;if(s.best===null||mp.total<s.best)s.best=mp.total}
+      ps.forEach(p=>{if(p.uid===me)return;s.with[p.name]=(s.with[p.name]||0)+1;if(mp&&(p.total||0)>(mp.total||0))s.beat[p.name]=(s.beat[p.name]||0)+1})});
+    P10.loc=s;if(currentScreen()==='screen-profile'&&profTab==='me')renderProfile();
+  }catch(e){}finally{P10.locBusy=false}
+}
+function p10Top(o){let k=null,v=0;for(const x in o)if(o[x]>v){v=o[x];k=x}return k?`${k} · ${v}`:'—'}
+function p10Stats(){
+  const P=profile||LS.get('profCache',{})||{},c=ACH.c,lc=P10.loc||{n:0,w:0,pts:0,best:null,off:0,with:{},beat:{}};
+  const pc=(w,g)=>g?Math.round(100*w/g)+'%':'—';
+  const og=P.games||0,ow=P.wins||0,bg=c.bg||0,bw=c.bw||0;
+  const n=achCount(),lv=levelOf(n);
+  const fav=[[L('Online','Online'),og],['Arcade',bg],['Local',lc.n]].sort((a,b)=>b[1]-a[1])[0];
+  const fmt=d=>d?new Date(d).toLocaleDateString(LANG==='en'?'en-GB':'es-ES',{day:'numeric',month:'short'}):'—';
+  return {
+    res:{t:[[og+bg+lc.n,L('Partidas','Games')],[ow+bw+lc.w,L('Victorias','Wins')],[pc(ow+bw+lc.w,og+bg+lc.n),L('Acierto','Win rate'),1],[c.rw||0,L('Rondas ganadas','Rounds won')],[n+'/'+ACH_LIST.length,L('Hitos','Milestones')],[lv[1],L('Nivel','Level')]],
+      r:[[L('Modo favorito','Favourite mode'),fav[1]?fav[0]:'—'],[L('Mejor racha de victorias','Best win streak'),c.strkMax||0],[L('Racha actual','Current streak'),c.strk||0]]},
+    on:{t:[[og,L('Partidas','Games')],[ow,L('Victorias','Wins')],[pc(ow,og),L('Acierto','Win rate'),1],[P.rounds_won||0,L('Rondas ganadas','Rounds won')],[(SALA.list||[]).filter(x=>x.myStatus==='accepted').length,L('Salas privadas','Private rooms')],[(FR.mine&&FR.mine.size)||c.fr||0,L('Amigos','Friends')]],
+      r:[[L('Derrotas','Losses'),Math.max(0,og-ow)]]},
+    ar:{t:[[bg,L('Partidas','Games')],[bw,L('Victorias','Wins')],[pc(bw,bg),L('Acierto','Win rate'),1],[c.br||0,L('Rondas ganadas','Rounds won')],[c.bwT||0,L('Ganadas en Tiburón','Shark wins')],[c.bwF||0,L('Ganadas en Francesa','French wins')]],
+      r:[[L('Victorias contra 5 bots','Wins vs 5 bots'),c.bw5||0],[L('Derrotas','Losses'),Math.max(0,bg-bw)]]},
+    lo:{t:[[lc.n,L('Partidas','Games')],[lc.w,L('Victorias','Wins')],[pc(lc.w,lc.n),L('Acierto','Win rate'),1],[lc.n?Math.round(lc.pts/lc.n):'—',L('Media de puntos','Avg points')],[lc.best===null?'—':lc.best,L('Mejor partida','Best game')],[lc.off,L('Oficiales','Official')]],
+      r:[[L('Con quién más juegas','Most played with'),p10Top(lc.with)],[L('A quién más ganas','Most beaten'),p10Top(lc.beat)],[L('Última partida','Last game'),fmt(lc.last)]]},
+    ju:{t:[[c.tal||0,L('TALMUT cantados','TALMUT calls')],[c.talok||0,L('TALMUT acertados','Right calls'),1],[c.talbad||0,L('TALMUT fallados','Wrong calls')],[c.snap||0,L('Descartes cruzados','Snaps')],[c.snapf||0,L('Cruzados fallados','Missed snaps')],[c.joker||0,L('Comodines','Jokers')]],
+      r:[[L('Q · K · J · 10','Q · K · J · 10'),`${c.spQ||0} · ${c.spK||0} · ${c.spJ||0} · ${c.sp10||0}`],[L('Frases enviadas','Lines sent'),c.react||0]]}
+  };
+}
+function p10Tab(k){UI.p10tab=k;LS.set('p10tab',k);play('select');renderProfile()}
+const _rp28=renderProfile;renderProfile=function(){
+  const r=_rp28.apply(this,arguments);
+  try{
+    if(profTab!=='me')return r;
+    const b=document.getElementById('profBody');if(!b)return r;
+    p10LoadLocal();
+    const n=achCount(),lv=levelOf(n),k=levelIdx(n),u=session&&session.user,guest=!u||u.is_anonymous;
+    const gname=u&&!u.is_anonymous?((u.user_metadata&&(u.user_metadata.full_name||u.user_metadata.name))||u.email||''):'';
+    const em=u&&!u.is_anonymous?(u.email||(u.user_metadata&&u.user_metadata.email)||''):'';
+    const ST=p10Stats(),tab=ST[UI.p10tab]?UI.p10tab:'res',cur=ST[tab];
+    const left=`<div class="p10-id"><span class="p10-por"><img src="lvsq${k}.webp" alt="${esc(lv[1])}"></span>
+      <b class="p10-nm">${esc(myName())}</b><span class="p10-who">${gname?esc(gname):(u&&u.is_anonymous?L('Invitado','Guest'):L('Sin cuenta','No account'))}</span>
+      <span class="p10-lv"><span class="p10-chip">${esc(lv[1]).toUpperCase()}</span><small>${n} / ${ACH_LIST.length} ${L('hitos','milestones')}</small></span>
+      <i class="p10-bar"><i style="width:${Math.round(100*n/ACH_LIST.length)}%"></i></i></div>`;
+    const acc=!guest?`<div class="u10-seat p10-acc"><span class="p10-dot"></span><span class="u10-st" title="${esc(em)}"><b>${esc((em||'').split('@')[0]||'Google')}</b><small>${em&&em.includes('@')?'@'+esc(em.split('@')[1]):'Google'}</small></span><button class="p10-out" onclick="acctOut()" title="${L('Salir','Sign out')}" aria-label="${L('Salir','Sign out')}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button></div>`
+      :`<button class="p10-g p10-gw" onclick="signInGoogle()"><span>${typeof GSVG!=='undefined'?GSVG:''}${L('Entrar con Google','Sign in with Google')}</span></button>`;
+    const mid=`<span class="u10-lbl">${L('Apodo','Nickname')}</span><div class="u10-fld"><input id="pfName" maxlength="16" autocomplete="off" value="${esc(myName())}"></div>
+      <p class="u10-hint small">${L('Pon el que quieras: es el nombre que ven los demás.','Use any name: it is what the others see.')}</p>
+      <span class="u10-lbl">${L('Tu color','Your colour')}</span><div class="p10-cols">${COLORS.map(c=>`<button class="sw p10-sw${(ME.color||'')===c?' on':''}" style="background:${c}" onclick="pickColor('${c}')" aria-label="${c}"></button>`).join('')}</div>
+      <span class="u10-lbl">${L('Frase al ganar','Winning line')}</span><div class="u10-fld"><input id="pfPhrase" maxlength="40" autocomplete="off" placeholder="Hic ludus errorem punit" value="${esc(ME.phrase||'')}"></div>`;
+    const stats=`<span class="u10-lbl">${L('Estadísticas','Stats')}</span>`+u10Bar([['res',L('Todo','All')],['on','Online'],['ar','Arcade'],['lo','Local'],['ju',L('Jugadas','Plays')]].map(([kk,l])=>({l,on:tab===kk,fn:`p10Tab('${kk}')`})))+
+      `<div class="p10-tiles">${cur.t.map(([v,l,h])=>`<div class="p10-t${h?' hi':''}"><b>${esc(String(v))}</b><small>${esc(l)}</small></div>`).join('')}</div>`+
+      `<div class="p10-rows">${cur.r.map(([l,v])=>`<div class="p10-r"><span>${esc(l)}</span><b>${esc(String(v))}</b></div>`).join('')}</div>`+
+      (tab==='lo'&&guest?`<p class="u10-hint small">${L('Entra con Google para ver tus partidas locales.','Sign in with Google to see your local games.')}</p>`:'');
+    b.classList.add('p10-host');
+    b.innerHTML=`<div class="u10 p10"><div class="u10-col"><div class="u10-panel"><div class="u10-in">${left}${acc}</div></div><button class="u10-sm p10-egg" onclick="eggTap(this)"><span>EasterEgg</span></button></div>
+      <div class="u10-col"><div class="u10-panel"><div class="u10-in">${mid}</div></div>${u10Cta(L('GUARDAR','SAVE'),'saveProfile()')}</div>
+      <div class="u10-col"><div class="u10-panel"><div class="u10-in">${stats}</div></div></div></div>`;
+  }catch(e){console.error(e)}
+  return r;
+};
 
 applyI18n();
 refreshMenu();
