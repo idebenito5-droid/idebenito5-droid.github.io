@@ -992,7 +992,7 @@ body::before{content:'';position:fixed;inset:-14px;pointer-events:none;z-index:0
 .k-cap:hover .k-rule{width:85%}
 .k-cap:hover .k-card{box-shadow:0 26px 50px rgba(0,0,0,.7),0 0 0 1px var(--k-gold2),0 0 40px -6px var(--glow)}
 .kc1{--acc:#3FE0CF;--tint:rgba(6,40,44,.75);--glow:rgba(63,224,207,.55)}.kc1 .k-art{background-image:url(boceto-v6/img/online.jpg)}
-.kc2{--acc:#FF8A3D;--tint:rgba(60,10,6,.78);--glow:rgba(255,120,60,.6)}.kc2 .k-art{background-image:url(boceto-v6/img/arcade.jpg)}
+.kc2{--acc:#FF8A3D;--tint:rgba(60,10,6,.78);--glow:rgba(255,120,60,.6)}.kc2 .k-art{background-image:url(boceto-v6/img/arcade4.jpg)}
 .kc3{--acc:#FFE6A1;--tint:rgba(50,32,8,.78);--glow:rgba(255,210,120,.55)}.kc3 .k-art{background-image:url(boceto-v6/img/local.jpg)}
 .kc4{--acc:#A98BFF;--tint:rgba(26,14,52,.8);--glow:rgba(169,139,255,.55)}.kc4 .k-art{background-image:url(boceto-v6/img/aprende.jpg)}
 .k-nav{display:flex;justify-content:center;gap:5px;padding:8px 0 calc(env(safe-area-inset-bottom) + 12px);z-index:3}
@@ -1840,6 +1840,27 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .u10-in .u10-hd{display:flex}
 .u10-in .u10-lu .lu-box>*{transform:skewX(7deg)}
 .u10-in .u10-lu .lu-box{background:rgba(255,255,255,.03)!important}
+/* v2.1 */
+.u10-code{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;cursor:text;transform:skewX(-7deg)}
+.u10-cs{height:46px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:24px;color:#FFE7A8;background:rgba(0,0,0,.5);box-shadow:inset 0 0 0 1.3px rgba(255,214,120,.42)}
+.u10-cs.cur{box-shadow:inset 0 0 0 2px #FFD45A,0 0 14px rgba(255,212,90,.35)}
+.u10-code input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;border:0;padding:0;margin:0;color:transparent;background:transparent;caret-color:transparent}
+.u10-pick{all:unset;cursor:pointer;box-sizing:border-box;display:flex;align-items:center;gap:10px;height:38px;padding:0 10px 0 12px;border-radius:3px;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(255,214,120,.16)}
+.u10-pick.on{box-shadow:inset 0 0 0 1.5px #E3BC55;background:rgba(227,188,85,.12)}
+.u10-in>.u10-chip{align-self:flex-start}
+/* partida francesa: distinta pero dentro del estilo */
+.u10-sg.fr,.u10-sg.fr.on{background:none;color:#FF8A8F;text-shadow:none}
+.u10-sg.fr>span{letter-spacing:1.4px}
+.u10-sg.fr>span::before{content:'';display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:1px;transform:rotate(45deg);background:#E8343E;box-shadow:0 0 6px rgba(232,52,62,.8)}
+.u10-sg.fr.on{color:#FFE7A8;background:linear-gradient(180deg,#B3141F,#5E070D);box-shadow:inset 0 0 0 1px rgba(255,214,120,.55)}
+.u10-sg.fr.on>span::before{background:#FFE7A8;box-shadow:0 0 6px rgba(255,231,168,.8)}
+.fr-flag{display:none!important}
+/* TALMUT un poco más separado de las frases */
+#gTalmut.talmut-zone{margin:4px 0 10px!important}
+
+.u10-bar.many .u10-sg{font-size:9.5px;letter-spacing:.5px;padding:0 2px}
+.u10-sg.fr>span::before{width:5px;height:5px;margin-right:5px}
+.u10-bar.many{display:flex}.u10-bar.many .u10-sg{flex:1 1 auto;padding:0 6px}
 </style>
 </head>
 <body>
@@ -5669,7 +5690,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='2.0';
+const APP_VER='2.3';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6330,7 +6351,7 @@ setInterval(()=>{const b=document.getElementById('pauseBtn');if(b)b.style.displa
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&canPause9())pauseGame(true)});
 
 // ---------- frase nueva ----------
-REACTS.push({k:'biri',es:'Biribiribiriwey'});
+REACTS.push({k:'biri',es:'Chiribiribiriwey'});
 R9_ORDER.splice(R9_ORDER.indexOf('ajena'),0,'biri');
 
 // ---------- música: una canción para el menú y otra para la partida + volúmenes ----------
@@ -6601,7 +6622,7 @@ const _rm99=refreshMenu;refreshMenu=function(){const r=_rm99.apply(this,argument
 //  v10.0 · PREPARAR PARTIDA unificado (Online · Arcade · Local) · diseño A
 // =====================================================================
 const U10={otype:LS.get('u10otype','rapida')};
-function u10Bar(items){return `<div class="u10-bar">${items.map(it=>`<button class="u10-sg${it.on?' on':''}${it.x?' '+it.x:''}" onclick="${it.fn}"><span>${it.l}</span></button>`).join('')}</div>`}
+function u10Bar(items){return `<div class="u10-bar${items.length>3?' many':''}">${items.map(it=>`<button class="u10-sg${it.on?' on':''}${it.x?' '+it.x:''}" onclick="${it.fn}"><span>${it.l}</span></button>`).join('')}</div>`}
 function u10Seat(name,sub,color,opts){opts=opts||{};return `<div class="u10-seat${opts.empty?' empty':''}${opts.user?' user':''}">${opts.empty?`<span class="u10-av e">${opts.i||'?'}</span>`:`<span class="u10-av" style="background:${color||avColor(name)}">${esc(String(name).charAt(0).toUpperCase())}</span>`}<span class="u10-st"><b>${esc(name)}</b><small>${sub||''}</small></span>${opts.tail||''}</div>`}
 function u10Wrap(left,right,cta,extra){return `<div class="u10"><div class="u10-col"><div class="u10-panel"><div class="u10-in">${left}</div></div>${extra||''}</div><div class="u10-col"><div class="u10-panel"><div class="u10-in">${right}</div></div>${cta}</div></div>`}
 function u10Cta(label,fn,off){return `<button class="u10-cta${off?' off':''}" onclick="${fn}"${off?' disabled':''}><span>${label}</span></button>`}
@@ -6613,15 +6634,20 @@ const _roh10=renderOnlineHome;renderOnlineHome=function(){
   const r=_roh10.apply(this,arguments);
   try{
     const b=document.getElementById('onlineBody');if(!b||!ONLINE_READY||!session)return r;
-    const p=profile||{nickname:'…',games:0,wins:0,rounds_won:0},guest=session.user.is_anonymous,resume=LS.get('onlineGame',null),o=U10.otype;
+    const p=profile||{nickname:'…',games:0,wins:0,rounds_won:0},guest=session.user.is_anonymous,resume=LS.get('onlineGame',null);if(U10.otype==='priv'&&!u10HasSalas())U10.otype='rapida';const o=U10.otype;u10SalasLoad();
     const ttl=L('Tipo de partida','Game type');
     let left=`${resume?`<button class="u10-resume" onclick="resumeOnline()"><span>▶ ${L('Volver a tu partida','Back to your game')} · ${esc(resume.code||'')}</span></button>`:''}<span class="u10-lbl">${ttl}</span>`+
-      u10Bar([{l:L('Rápida','Quick'),on:o==='rapida',fn:"u10SetO('rapida')"},{l:L('Crear sala','Create room'),on:o==='sala',fn:"u10SetO('sala')"},{l:L('Unirse','Join'),on:o==='unirse',fn:"u10SetO('unirse')"}])+
-      `<p class="u10-hint">${o==='rapida'?L('Te emparejamos con otros jugadores · 5 rondas.','We match you with other players · 5 rounds.'):o==='sala'?L('Crea una sala y comparte el código con tus amigos.','Create a room and share the code with your friends.'):L('Escribe el código que te ha pasado tu amigo.','Type the code your friend gave you.')}</p>`;
+      u10Bar([{l:L('Rápida','Quick'),on:o==='rapida',fn:"u10SetO('rapida')"}].concat(u10HasSalas()?[{l:L('Salas privadas','Private rooms'),on:o==='priv',fn:"u10SetO('priv')"}]:[]).concat([{l:L('Crear sala','Create room'),on:o==='sala',fn:"u10SetO('sala')"},{l:L('Unirse','Join'),on:o==='unirse',fn:"u10SetO('unirse')"}]))+
+      `<p class="u10-hint">${o==='priv'?L('Tus salas de amigos. Elige una y entra: se avisa a los demás.','Your friend rooms. Pick one and enter: the others get a call.'):o==='rapida'?L('Te emparejamos con otros jugadores · 5 rondas.','We match you with other players · 5 rounds.'):o==='sala'?L('Crea una sala y comparte el código con tus amigos.','Create a room and share the code with your friends.'):L('Escribe el código que te ha pasado tu amigo.','Type the code your friend gave you.')}</p>`;
     if(o==='sala')left+=`<span class="u10-lbl">${L('Rondas','Rounds')}</span>`+u10Bar([3,5,10].map(n=>({l:n+(n===10?' ★':''),on:createRounds===n,fn:`createRounds=${n};play('select');renderOnlineHome()`})));
-    if(o==='unirse')left+=`<span class="u10-lbl">${L('Código de la sala','Room code')}</span><div class="u10-fld"><input id="joinCode" maxlength="5" autocomplete="off" placeholder="${L('CÓDIGO','CODE')}" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" onkeydown="if(event.key==='Enter')joinRoom()"></div>`;
+    if(o==='unirse')left+=`<span class="u10-lbl">${L('Código de la sala','Room code')}</span><label class="u10-code" for="joinCode">${[0,1,2,3,4].map(i=>`<span class="u10-cs" data-i="${i}"></span>`).join('')}<input id="joinCode" maxlength="5" autocomplete="off" autocapitalize="characters" inputmode="text" aria-label="${L('Código de la sala','Room code')}" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'');u10Code()" onfocus="u10Code()" onblur="u10Code()" onkeydown="if(event.key==='Enter')joinRoom()"></label><p class="u10-hint small">${L('Toca las casillas y escribe las 5 letras.','Tap the boxes and type the 5 characters.')}</p>`;
+    if(o==='priv'){const acc=SALA.list.filter(x=>x.myStatus==='accepted');if(!U10.sala||!acc.some(x=>x.id===U10.sala))U10.sala=acc[0]&&acc[0].id;
+      left+=`<span class="u10-lbl">${L('Tus salas','Your rooms')}</span><div class="u10-seats">${acc.map(x=>`<button class="u10-seat u10-pick${x.id===U10.sala?' on':''}" onclick="U10.sala='${x.id}';play('select');renderOnlineHome()"><span class="u10-av" style="background:#8E0F17">${esc(String(x.name).charAt(0).toUpperCase())}</span><span class="u10-st"><b>${esc(x.name)}</b><small>${(SALA.members[x.id]||[]).filter(m=>m.status==='accepted').length} ${L('miembros','members')} · ${x.rounds} ${L('rondas','rounds')}</small></span></button>`).join('')}</div><button class="u10-chip" onclick="salaEdit()"><span>＋ ${L('Nueva sala de amigos','New friend room')}</span></button>`}
     left+=`<p class="u10-hint small">${L('Las salas con tus amigos están en Amigos.','Rooms with your friends are in Friends.')}</p>`;
     const empty=o==='rapida'?L('Buscando jugador…','Looking for a player…'):o==='sala'?L('Esperando a un amigo…','Waiting for a friend…'):L('Por confirmar','To be confirmed');
+    if(o==='priv'){const sl=SALA.list.find(x=>x.id===U10.sala);const mm=sl?(SALA.members[sl.id]||[]).filter(m=>m.status==='accepted'):[];
+      const right2=`<div class="u10-hd"><span class="u10-lbl">${esc(sl?sl.name:'')}</span><small>${mm.length} ${L('miembros','members')}</small></div>`+mm.map(m=>u10Seat(salaName(m.user_id),m.user_id===session.user.id?L('tú','you'):(sl.host===m.user_id?L('anfitrión','host'):L('miembro','member')),avColor(salaName(m.user_id)))).join('')+(sl&&sl.host===session.user.id?`<button class="u10-chip" onclick="salaEdit('${sl.id}')"><span>✎ ${L('Editar sala','Edit room')}</span></button>`:'');
+      b.innerHTML=u10Wrap(left,right2,sl?u10Cta(L('ENTRAR EN LA SALA','ENTER ROOM'),`salaOpen('${sl.id}')`):u10Cta(L('CREAR SALA DE AMIGOS','CREATE FRIEND ROOM'),'salaEdit()'));return r}
     let right=`<div class="u10-hd"><span class="u10-lbl">${L('En la mesa','At the table')}</span><small>${o==='rapida'?L('hasta 4 jugadores','up to 4 players'):L('hasta 6 jugadores','up to 6 players')}</small></div>`+
       u10Seat(p.nickname||'?',`${p.games||0} ${L('partidas','games')} · ${p.wins||0} ${L('victorias','wins')} · ${p.rounds_won||0} ${L('rondas','rounds')}`,avColor(p.nickname||'?'),{tail:`<button class="u10-ic" onclick="editNick()" aria-label="${L('Cambiar apodo','Edit nickname')}">${U10_PEN}</button>`})+
       [1,2,3].map(()=>u10Seat(empty,'',null,{empty:true})).join('')+
@@ -6631,6 +6657,11 @@ const _roh10=renderOnlineHome;renderOnlineHome=function(){
   }catch(e){console.error(e)}
   return r;
 };
+
+function u10HasSalas(){return !!(SALA&&SALA.list&&SALA.list.some(x=>x.myStatus==='accepted'))}
+function u10SalasLoad(){if(U10.salasT&&Date.now()-U10.salasT<30000)return;U10.salasT=Date.now();const had=u10HasSalas();salaLoad().then(()=>{if(u10HasSalas()!==had&&currentScreen()==='screen-online')renderOnlineHome()}).catch(()=>{})}
+function u10Code(){const i=document.getElementById('joinCode');if(!i)return;const v=i.value||'',f=document.activeElement===i;document.querySelectorAll('.u10-cs').forEach((c,k)=>{c.textContent=v[k]||'';c.classList.toggle('cur',f&&k===Math.min(v.length,4))})}
+const _u10so=u10SetO;u10SetO=function(v){_u10so(v);if(v==='unirse')setTimeout(()=>{const i=document.getElementById('joinCode');if(i){i.focus();u10Code()}},60)};
 
 // ---------- ARCADE ----------
 const _rbs10=renderBotsScreen;renderBotsScreen=function(){
