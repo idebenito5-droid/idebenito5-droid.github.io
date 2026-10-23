@@ -2113,6 +2113,16 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .r11-flow>p,.r11-flow li{text-align:justify}
 .f11 .u10-fld{flex:none;height:34px}
 #friendsBody.f11-host{margin-top:16px!important;padding-bottom:12px}
+/* ===== v3.0 · manos con muchas cartas ===== */
+#gMe.many11{display:grid!important;grid-template-columns:repeat(var(--hc),var(--hw))!important;grid-auto-rows:var(--hh);gap:4px!important;justify-content:center;align-content:center;height:var(--hH);max-height:var(--hH);overflow:visible;flex-wrap:nowrap!important}
+#gMe.many11 .pc{width:var(--hw)!important;height:var(--hh)!important;margin:0!important;min-width:0!important}
+#gOpps .opp .row.many11{display:grid!important;grid-template-columns:repeat(var(--hc),var(--hw))!important;grid-auto-rows:var(--hh);gap:2px!important;justify-content:center;align-content:center;height:var(--hH)}
+#gOpps .opp .row.many11 .pc{width:var(--hw)!important;height:var(--hh)!important;margin:0!important;min-width:0!important}
+#gMe.many11 .pc .face .c,#gOpps .row.many11 .pc .face .c{font-size:max(7px,calc(var(--hw) * .22))!important}
+#gOpps .opp{min-width:0;max-width:100%}#gOpps .opp .row.many11{max-width:100%}
+/* v3.0 · contorno del recuadro de perfil del menú por encima de la foto */
+#screen-menu.m10 .k-prof{position:relative!important}
+#screen-menu.m10 .k-prof.k-prof::after{display:block!important;content:''!important;position:absolute!important;inset:0!important;border-radius:3px!important;box-shadow:inset 0 0 0 1.5px rgba(255,214,120,.62)!important;pointer-events:none!important;z-index:5!important;background:none!important;transform:none!important;opacity:1!important}
 </style>
 </head>
 <body>
@@ -5942,7 +5952,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='2.9';
+const APP_VER='3.0';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7280,6 +7290,70 @@ function menu11(){try{const nav=document.querySelector('#screen-menu .k-nav');if
 function menu11Txt(){try{const s=document.querySelector('#screen-menu .k-nav [data-shop] span');if(s)s.textContent=L('Tienda','Shop')}catch(e){}}
 menu11();
 const _rm11=refreshMenu;refreshMenu=function(){const r=_rm11.apply(this,arguments);menu11();menu11Txt();return r};
+
+// ===================== v3.0 · a prueba de toques rápidos y manos enormes =====================
+// 1) Descarte cruzado: un intento fallido por descarte, sin ráfagas ni errores en pantalla
+const SNAP11={t:0,failKey:null,warned:null};
+function snapKey11(p){const w=p.phase==='snap'?p.snap:p.lastSnap;return [p.round,p.turn,p.discardTop,w&&w.actor,G&&G.local?'L':G&&G.id].join('|')}
+const _toast11=toast;toast=function(m,k){if(UI.quiet11&&k==='bad')return;return _toast11.apply(this,arguments)};
+const _api11=api;api=async function(action,payload){
+  if(action==='snap'||action==='keep'||action==='special'||action==='peek'||action==='draw'||action==='discard'){UI.quiet11=(UI.quiet11||0)+1;try{return await _api11.apply(this,arguments)}finally{UI.quiet11--}}
+  return _api11.apply(this,arguments)};
+const _tc11=tapCard;tapCard=async function(pi,s){
+  try{
+    if(!G)return;const p=G.pub,me=myIdx();
+    const isSnap=pi===me&&p.status==='play'&&(p.phase==='snap'||(p.phase==='draw'&&p.lastSnap));
+    const now=Date.now();
+    if(UI.tap11&&now-UI.tap11<(isSnap?260:200))return; // ráfaga de toques: solo cuenta el primero
+    UI.tap11=now;
+    if(isSnap){
+      const key=snapKey11(p);
+      if(SNAP11.failKey===key){if(SNAP11.warned!==key){SNAP11.warned=key;toast(L('Ya has fallado en este descarte','You already missed this one'))}return}
+      const before=p.players[me].slots.filter(Boolean).length;
+      const r=await _tc11.apply(this,arguments);
+      const q=G&&G.pub;if(q&&q.players[me].slots.filter(Boolean).length>before)SNAP11.failKey=key; // le ha caído castigo
+      return r;
+    }
+    return await _tc11.apply(this,arguments);
+  }catch(e){console.error(e)}
+};
+// el mazo y los botones también ignoran las ráfagas
+['tapDeck','doDiscard','doSkip','doTalmut'].forEach(fn=>{try{const f=window[fn]||eval(fn);if(typeof f!=='function')return;const w=async function(){const now=Date.now();UI.btn11=UI.btn11||{};if(UI.btn11[fn]&&now-UI.btn11[fn]<350)return;UI.btn11[fn]=now;if(inFlightAction)return;try{return await f.apply(this,arguments)}catch(e){console.error(e)}};eval(fn+'=w')}catch(e){}});
+// 2) cartas volando: nunca se quedan colgadas ni se amontonan
+const _fly11=flyCard;flyCard=function(r1,r2,card,o){
+  const fl=document.querySelectorAll('.fly-pc');if(fl.length>=6)for(let i=0;i<fl.length-5;i++)fl[i].remove();
+  const r=_fly11.apply(this,arguments);const lim=Date.now()+((o&&o.delay)||0)+((o&&o.ms)||520)+500;
+  document.querySelectorAll('.fly-pc:not([data-k11])').forEach(el=>{el.dataset.k11=lim});
+  return r};
+setInterval(()=>{const now=Date.now();document.querySelectorAll('.fly-pc[data-k11]').forEach(el=>{if(+el.dataset.k11<now&&!UI.paused)el.remove()})},700);
+// 3) muchas cartas: a partir de 9 se hacen pequeñas y nunca salen de su sitio
+function fitGrid11(n,W,H,g,ar){let best=null;for(let r=1;r<=n;r++){const c=Math.ceil(n/r);const w=Math.min((W-(c-1)*g)/c,((H-(r-1)*g)/r)/ar);if(w>0&&(!best||w>best.w+.01))best={w,r,c}}return best}
+function fitHands11(){
+  const gm=document.getElementById('gMe');
+  if(gm&&!UI.dragging){
+    const n=gm.children.length;
+    if(n>8){
+      gm.classList.remove('many11');gm.style.removeProperty('--hw');gm.style.removeProperty('--hh');gm.style.removeProperty('--hc');
+      const pc=gm.querySelector('.pc'),h0=pc?pc.getBoundingClientRect().height:80,w0=pc?pc.getBoundingClientRect().width:56;
+      const grid=gm.classList.contains('grid'),g=4,ar=h0/w0||1.4;
+      const area=gm.parentElement,W=Math.max(120,(area?area.clientWidth:gm.clientWidth)-28);
+      const H=grid?2*h0+7:h0+6;
+      const b=fitGrid11(n,W,H,g,ar);
+      if(b){gm.classList.add('many11');gm.style.setProperty('--hw',b.w.toFixed(1)+'px');gm.style.setProperty('--hh',(b.w*ar).toFixed(1)+'px');gm.style.setProperty('--hc',b.c);gm.style.setProperty('--hH',H.toFixed(1)+'px');gm.dataset.n=n}
+    }else if(gm.classList.contains('many11')){gm.classList.remove('many11')}
+  }
+  document.querySelectorAll('#gOpps .opp .row').forEach(row=>{
+    const n=row.children.length;
+    if(n>8){
+      row.classList.remove('many11');
+      const pc=row.querySelector('.pc'),h0=pc?pc.getBoundingClientRect().height:34,w0=pc?pc.getBoundingClientRect().width:24,ar=h0/w0||1.4;
+      const op=document.getElementById('gOpps'),cnt=Math.max(1,op?op.children.length:1),W=Math.max(60,Math.min(row.parentElement?row.parentElement.clientWidth:9999,(op?op.clientWidth:600)/cnt)-26),b=fitGrid11(n,W,h0,2,ar);
+      if(b){row.classList.add('many11');row.style.setProperty('--hw',b.w.toFixed(1)+'px');row.style.setProperty('--hh',(b.w*ar).toFixed(1)+'px');row.style.setProperty('--hc',b.c);row.style.setProperty('--hH',h0.toFixed(1)+'px')}
+    }else row.classList.remove('many11');
+  });
+}
+const _rg11=renderGame;renderGame=function(){const r=_rg11.apply(this,arguments);try{if(currentScreen()==='screen-game')fitHands11()}catch(e){}return r};
+addEventListener('resize',()=>{try{if(currentScreen()==='screen-game')fitHands11()}catch(e){}});
 
 applyI18n();
 refreshMenu();
