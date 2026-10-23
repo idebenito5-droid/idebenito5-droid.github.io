@@ -1780,6 +1780,59 @@ html.in-frame .k-logoimg{width:250px}
 #screen-menu.m10 .k-cap{--sk:-7deg!important;height:auto!important;min-height:0!important}
 #screen-menu.m10 .k-cont{flex:none}
 #screen-menu.m10 .k-ver{position:absolute!important;right:12px;bottom:3px;margin:0!important}
+/* ===== v10 · preparar partida unificado (diseño A) ===== */
+.u10{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;width:100%;box-sizing:border-box;padding:0 26px 14px;margin:0 auto;align-items:stretch;min-height:0}
+.u10-col{display:flex;flex-direction:column;gap:12px;min-height:0;min-width:0}
+.u10-panel{flex:1 1 auto;min-height:0;transform:skewX(-7deg);border-radius:3px;background:linear-gradient(180deg,rgba(26,14,14,.94),rgba(10,6,6,.95));box-shadow:0 14px 30px rgba(0,0,0,.5),inset 0 0 0 1.2px rgba(255,214,120,.42);overflow:hidden}
+.u10-in{transform:skewX(7deg);height:100%;box-sizing:border-box;padding:14px 20px 14px 22px;display:flex;flex-direction:column;gap:9px;overflow-y:auto;overscroll-behavior:contain}
+.u10-lbl{font-size:9.5px;font-weight:800;letter-spacing:2px;color:#D4A83A;text-transform:uppercase}
+.u10-hint{margin:0;font-size:11.5px;color:#CDBB9A;line-height:1.35}
+.u10-hint.small{font-size:10.5px;color:#A8987A;margin-top:2px}
+.u10-hd{display:flex;justify-content:space-between;align-items:baseline}
+.u10-hd small{font-size:10.5px;color:#BFAE8C}
+.u10-bar{flex:none;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);height:34px;transform:skewX(-7deg);border-radius:3px;overflow:hidden;background:linear-gradient(180deg,rgba(40,28,16,.96),rgba(14,10,8,.97));box-shadow:inset 0 0 0 1.2px rgba(255,214,120,.42)}
+.u10-sg{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(255,214,120,.2);font-weight:800;font-size:11px;letter-spacing:1.2px;color:#D9C9A3;text-align:center;padding:0 4px;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.u10-sg:first-child{border-left:0}
+.u10-sg>span{transform:skewX(7deg);display:inline-block}
+.u10-sg.on{color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#D4A83A)}
+.u10-sg.fr{color:#fff;background:linear-gradient(90deg,rgba(29,59,140,.35),rgba(244,244,244,.12) 50%,rgba(200,16,46,.35))}
+.u10-sg.fr.on{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.8);background:linear-gradient(90deg,#1D3B8C,#F4F4F4 50%,#C8102E)}
+.u10-seat{flex:none;display:flex;align-items:center;gap:10px;height:38px;text-align:left;padding:0 10px 0 12px;transform:skewX(-7deg);border-radius:3px;background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(255,214,120,.16)}
+.u10-seat>*{transform:skewX(7deg)}
+.u10-seat.empty{background:transparent;box-shadow:inset 0 0 0 1px rgba(255,214,120,.24);opacity:.78}
+.u10-seat.user{box-shadow:inset 0 0 0 1px rgba(126,226,154,.45)}
+.u10-av{width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;color:#fff;box-shadow:0 0 0 1.5px rgba(255,231,168,.6)}
+.u10-av.e{background:transparent;color:rgba(255,231,168,.6);box-shadow:inset 0 0 0 1.5px rgba(255,214,120,.4)}
+.u10-st{flex:1;min-width:0;display:flex;flex-direction:column}
+.u10-st b{font-size:13px;color:#F4EBD6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.u10-st small{font-size:10.5px;color:#BFAE8C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.u10-seats{display:flex;flex-direction:column;gap:6px}
+.u10-in{text-align:left}
+.u10-ic{all:unset;cursor:pointer;width:28px;height:28px;flex:none;border-radius:3px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(255,214,120,.3);color:#E3BC55;font-size:17px;font-weight:700}
+.u10-ic.x{color:#F7B0B0}
+.u10-link{all:unset;cursor:pointer;color:#E3BC55;text-decoration:underline;text-underline-offset:2px}
+.u10-cta{all:unset;cursor:pointer;flex:none;box-sizing:border-box;height:48px;transform:skewX(-7deg);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:16px;letter-spacing:3px;color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#C9952E);box-shadow:0 10px 26px rgba(212,168,58,.25)}
+.u10-cta>span{transform:skewX(7deg)}
+.u10-cta.off{opacity:.45;cursor:default}
+.u10-cta:not(.off):active{filter:brightness(1.08)}
+.u10-fld{flex:1;min-width:0;height:34px;transform:skewX(-7deg);border-radius:3px;background:rgba(0,0,0,.45);box-shadow:inset 0 0 0 1.2px rgba(255,214,120,.38);display:flex}
+.u10-fld input{all:unset;flex:1;min-width:0;transform:skewX(7deg);padding:0 12px;font-size:12.5px;color:#F4EBD6;-webkit-user-select:text;user-select:text}
+#joinCode{letter-spacing:6px;text-align:center;font-weight:800}
+.u10-add{display:flex;gap:8px}
+.u10-plus{all:unset;cursor:pointer;width:40px;height:34px;flex:none;transform:skewX(-7deg);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#C9952E)}
+.u10-plus>span{transform:skewX(7deg)}
+.u10-chips{display:flex;gap:6px;flex-wrap:wrap}
+.u10-chip{all:unset;cursor:pointer;height:26px;padding:0 10px;transform:skewX(-7deg);border-radius:3px;display:inline-flex;align-items:center;font-size:11px;font-weight:700;color:#E3BC55;box-shadow:inset 0 0 0 1px rgba(255,214,120,.35)}
+.u10-chip>span{transform:skewX(7deg)}
+.u10-resume{all:unset;cursor:pointer;height:32px;transform:skewX(-7deg);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:#0E2A14;background:linear-gradient(180deg,#9DF0B4,#4FB06A)}
+.u10-resume>span{transform:skewX(7deg)}
+.u10-sm{all:unset;cursor:pointer;flex:none;height:40px;transform:skewX(-7deg);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:900;font-size:14px;letter-spacing:2.5px;color:#FFE7A8;background:linear-gradient(180deg,rgba(60,18,22,.96),rgba(22,8,10,.96));box-shadow:inset 0 0 0 1.2px rgba(255,214,120,.55)}
+.u10-sm>span{transform:skewX(7deg)}
+.u10-sm:active{filter:brightness(1.25)}
+.u10-lu .lu-box{margin:0!important;border-radius:3px!important}
+#screen-online #onlineBody,#screen-bots #botsBody,#u10Local{flex:1 1 auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;margin-top:12px!important;margin-bottom:0!important}
+html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-frame #screen-setup.active{height:100dvh;overflow:hidden!important}
+#onlineBody>.u10,#botsBody>.u10,#u10Local>.u10{flex:1 1 auto;min-height:0;height:100%}
 </style>
 </head>
 <body>
@@ -5609,7 +5662,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='9.9';
+const APP_VER='10.0';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6433,7 +6486,7 @@ const _tm94=toggleMusic;toggleMusic=function(){const r=_tm94.apply(this,argument
 // ---------- habilidad secreta: en LOCAL, al tocar un usuario suena un sonido al azar ----------
 const EGG_SND={};
 function eggSound(){if(!eggOn()||!SONIDOS_EGG.length||!SND.sfxOn)return;let f;do{f=SONIDOS_EGG[Math.floor(Math.random()*SONIDOS_EGG.length)]}while(f===UI.eggLast&&SONIDOS_EGG.length>1);UI.eggLast=f;try{if(UI.eggA)UI.eggA.pause();const a=new Audio(f);a.volume=Math.min(1,.9*sfxVol());UI.eggA=a;a.play().catch(()=>{})}catch(e){}}
-const _lt94=luToggle;luToggle=function(){const r=_lt94.apply(this,arguments);eggSound();return r};
+// (los sonidos ya no suenan al tocar usuarios: ahora van con el botón «Sonidos SM»)
 
 // =====================================================================
 //  v9.7 · TALMUT en la esquina del tablero · panel izquierdo de ajustes
@@ -6535,6 +6588,91 @@ const _rg97=renderGame;renderGame=function(){const r=_rg97.apply(this,arguments)
 function menu10Txt(){try{const s=document.querySelector('#screen-menu .k-nav span[data-l10="look"]');if(s)s.textContent=L('Estilo','Style')}catch(e){}}
 menu10Txt();
 const _rm99=refreshMenu;refreshMenu=function(){const r=_rm99.apply(this,arguments);menu10Txt();return r};
+
+
+// =====================================================================
+//  v10.0 · PREPARAR PARTIDA unificado (Online · Arcade · Local) · diseño A
+// =====================================================================
+const U10={otype:LS.get('u10otype','rapida')};
+function u10Bar(items){return `<div class="u10-bar">${items.map(it=>`<button class="u10-sg${it.on?' on':''}${it.x?' '+it.x:''}" onclick="${it.fn}"><span>${it.l}</span></button>`).join('')}</div>`}
+function u10Seat(name,sub,color,opts){opts=opts||{};return `<div class="u10-seat${opts.empty?' empty':''}${opts.user?' user':''}">${opts.empty?`<span class="u10-av e">${opts.i||'?'}</span>`:`<span class="u10-av" style="background:${color||avColor(name)}">${esc(String(name).charAt(0).toUpperCase())}</span>`}<span class="u10-st"><b>${esc(name)}</b><small>${sub||''}</small></span>${opts.tail||''}</div>`}
+function u10Wrap(left,right,cta,extra){return `<div class="u10"><div class="u10-col"><div class="u10-panel"><div class="u10-in">${left}</div></div>${extra||''}</div><div class="u10-col"><div class="u10-panel"><div class="u10-in">${right}</div></div>${cta}</div></div>`}
+function u10Cta(label,fn,off){return `<button class="u10-cta${off?' off':''}" onclick="${fn}"${off?' disabled':''}><span>${label}</span></button>`}
+const U10_PEN='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A83A" stroke-width="2" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>';
+
+// ---------- ONLINE ----------
+function u10SetO(v){U10.otype=v;LS.set('u10otype',v);play('select');renderOnlineHome()}
+const _roh10=renderOnlineHome;renderOnlineHome=function(){
+  const r=_roh10.apply(this,arguments);
+  try{
+    const b=document.getElementById('onlineBody');if(!b||!ONLINE_READY||!session)return r;
+    const p=profile||{nickname:'…',games:0,wins:0,rounds_won:0},guest=session.user.is_anonymous,resume=LS.get('onlineGame',null),o=U10.otype;
+    const ttl=L('Tipo de partida','Game type');
+    let left=`${resume?`<button class="u10-resume" onclick="resumeOnline()"><span>▶ ${L('Volver a tu partida','Back to your game')} · ${esc(resume.code||'')}</span></button>`:''}<span class="u10-lbl">${ttl}</span>`+
+      u10Bar([{l:L('Rápida','Quick'),on:o==='rapida',fn:"u10SetO('rapida')"},{l:L('Crear sala','Create room'),on:o==='sala',fn:"u10SetO('sala')"},{l:L('Unirse','Join'),on:o==='unirse',fn:"u10SetO('unirse')"}])+
+      `<p class="u10-hint">${o==='rapida'?L('Te emparejamos con otros jugadores · 5 rondas.','We match you with other players · 5 rounds.'):o==='sala'?L('Crea una sala y comparte el código con tus amigos.','Create a room and share the code with your friends.'):L('Escribe el código que te ha pasado tu amigo.','Type the code your friend gave you.')}</p>`;
+    if(o==='sala')left+=`<span class="u10-lbl">${L('Rondas','Rounds')}</span>`+u10Bar([3,5,10].map(n=>({l:n+(n===10?' ★':''),on:createRounds===n,fn:`createRounds=${n};play('select');renderOnlineHome()`})));
+    if(o==='unirse')left+=`<span class="u10-lbl">${L('Código de la sala','Room code')}</span><div class="u10-fld"><input id="joinCode" maxlength="5" autocomplete="off" placeholder="${L('CÓDIGO','CODE')}" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')" onkeydown="if(event.key==='Enter')joinRoom()"></div>`;
+    left+=`<p class="u10-hint small">${L('Las salas con tus amigos están en Amigos.','Rooms with your friends are in Friends.')}</p>`;
+    const empty=o==='rapida'?L('Buscando jugador…','Looking for a player…'):o==='sala'?L('Esperando a un amigo…','Waiting for a friend…'):L('Por confirmar','To be confirmed');
+    let right=`<div class="u10-hd"><span class="u10-lbl">${L('En la mesa','At the table')}</span><small>${o==='rapida'?L('hasta 4 jugadores','up to 4 players'):L('hasta 6 jugadores','up to 6 players')}</small></div>`+
+      u10Seat(p.nickname||'?',`${p.games||0} ${L('partidas','games')} · ${p.wins||0} ${L('victorias','wins')} · ${p.rounds_won||0} ${L('rondas','rounds')}`,avColor(p.nickname||'?'),{tail:`<button class="u10-ic" onclick="editNick()" aria-label="${L('Cambiar apodo','Edit nickname')}">${U10_PEN}</button>`})+
+      [1,2,3].map(()=>u10Seat(empty,'',null,{empty:true})).join('')+
+      `<p class="u10-hint small">${guest?L('Juegas como invitado.','Playing as guest.')+' ':L('Conectado con Google.','Signed in with Google.')+' '}<button class="u10-link" onclick="signOut()">${L('Cerrar sesión','Sign out')}</button></p>`;
+    const cta=o==='rapida'?u10Cta(L('BUSCAR PARTIDA','FIND A GAME'),'quickMatch()'):o==='sala'?u10Cta(L('CREAR SALA','CREATE ROOM'),'createRoom()'):u10Cta(L('UNIRME','JOIN'),'joinRoom()');
+    b.innerHTML=u10Wrap(left,right,cta);
+  }catch(e){console.error(e)}
+  return r;
+};
+
+// ---------- ARCADE ----------
+const _rbs10=renderBotsScreen;renderBotsScreen=function(){
+  const r=_rbs10.apply(this,arguments);
+  try{
+    const b=document.getElementById('botsBody');if(!b)return r;const c=BOTCFG;
+    const dd={easy:L('Fácil: se olvida de cartas y canta tarde.','Easy: forgets cards and calls late.'),normal:L('Normal: juega con cabeza, a veces se despista.','Normal: plays sensibly, sometimes slips.'),hard:L('Tiburón: lo recuerda todo y usa la Q y la K con mala idea.','Shark: remembers everything and uses Q and K nastily.'),french:L('Partida francesa: todos los bots van solo a por ti.','French game: every bot plays only against you.')};
+    const left=`<span class="u10-lbl">${L('Rivales','Rivals')}</span>`+u10Bar([1,2,3,4,5].map(n=>({l:n,on:c.n===n,fn:`setBotCfg('n',${n})`})))+
+      `<span class="u10-lbl">${L('Dificultad','Difficulty')}</span>`+u10Bar([['easy',L('Fácil','Easy')],['normal','Normal'],['hard',L('Tiburón','Shark')],['french',L('Francesa','French'),'fr']].map(([k,l,x])=>({l,x,on:c.diff===k,fn:`setBotCfg('diff','${k}')`})))+
+      `<p class="u10-hint">${dd[c.diff]||''}</p><span class="u10-lbl">${L('Rondas','Rounds')}</span>`+u10Bar([3,5,10].map(n=>({l:n+(n===10?' ★':''),on:c.rounds===n,fn:`setBotCfg('rounds',${n})`})));
+    const right=`<div class="u10-hd"><span class="u10-lbl">${L('En la mesa','At the table')}</span><small>${c.n+1} ${L('jugadores','players')}</small></div>`+
+      u10Seat(myName(),L('tú','you'),ME.color||avColor(myName()))+BOTS.slice(0,c.n).map(x=>u10Seat(x.name,'bot · '+x.tag,x.color)).join('')+
+      `<p class="u10-hint small">${L('Cuenta en tus estadísticas «Contra la máquina».','Counts in your “vs machine” stats.')}</p>`;
+    b.innerHTML=u10Wrap(left,right,u10Cta(L('EMPEZAR PARTIDA','START GAME'),'startBots()'));
+  }catch(e){console.error(e)}
+  return r;
+};
+
+// ---------- LOCAL ----------
+function u10Add(){const i=document.getElementById('u10Name');if(!i)return;const v=i.value;if(!v.trim())return;addSetupPlayer(v);const j=document.getElementById('u10Name');if(j){j.value='';j.focus()}}
+const _rs10=renderSetup;renderSetup=function(){
+  const r=_rs10.apply(this,arguments);
+  try{
+    const sc=document.getElementById('screen-setup');if(!sc)return r;
+    const pad=sc.querySelector('.pad');sc.querySelectorAll(':scope > .pad, :scope > .grow').forEach(e=>{if(e.id!=='u10Local')e.style.display='none'});
+    let box=document.getElementById('u10Local');if(!box){box=document.createElement('div');box.id='u10Local';box.className='pad u10-pad';(pad||sc.querySelector('.divider')).after(box)}
+    const off=setup.mode==='official';
+    const recent=LS.get('names',[]).filter(n=>!setup.players.some(p=>p.toLowerCase()===n.toLowerCase())).slice(0,8);
+    let left=`<span class="u10-lbl">${L('Modo','Mode')}</span>`+u10Bar([{l:L('Oficial · 10 rondas','Official · 10 rounds'),on:off,fn:"setSetupMode('official')"},{l:L('Libre','Free'),on:!off,fn:"setSetupMode('free')"}])+
+      `<p class="u10-hint">${t(off?'setup.official.d':'setup.free.d')}</p>`;
+    if(!off)left+=`<span class="u10-lbl">${L('Rondas','Rounds')}</span>`+u10Bar([3,5,10].map(n=>({l:n,on:setup.rounds===n,fn:`setRounds(${n})`})));
+    left+=`<div class="u10-lu">${luBlock()}</div><span class="u10-lbl">${L('Jugadores','Players')}</span><div class="u10-add"><div class="u10-fld"><input id="u10Name" maxlength="16" autocomplete="off" placeholder="${L('Nombre del jugador','Player name')}" onkeydown="if(event.key==='Enter')u10Add()"></div><button class="u10-plus" onclick="u10Add()" aria-label="${L('Añadir','Add')}"><span>+</span></button></div>`+
+      (recent.length?`<div class="u10-chips">${recent.map(n=>`<button class="u10-chip" data-n="${esc(n)}" onclick="addSetupPlayer(this.dataset.n)"><span>+ ${esc(n)}</span></button>`).join('')}</div>`:'');
+    const seats=setup.players.map((n,i)=>u10Seat(n,setup.uids&&setup.uids[n]?L('usuario de TALMUT','TALMUT user'):L('jugador','player'),avColor(n),{user:!!(setup.uids&&setup.uids[n]),tail:`<button class="u10-ic x" onclick="removeSetupPlayer(${i})" aria-label="${L('Quitar','Remove')}">×</button>`})).join('')||u10Seat(L('Añade jugadores','Add players'),L('mínimo 2','at least 2'),null,{empty:true,i:'+'});
+    const right=`<div class="u10-hd"><span class="u10-lbl">${L('En la mesa','At the table')}</span><small>${t('setup.count',{n:setup.players.length})}</small></div><div class="u10-seats">${seats}</div>`;
+    const sm=eggOn()?`<button class="u10-sm" onclick="smSound()"><span>♪ ${L('Sonidos SM','SM sounds')}</span></button>`:'';
+    box.innerHTML=u10Wrap(left,right,u10Cta(L('EMPEZAR PARTIDA','START GAME'),'startScorer()',setup.players.length<2),sm);
+  }catch(e){console.error(e)}
+  return r;
+};
+// «Sonidos SM»: todos en orden aleatorio, sin repetir hasta que suenen todos
+UI.smQ=[];
+function smSound(){
+  if(!SONIDOS_EGG.length)return;
+  if(!UI.smQ.length){const a=SONIDOS_EGG.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}if(a[0]===UI.eggLast&&a.length>1)a.push(a.shift());UI.smQ=a}
+  const f=UI.smQ.shift();UI.eggLast=f;
+  try{if(UI.eggA)UI.eggA.pause();const au=new Audio(f);au.volume=Math.min(1,.95*sfxVol());UI.eggA=au;au.play().catch(()=>{})}catch(e){}
+  buzz(20);
+}
 
 applyI18n();
 refreshMenu();
