@@ -4186,7 +4186,7 @@ async function api(action,payload){
   if(LOCAL)return localApi(action,payload);
   if(!sb)return null;
   try{
-    const{data,error}=await sb.functions.invoke('game',{body:Object.assign({action,gameId:G?G.id:undefined},payload||{})});
+    const{data,error}=await sb.functions.invoke('game',{body:Object.assign({action,gameId:G?G.id:undefined},payload||{}),region:'eu-west-1'});
     if(error){
       let code='generic';
       try{const j=await error.context.json();code=j.error||code;if(j.serverNow)serverOffset=j.serverNow-Date.now()}catch(e){if(String(error.message||'').toLowerCase().includes('fetch'))code='net'}
@@ -4309,8 +4309,8 @@ function enterGame(){
 function subscribe(){
   unsubscribe();
   const id=G.id;
-  channel=sb.channel('game:'+id,{config:{broadcast:{self:false}}}).on('broadcast',{event:'chat'},m=>{const pl=m&&m.payload;if(pl&&G&&G.id===id)chatRecv(pl)}).on('broadcast',{event:'react'},m=>{const pl=m&&m.payload;if(pl&&G&&G.id===id&&Number.isInteger(pl.p)&&typeof pl.k==='string')showReact(pl.p,pl.k)}).on('postgres_changes',{event:'UPDATE',schema:'public',table:'games',filter:'id=eq.'+id},p=>{UI.lastRT=Date.now();if(G&&G.id===id)applyState(id,p.new.code,p.new.state,p.new.version)}).subscribe();
-  pollTimer=setInterval(async()=>{if(!G||Date.now()-(UI.lastRT||0)<3500)return;const{data}=await sb.from('games').select('code,state,version').eq('id',G.id).maybeSingle();if(data&&G)applyState(G.id,data.code,data.state,data.version)},2000);
+  channel=sb.channel('game:'+id,{config:{broadcast:{self:false}}}).on('broadcast',{event:'chat'},m=>{const pl=m&&m.payload;if(pl&&G&&G.id===id)chatRecv(pl)}).on('broadcast',{event:'react'},m=>{const pl=m&&m.payload;if(pl&&G&&G.id===id&&Number.isInteger(pl.p)&&typeof pl.k==='string')showReact(pl.p,pl.k)}).on('broadcast',{event:'state'},m=>{const pl=m&&m.payload;if(!pl||pl.id!==id||!pl.state)return;UI.lastRT=Date.now();if(G&&G.id===id)applyState(id,pl.code,pl.state,pl.version)}).on('postgres_changes',{event:'UPDATE',schema:'public',table:'games',filter:'id=eq.'+id},p=>{UI.lastRT=Date.now();if(G&&G.id===id)applyState(id,p.new.code,p.new.state,p.new.version)}).subscribe();
+  pollTimer=setInterval(async()=>{if(!G||G.local||document.hidden||Date.now()-(UI.lastRT||0)<2500||UI.polling)return;UI.polling=1;try{const{data}=await sb.from('games').select('code,state,version').eq('id',G.id).maybeSingle();if(data&&G)applyState(G.id,data.code,data.state,data.version)}catch(e){}finally{UI.polling=0}},1000);
   tickTimer=setInterval(tick,250);
 }
 function unsubscribe(){if(channel){sb.removeChannel(channel);channel=null}clearInterval(pollTimer);clearInterval(tickTimer)}
@@ -5952,7 +5952,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='3.1';
+const APP_VER='3.3';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7357,6 +7357,11 @@ addEventListener('resize',()=>{try{if(currentScreen()==='screen-game')fitHands11
 // v3.1 · un fallo al pintar un evento nunca puede congelar la partida
 const _pe31=processEvents;processEvents=function(st){try{return _pe31.apply(this,arguments)}catch(e){console.error(e);try{const evs=(st&&st.events)||[];if(evs.length)lastEventId=evs[evs.length-1].id}catch(x){}}};
 const _rg31=renderGame;renderGame=function(){try{return _rg31.apply(this,arguments)}catch(e){console.error(e)}};
+// v3.2 · online: al volver a la app o recuperar internet, pedir el estado al momento
+async function syncNow32(){try{if(!G||G.local||!sb)return;const{data}=await sb.from('games').select('code,state,version').eq('id',G.id).maybeSingle();if(data&&G)applyState(G.id,data.code,data.state,data.version)}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncNow32()});
+addEventListener('online',()=>{syncNow32();try{if(G&&!G.local)subscribe()}catch(e){}});
+addEventListener('focus',()=>syncNow32());
 
 applyI18n();
 refreshMenu();
