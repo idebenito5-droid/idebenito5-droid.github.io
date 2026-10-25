@@ -4370,7 +4370,7 @@ function processEvents(st){
   trackEvents(st,fresh);setTimeout(()=>animEvents(fresh),40);
   fresh.forEach(e=>{
     const n=pname(e.p),until=Date.now()+1800;
-    const L=logLine(e,n);if(L){UI.log.unshift(L);UI.log.length=Math.min(UI.log.length,12)}
+    const LG=logLine(e,n);if(LG){UI.log.unshift(LG);UI.log.length=Math.min(UI.log.length,12)}
     if((e.type==='discard'||e.type==='snap')&&e.card){UI.discards.unshift(e.card);UI.discards.length=Math.min(UI.discards.length,8)}
     if(e.type==='swap_blind'||e.type==='k_swap'){anims.push(()=>animSwap(e.a,e.b));showNotice(`<b>${t('ev.swapBig',{n,c:e.type==='k_swap'?'K':'Q'})}</b><small>${t('ev.swapDet',{a:e.a.s+1,pa:pobj(e.a.p),b:e.b.s+1,pb:pobj(e.b.p)})}</small>`)}
     if(e.type==='look_own'&&e.p!==me){anims.push(()=>animEye(e.p,e.s));showNotice(`<b>${t('ev.lookOwnBig',{n})}</b>`)}
@@ -5952,7 +5952,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='3.0';
+const APP_VER='3.1';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7354,6 +7354,9 @@ function fitHands11(){
 }
 const _rg11=renderGame;renderGame=function(){const r=_rg11.apply(this,arguments);try{if(currentScreen()==='screen-game')fitHands11()}catch(e){}return r};
 addEventListener('resize',()=>{try{if(currentScreen()==='screen-game')fitHands11()}catch(e){}});
+// v3.1 · un fallo al pintar un evento nunca puede congelar la partida
+const _pe31=processEvents;processEvents=function(st){try{return _pe31.apply(this,arguments)}catch(e){console.error(e);try{const evs=(st&&st.events)||[];if(evs.length)lastEventId=evs[evs.length-1].id}catch(x){}}};
+const _rg31=renderGame;renderGame=function(){try{return _rg31.apply(this,arguments)}catch(e){console.error(e)}};
 
 applyI18n();
 refreshMenu();
