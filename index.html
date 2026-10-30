@@ -4186,7 +4186,7 @@ async function api(action,payload){
   if(LOCAL)return localApi(action,payload);
   if(!sb)return null;
   try{
-    const{data,error}=await sb.functions.invoke('game',{body:Object.assign({action,gameId:G?G.id:undefined},payload||{}),region:'eu-west-1'});
+    const{data,error}=await sb.functions.invoke('game',{body:Object.assign({action,gameId:G?G.id:undefined},payload||{})});
     if(error){
       let code='generic';
       try{const j=await error.context.json();code=j.error||code;if(j.serverNow)serverOffset=j.serverNow-Date.now()}catch(e){if(String(error.message||'').toLowerCase().includes('fetch'))code='net'}
@@ -5952,7 +5952,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='3.3';
+const APP_VER='3.4';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
