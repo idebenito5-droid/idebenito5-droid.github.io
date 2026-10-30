@@ -2259,6 +2259,9 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 #gOverlay>.endchat{width:min(24vw,230px)!important;margin:0!important;right:12px!important;left:auto!important}
 #gOverlay.chat42{padding-right:calc(min(24vw,230px) + 24px)!important}
 #gOverlay>.ec-l .ec-m{width:auto}
+.bots43{display:flex;flex-direction:column;gap:6px}.bots43 .u10-bar,.bots43l .u10-bar{height:30px}.bots43 .u10-sg,.bots43l .u10-sg{font-size:10px;letter-spacing:.6px}
+.bots43l{display:flex;flex-direction:column;gap:6px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px rgba(255,214,120,.2)}
+.bots43l .u10-lbl{transform:none}
 </style>
 </head>
 <body>
@@ -6101,7 +6104,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='4.2';
+const APP_VER='4.3';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7933,6 +7936,24 @@ showReact=(function(orig){return function(pi,k){const p=G&&G.pub;
   return orig.apply(this,arguments)}})(showReact);
 // también durante la pausa antes de destapar, el chat del panel ya lo recoge; al volver a jugar se limpia
 const _pe42=processEvents;processEvents=function(st){try{if(st&&st.status!=='round_end'){UI.endLog=[]}}catch(e){}return _pe42.apply(this,arguments)};
+
+// ===================== v4.3 · bots en partidas online =====================
+U10.bots=+LS.get('onBots',0)||0;
+function setOnBots(n){U10.bots=n;LS.set('onBots',n);play('select');if(currentScreen()==='screen-lobby'&&G&&G.pub&&G.pub.status==='lobby')api('bots',{n});else renderOnlineHome()}
+const _cr43=createRoom;createRoom=async function(){const r=await _cr43.apply(this,arguments);try{if(G&&G.pub&&G.pub.status==='lobby'&&!G.pub.isPublic&&U10.bots>0)await api('bots',{n:U10.bots})}catch(e){}return r};
+function botsBar43(cur){if(cur==null)cur=U10.bots;return `<span class="u10-lbl">${L('Bots en la partida','Bots in the game')}</span>`+u10Bar([0,1,2,3,4].map(n=>({l:n===0?L('Ninguno','None'):String(n),on:cur===n,fn:`setOnBots(${n})`})))}
+const _roh43=renderOnlineHome;renderOnlineHome=function(){const r=_roh43.apply(this,arguments);
+  try{if(UI.aurum||U10.otype!=='sala')return r;const col=document.querySelector('#onlineBody .u10-col .u10-in');if(!col||col.querySelector('.bots43'))return r;
+    const d=document.createElement('div');d.className='bots43';d.innerHTML=botsBar43();const hint=col.querySelector('.u10-hint.small');if(hint)hint.before(d);else col.appendChild(d);
+    // en la mesa: huecos de bots
+    const seats=[...document.querySelectorAll('#onlineBody .u10-col:nth-child(2) .u10-seat.empty')];seats.forEach((s,i)=>{if(i<U10.bots){s.classList.remove('empty');s.innerHTML=`<span class="u10-av" style="background:#4A4A52">🤖</span><span class="u10-st"><b>Bot ${i+1}</b><small>${L('Juega solo','Plays by itself')}</small></span>`}})}catch(e){console.error(e)}
+  return r};
+const _rl43=renderLobby;renderLobby=function(){const r=_rl43.apply(this,arguments);
+  try{const p=G&&G.pub;if(!p||p.isPublic||p.stake)return r;const me=myIdx(),host=p.players[me]&&p.players[me].uid===p.hostUid;const nb=p.players.filter(x=>x.bot).length;
+    const body=document.getElementById('lobbyBody');if(!body)return r;
+    body.querySelectorAll('.lobby-player').forEach((row,i)=>{const pl=p.players[i];if(pl&&pl.bot&&!row.querySelector('.botag')){row.insertAdjacentHTML('beforeend','<span class="tag off botag">BOT</span>')}});
+    body.querySelectorAll('.bots43l').forEach(x=>x.remove());if(host){const d=document.createElement('div');d.className='bots43l';d.innerHTML=botsBar43(nb);const sl=body.querySelector('.section-label');if(sl)sl.before(d);else body.prepend(d)}}catch(e){console.error(e)}
+  return r};
 
 applyI18n();
 refreshMenu();
