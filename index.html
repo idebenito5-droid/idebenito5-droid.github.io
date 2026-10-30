@@ -2208,6 +2208,30 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .au-win svg{width:26px;height:26px;flex:none}.au-win.me{background:linear-gradient(180deg,rgba(255,214,90,.3),rgba(120,70,10,.3))}
 .au-pile{display:flex;align-items:flex-end}.au-pile svg{width:22px;height:22px;margin-left:-8px}.au-pile svg:first-child{margin-left:0}
 .au-pile.big svg{width:46px;height:46px;margin-left:-16px}
+/* v3.8 */
+#gOverlay .reveal-row:not([data-i]){display:flex!important;align-items:center;gap:12px;padding:8px 14px}
+#gOverlay .reveal-row:not([data-i])>span:first-child{flex:none;width:22px!important;text-align:center}
+#gOverlay .reveal-row:not([data-i])>div:not(.avatar):not(.sc){flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+#gOverlay .reveal-row:not([data-i]) .sc,#gOverlay .reveal-row:not([data-i])>:last-child{margin-left:auto;flex:none}
+.hen11{all:unset;cursor:pointer;align-self:center;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px 5px;border-radius:12px;background:linear-gradient(180deg,#FFF3D6,#F2D08A);box-shadow:0 0 0 2px #E8343E,0 0 18px rgba(255,200,90,.7);animation:hen11 .9s ease-in-out infinite alternate}
+.hen11 svg{width:34px;height:34px}.hen11 span{font-size:10px;font-weight:900;color:#7A1A1E;letter-spacing:.5px}
+@keyframes hen11{from{transform:rotate(-6deg) scale(1)}to{transform:rotate(6deg) scale(1.08)}}
+.endr11{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0 6px}
+.endr11 button{all:unset;cursor:pointer;box-sizing:border-box;min-height:34px;padding:4px 8px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:999px;font-size:11.5px;font-weight:800;line-height:1.15;color:#FFE7A8;background:linear-gradient(180deg,rgba(60,22,24,.95),rgba(26,10,12,.95));box-shadow:inset 0 0 0 1.3px rgba(255,214,120,.55)}
+.endr11 button.off{opacity:.45;pointer-events:none}
+.endr11 button:active{transform:scale(.96)}
+.hic11{position:fixed;inset:0;z-index:260;pointer-events:none;background:radial-gradient(circle at 50% 45%,rgba(60,8,12,.35),rgba(0,0,0,.25));animation:hicIn .2s both}
+.hic11.out{animation:hicOut .4s forwards}
+.hic11 .stone{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);padding:22px 38px;background:linear-gradient(180deg,#8A8275,#5A544B);border-radius:4px;box-shadow:0 20px 40px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.2),inset 0 -4px 0 rgba(0,0,0,.3);animation:hicDrop .7s cubic-bezier(.5,0,.75,0) both,hicThud .35s .7s both}
+.hic11 .stone b{display:block;text-align:center;font-family:'Cinzel',serif;font-weight:900;font-size:clamp(22px,4.4vw,36px);letter-spacing:5px;line-height:1.15;color:#2A2622;text-shadow:0 1px 0 rgba(255,255,255,.25),0 -1px 0 rgba(0,0,0,.4)}
+.hic11 .crack{position:absolute;inset:0;width:100%;height:100%}.hic11 .crack path{stroke:#1a1410;stroke-width:2.5;fill:none;stroke-dasharray:400;stroke-dashoffset:400;animation:hicCr .4s .75s forwards}
+.hic11 .dust{position:absolute;left:50%;top:56%;width:520px;height:60px;margin-left:-260px;background:radial-gradient(ellipse,rgba(200,180,150,.5),transparent 70%);opacity:0;animation:hicDust .9s .7s both}
+.hic11 .red{position:absolute;left:0;right:0;top:calc(42% + 74px);text-align:center;font-size:14px;font-weight:900;letter-spacing:2px;color:#FF6B72;text-shadow:0 2px 6px #000;animation:hicUp .5s 1s both}
+@keyframes hicIn{from{opacity:0}to{opacity:1}}@keyframes hicOut{to{opacity:0}}
+@keyframes hicDrop{from{transform:translate(-50%,-260%)}to{transform:translate(-50%,-50%)}}
+@keyframes hicThud{0%{transform:translate(-50%,-50%) scaleY(.94)}100%{transform:translate(-50%,-50%)}}
+@keyframes hicCr{to{stroke-dashoffset:0}}@keyframes hicDust{0%{opacity:0;transform:scaleX(.4)}30%{opacity:1}100%{opacity:0;transform:scaleX(1.3)}}
+@keyframes hicUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -6050,7 +6074,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='3.7';
+const APP_VER='3.9';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7647,7 +7671,7 @@ const R11_BASE=R9_ORDER.slice();
 function cfgApply(){
   try{(CFG.reacts.custom||[]).forEach(c=>{const k='x_'+c.id;let r=REACTS.find(x=>x.k===k);if(!r)REACTS.push({k,es:c.t});else r.es=c.t});
     const hid=new Set(CFG.reacts.hidden||[]);const order=R11_BASE.filter(k=>!hid.has(k)).concat((CFG.reacts.custom||[]).filter(c=>!hid.has('x_'+c.id)).map(c=>'x_'+c.id));
-    R9_ORDER.splice(0,R9_ORDER.length,...order);
+    const oo=order.filter(k=>k!=='creer');if(order.includes('creer'))oo.push('creer');R9_ORDER.splice(0,R9_ORDER.length,...oo);
     noticeRender()}catch(e){console.error(e)}}
 async function cfgLoad(){try{if(!sb)return;const{data,error}=await sb.from('app_config').select('key,value');if(error||!data)return;
   data.forEach(r=>{if(r.key in CFG)CFG[r.key]=Object.assign(Array.isArray(CFG[r.key])?[]:{},CFG[r.key],r.value)});LS.set('cfg11',CFG);cfgApply()}catch(e){}}
@@ -7786,6 +7810,51 @@ const _ra36=renderAdmin;renderAdmin=function(){
 // v3.7 · Ajustes ↔ Administrador: volver atrás siempre lleva al menú
 const _os37=openSettings;openSettings=function(){const from=UI.setFrom;const r=_os37.apply(this,arguments);if(UI.setFrom==='screen-admin')UI.setFrom=UI.admFrom||from||'screen-menu';return r};
 const _oa37=openAdmin;openAdmin=function(){UI.admFrom=UI.setFrom&&UI.setFrom!=='screen-admin'?UI.setFrom:'screen-menu';return _oa37.apply(this,arguments)};
+
+// ===================== v3.8 =====================
+// ---------- la gallina: cápsula al descartar un comodín ----------
+const HEN_SVG='<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M10 8c1-3 4-4 5-2 1-2 4-1 3 2" fill="#E8343E"/><path d="M7 13c0-4 3-6 6-6s5 2 5 5c3-2 7-3 9-1-1 1-1 3 0 4 1 5-3 10-10 10-6 0-10-4-10-9z" fill="#FFF6E6" stroke="#5A3A1E" stroke-width="1.2"/><path d="M5 12l-3 1.5 3 1.2z" fill="#F2B233"/><circle cx="9.3" cy="11.2" r="1.3" fill="#1a0d02"/><path d="M8 15c1 1.6 2.2 1.6 3 0" fill="#E8343E"/><path d="M14 17c2 3 6 3 8 1" fill="none" stroke="#D9C3A0" stroke-width="1.3" stroke-linecap="round"/><path d="M13 26v3M17 26v3" stroke="#F2B233" stroke-width="1.4" stroke-linecap="round"/></svg>';
+REACTS.push({k:'hen',es:'¡Cocorocó! 🐔'});
+UI.hen=null;
+const _ra38=reactAllowed;reactAllowed=function(r){if(r&&r.k==='hen')return !!(UI.hen&&!UI.hen.used);if(r&&r.end)return !!(G&&G.pub&&G.pub.status==='round_end');return _ra38.apply(this,arguments)};
+const _pe38=processEvents;processEvents=function(st){
+  try{((st&&st.events)||[]).filter(e=>e.id>lastEventId).forEach(e=>{
+    if((e.type==='discard'||e.type==='snap'||e.type==='auto')&&e.card&&rankOfC(e.card)==='X')UI.hen={id:e.id,used:false};
+    else if(e.type==='draw'||e.type==='round_end'||e.type==='round')UI.hen=null})}catch(e){}
+  return _pe38.apply(this,arguments)};
+function henTap(){if(!UI.hen||UI.hen.used)return;sendReact('hen')}
+const _sr38=showReact;showReact=function(pi,k){if(k==='hen'){if(UI.hen)UI.hen.used=true;try{play('hen')}catch(e){}buzz([40,30,40])}return _sr38.apply(this,arguments)};
+function henBtn(){const piles=document.getElementById('gPiles');if(!piles)return;let b=document.getElementById('henBtn');
+  const on=!!(UI.hen&&!UI.hen.used&&G&&G.pub.status==='play'&&myIdx()>=0);
+  if(!on){if(b)b.remove();return}
+  if(!b){b=document.createElement('button');b.id='henBtn';b.className='hen11';b.setAttribute('onclick','henTap()');b.innerHTML=HEN_SVG+'<span>¡Co-có!</span>';const d=document.getElementById('gDisc');(d||piles).after?d.after(b):piles.appendChild(b)}}
+// ---------- final de ronda: frases propias en fila ----------
+[['bien','Bien jugado'],['rencor','Sin rencores'],['tela','Vaya tela'],['personal','Empieza a ser algo personal']].forEach(([k,es])=>REACTS.push({k,es,end:1}));
+function endReacts(){const ov=document.getElementById('gOverlay');if(!ov||ov.classList.contains('hidden'))return;const p=G&&G.pub;
+  let row=ov.querySelector('.endr11');
+  if(!p||p.status!=='round_end'||myIdx()<0||TUT){if(row)row.remove();return}
+  if(!row){row=document.createElement('div');row.className='endr11';const nx=ov.querySelector('#nextIn');if(nx)nx.before(row);else ov.appendChild(row)}
+  const cool=UI.lastReact&&Date.now()-UI.lastReact<1800;
+  setHtml(row,REACTS.filter(r=>r.end).map(r=>`<button${cool?' class="off"':''} onclick="sendReact('${r.k}')">${esc(r.es)}</button>`).join(''))}
+const _rg38=renderGame;renderGame=function(){const r=_rg38.apply(this,arguments);try{if(currentScreen()==='screen-game'){henBtn();endReacts()}}catch(e){}return r};
+const _send38=sendReact;sendReact=function(k){const r=_send38.apply(this,arguments);try{endReacts();setTimeout(endReacts,1900)}catch(e){}return r};
+
+// ===================== v3.9 · HIC LUDUS ERROREM PUNIT (losa de piedra) al equivocarse =====================
+function hicPunit(name,why){
+  document.querySelectorAll('.hic11').forEach(e=>e.remove());
+  const d=document.createElement('div');d.className='hic11';
+  d.innerHTML=`<div class="dust"></div><div class="stone"><b>HIC LUDUS<br>ERROREM PUNIT</b><svg class="crack" viewBox="0 0 400 140" preserveAspectRatio="none"><path d="M200 0 L188 40 L212 62 L196 98 L206 140"/><path d="M188 40 L150 52 M212 62 L250 70"/></svg></div><div class="red">✖ ${esc(name)} · ${esc(why)}</div>`;
+  document.body.appendChild(d);setTimeout(()=>{try{play('snapFail')}catch(e){}buzz([90,40,90])},700);
+  setTimeout(()=>d.classList.add('out'),2100);setTimeout(()=>d.remove(),2500);
+}
+const _pe39=processEvents;processEvents=function(st){
+  try{const me=myIdx();((st&&st.events)||[]).filter(e=>e.id>lastEventId).forEach(e=>{
+    if(e.type==='snap_fail')hicPunit(e.p===me?L('TE EQUIVOCAS','YOU MISSED'):String(pname(e.p)).toUpperCase(),L('CARTA DE CASTIGO','PENALTY CARD'));
+    if(e.type==='round_end'&&st.reveal&&st.reveal.wrong&&st.reveal.declarer>=0){const dcl=st.reveal.declarer;setTimeout(()=>hicPunit(dcl===me?L('TALMUT ERRÓNEO','WRONG TALMUT'):String(pname(dcl)).toUpperCase()+' · TALMUT',L('SUMA LOS PUNTOS DE TODOS','TAKES EVERYONE\'S POINTS')),400)}
+  })}catch(e){}
+  return _pe39.apply(this,arguments)};
+// el aviso pequeño de abajo ya no hace falta
+const _toast39=toast;toast=function(m,k){if(k==='bad'&&typeof m==='string'&&/ha fallado: carta de castigo|missed: penalty card/.test(m))return;return _toast39.apply(this,arguments)};
 
 applyI18n();
 refreshMenu();
