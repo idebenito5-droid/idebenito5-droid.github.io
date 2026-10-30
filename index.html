@@ -2246,6 +2246,19 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .hen11.hpD span{font-size:10px;font-weight:900;letter-spacing:.6px;color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#D4A83A);padding:1px 8px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.5)}
 .hen11.hpD:active img{transform:scale(.94)}
 @keyframes henD{from{transform:rotate(-4deg) translateY(0)}to{transform:rotate(4deg) translateY(-3px)}}
+.hen11.pk img{animation:henPk .25s ease-out}@keyframes henPk{0%{transform:scale(.85)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+.endr11{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important}
+.endr11 button{min-height:30px!important;font-size:10.5px!important}
+.endr11 button.end{background:linear-gradient(180deg,rgba(90,60,14,.95),rgba(40,24,6,.95))!important;box-shadow:inset 0 0 0 1.3px rgba(255,214,120,.8)!important}
+.endr11 button.mx{color:#9BE8B4;box-shadow:inset 0 0 0 1.3px rgba(79,208,122,.7)!important}
+.endchat{position:fixed;right:max(10px,env(safe-area-inset-right));top:12%;bottom:12%;width:min(23vw,240px);z-index:5;display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:6px;background:rgba(10,6,6,.85);box-shadow:inset 0 0 0 1.2px rgba(255,214,120,.35)}
+.endchat>p{margin:0;font-size:9.5px;font-weight:800;letter-spacing:2px;color:#E8343E;text-transform:uppercase}
+.ec-l{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
+.ec-m{font-size:12px;color:#F4EBD6;line-height:1.3;padding:5px 8px;border-radius:5px;background:rgba(255,255,255,.05)}
+.ec-m b{font-weight:800}
+#gOverlay>.endchat{width:min(24vw,230px)!important;margin:0!important;right:12px!important;left:auto!important}
+#gOverlay.chat42{padding-right:calc(min(24vw,230px) + 24px)!important}
+#gOverlay>.ec-l .ec-m{width:auto}
 </style>
 </head>
 <body>
@@ -3139,7 +3152,7 @@ var TENG = (() => {
       if (winners.includes(i)) return jokers[i] && jokers[i] === (sec.hands[i] || []).filter((c) => c !== null).length ? -jokers[i] : 0;
       return raw[i];
     });
-    if (wrong) scores[d] = act2.filter((i) => i !== d).reduce((a, i) => a + raw[i], 0);
+    if (wrong) scores[d] = act2.reduce((a, i) => a + raw[i], 0);
     pub.players.forEach((p, i) => {
       p.rounds.push(scores[i]);
       p.total += scores[i];
@@ -3619,7 +3632,7 @@ es:`
 <li>Cada uno de los demás juega <b>un último turno</b>. Después, todos dan la vuelta a sus cartas.</li>
 <li>Si alguien se queda sin cartas por descartes cruzados, el TALMUT se canta solo.</li>
 </ul>
-<p><b>Cuidado:</b> si cantas TALMUT y sumas <b>más de 5</b>, te anotas la suma de los puntos de las cartas de todos los demás jugadores.</p></div>
+<p><b>Cuidado:</b> si cantas TALMUT y sumas <b>más de 5</b>, te anotas la suma de los puntos de <b>todas</b> las cartas de la mesa: las tuyas y las de todos los demás (J 20, Q 30, K 40, comodín 50).</p></div>
 
 <div class="rule"><h3><span class="n">7</span>Puntuación de la ronda</h3>
 <ul>
@@ -3694,7 +3707,7 @@ en:`
 <li>Every other player gets <b>one last turn</b>. Then everyone reveals their cards.</li>
 <li>If someone runs out of cards through snaps, TALMUT is called automatically.</li>
 </ul>
-<p><b>Careful:</b> if you call TALMUT and have <b>more than 5</b>, you score the sum of all the other players’ card points.</p></div>
+<p><b>Careful:</b> if you call TALMUT and have <b>more than 5</b>, you score the sum of <b>every</b> card on the table: yours and everyone else’s (J 20, Q 30, K 40, joker 50).</p></div>
 
 <div class="rule"><h3><span class="n">7</span>Round scoring</h3>
 <ul>
@@ -6088,7 +6101,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='4.1';
+const APP_VER='4.2';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7886,6 +7899,40 @@ async function salaDel11(id,btn){
   catch(e){toast(t('err.generic'),'bad')}UI.busy=false}
 // también dentro de la sala
 const _sr40=salaRender;salaRender=function(){const r=_sr40.apply(this,arguments);try{const s=SALA.cur;const c=document.querySelector('#salaBody .u10-col .u10-in');if(s&&c&&!c.querySelector('.sdel11b')){const host=s.host===session.user.id;c.insertAdjacentHTML('beforeend',`<button class="u10-chip sdel11b" onclick="salaDel11('${s.id}',this)"><span>${host?'🗑 '+L('Borrar sala','Delete room'):'✕ '+L('Salir de la sala para siempre','Leave this room for good')}</span></button>`)}}catch(e){}return r};
+
+// ===================== v4.2 =====================
+// ---------- gallina: solo suena si alguien la pulsa; 2 s para darle sin parar ----------
+const _play42=play;play=function(k){if(k==='hen'&&!UI.henOk)return;return _play42.apply(this,arguments)};
+function henSound(){UI.henOk=1;try{_play42('hen')}catch(e){}UI.henOk=0}
+henTap=function(){const h=UI.hen;if(!h)return;const now=Date.now();
+  if(h.used&&!(h.until&&now<h.until))return;
+  if(!h.used){h.used=true;h.until=now+2000;setTimeout(()=>{if(UI.hen===h){UI.hen=null;try{renderGame()}catch(e){}}},2050)}
+  henSound();buzz(25);const b=document.getElementById('henBtn');if(b){b.classList.remove('pk');void b.offsetWidth;b.classList.add('pk')}
+  try{if(channel&&G&&!G.local)channel.send({type:'broadcast',event:'react',payload:{p:myIdx(),k:'hen'}})}catch(e){}
+  if(!h.counted){h.counted=1;bump('react')}};
+showReact=(function(orig){return function(pi,k){if(k==='hen'){const h=UI.hen;if(h&&!h.used){h.used=true;h.until=Date.now()+2000;setTimeout(()=>{if(UI.hen===h){UI.hen=null;try{renderGame()}catch(e){}}},2050)}henSound();return}return orig.apply(this,arguments)}})(_sr38);
+const _hb42=henBtn;henBtn=function(){const h=UI.hen;const live=h&&(!h.used||(h.until&&Date.now()<h.until));
+  if(live&&h.used){const saved=h.used;h.used=false;_hb42();h.used=saved}else _hb42()};
+reactAllowed=(function(o){return function(r){if(r&&r.k==='hen')return false;return o.apply(this,arguments)}})(reactAllowed);
+
+// ---------- fin de ronda: todas las cápsulas y chat a la derecha ----------
+endReacts=function(){const ov=document.getElementById('gOverlay');const p=G&&G.pub;
+  let row=ov&&ov.querySelector('.endr11'),chat=ov&&ov.querySelector('.endchat');
+  if(!ov||ov.classList.contains('hidden')||!p||p.status!=='round_end'||myIdx()<0||TUT){if(row)row.remove();if(chat)chat.remove();if(ov)ov.classList.remove('chat42');return}
+  ov.classList.add('chat42');
+  if(!chat){chat=document.createElement('div');chat.className='endchat';chat.innerHTML=`<p>${L('En directo','Live')}</p><div class="ec-l"></div>`;ov.appendChild(chat);(UI.endLog||[]).forEach(x=>ecAdd(x,true))}
+  if(!row){row=document.createElement('div');row.className='endr11';const nx=ov.querySelector('#nextIn');if(nx)nx.before(row);else ov.appendChild(row)}
+  const cool=UI.lastReact&&Date.now()-UI.lastReact<1800;const used=UI.creerKey&&UI.creerKey===creerKey();
+  const keys=R9_ORDER.filter(k=>{const r=REACTS.find(x=>x.k===k);return r&&!r.ctx&&!(r.mx&&used)}).filter(k=>k!=='creer').concat(REACTS.filter(r=>r.end).map(r=>r.k)).concat(R9_ORDER.includes('creer')&&!used?['creer']:[]);
+  setHtml(row,keys.map(k=>{const r=REACTS.find(x=>x.k===k);return `<button class="${cool?'off ':''}${r.end?'end':''}${r.mx?' mx':''}" onclick="sendReact('${k}')">${esc(r.es)}</button>`}).join(''))};
+function ecAdd(x,silent){const l=document.querySelector('#gOverlay .endchat .ec-l');if(!l)return;const d=document.createElement('div');d.className='ec-m';d.innerHTML=`<b style="color:${x.c}">${esc(x.n)}</b> ${esc(x.t)}`;l.appendChild(d);while(l.children.length>14)l.firstChild.remove();l.scrollTop=l.scrollHeight}
+showReact=(function(orig){return function(pi,k){const p=G&&G.pub;
+  if(p&&p.status==='round_end'&&k!=='hen'){const r=REACTS.find(x=>x.k===k);if(!r)return;const x={n:p.players[pi]?p.players[pi].name:'?',t:r.es,c:typeof pcol9==='function'?pcol9(pi):'#FFE7A8'};
+    const key=G.id+':'+p.round;if(UI.endKey!==key){UI.endKey=key;UI.endLog=[]}UI.endLog.push(x);ecAdd(x);try{play('pop')}catch(e){}
+    UI.log.unshift(`💬 ${esc(x.n)}: «${esc(r.es)}»`);UI.log.length=Math.min(UI.log.length,12);if(r.mx)matrixRain(x.n);return}
+  return orig.apply(this,arguments)}})(showReact);
+// también durante la pausa antes de destapar, el chat del panel ya lo recoge; al volver a jugar se limpia
+const _pe42=processEvents;processEvents=function(st){try{if(st&&st.status!=='round_end'){UI.endLog=[]}}catch(e){}return _pe42.apply(this,arguments)};
 
 applyI18n();
 refreshMenu();
