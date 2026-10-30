@@ -2186,6 +2186,28 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
 .p10 .u10-col:nth-child(2) .u10-in{gap:6px!important;padding-top:10px!important;padding-bottom:10px!important}
 .p10 .u10-col:nth-child(2) .u10-fld{height:32px;flex:none}
 .p10 .p10-sw{height:24px}
+/* ===== v3.6 · Aurum Persecutio ===== */
+.kc6{--acc:#FFD45A;--tint:rgba(40,24,4,.72);--glow:rgba(255,212,90,.55)}
+.kc6 .k-art{background:radial-gradient(circle at 26% 64%,#FFE7A8 0 6%,#E3BC55 7% 11%,#7A4A1E 12% 13%,transparent 14%),radial-gradient(circle at 40% 70%,#FFE7A8 0 6%,#E3BC55 7% 11%,#7A4A1E 12% 13%,transparent 14%),radial-gradient(circle at 70% 40%,#FFE7A8 0 7%,#E3BC55 8% 13%,#7A4A1E 14% 15%,transparent 16%),radial-gradient(ellipse at 50% 20%,#5A3A10,#1C1006 75%)!important}
+#screen-menu.m10 .k-stack .kc6 .k-t{font-size:clamp(13px,1.8vw,18px)!important}
+.au-chip svg,.au-st svg,.s9-pot svg,.au-lpot svg,.au-win svg{width:100%;height:100%;display:block}
+.au-wal{flex:none;display:flex;align-items:center;gap:10px;height:46px;padding:0 10px;border-radius:3px;background:linear-gradient(180deg,rgba(80,52,14,.55),rgba(30,18,6,.55));box-shadow:inset 0 0 0 1.2px rgba(255,214,120,.5)}
+.au-wal>*{transform:skewX(7deg)}.au-chip{flex:none;width:30px;height:30px}
+.au-wal .u10-st b{font-family:'Cinzel',serif;font-size:19px;color:#FFE7A8}
+.au-list{gap:5px!important}.au-c{height:38px}.au-c.poor{opacity:.5}
+.au-crest{flex:none;width:28px;height:28px;border-radius:3px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;box-shadow:inset 0 0 0 1.5px rgba(255,231,168,.6)}
+.au-crest.big{width:44px;height:44px;font-size:22px}
+.au-st{flex:none;display:flex;align-items:center;gap:4px;font-family:'Cinzel',serif;font-weight:900;font-size:12px;color:#FFE7A8}.au-st svg{width:15px;height:15px}
+.au-hero{flex:none;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,214,120,.3)}
+.au-hero>*{transform:skewX(7deg)}.au-nm{font-family:'Cinzel',serif;font-weight:900;font-size:20px!important;color:#FFE7A8!important}
+.au-hero .u10-st small{white-space:normal!important;line-height:1.3}
+.s9-pot{display:flex;align-items:center;gap:7px;margin:0 0 6px;padding:5px 9px;border-radius:4px;background:rgba(227,188,85,.12);box-shadow:inset 0 0 0 1px rgba(227,188,85,.45);font-size:11px;color:#E9D7AE}
+.s9-pot svg{width:16px;height:16px;flex:none}.s9-pot b{margin-left:auto;font-family:'Cinzel',serif;color:#FFE7A8;font-size:13px}
+.au-lpot{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px;border-radius:6px;background:rgba(227,188,85,.12);box-shadow:inset 0 0 0 1px rgba(227,188,85,.45);font-size:13px;color:#E9D7AE}.au-lpot svg{width:20px;height:20px}
+.au-win{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto 10px;padding:10px 16px;border-radius:6px;background:rgba(227,188,85,.12);box-shadow:inset 0 0 0 1.2px rgba(227,188,85,.55);font-weight:800;color:#FFE7A8}
+.au-win svg{width:26px;height:26px;flex:none}.au-win.me{background:linear-gradient(180deg,rgba(255,214,90,.3),rgba(120,70,10,.3))}
+.au-pile{display:flex;align-items:flex-end}.au-pile svg{width:22px;height:22px;margin-left:-8px}.au-pile svg:first-child{margin-left:0}
+.au-pile.big svg{width:46px;height:46px;margin-left:-16px}
 </style>
 </head>
 <body>
@@ -2215,7 +2237,7 @@ html.in-frame #screen-online.active,html.in-frame #screen-bots.active,html.in-fr
   <button id="continueBtn" class="k-cont hidden" onclick="continueScorer()"><svg width="12" height="14" viewBox="0 0 18 20"><polygon points="3,2 16,10 3,18" fill="#6BBF7A"/></svg><b data-t="m.continue"></b><small id="continueDesc"></small></button>
 
   <div class="k-caps">
-    <button class="k-cap kc1" onclick="openOnline()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay1"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>EN LÍNEA</span><div class="k-txt"><div class="k-t">ONLINE</div><div class="k-s">Partida rápida o sala con amigos</div><div class="k-rule"></div></div></button>
+    <div class="k-stack"><button class="k-cap kc1" onclick="openOnline()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay1"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>EN LÍNEA</span><div class="k-txt"><div class="k-t">ONLINE</div><div class="k-s">Partida rápida o sala con amigos</div><div class="k-rule"></div></div></button><button class="k-cap kc6" onclick="openAurum()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>CON APUESTAS</span><div class="k-txt"><div class="k-t">AURUM PERSECUTIO</div><div class="k-s">El ganador se lleva el bote</div><div class="k-rule"></div></div></button></div>
     <button class="k-cap kc2" onclick="openBots()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay2"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>SIN CONEXIÓN</span><div class="k-txt"><div class="k-t">ARCADE</div><div class="k-s">Contra la máquina</div><div class="k-rule"></div></div></button>
     <button class="k-cap kc3" onclick="openSetup()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine delay3"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>EN LA MESA</span><div class="k-txt"><div class="k-t">LOCAL</div><div class="k-s">Tabla para jugar con baraja real</div><div class="k-rule"></div></div></button>
     <div class="k-stack"><button class="k-cap kc5" onclick="openChuk()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>¿QUIÉN EMPIEZA?</span><div class="k-txt"><div class="k-t">CHUKWUEZE</div><div class="k-s">Un dedo cada uno</div><div class="k-rule"></div></div></button><button class="k-cap kc4" onclick="startTutorial()"><div class="k-brk"><i></i><i></i><i></i><i></i></div><div class="k-card shine"><div class="k-art"></div><div class="k-tint"></div></div><span class="k-tag"><i></i>3 MINUTOS</span><div class="k-txt"><div class="k-t">APRENDE</div><div class="k-s">Con Juanjo, el Cuervo</div><div class="k-rule"></div></div></button></div>
@@ -5627,7 +5649,7 @@ function facePreview(k,c,w,h){
 }
 function pickColor(c){ME.color=c;saveMe();play('select');const a=document.getElementById('profAv');if(a)a.style.background=c;document.querySelectorAll('#profBody .sw').forEach(e=>e.classList.toggle('on',e.getAttribute('aria-label')===c));achCheck();syncProfileSoon()}
 async function saveProfile(){
-  const nm=(document.getElementById('pfName').value||'').trim().slice(0,16),ph=(document.getElementById('pfPhrase').value||'').trim().slice(0,40);
+  const nm=(document.getElementById('pfName').value||'').trim().slice(0,16),ph=(document.getElementById('pfPhrase').value||'').trim().slice(0,43);
   ME.phrase=ph;if(nm)ME.name=nm;saveMe();
   if(nm&&sb&&session&&profile&&nm!==profile.nickname){const{error}=await sb.from('profiles').update({nickname:nm}).eq('id',session.user.id);if(!error)profile.nickname=nm}
   refreshMyColor();achCheck();syncProfileSoon();toast(t('on.saved'),'good');renderProfile();
@@ -6028,7 +6050,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='3.5';
+const APP_VER='3.7';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -7174,7 +7196,7 @@ const _rp28=renderProfile;renderProfile=function(){
     const mid=`<span class="u10-lbl">${L('Apodo','Nickname')}</span><div class="u10-fld"><input id="pfName" maxlength="16" autocomplete="off" value="${esc(myName())}"></div>
       <p class="u10-hint small">${L('Pon el que quieras: es el nombre que ven los demás.','Use any name: it is what the others see.')}</p>
       <span class="u10-lbl">${L('Tu color','Your colour')}</span><div class="p10-cols">${COLORS.map(c=>`<button class="sw p10-sw${(ME.color||'')===c?' on':''}" style="background:${c}" onclick="pickColor('${c}')" aria-label="${c}"></button>`).join('')}</div>
-      <span class="u10-lbl">${L('Frase al ganar','Winning line')}</span><div class="u10-fld"><input id="pfPhrase" maxlength="40" autocomplete="off" placeholder="Hic ludus errorem punit" value="${esc(ME.phrase||'')}"></div>`;
+      <span class="u10-lbl">${L('Frase al ganar','Winning line')}</span><div class="u10-fld"><input id="pfPhrase" maxlength="43" autocomplete="off" placeholder="Hic ludus errorem punit" value="${esc(ME.phrase||'')}"></div>`;
     const stats=`<span class="u10-lbl">${L('Estadísticas','Stats')}</span>`+u10Bar([['res',L('Todo','All')],['on','Online'],['ar','Arcade'],['lo','Local'],['ju',L('Jugadas','Plays')]].map(([kk,l])=>({l,on:tab===kk,fn:`p10Tab('${kk}')`})))+
       `<div class="p10-tiles">${cur.t.map(([v,l,h])=>`<div class="p10-t${h?' hi':''}"><b>${esc(String(v))}</b><small>${esc(l)}</small></div>`).join('')}</div>`+
       `<div class="p10-rows">${cur.r.map(([l,v])=>`<div class="p10-r"><span>${esc(l)}</span><b>${esc(String(v))}</b></div>`).join('')}</div>`+
@@ -7680,6 +7702,90 @@ async function admSave(){
     else{Object.assign(CFG,JSON.parse(JSON.stringify(ADM.d)));LS.set('cfg11',CFG);cfgApply();toast(L('Guardado. Ya lo ven todos.','Saved. Everyone sees it now.'),'good')}}
   catch(e){toast(t('err.generic'),'bad')}UI.busy=false}
 const _rm11b=refreshMenu;refreshMenu=function(){const r=_rm11b.apply(this,arguments);noticeRender();return r};
+
+// ===================== v3.6 · AURUM PERSECUTIO (salas con apuesta de fichas) =====================
+const AU_CITIES=[
+ {k:'tarraco',n:'Tarraco',stake:50,d:['Puerto romano junto al mar. Para empezar a apostar.','A Roman port by the sea. Where betting begins.'],c:['#C9A04A','#7A4A1E'],ic:'⚓'},
+ {k:'toletum',n:'Toletum',stake:100,d:['Ciudad de espadas y forjas. Aquí ya se juega en serio.','City of swords and forges. Now it gets serious.'],c:['#B9B2A3','#4A4A52'],ic:'⚔'},
+ {k:'samarcanda',n:'Samarcanda',stake:500,d:['Oasis de la Ruta de la Seda: sedas, especias y oro.','Silk Road oasis: silk, spices and gold.'],c:['#3BA6C9','#1C3E6E'],ic:'✦'},
+ {k:'venecia',n:'Venecia',stake:1000,d:['Canales y mercaderes. Solo para bolsillos llenos.','Canals and merchants. Deep pockets only.'],c:['#C94A4A','#5E1420'],ic:'♜'},
+ {k:'constantinopla',n:'Constantinopla',stake:10000,d:['La gran capital. Aquí juegan los más ricos del reino.','The great capital. The richest of the realm play here.'],c:['#E3BC55','#6B2A8A'],ic:'♛'}];
+const AU={chips:null,daily:0,sel:LS.get('auCity','tarraco'),t:0,rake:0.05};
+const CHIP_SVG='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#E3BC55"/><circle cx="12" cy="12" r="10" fill="none" stroke="#7A4A1E" stroke-width="2" stroke-dasharray="3.2 2.4"/><circle cx="12" cy="12" r="6" fill="#FFE7A8" stroke="#B07A1A" stroke-width="1.2"/><text x="12" y="15.2" text-anchor="middle" font-size="8" font-weight="900" fill="#7A4A1E" font-family="Cinzel,serif">A</text></svg>';
+function fmtCh(n){return Number(n||0).toLocaleString('es-ES')}
+async function auWallet(force){if(!sb||!session)return;if(!force&&AU.t&&Date.now()-AU.t<20000)return;AU.t=Date.now();
+  try{const{data,error}=await sb.functions.invoke('game',{body:{action:'wallet'}});if(error||!data)return;AU.chips=data.chips;if(data.rake!=null)AU.rake=data.rake;
+    if(data.daily){AU.daily=data.daily;toast(L(`🎁 +${data.daily} fichas de regalo de hoy`,`🎁 +${data.daily} free chips today`),'good');play('chest')}
+    if(currentScreen()==='screen-online'&&UI.aurum)renderOnlineHome();if(currentScreen()==='screen-profile'&&profTab==='shop')renderProfile()}catch(e){}}
+function openAurum(){UI.aurum=true;play('select');renderOnlineHome();showScreen('screen-online');auWallet(true)}
+const _oo36=openOnline;openOnline=function(){UI.aurum=false;return _oo36.apply(this,arguments)};
+function auPick(k){AU.sel=k;LS.set('auCity',k);play('select');renderOnlineHome()}
+async function auPlay(){const c=AU_CITIES.find(x=>x.k===AU.sel);if(!c||UI.busy)return;
+  if(AU.chips!=null&&AU.chips<c.stake){toast(L('No tienes fichas suficientes','Not enough chips'),'bad');return}
+  UI.busy=true;const r=await api('quick',{stake:c.stake});UI.busy=false;
+  if(r&&r.error==='no_chips'){toast(L('No tienes fichas suficientes','Not enough chips'),'bad');auWallet(true);return}
+  if(r&&!r.error){AU.chips=AU.chips!=null?AU.chips-c.stake:null;enterGame()}}
+const _roh36=renderOnlineHome;renderOnlineHome=function(){
+  const r=_roh36.apply(this,arguments);
+  try{const h1=document.querySelector('#screen-online .topbar h1'),sub=document.querySelector('#screen-online .topbar p');
+    if(!UI.aurum){if(h1&&h1.dataset.au){h1.removeAttribute('data-au');h1.setAttribute('data-t','m.online');if(sub)sub.setAttribute('data-t','on.s');h1.textContent=t('m.online');if(sub)sub.textContent=t('on.s')}return r}
+    if(h1){h1.dataset.au=1;h1.removeAttribute('data-t');h1.textContent='Aurum Persecutio'}if(sub){sub.removeAttribute('data-t');sub.textContent=L('Partidas con apuesta de fichas','Games with chip bets')}
+    const b=document.getElementById('onlineBody');if(!b||!ONLINE_READY||!session)return r;
+    const c=AU_CITIES.find(x=>x.k===AU.sel)||AU_CITIES[0],ch=AU.chips;
+    const left=`<div class="au-wal"><span class="au-chip">${CHIP_SVG}</span><span class="u10-st"><small>${L('Tus fichas','Your chips')}</small><b>${ch==null?'…':fmtCh(ch)}</b></span><button class="u10-mini" onclick="openShop('chips:c1200')"><span>＋ ${L('FICHAS','CHIPS')}</span></button></div>
+      <span class="u10-lbl">${L('Elige ciudad','Pick a city')}</span><div class="u10-seats au-list">${AU_CITIES.map(x=>{const can=ch==null||ch>=x.stake;return `<button class="u10-seat u10-pick au-c${x.k===c.k?' on':''}${can?'':' poor'}" onclick="auPick('${x.k}')"><span class="au-crest" style="background:linear-gradient(160deg,${x.c[0]},${x.c[1]})">${x.ic}</span><span class="u10-st"><b>${x.n}</b><small>${L('Entrada','Entry')} ${fmtCh(x.stake)}</small></span><span class="au-st">${CHIP_SVG}${fmtCh(x.stake)}</span></button>`}).join('')}</div>`;
+    const max4=c.stake*4,prize=Math.floor(max4*(1-AU.rake));const can=ch==null||ch>=c.stake;
+    const right=`<div class="au-hero" style="background:linear-gradient(160deg,${c.c[0]}33,${c.c[1]}66)"><span class="au-crest big" style="background:linear-gradient(160deg,${c.c[0]},${c.c[1]})">${c.ic}</span><span class="u10-st"><b class="au-nm">${c.n}</b><small>${esc(L(c.d[0],c.d[1]))}</small></span></div>
+      <div class="p10-rows"><div class="p10-r"><span>${L('Entrada por jugador','Entry per player')}</span><b>${fmtCh(c.stake)}</b></div><div class="p10-r"><span>${L('Bote con 4 jugadores','Pot with 4 players')}</span><b>${fmtCh(max4)}</b></div><div class="p10-r"><span>${L('Se lleva el ganador','Winner takes')}</span><b>${fmtCh(prize)}</b></div></div>
+      <p class="u10-hint small">${L(`5 rondas, hasta 4 jugadores. Quien acabe con menos puntos se lleva el bote (menos un ${Math.round(AU.rake*100)} %). Si sales antes de empezar, recuperas la entrada. Fichas solo de juego, sin valor en dinero.`,`5 rounds, up to 4 players. Lowest score takes the pot (minus ${Math.round(AU.rake*100)}%). Leave before it starts and you get your entry back. Play-only chips, no cash value.`)}</p>`;
+    const cta=can?u10Cta(`${L('APOSTAR','BET')} ${fmtCh(c.stake)} · ${L('JUGAR','PLAY')}`,'auPlay()'):`<button class="u10-sm" onclick="openShop('chips:c1200')"><span>${L(`TE FALTAN ${fmtCh(c.stake-ch)} FICHAS · TIENDA`,`${fmtCh(c.stake-ch)} CHIPS SHORT · SHOP`)}</span></button>`;
+    b.innerHTML=u10Wrap(left,right,cta);
+  }catch(e){console.error(e)}
+  return r};
+// en la partida: el bote
+const _rs36=renderSide9;renderSide9=function(){const r=_rs36.apply(this,arguments);try{const p=G&&G.pub;let el=document.getElementById('s9Pot');
+  if(!p||!p.stake){if(el)el.remove();return r}
+  if(!el){const rows=document.getElementById('s9Rows');if(!rows)return r;el=document.createElement('div');el.id='s9Pot';el.className='s9-pot';rows.parentElement.insertBefore(el,rows)}
+  el.innerHTML=`${CHIP_SVG}<span>${L('Bote','Pot')}</span><b>${fmtCh(p.pot||0)}</b>`}catch(e){}return r};
+// en la sala de espera
+const _rl36=renderLobby;renderLobby=function(){const r=_rl36.apply(this,arguments);try{const p=G&&G.pub;if(p&&p.stake){const t1=document.getElementById('lobbyTitle');const c=AU_CITIES.find(x=>x.stake===p.stake);if(t1)t1.textContent=(c?c.n:'Aurum')+' · Aurum Persecutio';const sb2=document.getElementById('lobbyBody');if(sb2&&!sb2.querySelector('.au-lpot'))sb2.insertAdjacentHTML('afterbegin',`<div class="au-lpot">${CHIP_SVG}<span>${L('Bote','Pot')}: <b>${fmtCh(p.pot||0)}</b> · ${L('entrada','entry')} ${fmtCh(p.stake)}</span></div>`)}}catch(e){}return r};
+// al acabar: quién se lleva el bote
+const _ro36=renderOverlay;renderOverlay=function(){const r=_ro36.apply(this,arguments);try{const p=G&&G.pub;if(p&&p.status==='finished'&&p.stake&&p.payout){const ov=document.getElementById('gOverlay');if(ov&&!ov.querySelector('.au-win')){const me=session&&session.user&&session.user.id;const mine=p.payout.uids.includes(me);
+  ov.insertAdjacentHTML('afterbegin',`<div class="au-win${mine?' me':''}">${CHIP_SVG}<span>${mine?L(`¡Te llevas ${fmtCh(p.payout.prize)} fichas!`,`You win ${fmtCh(p.payout.prize)} chips!`):L(`El bote (${fmtCh(p.payout.prize)} fichas) se lo lleva ${p.payout.uids.map(u=>{const pl=p.players.find(x=>x.uid===u);return pl?pl.name:'?'}).join(' y ')}`,`The pot (${fmtCh(p.payout.prize)} chips) goes to ${p.payout.uids.map(u=>{const pl=p.players.find(x=>x.uid===u);return pl?pl.name:'?'}).join(' & ')}`)}</span></div>`);if(mine){play('chest');setTimeout(()=>auWallet(true),2500)}}}}catch(e){}return r};
+
+// ---------- Tienda: lotes de fichas ----------
+const CHIP_PACKS=[['c500',500,0],['c1200',1000,200],['c3000',2500,500],['c8000',6500,1500],['c25000',20000,5000]];
+const _sl36=shopList11;shopList11=function(tab){if(tab!=='chips')return _sl36.apply(this,arguments);
+  return CHIP_PACKS.map(([k,base,gift])=>({id:'chips:'+k,name:fmtCh(base+gift)+' '+L('fichas','chips'),pv:`<span class="au-pile">${CHIP_SVG}${CHIP_SVG}${CHIP_SVG}</span>`,st:'shop'}))};
+const _rs36b=renderShop11;renderShop11=function(b){
+  const tab=UI.s11tab||'pack';
+  if(tab!=='chips'){_rs36b.apply(this,arguments);addChipsTab36(b);return}
+  const sel=(UI.s11sel||'').startsWith('chips:')?UI.s11sel:'chips:c1200';UI.s11sel=sel;const k=sel.split(':')[1];const pk=CHIP_PACKS.find(x=>x[0]===k)||CHIP_PACKS[1];
+  const items=shopList11('chips').map(o=>{const pr=price11(o.id)||'— €';return `<button class="e11-it${o.id===sel?' on':''}" onclick="s11Pick('${o.id}')"><span class="e11-tag"><span>${esc(pr)}</span></span><span class="e11-pv s11-pv">${o.pv}</span><b>${esc(o.name)}</b></button>`}).join('');
+  b.innerHTML=`<div class="u10 p11 s11"><div class="u10-col"><div class="u10-panel"><div class="u10-in">
+    <div class="u10-hd"><span class="u10-lbl">${L('Fichas de Aurum Persecutio','Aurum Persecutio chips')}</span>${pk[2]?`<span class="e11-tag st"><span>+${fmtCh(pk[2])} ${L('DE REGALO','FREE')}</span></span>`:''}</div>
+    <div class="e11-prev au-shopv"><span class="au-pile big">${CHIP_SVG}${CHIP_SVG}${CHIP_SVG}${CHIP_SVG}</span></div>
+    <b class="s11-nm">${fmtCh(pk[1]+pk[2])} ${L('fichas','chips')}</b><p class="u10-hint small">${L('Para apostar en las ciudades de Aurum Persecutio. Las fichas son solo de juego: no se pueden cambiar por dinero ni pasar a otros jugadores.','To bet in the Aurum Persecutio cities. Chips are for play only: no cash value and not transferable.')}${AU.chips!=null?' '+L('Tienes','You have')+' '+fmtCh(AU.chips)+'.':''}</p>
+    <div class="s11-pr"><span>${L('Precio','Price')}</span><b>${esc(price11(sel)||L('Por definir','To be set'))}</b></div></div></div>${u10Cta(L('COMPRAR','BUY'),'s11Buy()')}</div>
+    <div class="u10-col"><div class="u10-panel"><div class="u10-in">${tabs36()}<div class="e11-grid s11-grid">${items}</div>
+    <p class="u10-hint small">${L('Cada día al entrar en Aurum Persecutio te regalamos 100 fichas.','Every day you open Aurum Persecutio you get 100 free chips.')}</p></div></div></div></div>`;
+};
+function tabs36(){const tab=UI.s11tab||'pack';return u10Bar([['pack','Packs'],['felt',L('Tapetes','Tables')],['back',L('Reversos','Backs')],['face',L('Cartas','Cards')],['chips',L('Fichas','Chips')]].map(([kk,l])=>({l,on:tab===kk,fn:`s11Tab('${kk}')`})))}
+function addChipsTab36(b){try{const bar=b.querySelector('.s11 .u10-col:nth-child(2) .u10-bar');if(bar){const d=document.createElement('div');d.innerHTML=tabs36();bar.replaceWith(d.firstElementChild)}}catch(e){}}
+const _osh36=openShop;openShop=function(sel){const r=_osh36.apply(this,arguments);auWallet();return r};
+// administrador: fichas para probar + precios de los lotes
+const _ap36=admPrices;admPrices=function(){return _ap36.apply(this,arguments).concat(CHIP_PACKS.map(([k,b,g])=>['chips:'+k,fmtCh(b+g)+' '+L('fichas','chips')]))};
+async function admGrant(n){try{const{data,error}=await sb.functions.invoke('game',{body:{action:'grant',amount:n}});if(error||!data)return toast(L('No se pudo (¿has desplegado la función nueva y ejecutado el SQL?)','Failed (did you deploy the new function and run the SQL?)'),'bad');AU.chips=data.chips;toast(L(`Ahora tienes ${fmtCh(data.chips)} fichas`,`You now have ${fmtCh(data.chips)} chips`),'good');renderAdmin()}catch(e){toast(t('err.generic'),'bad')}}
+const _ra36=renderAdmin;renderAdmin=function(){
+  if(ADM.tab!=='fichas'){_ra36.apply(this,arguments);try{const bar=document.querySelector('#admBody .adm-top .u10-bar');if(bar&&!bar.querySelector('[data-f]')){const x=document.createElement('button');x.className='u10-sg';x.dataset.f=1;x.setAttribute('onclick',"admTab('fichas')");x.innerHTML='<span>'+L('Fichas','Chips')+'</span>';bar.appendChild(x)}}catch(e){}return}
+  const b=document.getElementById('admBody');const bar=u10Bar([['frases',L('Frases de partida','Game phrases')],['aviso',L('Aviso del menú','Menu notice')],['precios',L('Precios de la Tienda','Shop prices')],['fichas',L('Fichas','Chips')]].map(([k,l])=>({l,on:ADM.tab===k,fn:`admTab('${k}')`})));
+  const left=`<span class="u10-lbl">${L('Tus fichas','Your chips')}</span><div class="au-wal"><span class="au-chip">${CHIP_SVG}</span><span class="u10-st"><small>${L('Saldo','Balance')}</small><b>${AU.chips==null?'…':fmtCh(AU.chips)}</b></span></div>
+    <span class="u10-lbl">${L('Añadir a tu cuenta (para probar)','Add to your account (for testing)')}</span><div class="u10-chips">${[1000,10000,50000].map(n=>`<button class="u10-chip" onclick="admGrant(${n})"><span>＋ ${fmtCh(n)}</span></button>`).join('')}</div>`;
+  const right=`<p class="u10-hint">${L('Solo tu cuenta puede darse fichas. Sirve para probar las salas caras sin comprar.','Only your account can grant chips. Useful to test the expensive rooms.')}</p>`;
+  b.innerHTML=`<div class="adm-top">${bar}</div>`+u10Wrap(left,right,u10Cta(L('LISTO','DONE'),'openSettings()'));auWallet()};
+// v3.7 · Ajustes ↔ Administrador: volver atrás siempre lleva al menú
+const _os37=openSettings;openSettings=function(){const from=UI.setFrom;const r=_os37.apply(this,arguments);if(UI.setFrom==='screen-admin')UI.setFrom=UI.admFrom||from||'screen-menu';return r};
+const _oa37=openAdmin;openAdmin=function(){UI.admFrom=UI.setFrom&&UI.setFrom!=='screen-admin'?UI.setFrom:'screen-menu';return _oa37.apply(this,arguments)};
 
 applyI18n();
 refreshMenu();
