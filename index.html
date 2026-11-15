@@ -6195,7 +6195,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='4.8';
+const APP_VER='4.9';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6907,6 +6907,12 @@ const MUSICA_ALL=[
   {t:TX('Este Juego Penaliza El Fallo'),a:'SM42',src:'musica/este-juego-penaliza-el-fallo.mp3',img:'musica/este-juego-penaliza-el-fallo.webp'},
   {t:TX('Eterna y sincera'),a:'SM42',src:'musica/eterna-y-sincera.mp3',img:'musica/eterna-y-sincera.webp'},
   {t:TX("Surfin' USA A Veces Es El KKK"),a:'SM42',src:'musica/surfin-usa.mp3',img:'musica/surfin-usa.webp'},
+  {t:'19 de Julio',a:'SM42',src:'musica/19-de-julio.mp3',img:'musica/19-de-julio.webp'},
+  {t:'Blue Lagoon',a:'SM42',src:'musica/blue-lagoon.mp3',img:'musica/blue-lagoon.webp'},
+  {t:'Cinco de corazones',a:'SM42',src:'musica/cinco-de-corazones.mp3',img:'musica/cinco-de-corazones.webp'},
+  {t:"L'Elliot Ness de Corbera",a:'SM42',src:'musica/elliot-ness-de-corbera.mp3',img:'musica/elliot-ness-de-corbera.webp'},
+  {t:'La Novata',a:'SM42',src:'musica/la-novata.mp3',img:'musica/la-novata.webp'},
+  {t:'Que el mundo haga trampas',a:'SM42',src:'musica/que-el-mundo-haga-trampas.mp3',img:'musica/que-el-mundo-haga-trampas.webp'},
   // sin portada todavía: aparecen en cuanto tengan foto (img)
   {t:'H.L.E.P',a:'SM42',src:'musica/hlep.mp3',img:'musica/hlep-2.webp'},
   {t:'Ni Piedad Ni Consuelo',a:'SM42',src:'musica/ni-piedad-ni-consuelo.mp3',img:'',dl:'Ni Piedad Ni Consuelo'}
