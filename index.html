@@ -6195,7 +6195,7 @@ async function forceUpdate(){
   try{const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}catch(e){}
   const w=window.top||window;w.location.replace(w.location.pathname+'?v='+Date.now());
 }
-const APP_VER='4.9';
+const APP_VER='5.0';
 (function(){const m=document.getElementById('settingsModal');if(!m)return;const rows=m.querySelectorAll('.set-row');const last=rows[rows.length-1];if(!last)return;
   const d=document.createElement('div');d.className='set-row';d.innerHTML=`<div><b>${L('Actualizar la app','Update the app')}</b><small>${L('Versión','Version')} ${APP_VER} · ${L('descarga la última versión','get the latest version')}</small></div><button class="btn btn-gold" style="width:auto;padding:8px 14px;font-size:12px" onclick="forceUpdate()">↻ ${L('Actualizar','Update')}</button>`;
   last.after(d)})();
@@ -6917,7 +6917,7 @@ const MUSICA_ALL=[
   {t:'H.L.E.P',a:'SM42',src:'musica/hlep.mp3',img:'musica/hlep-2.webp'},
   {t:'Ni Piedad Ni Consuelo',a:'SM42',src:'musica/ni-piedad-ni-consuelo.mp3',img:'',dl:'Ni Piedad Ni Consuelo'}
 ];
-const MUSICA=MUSICA_ALL;
+const MUSICA=MUSICA_ALL.slice();
 // sonidos de la habilidad secreta (LOCAL): sube los mp3 a «sonidos/» y añade sus nombres aquí
 const SONIDOS_EGG=["sonidos/africa.mp3","sonidos/bastardo.mp3","sonidos/basura-feo.mp3","sonidos/billy.mp3","sonidos/caja.mp3","sonidos/cara-al-sol.mp3","sonidos/cerdo-mixta.mp3","sonidos/choza.mp3","sonidos/cilantro.mp3","sonidos/curazao.mp3","sonidos/dano-tio.mp3","sonidos/doblaos.mp3","sonidos/en-tu-p-cara.mp3","sonidos/fanta1.mp3","sonidos/fieshta.mp3","sonidos/frances.mp3","sonidos/gij-rojbla.mp3","sonidos/helikopter.mp3","sonidos/huele-raro.mp3","sonidos/juego-entero.mp3","sonidos/kkk.mp3","sonidos/lavate-manos.mp3","sonidos/liar-otro.mp3","sonidos/lo-he-quemado-todo.mp3","sonidos/maraton.mp3","sonidos/marc.mp3","sonidos/maria-teresa.mp3","sonidos/mlg-blaazu.mp3","sonidos/mosca-fanta.mp3","sonidos/negros.mp3","sonidos/osasuna.mp3","sonidos/oso-caja.mp3","sonidos/pajaro-2.mp3","sonidos/pajaro-3.mp3","sonidos/palo.mp3","sonidos/parche-hdp.mp3","sonidos/parches-ofi.mp3","sonidos/paujaro.mp3","sonidos/pedro1.mp3","sonidos/peinaguindillas.mp3","sonidos/pes-verdad.mp3","sonidos/pitapita.mp3","sonidos/porra.mp3","sonidos/pues-esto-ya-esta.mp3","sonidos/rasgaprepucios.mp3","sonidos/rocas.mp3","sonidos/rubiales.mp3","sonidos/september.mp3","sonidos/siuuu.mp3","sonidos/stelio-kontos.mp3","sonidos/tiki-taka.mp3","sonidos/tirate.mp3","sonidos/tqm.mp3","sonidos/vodka.mp3"];
 function eggOn(){return !!(LS.get('egg42',false)||(profile&&profile.egg42))}
@@ -7794,13 +7794,13 @@ salaLeave=function(){salaClose();SALA.cur=null;FR.side11='salas';openFriends()};
 // ===================== Panel de administrador (solo idebenito5@gmail.com) =====================
 const ADMIN_EMAIL='idebenito5@gmail.com';
 function isAdmin(){try{return !!(session&&session.user&&!session.user.is_anonymous&&String(session.user.email||'').toLowerCase()===ADMIN_EMAIL)}catch(e){return false}}
-const CFG=Object.assign({reacts:{custom:[],hidden:[]},notice:{on:false,text:''},prices:{}},LS.get('cfg11',{}));
+const CFG=Object.assign({reacts:{custom:[],hidden:[]},notice:{on:false,text:''},prices:{},music:{order:[],hidden:[],titles:{}}},LS.get('cfg11',{}));
 const R11_BASE=R9_ORDER.slice();
 function cfgApply(){
   try{(CFG.reacts.custom||[]).forEach(c=>{const k='x_'+c.id;let r=REACTS.find(x=>x.k===k);if(!r)REACTS.push({k,es:c.t});else r.es=c.t});
     const hid=new Set(CFG.reacts.hidden||[]);const order=R11_BASE.filter(k=>!hid.has(k)).concat((CFG.reacts.custom||[]).filter(c=>!hid.has('x_'+c.id)).map(c=>'x_'+c.id));
     const oo=order.filter(k=>k!=='creer');if(order.includes('creer'))oo.push('creer');R9_ORDER.splice(0,R9_ORDER.length,...oo);
-    noticeRender()}catch(e){console.error(e)}}
+    noticeRender();if(typeof musApply==="function")musApply()}catch(e){console.error(e)}}
 async function cfgLoad(){try{if(!sb)return;const{data,error}=await sb.from('app_config').select('key,value');if(error||!data)return;
   data.forEach(r=>{if(r.key in CFG)CFG[r.key]=Object.assign(Array.isArray(CFG[r.key])?[]:{},CFG[r.key],r.value)});LS.set('cfg11',CFG);cfgApply()}catch(e){}}
 cfgApply();setTimeout(cfgLoad,1500);setInterval(cfgLoad,300000);
@@ -7832,11 +7832,12 @@ function admAdd(){const i=document.getElementById('admNew');const t=(i&&i.value|
 function admPrices(){const ids=[];PACKS11.forEach(p=>ids.push(['pack:'+p[0],'Pack '+p[1]]));['felt','back','face'].forEach(c=>SHOP11[c].forEach(k=>{if(itemSt11(c,k)==='shop'||!FREE11[c].includes(k)&&!(EGG11[c]||[]).includes(k))ids.push([c+':'+k,catName11(c)+' '+name11(c,k)])}));return ids}
 function renderAdmin(){
   const b=document.getElementById('admBody');if(!b||!ADM.d)return;const d=ADM.d,tab=ADM.tab;
-  const bar=u10Bar([['frases',L('Frases de partida','Game phrases')],['aviso',L('Aviso del menú','Menu notice')],['precios',L('Precios de la Tienda','Shop prices')]].map(([k,l])=>({l,on:tab===k,fn:`admTab('${k}')`})));
+  const bar=u10Bar([['frases',L('Frases de partida','Game phrases')],['musica',L('Música','Music')],['aviso',L('Aviso del menú','Menu notice')],['precios',L('Precios de la Tienda','Shop prices')]].map(([k,l])=>({l,on:tab===k,fn:`admTab('${k}')`})));
   let left='',right='';
   if(tab==='frases'){
     left=`<span class="u10-lbl">${L('Cápsulas que se ven en la partida','Phrases shown in the game')}</span><div class="u10-seats adm-list">${admRx().map(r=>`<div class="u10-seat adm-r${r.on?'':' off'}"><span class="u10-st"><b>${esc(r.t)}</b><small>${r.base?L('De serie','Built-in'):L('Añadida por ti','Added by you')}</small></span><button class="u10-mini${r.on?'':' gh'}" onclick="admToggle('${r.k}')">${r.on?L('VISIBLE','SHOWN'):L('OCULTA','HIDDEN')}</button>${r.base?'':`<button class="u10-mini gh" onclick="admDel('${r.id}')">✕</button>`}</div>`).join('')}</div>`;
     right=`<span class="u10-lbl">${L('Nueva frase','New phrase')}</span><div class="u10-fld adm-fld"><input id="admNew" maxlength="30" autocomplete="off" placeholder="${L('Máximo 30 letras','Max 30 letters')}"></div><button class="u10-chip" onclick="admAdd()"><span>＋ ${L('Añadir frase','Add phrase')}</span></button><p class="u10-hint small">${L('Las frases nuevas salen a todos los jugadores al abrir la app. Las de serie puedes ocultarlas, no borrarlas.','New phrases reach every player when they open the app. Built-in ones can be hidden, not deleted.')}</p>`;
+  }else if(tab==='musica'){left=admMusL();right=admMusR();
   }else if(tab==='aviso'){
     left=`<span class="u10-lbl">${L('Texto del aviso','Notice text')}</span><div class="u10-fld adm-fld"><input id="admNotice" maxlength="140" autocomplete="off" value="${esc(d.notice.text||'')}" oninput="ADM.d.notice.text=this.value"></div>${setRow10(L('Mostrar en el menú','Show on the menu'),L('Sale abajo, en el menú principal','Shown at the bottom of the main menu'),sw10(!!d.notice.on,'ADM.d.notice.on=!ADM.d.notice.on;renderAdmin()',L('Aviso','Notice')))}`;
     right=`<span class="u10-lbl">${L('Ejemplos','Examples')}</span><p class="u10-hint small">${L('«Este viernes torneo a las 22:00» · «Nueva canción en MÚSICA» · «Actualizad la app: versión nueva»','«Tournament this Friday 22:00» · «New song in MUSIC» · «Update the app»')}</p>`;
@@ -7849,7 +7850,7 @@ function renderAdmin(){
 }
 async function admSave(){
   if(!isAdmin()||!sb)return;if(UI.busy)return;UI.busy=true;
-  try{const rows=['reacts','notice','prices'].map(k=>({key:k,value:ADM.d[k]}));const{error}=await sb.from('app_config').upsert(rows);
+  try{const rows=['reacts','notice','prices','music'].map(k=>({key:k,value:ADM.d[k]}));const{error}=await sb.from('app_config').upsert(rows);
     if(error){toast(L('No se pudo guardar. ¿Has ejecutado el SQL del panel?','Could not save. Did you run the panel SQL?'),'bad');console.error(error)}
     else{Object.assign(CFG,JSON.parse(JSON.stringify(ADM.d)));LS.set('cfg11',CFG);cfgApply();toast(L('Guardado. Ya lo ven todos.','Saved. Everyone sees it now.'),'good')}}
   catch(e){toast(t('err.generic'),'bad')}UI.busy=false}
@@ -8737,6 +8738,72 @@ const _flyDH=flyCard;flyCard=function(r1,r2,card,o){
     dhApply();setTimeout(dhApply,Math.max(0,UI.dh.until-Date.now())+25)}}catch(e){}
   return _flyDH.apply(this,arguments)};
 const _rgDH=renderGame;renderGame=function(){const r=_rgDH.apply(this,arguments);if(Date.now()<UI.dh.until+60)dhApply();return r};
+
+// =====================================================================
+//  v5.0 · MÚSICA: lista o cápsulas, portadas cuadradas y orden del administrador
+// =====================================================================
+function musMeta(){const m=CFG.music||{};return{order:m.order||[],hidden:m.hidden||[],titles:m.titles||{}}}
+function musApply(d){try{const m=d||musMeta(),by={};MUSICA_ALL.forEach(x=>by[x.src]=x);
+  const cur=MUSICA[PLAYER.i%MUSICA.length];const srcs=m.order.filter(s=>by[s]).concat(MUSICA_ALL.map(x=>x.src).filter(s=>!m.order.includes(s)));
+  const hid=new Set(m.hidden);const list=srcs.filter(s=>!hid.has(s)).map(s=>{const o=Object.assign({},by[s]);const t=m.titles[s];if(t&&String(t).trim())o.t=String(t).trim();return o});
+  if(!list.length)return;MUSICA.splice(0,MUSICA.length,...list);
+  if(cur){const k=MUSICA.findIndex(x=>x.src===cur.src);PLAYER.i=k>=0?k:0}
+  if(currentScreen()==='screen-music')plRender()}catch(e){console.error(e)}}
+PLAYER.view=LS.get('plView','list');
+function plView(v){PLAYER.view=v;LS.set('plView',v);play('select');plRender()}
+const _plh50=plHtml;plHtml=function(){let h=_plh50.apply(this,arguments);const g=PLAYER.view==='grid';
+  const tg=`<div class="pl-vw"><button class="${g?'':'on'}" onclick="plView('list')" aria-label="${L('Ver en lista','List view')}"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button class="${g?'on':''}" onclick="plView('grid')" aria-label="${L('Ver en cápsulas','Grid view')}"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg></button></div>`;
+  return h.replace('<div class="pl-list">',`<div class="pl-side">${tg}<div class="pl-list${g?' grid':''}">`)+'</div>'};
+(function(){const st=document.createElement('style');st.textContent=`
+#musBody .pl-side{min-height:0;display:flex;flex-direction:column;gap:6px;position:relative}
+#musBody .pl-vw{position:absolute;right:0;top:-38px;display:flex;gap:4px;z-index:2}
+#musBody .pl-vw button{all:unset;cursor:pointer;width:30px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:7px;color:#bfae8c;box-shadow:inset 0 0 0 1px rgba(212,168,58,.35)}
+#musBody .pl-vw button.on{color:#1a0d02;background:linear-gradient(180deg,#FFE7A8,#D4A83A)}
+#musBody .pl-vw svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+#musBody .pl-list{counter-reset:pl;flex:1 1 auto}
+.pl9 img,.pl9 .pl-ph,.pl-pick>img,.pl-pick>.pl-ph,.pl-art,.pl-art img{border-radius:0!important}
+#musBody .pl-row{min-height:54px;flex:none;overflow:hidden}
+#musBody .pl-pick{counter-increment:pl}
+#musBody .pl-pick::before{content:counter(pl);width:18px;flex:none;text-align:center;font-weight:700;font-size:12px;color:#7d6f57}
+#musBody .pl-row.cur .pl-pick::before{color:#E3BC55}
+#musBody .pl-pick>img,#musBody .pl-pick>.pl-ph{width:40px!important;height:40px!important;min-width:40px;max-height:40px;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+#musBody .pl-list.grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:max-content;gap:12px 10px;align-content:start}
+#musBody .pl-list.grid .pl-row{height:auto!important;max-height:none!important}
+#musBody .pl-list.grid .pl-pick>span{flex:none!important;display:flex!important;flex-direction:column;gap:2px}
+#musBody .pl-list.grid .pl-row{min-height:0;flex-direction:column;align-items:stretch!important;background:none!important;box-shadow:none!important;position:relative;overflow:visible}
+#musBody .pl-list.grid .pl-pick{flex-direction:column;align-items:stretch;gap:5px;padding:0}
+#musBody .pl-list.grid .pl-pick::before{display:none}
+#musBody .pl-list.grid .pl-pick>img,#musBody .pl-list.grid .pl-pick>.pl-ph{width:100%!important;height:auto!important;max-height:none;aspect-ratio:1/1}
+#musBody .pl-list.grid .pl-row.cur .pl-pick>img,#musBody .pl-list.grid .pl-row.cur .pl-pick>.pl-ph{box-shadow:0 0 0 2px #FFE7A8,0 0 16px rgba(255,214,120,.45)}
+#musBody .pl-list.grid .pl-pick b{font-size:11.5px}
+#musBody .pl-list.grid .pl-pick small{margin-top:-2px}
+#musBody .pl-list.grid .eq{position:absolute;left:6px;top:6px}
+#musBody .pl-list.grid .pl-dl{position:absolute!important;right:4px;top:4px;width:22px!important;height:22px!important;min-width:0!important;padding:0!important;background:rgba(0,0,0,.6)!important;border-radius:0!important;display:flex;align-items:center;justify-content:center}
+#musBody .pl-list.grid .pl-dl svg{width:12px!important;height:12px!important}
+.adm-mus .adm-r{height:46px;gap:8px}
+.adm-mus .mh{cursor:grab;touch-action:none;color:#8f8068;font-size:15px;letter-spacing:-3px;padding:0 4px;user-select:none}
+.adm-mus .mc{width:34px;height:34px;object-fit:cover;flex:none;background:#2a0a0a}
+.adm-mus input{flex:1;min-width:0;height:28px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);color:#F4EBD6;font:600 12px 'Inter Tight',sans-serif;padding:0 8px}
+.adm-mus .mv{all:unset;cursor:pointer;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:#E3BC55;box-shadow:inset 0 0 0 1px rgba(212,168,58,.35);font-size:11px}
+.adm-mus .mv[disabled]{opacity:.25;pointer-events:none}
+.adm-mus .adm-r.drag{background:rgba(212,168,58,.16)!important;box-shadow:0 0 0 1px rgba(255,214,120,.6),0 8px 20px rgba(0,0,0,.5)}
+`;document.head.appendChild(st)})();
+// ---- editor del administrador ----
+function admMusItems(){const m=ADM.d.music=ADM.d.music||{order:[],hidden:[],titles:{}};m.order=m.order||[];m.hidden=m.hidden||[];m.titles=m.titles||{};
+  const by={};MUSICA_ALL.forEach(x=>by[x.src]=x);const srcs=m.order.filter(s=>by[s]).concat(MUSICA_ALL.map(x=>x.src).filter(s=>!m.order.includes(s)));m.order=srcs;return srcs.map(s=>by[s])}
+function admMusL(){const it=admMusItems(),m=ADM.d.music,hid=new Set(m.hidden);
+  return `<span class="u10-lbl">${L('Orden de las canciones','Song order')}</span><div class="u10-seats adm-list adm-mus" id="admMusList">${it.map((x,i)=>`<div class="u10-seat adm-r${hid.has(x.src)?' off':''}" data-i="${i}"><span class="mh" onpointerdown="admMusDrag(event,${i})">⋮⋮</span>${x.img?`<img class="mc" src="${esc(x.img)}" alt="">`:'<span class="mc"></span>'}<input value="${esc(m.titles[x.src]||x.t)}" maxlength="40" oninput="admMusT(${i},this.value)"><button class="mv" onclick="admMusMv(${i},-1)" ${i?'':'disabled'} aria-label="${L('Subir','Up')}">▲</button><button class="mv" onclick="admMusMv(${i},1)" ${i<it.length-1?'':'disabled'} aria-label="${L('Bajar','Down')}">▼</button>${sw10(!hid.has(x.src),`admMusVis(${i})`,L('Visible','Visible'))}</div>`).join('')}</div>`}
+function admMusR(){return `<p class="u10-hint">${L('Arrastra ⋮⋮ o usa las flechas para cambiar el orden. Puedes cambiar el título y ocultar canciones sin borrarlas.','Drag ⋮⋮ or use the arrows to reorder. You can rename songs and hide them without deleting.')}</p><p class="u10-hint small">${L('Al guardar, el nuevo orden llega a todos los jugadores al abrir la app.','When you save, the new order reaches every player when they open the app.')}</p><button class="u10-chip" onclick="admMusReset()"><span>↺ ${L('Volver al orden original','Restore original order')}</span></button>`}
+function admMusRe(){const l=document.getElementById('admMusList');const y=l?l.scrollTop:0;renderAdmin();const l2=document.getElementById('admMusList');if(l2)l2.scrollTop=y}
+function admMusMv(i,d){const o=ADM.d.music.order,j=i+d;if(j<0||j>=o.length)return;[o[i],o[j]]=[o[j],o[i]];play('select');admMusRe()}
+function admMusVis(i){const s=ADM.d.music.order[i],h=new Set(ADM.d.music.hidden);if(h.has(s))h.delete(s);else h.add(s);ADM.d.music.hidden=[...h];play('toggle');admMusRe()}
+function admMusT(i,v){const s=ADM.d.music.order[i],base=(MUSICA_ALL.find(x=>x.src===s)||{}).t;if(!v.trim()||v.trim()===base)delete ADM.d.music.titles[s];else ADM.d.music.titles[s]=v}
+function admMusReset(){ADM.d.music={order:[],hidden:[],titles:{}};play('select');admMusRe()}
+function admMusDrag(ev,i){ev.preventDefault();let cur=i;const mark=()=>document.querySelectorAll('#admMusList .adm-r').forEach(r=>r.classList.toggle('drag',+r.dataset.i===cur));mark();
+  const mv=e=>{const el=document.elementFromPoint(e.clientX,e.clientY);const r=el&&el.closest&&el.closest('#admMusList .adm-r');if(!r)return;const j=+r.dataset.i;if(j===cur)return;const o=ADM.d.music.order;const [s]=o.splice(cur,1);o.splice(j,0,s);cur=j;admMusRe();mark()};
+  const up=()=>{document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up);document.removeEventListener('pointercancel',up);document.querySelectorAll('#admMusList .adm-r.drag').forEach(r=>r.classList.remove('drag'));play('select')};
+  document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up)}
+musApply();
 
 // ---------- i18n: traducción de textos estáticos ----------
 (function(){const st=document.createElement('style');st.textContent='.lg-btn{padding:0 7px!important;gap:5px!important}.lg-btn .lg-name{max-width:none!important;font-size:10.5px}'+(LANG==='he'?'body *{unicode-bidi:plaintext}.cm-chron:first-of-type::first-letter{float:right!important;padding:4px 0 0 7px!important}':'');document.head.appendChild(st)})();
